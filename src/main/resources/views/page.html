@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title th:text="${page.pageTitle} + ' - ' + ${siteName}">DM 4 Page</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+        
+        <link media="all" href="/de.mikromedia.pages/css/sitestyle.css" rel="stylesheet" />
+
+    </head>
+    <body class="mikromedia page">
+        
+        <div id="header">
+            <div class="welcome">
+                <h1 th:text="${page.pageTitle}"></h1>
+            </div>
+            <!--div id="map"></div-->
+        </div>
+        
+        <div class="story">
+            <div class="text" th:utext="${page.pageText}"></div>
+        </div>
+
+        <div class="footer" th:utext="${footerText}"></div>
+
+    </body>
+</html>

@@ -1,0 +1,301 @@
+
+@-o-viewport {
+    width: device-width;
+    zoom: 1;
+}
+
+body, textarea, input, select {
+    font: 16px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body.mikromedia {
+    margin: 15px;
+}
+
+.mikromedia .logo {
+    margin: auto;
+}
+
+.mikromedia .debug {
+    display: none;
+}
+
+.mikromedia #map {
+    display: none;
+}
+
+.mikromedia select,
+.mikromedia input {
+    cursor: pointer;
+}
+
+.mikromedia select,
+.mikromedia textarea,
+.mikromedia input {
+    padding-left: 7px;
+    padding: 4px;
+}
+
+.mikromedia textarea {
+    width: 75%;
+}
+
+.mikromedia .footer {
+    margin-top: 50px;
+}
+
+.denied .footer {
+    opacity: .3;
+}
+
+html, body {
+    height: 100%;
+    background-color: #EAEAEA;
+}
+
+#marker-name b,
+h3 {
+    color: #002856;
+}
+
+.leaflet-container a {
+    color: #002856;
+}
+
+.leaflet-container a:hover {
+    color: #8F1414;
+}
+
+a {
+    color: #002856;
+    text-decoration: underline;
+    text-decoration-color: #8f1414;
+}
+
+
+// -----------------------------------
+
+
+.leaflet-popup-content-wrapper .item {
+    border-bottom: 2px solid #e9e9e9; padding: 5px;
+    cursor: pointer; margin-top: 2px;
+}
+
+.leaflet-left .leaflet-control {
+    margin-left: 0px;
+    /** border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff; **/
+}
+
+.leaflet-control-zoom a {
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.leaflet-control-zoom {
+    /* background-color: #388fd0; **/
+    background: none;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+
+.leaflet-editing-icon.leaflet-move {
+    cursor: move;
+}
+
+.leaflet-editing-icon.leaflet-radius {
+    cursor: ew-resize;
+}
+
+.leaflet-control-zoom-loc {
+    background-image: url(/de.kiezatlas.website/images/locate.png);
+    margin-top: 0px; margin-bottom: 5px;
+}
+
+.leaflet-radius-control {
+    cursor: auto;
+}
+
+.leaflet-tile {
+    filter: blur(3px);
+}
+.leaflet-tile.leaflet-tile-loaded {
+    filter: blur(0);
+    transition: .3s all ease-in;
+}
+
+.leaflet-control-zoom.leaflet-control {
+    margin-top: 15px;
+    z-index: 98;
+}
+
+.leaflet-container g path {
+    transition: fill .75s;
+}
+
+.leaflet-div-icon.leaflet-move {
+    /* background-color: transparent;
+    background-image: url('/de.kiezatlas.website/images/four-arrows.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    border: 0px solid transparent;**/
+}
+
+.leaflet-div-icon.leaflet-radius {
+    background-color: transparent;
+    background-image: url('/de.kiezatlas.website/images/sideways-resize-grey.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    border: 0px solid transparent;
+    width: 28px !important;
+    height: 23px !important;
+    margin-left: -14px !important;
+    margin-top: -10px !important;
+}
+
+.leaflet-div-icon.leaflet-move.extend-icon-medium {
+    width: 12px !important;
+    height: 12px !important;
+    margin-left: -6px !important;
+    margin-top: -6px !important;
+}
+
+/** Portrait, most smartphones. */
+@media(min-width: 1600px) {
+    #karte {
+        max-width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #map {
+        -webkit-box-shadow: 3px 0px 11px 0px rgba(50, 50, 50, 0.75);
+        -moz-box-shadow:    3px 0px 11px 0px rgba(50, 50, 50, 0.75);
+        box-shadow:         3px 0px 11px 0px rgba(50, 50, 50, 0.75);
+    }
+}
+
+@media(max-width: 1200px) {
+    .mikromedia textarea {
+       width: 100%;
+    }
+}
+
+@media(max-width:900px) {
+    .search-option {
+        margin-left: 0px;
+        margin-right: 0px;
+        max-width: 100%;
+        margin-bottom: 20px;
+        border-left-color: #fff;
+        border-right-color: #fff;
+    }
+    .search-option.c:hover,
+    .search-option.b:hover,
+    .search-option.a:hover {
+        border-left-color: #fff;
+        border-right-color: #fff;
+    }
+    .search-option.d {
+        border-left-color: #a9a9a9;
+        border-right-color: #a9a9a9;
+    }
+    h3.location-label {
+        margin-bottom: 5px;
+    }
+    #street-alternatives {
+        margin-left: 15px;
+    }
+    #map p,
+    #main-menu p,
+    #header .welcome p {
+        width: 75%;
+        margin: auto;
+        margin-bottom: 25px;
+        margin-top: 15px;
+    }
+    .leaflet-div-icon.leaflet-move {
+        width: 17px;
+        height: 17px;
+        margin-top: -8px;
+        margin-left: -8px;
+    }
+    #karte {
+        padding-top: 20px;
+    }
+}
+
+@media (max-width:600px) {
+    #header {
+        top: 10px;
+        text-align: left;
+    }
+    #header .welcome p {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+    #filter-container {
+        display: none;
+    }
+    #karte {
+        top: 30px;
+        padding-top: 10px;
+    }
+    #karte .location-label {
+        font-size: 1em;
+        margin-left: 10px;
+        margin-right: 130px;
+        margin-top: 5px;
+        margin-bottom: 9px;
+    }
+    #karte button.star {
+        position: absolute;
+        right: 125px;
+        top: 1px;
+    }
+    #places {
+        right: 7px;
+        top: -2px;
+    }
+    #detail-area {
+        padding: 0px;
+        margin-top: 0px;
+        min-height: 0px;
+    }
+    #detail-area h3 {
+        display: none;
+    }
+    #detail-area .entry-card {
+        font-size: .8em;
+        min-width: 150px;
+        margin: 15px;
+    }
+    #detail-area .entry-card h3 {
+        display: inline-block;
+        margin: 0px;
+    }
+}
+
+@media (max-height:810px) {
+    #map {
+        height: 400px !important;
+    }
+    #karte {
+        top: 0px;
+        padding-top: 0px;
+    }
+    #detail-area {
+        top: 0px;
+        margin-top: 0px;
+    }
+}
