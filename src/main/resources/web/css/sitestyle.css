@@ -16,7 +16,7 @@ textarea, input, select {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-#header, #story {
+#header, .story {
     padding: 15px; padding-left: 30px;
     background-color: #EAEAEA;
 }
