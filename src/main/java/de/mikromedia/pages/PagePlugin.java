@@ -18,9 +18,7 @@ import javax.ws.rs.PathParam;
  * Simple HTML pages with DeepaMehta 4.
  * 
  * @author Malte Reißig (<malte@mikromedia.de>)
- * @see http://github.com/mukil/dm4-pages
  * @version 0.1-SNAPSHOT - compatible with DeepaMehta 4.4
- *
  */
 @Path("/page")
 @Consumes(MediaType.APPLICATION_JSON)
