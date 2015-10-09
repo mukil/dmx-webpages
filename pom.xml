@@ -6,7 +6,7 @@
 
     <name>Mikromedia DM 4 Pages</name>
     <groupId>de.mikromedia</groupId>
-    <artifactId>dm44-mikromedia</artifactId>
+    <artifactId>dm44-pages</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
