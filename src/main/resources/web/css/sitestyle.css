@@ -9,9 +9,6 @@
 body, .serif {
     font-size: 16px;
     font-family: "Cambria", "Georgia", "Times", serif;
-    padding: 0;
-    margin: 0;
-    height: 100%;
 }
 
 textarea, input, select {
@@ -19,8 +16,9 @@ textarea, input, select {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-body.page {
-    margin: 15px;
+#header, #story {
+    padding: 15px; padding-left: 30px;
+    background-color: #EAEAEA;
 }
 
 .page .logo {
@@ -49,7 +47,19 @@ body.page {
 }
 
 .page .footer {
-    margin-top: 50px;
+    margin: 15px 0px;
+    width: 100%;
+    padding: 15px 0px;
+    text-align: center;
+    background: #fff;
+    padding-right: 0px;
+}
+
+.page .footer h2, 
+.page .footer h3,
+.page .footer p {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .denied .footer {
@@ -57,8 +67,10 @@ body.page {
 }
 
 html, body {
+    background-color: #fff;
+    padding: 0px;
+    margin: 0px;
     height: 100%;
-    background-color: #EAEAEA;
 }
 
 h3 {
