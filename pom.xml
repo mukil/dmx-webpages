@@ -7,7 +7,7 @@
     <name>Mikromedia DM 4 Pages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dm44-pages</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
