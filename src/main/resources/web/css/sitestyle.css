@@ -11,7 +11,7 @@ body, .serif {
     font-family: "Cambria", "Georgia", "Times", serif;
 }
 
-textarea, input, select {
+textarea, input, select, .story {
     font-size: 16px;
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
@@ -19,6 +19,10 @@ textarea, input, select {
 #header, .story {
     padding: 15px; padding-left: 30px;
     background-color: #EAEAEA;
+}
+
+.story .text {
+    margin-bottom: 50px;
 }
 
 .page .logo {
