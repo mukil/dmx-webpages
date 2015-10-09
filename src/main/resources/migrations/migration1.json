@@ -166,7 +166,7 @@
         },
         {
             "value": "Website",
-            "uri": "de.mikromedia.page.site",
+            "uri": "de.mikromedia.site",
             "data_type_uri": "dm4.core.composite",
             "assoc_defs": [
                 {
@@ -195,8 +195,8 @@
     ],
     "topics": [
         {
-            "type_uri": "de.mikromedia.page.site",
-            "uri" : "de.mikromedia.default_site",
+            "type_uri": "de.mikromedia.site",
+            "uri" : "de.mikromedia.standard_site",
             "childs": {
                 "de.mikromedia.site.name" : "My DM 4 Website",
                 "de.mikromedia.site.footer_text" : "<h3>Imprint</h3><br/>.."
