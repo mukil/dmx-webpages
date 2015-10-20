@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Access denied - 401</title>
+        <title>Internal server error - 500</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
@@ -14,14 +14,14 @@
         
         <div id="header">
             <div class="welcome">
-                <h1>401</h1>
-                <h3>This page is currently <em>not published</em>.</h3>
+                <h1>500</h1>
+                <h3>Sorry, the server experienced an internal error.</h3>
             </div>
             <!--div id="map"></div-->
         </div>
         
         <div class="story">
-            <div class="text"></div>
+            <div class="text" th:text="${message}"></div>
         </div>
 
         <div class="footer" th:utext="${footerText}"></div>

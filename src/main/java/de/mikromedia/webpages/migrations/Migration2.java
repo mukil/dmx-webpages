@@ -1,4 +1,4 @@
-package de.mikromedia.pages.migrations;
+package de.mikromedia.webpages.migrations;
 
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.AssociationModel;

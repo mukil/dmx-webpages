@@ -16,6 +16,33 @@ textarea, input, select, .story {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
+blockquote {
+    margin-left: 0px;
+}
+
+blockquote p {
+    font-family: "Courier New";
+    color: rgb(0, 40, 86);
+    background-color: #fff;
+    padding: 11px 10px 10px 10px;
+    border: 1px solid rgba(0, 40, 86, 0.4);
+    font-size: .9em;
+}
+
+.page .metadata {
+    font-size: .8em;
+    color: #686868;
+    margin-bottom: 15px;
+}
+
+.page .metadata .text {
+    color: #343434;
+}
+
+.page .metadata h3 {
+    color: #686868;
+}
+
 #header, .story {
     padding: 15px; padding-left: 30px;
     background-color: #EAEAEA;

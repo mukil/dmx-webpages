@@ -4,10 +4,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Mikromedia DM 4 Pages</name>
+    <name>Mikromedia DM 4 Webpages</name>
     <groupId>de.mikromedia</groupId>
-    <artifactId>dm44-pages</artifactId>
-    <version>0.1.1</version>
+    <artifactId>dm44-webpages</artifactId>
+    <version>0.2-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
@@ -44,10 +44,10 @@
                 <configuration>
                     <instructions>
                         <Bundle-Activator>
-                           de.mikromedia.pages.PagePlugin
+                           de.mikromedia.webpages.WebpagePlugin
                         </Bundle-Activator>
                         <Bundle-SymbolicName>
-                           de.mikromedia.pages
+                           de.mikromedia.webpages
                         </Bundle-SymbolicName>
                     </instructions>
                 </configuration>

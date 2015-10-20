@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <title th:text="${page.pageTitle} + ' - ' + ${siteName}">DM 4 Page</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
         
-        <link media="all" href="/de.mikromedia.pages/css/sitestyle.css" rel="stylesheet" />
+        <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
+        <link media="all" th:href="${customCssPath}" th:if="${customCssPath}" rel="stylesheet" />
 
     </head>
     <body class="page">
@@ -19,10 +21,19 @@
         </div>
         
         <div class="story">
-            <div class="text" th:utext="${page.pageText}"></div>
+            <div class="text" th:utext="${page.pageHtmlText}"></div>
+            <div class="metadata">
+                Author/s: <span class="text" th:text="${page.authorNames}"></span><br/>
+                <!-- Last modified: <span class="text" th:text="${page.pageModificationDate}"></span><br/>
+                Created: <span class="text" th:text="${page.pageCreationDate}"></span>-->
+                Last modified: <span class="text" th:text="${#dates.format(page.pageModificationDate)}"></span><br/>
+                Created: <span class="text" th:text="${#dates.format(page.pageCreationDate)}"></span>
+            </div>
         </div>
 
         <div class="footer" th:utext="${footerText}"></div>
+
+        <!-- ### Support for fragments needed div th:include="copy-fragment :: copy"></div-->
 
     </body>
 </html>
