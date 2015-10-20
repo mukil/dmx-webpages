@@ -2,11 +2,13 @@ package de.mikromedia.webpages;
 
 import de.mikromedia.webpages.service.WebpagePluginService;
 import com.sun.jersey.api.view.Viewable;
+import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.AssociationModel;
 import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.model.TopicRoleModel;
 import de.deepamehta.core.service.Inject;
+import de.deepamehta.core.service.ResultList;
 import de.deepamehta.plugins.accesscontrol.model.ACLEntry;
 import de.deepamehta.plugins.accesscontrol.model.AccessControlList;
 import de.deepamehta.plugins.accesscontrol.model.Operation;
@@ -24,6 +26,8 @@ import de.deepamehta.plugins.webactivator.WebActivatorPlugin;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -74,12 +78,13 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public InputStream getFrontpageView() {
+		// ### Replace InputStream with Viewable here..
 		if (frontPageResourceName != null && bundleContextUri != null) {
 			return dms.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
 		} else {
-			// ### InputStream
-			// viewData("message", "No frontpage registered.");
-			// return getStaticResource("/views/500.html");
+			/** // fetch website globals for any of these templates
+			prepareTemplateSiteData();
+			// fetch all pages with title and stuff **/
 			return getStaticResource("/views/welcome.html");
 		}
 	}
@@ -89,12 +94,11 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	@Path("/{webAlias}")
 	public Viewable getPageView(@PathParam("webAlias") String webAlias) {
 		log.fine("Requested Page /" + webAlias);
+		// 0) fetch website globals for any of these templates
+		prepareTemplateSiteData();
 		// 1) is local page
 		Topic pageAliasTopic = dms.getTopic("de.mikromedia.page.web_alias", new SimpleValue(webAlias));
 		if (pageAliasTopic != null) {
-			viewData("siteName", getCustomSiteTitle());
-			viewData("footerText", getCustomSiteFooter());
-			viewData("customCssPath", getCustomCSSPath());
 			WebpageViewModel page = new WebpageViewModel(pageAliasTopic);
 			if (page.isPublished()) {
 				viewData("page", page);
@@ -107,7 +111,8 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		// 2) is redirect
 		Topic redirectAliasTopic = dms.getTopic("de.mikromedia.redirect.web_alias", new SimpleValue(webAlias));
 		if (redirectAliasTopic != null) {
-			Topic redirectTopic = redirectAliasTopic.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.redirect");
+			Topic redirectTopic = redirectAliasTopic.getRelatedTopic("dm4.core.composition", "dm4.core.child",
+				"dm4.core.parent", "de.mikromedia.redirect");
 			String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
 			int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
 			handleRedirects(webAlias, redirectUrl, statusCode);
@@ -115,6 +120,22 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		log.fine("404 => /" + webAlias + " not found.");
 		// 3) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
 		return view("404");
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/page")
+	public ArrayList<WebpageViewModel> getPublishedWebpages () {
+		log.info("Listing all published webpages.");
+		// fetch all pages with title and stuff
+		ResultList<RelatedTopic> pages = dms.getTopics("de.mikromedia.page", 0);
+		ArrayList<WebpageViewModel> result = new ArrayList();
+		Iterator<RelatedTopic> iterator = pages.iterator();
+		while (iterator.hasNext()) {
+			WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dms);
+			if (page.isPublished()) result.add(page);
+		}
+		return result;
 	}
 
 	/** Deprecated as of 0.2-SNAPSHOT */
@@ -144,6 +165,12 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	}
 
 	// ### Get Menu Items
+	
+	private void prepareTemplateSiteData() {
+		viewData("siteName", getCustomSiteTitle());
+		viewData("footerText", getCustomSiteFooter());
+		viewData("customCssPath", getCustomCSSPath());
+	}
 
 	private String getCustomSiteFooter() {
 		Topic site = loadCustomSiteTopic();

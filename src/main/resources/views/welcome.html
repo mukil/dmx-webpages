@@ -9,22 +9,42 @@
         
         <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
 
+        <script type="text/javascript">
+            /** ### Fetch all published pages from "/page" endpoint, show a simple list and link items. **/
+        </script>
+
     </head>
     <body class="page welcome">
         
         <div id="header">
             <div class="welcome">
-                <h1>Ok</h1>
-                <h3>This the default <em>dm4-pages</em> frontpage.</h3>
+                <h1>Hello,</h1>
+                <h3>this the default frontpage of the <em>dm4-webpages</em> module.</h3>
             </div>
-            <!--div id="map"></div-->
-        </div>
-        
-        <div class="story">
-            <div class="text" th:text="${message}"></div>
         </div>
 
-        <div class="footer" th:utext="${footerText}"></div>
+        <div class="story">
+            <p>
+                The curent development here is that there is not yet an index of all your pages, except that one in <a href="/page">JSON</a>.
+            </p>
+            <p>
+                This is mainly due to keep up the possibility for other plugins to register their own frontpages on the <em>dm4-webpages</em> plugin through calling for example:
+            </p>
+            <blockquote><p>WebpagePluginService.setFrontpageResource('/web/index.html')</p></blockquote>
+            <p>
+                Nonetheless, all the pages you already published are available via their web alias, e.g. <em>http://www.domain.xyz/<b>page/my-web-alias</b></em>.
+            </p>
+              <!-- This template is currently never processed by thymeleaf ... @see getFrontpageView
+              div th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'">
+                <span th:text="${page.pageTitle}">Title of page</</span><br/>
+                <span th:text="${prod.price}">2.41</</span><br/>
+                <span th:text="${prod.inStock}? #{true} : #{false}">yes</span><br/>
+              </div-->
+        </div>
+
+        <div class="footer" th:utext="${footerText}">
+            <br/><h3>Attribution</h3>Published based on the <a href="http://github.com/mukil/dm4-webpages" title="dm4-webpages Website">dm4-webpages</a> module written by <a href="http://www.mikromedia.de">Malte Rei&szlig;ig</a>, 2015.
+        </div>
 
     </body>
 </html>

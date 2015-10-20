@@ -351,7 +351,7 @@
             "childs": {
                 "de.mikromedia.site.name" : "My DM 4 Webpages",
                 "de.mikromedia.site.css_path": "off",
-                "de.mikromedia.site.footer_text" : "<br/><h3>Attribution</h3>Based on the <em>dm4-webpages</em> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015."
+                "de.mikromedia.site.footer_text" : "<br/><h3>Attribution</h3>Published based on the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015."
             }
         }
     ]

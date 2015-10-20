@@ -93,6 +93,11 @@ blockquote p {
     padding-right: 15px;
 }
 
+.page .footer a {
+    font-style: italic;
+}
+
+.not-found .footer,
 .denied .footer {
     opacity: .3;
 }

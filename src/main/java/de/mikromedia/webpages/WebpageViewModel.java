@@ -2,11 +2,10 @@ package de.mikromedia.webpages;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
-import java.text.DateFormat;
+import de.deepamehta.core.service.DeepaMehtaService;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -22,12 +21,21 @@ public class WebpageViewModel implements JSONEnabled {
 		this.page.loadChildTopics();
 	}
 
+	public WebpageViewModel(long topicId, DeepaMehtaService dms) {
+		this.page = dms.getTopic(topicId);
+		this.page.loadChildTopics();
+	}
+
 	public String getPageTitle() {
 		return page.getSimpleValue().toString();
 	}
 
 	public String getPageHtmlText() {
 		return page.getChildTopics().getString("de.mikromedia.page.main_part");
+	}
+
+	public String getPageWebAlias() {
+		return page.getChildTopics().getString("de.mikromedia.page.web_alias");
 	}
 
 	public Date getPageModificationDate() {
@@ -67,11 +75,12 @@ public class WebpageViewModel implements JSONEnabled {
 		try {
 			return new JSONObject()
 			    .put("title", getPageTitle())
-			    .put("text", getPageHtmlText())
-			    .put("date", getPageModificationDate())
-				.put("author_names", getAuthorNames());
-			/* .put("web_alias", webAlias)
-			 .put("web_description", webDescription) **/
+			    .put("body", getPageHtmlText())
+			    .put("modification_date", getPageModificationDate())
+			    .put("creation_date", getPageCreationDate())
+				.put("author_names", getAuthorNames())
+				.put("web_alias", getPageWebAlias());
+			 /** .put("web_description", webDescription) **/
 		} catch (JSONException ex) {
 			Logger.getLogger(WebpageViewModel.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
