@@ -127,6 +127,43 @@ a {
     text-decoration-color: #8f1414;
 }
 
+.pages-menu {
+    position: relative;
+    top: 30px;
+    font-size: 1.2em;
+    text-align: left;
+    width: 90%;
+    margin: auto;
+    padding: 15px;
+    text-align: center;
+}
+
+.pages-menu ul {
+    list-style-type: none;
+    font-size: 1.2em;
+    padding-left: 0px;
+}
+
+.pages-menu ul li {
+    display: inline-block;
+    background-color: #EAEAEA;
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 15px;
+}
+
+.pages-menu ul li a {
+    text-decoration: none;
+}
+
+.pages-menu ul li:hover a {
+    text-decoration: underline;
+    text-decoration-color: #8f1414;
+}
+
 
 // ----------------------------------- Leaflet specific styles
 

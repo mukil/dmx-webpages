@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
         
         <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
-        <link media="all" th:href="${customCssPath}" th:if="${customCssPath}" rel="stylesheet" />
+        <link media="all" th:href="${customCssPath}" th:if="${customCssPath}" href="" rel="stylesheet" />
 
     </head>
     <body class="page">
@@ -22,13 +22,23 @@
         
         <div class="story">
             <div class="text" th:utext="${page.pageHtmlText}"></div>
-            <div class="metadata">
+            <div class="metadata" th:unless="${#strings.isEmpty(page.authorNames)}">
                 Author/s: <span class="text" th:text="${page.authorNames}"></span><br/>
+            </div>
+            <div class="metadata">
                 <!-- Last modified: <span class="text" th:text="${page.pageModificationDate}"></span><br/>
                 Created: <span class="text" th:text="${page.pageCreationDate}"></span>-->
                 Last modified: <span class="text" th:text="${#dates.format(page.pageModificationDate)}"></span><br/>
                 Created: <span class="text" th:text="${#dates.format(page.pageCreationDate)}"></span>
             </div>
+        </div>
+
+        <div class="pages-menu">
+            <ul>
+                <li th:each="item : ${menuItems}">
+                    <a th:text="${item.label}" th:href="${item.href}">Menu item</a>
+                </li>
+            </ul>
         </div>
 
         <div class="footer" th:utext="${footerText}"></div>

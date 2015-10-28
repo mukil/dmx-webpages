@@ -1,4 +1,4 @@
-package de.mikromedia.webpages;
+package de.mikromedia.webpages.models;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
@@ -18,11 +18,17 @@ public class WebpageViewModel implements JSONEnabled {
 	public WebpageViewModel(Topic pageAliasTopic) {
 		this.page = pageAliasTopic.getRelatedTopic("dm4.core.composition",
 		    "dm4.core.child", "dm4.core.parent", "de.mikromedia.page");
+		if (!isWebpageTopic(this.page)) {
+			throw new IllegalArgumentException("Given topic is not of type Webpage");
+		}
 		this.page.loadChildTopics();
 	}
 
 	public WebpageViewModel(long topicId, DeepaMehtaService dms) {
 		this.page = dms.getTopic(topicId);
+		if (!isWebpageTopic(this.page)) {
+			throw new IllegalArgumentException("Given topic is not of type Webpage");
+		}
 		this.page.loadChildTopics();
 	}
 
@@ -61,6 +67,7 @@ public class WebpageViewModel implements JSONEnabled {
 
 	public String getAuthorNames() {
 		String nameOfAuthors = "";
+		if (!page.getChildTopics().has("de.mikromedia.page.author_name")) return nameOfAuthors;
 		List<Topic> authorNames = page.getChildTopics().getTopics("de.mikromedia.page.author_name");
 		Iterator<Topic> iterator = authorNames.iterator();
 		while (iterator.hasNext()) {
@@ -85,6 +92,10 @@ public class WebpageViewModel implements JSONEnabled {
 			Logger.getLogger(WebpageViewModel.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}
+	}
+
+	private boolean isWebpageTopic(Topic topic) {
+		return (topic.getTypeUri().equals("de.mikromedia.page"));
 	}
 
 }

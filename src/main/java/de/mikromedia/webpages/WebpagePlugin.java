@@ -1,7 +1,5 @@
 package de.mikromedia.webpages;
 
-import de.mikromedia.webpages.service.WebpagePluginService;
-import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.AssociationModel;
@@ -9,34 +7,39 @@ import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.model.TopicRoleModel;
 import de.deepamehta.core.service.Inject;
 import de.deepamehta.core.service.ResultList;
+import de.deepamehta.plugins.webactivator.WebActivatorPlugin;
 import de.deepamehta.plugins.accesscontrol.model.ACLEntry;
 import de.deepamehta.plugins.accesscontrol.model.AccessControlList;
 import de.deepamehta.plugins.accesscontrol.model.Operation;
 import de.deepamehta.plugins.accesscontrol.model.UserRole;
 import de.deepamehta.plugins.accesscontrol.service.AccessControlService;
-import java.util.logging.Logger;
+import de.mikromedia.webpages.models.MenuItemViewModel;
+import de.mikromedia.webpages.models.WebpageViewModel;
+import de.mikromedia.webpages.service.WebpagePluginService;
 
+import com.sun.jersey.api.view.Viewable;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
-import de.deepamehta.plugins.webactivator.WebActivatorPlugin;
+import java.util.logging.Logger;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import java.util.List;
 
 /**
- * Simple HTML pages with DeepaMehta 4.
+ * Simple HTML webpages with DeepaMehta 4.
  * 
  * @author Malte Reißig (<malte@mikromedia.de>)
- * @version 0.1-SNAPSHOT - compatible with DeepaMehta 4.4
+ * @version 0.2-SNAPSHOT - compatible with DeepaMehta 4.4
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -122,12 +125,13 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		return view("404");
 	}
 
+	/** Lists all currently published webpages in the system. */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/page")
-	public ArrayList<WebpageViewModel> getPublishedWebpages () {
+	public List<WebpageViewModel> getPublishedWebpages () {
 		log.info("Listing all published webpages.");
-		// fetch all pages with title and stuff
+		// fetch all pages with title and all childs
 		ResultList<RelatedTopic> pages = dms.getTopics("de.mikromedia.page", 0);
 		ArrayList<WebpageViewModel> result = new ArrayList();
 		Iterator<RelatedTopic> iterator = pages.iterator();
@@ -150,6 +154,26 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		}
 	}
 
+	/** Lists all currently active webpage menu items in the system. */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/menu/item")
+	public List<MenuItemViewModel> getActiveMenuItems () {
+		ResultList<RelatedTopic> allItems = dms.getTopics("de.mikromedia.menu.item", 0);
+		ArrayList<MenuItemViewModel> result = new ArrayList();
+		Iterator<RelatedTopic> iterator = allItems.iterator();
+		while (iterator.hasNext()) {
+			MenuItemViewModel menuItem = new MenuItemViewModel(iterator.next().getId(), dms);
+			if (menuItem.isActive()) result.add(menuItem); // ### yet to come to my db, adapted migration
+			// result.add(menuItem);
+		}
+		return result;
+	}
+
+
+
+	// --- Private Utility Methods
+
 	private void handleRedirects(String webAlias, String redirectUrl, int statusCode) {
 		try {
 			if (statusCode == 302 || statusCode == 303 || statusCode == 307) {
@@ -164,12 +188,11 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		}
 	}
 
-	// ### Get Menu Items
-	
 	private void prepareTemplateSiteData() {
 		viewData("siteName", getCustomSiteTitle());
 		viewData("footerText", getCustomSiteFooter());
 		viewData("customCssPath", getCustomCSSPath());
+		viewData("menuItems", getActiveMenuItems());
 	}
 
 	private String getCustomSiteFooter() {
