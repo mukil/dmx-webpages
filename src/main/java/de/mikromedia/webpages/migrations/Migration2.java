@@ -1,6 +1,7 @@
 package de.mikromedia.webpages.migrations;
 
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.Association;
 import de.deepamehta.core.TopicType;
 import de.deepamehta.core.model.AssociationModel;
 import de.deepamehta.core.model.SimpleValue;
@@ -28,7 +29,7 @@ public class Migration2 extends Migration {
         Association assoc = dms.createAssociation(new AssociationModel("dm4.core.association",
                 new TopicRoleModel(adminTopic.getId(), "dm4.core.default"),
                 new TopicRoleModel(siteTopic.getId(), "dm4.core.default")));
-        workspacesService.assignToWorkspacE(assoc, deepaMehtaWorkspace.getId());
+        workspacesService.assignToWorkspace(assoc, deepaMehtaWorkspace.getId());
 
         // 3) Type workspace assignments to "DeepaMehta
         // Note: Child topic types are curerntly not assigned to any workspace
