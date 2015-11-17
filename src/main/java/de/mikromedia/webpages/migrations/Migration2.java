@@ -16,14 +16,14 @@ public class Migration2 extends Migration {
     @Inject WorkspacesService workspacesService;
     @Inject AccessControlService accessControlService;
 
-	@Override
-	public void run () {
+    @Override
+    public void run () {
 
         // TODO: Think about introducig new (Public) workspace for the global "Standard Website"
 
         // 1) Assign standard site topic and assoc to "DeepaMehta" assignment
         Topic deepaMehtaWorkspace = workspacesService.getWorkspace(WorkspacesService.DEEPAMEHTA_WORKSPACE_URI);
-		Topic siteTopic = dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
+        Topic siteTopic = dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
         workspacesService.assignToWorkspace(siteTopic, deepaMehtaWorkspace.getId());
 
         // 2) Default "website" user association
@@ -35,7 +35,7 @@ public class Migration2 extends Migration {
 
         // 3) Type workspace assignments to "DeepaMehta
         // Note: Child topic types are curerntly not assigned to any workspace
-		TopicType siteType = dms.getTopicType("de.mikromedia.site");
+        TopicType siteType = dms.getTopicType("de.mikromedia.site");
         TopicType menuItemType = dms.getTopicType("de.mikromedia.menu.item");
         TopicType redirectType = dms.getTopicType("de.mikromedia.redirect");
         TopicType pageType = dms.getTopicType("de.mikromedia.page");
@@ -45,5 +45,5 @@ public class Migration2 extends Migration {
         workspacesService.assignTypeToWorkspace(pageType, deepaMehtaWorkspace.getId());
 
     }
-	
+
 }
