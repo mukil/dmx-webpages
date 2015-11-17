@@ -19,6 +19,8 @@ public class Migration2 extends Migration {
 	@Override
 	public void run () {
 
+        // TODO: Think about introducig new (Public) workspace for the global "Standard Website"
+
         // 1) Assign standard site topic and assoc to "DeepaMehta" assignment
         Topic deepaMehtaWorkspace = workspacesService.getWorkspace(WorkspacesService.DEEPAMEHTA_WORKSPACE_URI);
 		Topic siteTopic = dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));

@@ -122,8 +122,8 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 		prepareTemplateSiteData();
         // 1) Fetch username topic
         Topic user = acService.getUsernameTopic(username);
-        Topic usersWebsite = user.getRelatedTopic("dm4.core.association", "dm4.core.default", "dm4.core.default",
-                "de.mikromedia.site");
+        Topic usersWebsite = user.getRelatedTopic("dm4.core.association", "dm4.core.default",
+				"dm4.core.default", "de.mikromedia.site");
         log.info("Loaded website " + usersWebsite.getSimpleValue());
         // 2) Fetch related webpages
         ResultList<RelatedTopic> relatedWebpages = usersWebsite.getRelatedTopics("dm4.core.association",
@@ -165,7 +165,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{username}/page")
-	public List<WebpageViewModel> getPublishedWebpages (@PathParam("username") String username) {
+	public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
 		log.info("Listing all published webpages for " + username);
 		// fetch all pages with title and all childs
 		ResultList<RelatedTopic> pages = dms.getTopics("de.mikromedia.page", 0);
@@ -182,7 +182,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/menu/item")
-	public List<MenuItemViewModel> getActiveMenuItems () {
+	public List<MenuItemViewModel> getActiveMenuItems() {
 		ResultList<RelatedTopic> allItems = dms.getTopics("de.mikromedia.menu.item", 0);
 		ArrayList<MenuItemViewModel> result = new ArrayList();
 		Iterator<RelatedTopic> iterator = allItems.iterator();
@@ -257,24 +257,24 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 	}
 
 	private String getCustomSiteFooter() {
-		Topic site = loadCustomSiteTopic();
+		Topic site = loadStandardSiteTopic();
 		site.loadChildTopics("de.mikromedia.site.footer_text");
 		return site.getChildTopics().getString("de.mikromedia.site.footer_text");
 	}
 	
 	private String getCustomSiteTitle() {
-		Topic site = loadCustomSiteTopic();
+		Topic site = loadStandardSiteTopic();
 		site.loadChildTopics("de.mikromedia.site.name");
 		return site.getChildTopics().getString("de.mikromedia.site.name");
 	}
 	
 	private String getCustomCSSPath() {
-		Topic site = loadCustomSiteTopic();
+		Topic site = loadStandardSiteTopic();
 		site.loadChildTopics("de.mikromedia.site.css_path");
 		return site.getChildTopics().getString("de.mikromedia.site.css_path");
 	}
 	
-	private Topic loadCustomSiteTopic() {
+	private Topic loadStandardSiteTopic() {
 		return dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
 	}
 
