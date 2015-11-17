@@ -19,7 +19,7 @@ public class Migration2 extends Migration {
     @Override
     public void run () {
 
-        // TODO: Think about introducig new (Public) workspace for the global "Standard Website"
+        // TODO: Do we want to introduce a new (Public) workspace for the global "Standard Website"?
 
         // 1) Assign standard site topic and assoc to "DeepaMehta" assignment
         Topic deepaMehtaWorkspace = workspacesService.getWorkspace(WorkspacesService.DEEPAMEHTA_WORKSPACE_URI);

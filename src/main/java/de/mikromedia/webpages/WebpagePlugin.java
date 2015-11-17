@@ -85,7 +85,8 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
         log.fine("Requested Global Page /" + webAlias);
         // 0) prepare admin website
-        Topic website = loadWebsiteTopic("admin");
+        // Topic website = loadStandardSiteTopic();
+        Topic website = loadWebsiteTopic(AccessControlService.ADMIN_USERNAME); // is more flexible
         prepareTemplateSiteData(website);
         // 1) is webpage of admin
         // 2) is redirect of admin
@@ -100,53 +101,36 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
     public Viewable getPageView(@PathParam("username") String username,
-                                @PathParam("pageWebAlias") String webAlias) {
-        log.info("Requested Page /" + username + "/" + webAlias);
+                                @PathParam("pageWebAlias") String pageAlias) {
+        log.info("Requested Page /" + username + "/" + pageAlias);
         // 0) Fetch users website topic
         Topic usersWebsite = loadWebsiteTopic(username);
         log.info("Loaded website " + usersWebsite.getSimpleValue());
         // 1) fetch website globals for any of these templates
         prepareTemplateSiteData(usersWebsite);
-        // 2) Fetch related webpages
-        ResultList<RelatedTopic> relatedWebpages = usersWebsite.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.page", 0);
-        for (RelatedTopic webpage : relatedWebpages.getItems()) {
-            Topic webpageTopic = dms.getTopic(webpage.getModel().getId()).loadChildTopics();
-            log.info("> Checking webpage with Title: " + webpageTopic.getSimpleValue());
-            String webpageAlias = webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
-            log.info("> Checking webpage " + webpageAlias + " != " + webAlias);
-            if (webpageAlias.equals(webAlias)) {
-                Topic pageAliasTopic = webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
-                WebpageViewModel page = new WebpageViewModel(pageAliasTopic);
-                if (page.isPublished()) {
-                    viewData("page", page);
-                    return view("page");
-                } else if (!page.isPublished()) {
-                    log.fine("401 => /" + webAlias + " is yet unpublished.");
-                    return view("401");
-                }
+        // 2) check related webpages
+        Topic pageAliasTopic = getWebpageByAlias(usersWebsite, pageAlias);
+        if (pageAliasTopic != null) {
+            WebpageViewModel page = new WebpageViewModel(pageAliasTopic);
+            if (page.isPublished()) {
+                viewData("page", page);
+                return view("page");
+            } else if (!page.isPublished()) {
+                log.fine("401 => /" + pageAlias + " is yet unpublished.");
+                return view("401");
             }
         }
-        log.warning("Users Webpage NOT FOUND!");
-        // 2) is a users redirect
-        ResultList<RelatedTopic> redirectTopics = usersWebsite.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.redirect", 0);
-        Iterator<RelatedTopic> iterator = redirectTopics.iterator();
-        while (iterator.hasNext()) {
-            Topic redirectTopic = dms.getTopic(iterator.next().getModel().getId()).loadChildTopics();
-            String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
-            int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
-            handleRedirects(webAlias, redirectUrl, statusCode);
-        }
-        log.fine("404 => /" + webAlias + " not found.");
+        // 2) check if it is a users redirect
+        handleWebsiteRedirects(usersWebsite, pageAlias);
         // 3) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
+        log.fine("404 => /" + pageAlias + " not found.");
         return view("404");
     }
 
     /** Lists all currently published webpages for the users website. */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{username}/page")
+    @Path("/{username}/")
     public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
         log.info("Listing all published webpages for " + username);
         // fetch all pages with title and all childs
@@ -189,6 +173,18 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
                 new TopicRoleModel(website.getId(), "dm4.core.default")));
     }
 
+    private void handleWebsiteRedirects(Topic site, String webAlias) {
+        ResultList<RelatedTopic> redirectTopics = site.getRelatedTopics("dm4.core.association",
+                "dm4.core.default","dm4.core.default", "de.mikromedia.redirect", 0);
+        Iterator<RelatedTopic> iterator = redirectTopics.iterator();
+        while (iterator.hasNext()) {
+            Topic redirectTopic = dms.getTopic(iterator.next().getModel().getId()).loadChildTopics();
+            String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
+            int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
+            handleRedirects(webAlias, redirectUrl, statusCode);
+        }
+    }
+
     private void handleRedirects(String webAlias, String redirectUrl, int statusCode) {
         try {
             if (statusCode == 302 || statusCode == 303 || statusCode == 307) {
@@ -201,6 +197,21 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
         } catch (URISyntaxException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private Topic getWebpageByAlias(Topic site, String webAlias) {
+        ResultList<RelatedTopic> relatedWebpages = site.getRelatedTopics("dm4.core.association",
+                "dm4.core.default","dm4.core.default", "de.mikromedia.page", 0);
+        for (RelatedTopic webpage : relatedWebpages.getItems()){
+            Topic webpageTopic=dms.getTopic(webpage.getModel().getId()).loadChildTopics();
+            log.info("> Checking webpage with Title: "+webpageTopic.getSimpleValue());
+            String webpageAlias=webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
+            log.info("> Checking webpage "+webpageAlias+" != "+webAlias);
+            if(webpageAlias.equals(webAlias)){
+                Topic pageAliasTopic=webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
+            }
+        }
+        return null;
     }
 
     private void prepareTemplateSiteData(Topic websiteTopic) {
