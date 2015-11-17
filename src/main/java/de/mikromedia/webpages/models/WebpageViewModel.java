@@ -2,6 +2,7 @@ package de.mikromedia.webpages.models;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.DeepaMehtaService;
 import java.util.Date;
 import java.util.Iterator;
@@ -68,10 +69,10 @@ public class WebpageViewModel implements JSONEnabled {
 	public String getAuthorNames() {
 		String nameOfAuthors = "";
 		if (!page.getChildTopics().has("de.mikromedia.page.author_name")) return nameOfAuthors;
-		List<Topic> authorNames = page.getChildTopics().getTopics("de.mikromedia.page.author_name");
-		Iterator<Topic> iterator = authorNames.iterator();
+		List<RelatedTopic> authorNames = page.getChildTopics().getTopics("de.mikromedia.page.author_name");
+		Iterator<RelatedTopic> iterator = authorNames.iterator();
 		while (iterator.hasNext()) {
-			Topic authorName = iterator.next();
+			RelatedTopic authorName = iterator.next();
 			nameOfAuthors += authorName.getSimpleValue();
 			if (iterator.hasNext()) nameOfAuthors += ", ";
 		}
