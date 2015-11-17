@@ -130,7 +130,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     /** Lists all currently published webpages for the users website. */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{username}/")
+    @Path("/{username}/page")
     public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
         log.info("Listing all published webpages for " + username);
         // fetch all pages with title and all childs
@@ -179,9 +179,11 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
         Iterator<RelatedTopic> iterator = redirectTopics.iterator();
         while (iterator.hasNext()) {
             Topic redirectTopic = dms.getTopic(iterator.next().getModel().getId()).loadChildTopics();
-            String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
-            int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
-            handleRedirects(webAlias, redirectUrl, statusCode);
+            if (redirectTopic.getChildTopics().getString("de.mikromedia.redirect.web_alias").equals(webAlias)) {
+                String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
+                int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
+                handleRedirects(webAlias, redirectUrl, statusCode);
+            }
         }
     }
 
@@ -202,13 +204,12 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     private Topic getWebpageByAlias(Topic site, String webAlias) {
         ResultList<RelatedTopic> relatedWebpages = site.getRelatedTopics("dm4.core.association",
                 "dm4.core.default","dm4.core.default", "de.mikromedia.page", 0);
-        for (RelatedTopic webpage : relatedWebpages.getItems()){
+        for (RelatedTopic webpage : relatedWebpages.getItems()) {
             Topic webpageTopic=dms.getTopic(webpage.getModel().getId()).loadChildTopics();
-            log.info("> Checking webpage with Title: "+webpageTopic.getSimpleValue());
+            log.info("> Checking webpage with Title: " + webpageTopic.getSimpleValue());
             String webpageAlias=webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
-            log.info("> Checking webpage "+webpageAlias+" != "+webAlias);
-            if(webpageAlias.equals(webAlias)){
-                Topic pageAliasTopic=webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
+            if (webpageAlias.equals(webAlias)) {
+                return webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
             }
         }
         return null;
