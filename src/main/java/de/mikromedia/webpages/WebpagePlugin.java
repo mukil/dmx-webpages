@@ -150,6 +150,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
 
     @Override
     public void postCreateTopic(Topic topic) {
+        // ### Try this with reacting upon "dm4.accesscontrol.user_account" creation.
         if (topic.getTypeUri().equals("dm4.accesscontrol.username")) {
             // create an empty website topic for the new user
             Topic website = getWebsiteTopic(topic.getSimpleValue().toString());
