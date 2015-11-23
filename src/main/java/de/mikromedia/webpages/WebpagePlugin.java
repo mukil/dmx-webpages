@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * Simple HTML webpages with DeepaMehta 4.
  * 
- * @author Malte Reißig (<malte@mikromedia.de>)
+ * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
  * @version 0.3-SNAPSHOT - compatible with DeepaMehta 4.7
  */
 @Path("/")
@@ -151,15 +151,19 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     @Override
     public void postCreateTopic(Topic topic) {
         // ### Try this with reacting upon "dm4.accesscontrol.user_account" creation.
-        if (topic.getTypeUri().equals("dm4.accesscontrol.username")) {
+        if (topic.getTypeUri().equals("dm4.accesscontrol.user_account")) {
+            log.info("User Account Creation Post Create Listener: " + topic.toJSON().toString());
+            topic.loadChildTopics("dm4.accesscontrol.username");
+            Topic username = topic.getChildTopics().getTopic("dm4.accesscontrol.username");
             // create an empty website topic for the new user
-            Topic website = getWebsiteTopic(topic.getSimpleValue().toString());
-            Topic deepaMehtaWorkspace = workspacesService.getWorkspace(WorkspacesService.DEEPAMEHTA_WORKSPACE_URI);
-            log.info("Trying to fetch private workspace of new user: " + topic.getSimpleValue().toString());
-            Topic privateWorkspace = dms.getAccessControl().getPrivateWorkspace(topic.getSimpleValue().toString());
+            // TODO: Write migration covering the following setup for existing user accounts, too!
+            Topic website = getWebsiteTopic(username.getSimpleValue().toString());
+            log.info("Trying to fetch private workspace of new user: " + username.getSimpleValue().toString());
+            // Fails currently, see https://trac.deepamehta.de/ticket/889 for details
+            Topic privateWorkspace = dms.getAccessControl().getPrivateWorkspace(username.getSimpleValue().toString());
             workspacesService.assignToWorkspace(website, privateWorkspace.getId());
             // associate an empty website topic to the new username topic
-            Association assoc = createWebsiteUsernameAssociation(topic, website);
+            Association assoc = createWebsiteUsernameAssociation(username, website);
             workspacesService.assignToWorkspace(assoc, privateWorkspace.getId());
         }
     }
@@ -270,8 +274,8 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
                 "dm4.core.default", "de.mikromedia.site");
     }
 
-    private Topic loadStandardSiteTopic() {
+    /** private Topic loadStandardSiteTopic() {
         return dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
-    }
+    } **/
 
 }
