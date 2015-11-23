@@ -25,14 +25,30 @@
 
         <div class="story">
             <p>
-                The curent development here is that there is not yet an index of all your pages, except that one in <a href="/page">JSON</a>.
+                If you want to replace this webpage with your  content you could simply create a
+                <em>Webpage Redirect</em> topic when logged into the <a
+                    href="/de.deepamehta.webclient/">webclient</a> as "admin" and set its <em>Redirect
+                Alias</em> to <b>/</b> and let the <em>Redirect Target URL</em> point to any of your existing resource.
             </p>
             <p>
-                This is mainly due to keep up the possibility for other plugins to register their own frontpages on the <em>dm4-webpages</em> plugin through calling for example:
+                As a developer of a DeepaMehta 4 Plugin you could do serve your page here through calling the
+                WebpagePluginService from your Plugin implementation:
             </p>
-            <blockquote><p>WebpagePluginService.setFrontpageResource('/web/index.html')</p></blockquote>
+            <blockquote><p>WebpagePluginService webpageService.setFrontpageResource('/web/index.html')</p></blockquote>
             <p>
-                Nonetheless, all the pages you already published are available via their web alias, e.g. <em>http://www.domain.xyz/<b>page/my-web-alias</b></em>.
+                Note: This does not affect webpages you already published. They are available under their respective
+                web alias, e.g. <em>http://www.domain.xyz/<b>/my-web-alias</b></em>.
+            </p>
+            <p>
+                The curent development here is that there is not yet an automatic index of all your pages, except <a
+                    href="/admin/page">that one in JSON</a>.
+            </p>
+            <p>
+                This is mainly due to keep up all possibility for you and other plugins to register their own
+                frontpage with the <em>dm4-webpages</em> plugin.
+            </p>
+            <p>
+                Enjoy web-publishing with DeepaMehta 4!
             </p>
               <!-- This template is currently never processed by thymeleaf ... @see getFrontpageView
               div th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'">
