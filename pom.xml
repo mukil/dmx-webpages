@@ -7,7 +7,7 @@
     <name>Mikromedia DM 4 Webpages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dm47-webpages</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
