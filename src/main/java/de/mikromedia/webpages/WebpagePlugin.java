@@ -34,6 +34,7 @@ import java.util.List;
  * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
  * @version 0.4-SNAPSHOT - compatible with DeepaMehta 4.8.1-SNAPSHOT
  */
+@Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginService {
@@ -57,7 +58,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginServi
     }
 
     @GET
-    @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public InputStream getFrontpageView() {
         // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873

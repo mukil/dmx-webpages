@@ -68,16 +68,15 @@ public class WebpageViewModel implements JSONEnabled {
 
 	public String getAuthorNames() {
 		String nameOfAuthors = "";
-		if (page.getChildTopics().getTopicOrNull("de.mikromedia.page.author_name") != null) {
-                    return nameOfAuthors;
+                List<RelatedTopic> authorNames = page.getChildTopics().getTopicsOrNull("de.mikromedia.page.author_name");
+		if (authorNames != null) {
+                    Iterator<RelatedTopic> nameIterator = authorNames.iterator();
+                    while (nameIterator.hasNext()) {
+                            RelatedTopic authorName = nameIterator.next();
+                            nameOfAuthors += authorName.getSimpleValue();
+                            if (nameIterator.hasNext()) nameOfAuthors += ", ";
+                    }
                 }
-		List<RelatedTopic> authorNames = page.getChildTopics().getTopics("de.mikromedia.page.author_name");
-		Iterator<RelatedTopic> iterator = authorNames.iterator();
-		while (iterator.hasNext()) {
-			RelatedTopic authorName = iterator.next();
-			nameOfAuthors += authorName.getSimpleValue();
-			if (iterator.hasNext()) nameOfAuthors += ", ";
-		}
 		return nameOfAuthors;
 	}
 	
