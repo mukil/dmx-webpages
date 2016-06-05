@@ -1,6 +1,6 @@
 package de.mikromedia.webpages;
 
-public interface WebpagePluginService {
+public interface WebpageService {
 
     void setFrontpageResource(String frontpageResourceName, String bundleContextUri);
 

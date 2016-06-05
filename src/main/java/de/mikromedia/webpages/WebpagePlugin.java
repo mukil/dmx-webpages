@@ -2,7 +2,6 @@ package de.mikromedia.webpages;
 
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.model.TopicModel;
 import de.deepamehta.core.service.Inject;
 import de.mikromedia.webpages.models.MenuItemViewModel;
 import de.mikromedia.webpages.models.WebpageViewModel;
@@ -37,7 +36,7 @@ import java.util.List;
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginService {
+public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -64,23 +63,20 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginServi
         // 1) check if a custom frontpage was registered by another plugin
         if (frontPageResourceName != null && bundleContextUri != null) {
             return dm4.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
-        // 2) check if there is a redirect of user "admin" set on "/"
-        } else {
-            Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME); // is more flexible
-            log.info("Fetched admins website ... is called multiple times by our standard homepage (does favicon " +
-                    "land here?)");
+        } else { // 2) check if there is a redirect of user "admin" set on "/"
+            Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME);
             handleWebsiteRedirects(adminsWebsite, "/"); // potentially throws WebAppException triggering a Redirect
             // 3) Fetch some static default HTML..
-            // fetch website globals for any of these templates
+            // fetch "admins" website globals for any of these templates
             prepareTemplateSiteData(adminsWebsite);
-            // fetch all pages with title and stuff **/
+            // ### fetch all pages with title and stuff **/
             return getStaticResource("/views/welcome.html");
         }
     }
 
     /**
      * Serves either the <em>Webpage</em> topics content in the page template, a <em>Webpage Redirect</em> (301,
-     * 302) or  <em>404</em> as response.
+     * 302) or <em>404</em> as response.
      *
      * @param webAlias  String  URI compliant name of the resource without leading slash.
      * @return
@@ -115,12 +111,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginServi
     }
 
     /**
-     * For "admin" only webpages this methods serves exactly the same responses as its sister method
+     * For "admin" only webpages (or redirects) this methods serves exactly the same responses as its sister method
      * (@see getPageView()) just under a different (username specific) url.
-     *
-     * This method is just here for forward-compatibility reasons. Users of this plugin can now share a URL which
-     * still will be the URL of their content in the future, e.g. especially when upgrading to a multi-ste
-     * installation.
      *
      * @param username
      * @param pageAlias
@@ -130,11 +122,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginServi
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
     public Viewable getPageView(@PathParam("username") String username,
-                                @PathParam("pageWebAlias") String pageAlias) {
-        log.info("Requested Page /" + username + "/" + pageAlias);
+            @PathParam("pageWebAlias") String pageAlias) {
+        log.info("Request Page /" + username + "/" + pageAlias);
         // 0) Fetch users website topic
         Topic usersWebsite = getWebsiteTopic(username);
-        log.fine("Loaded website \"" + usersWebsite.getSimpleValue() + "\"");
+        log.fine("Load website \"" + usersWebsite.getSimpleValue() + "\"");
         // 1) fetch website globals for any of these templates
         prepareTemplateSiteData(usersWebsite);
         // 2) check related webpages
@@ -190,23 +182,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginServi
             Topic website = getWebsiteTopic(username.getSimpleValue().toString());
             log.info("Trying to fetch private workspace of new user: " + username.getSimpleValue().toString());
             // Fails currently, see https://trac.deepamehta.de/ticket/889 for details
-            Topic privateWorkspace = dms.getAccessControl().getPrivateWorkspace(username.getSimpleValue().toString());
+            Topic privateWorkspace = dm4.getAccessControl().getPrivateWorkspace(username.getSimpleValue().toString());
             workspacesService.assignToWorkspace(website, privateWorkspace.getId());
             // associate an empty website topic to the new username topic
             Association assoc = createWebsiteUsernameAssociation(username, website);
             workspacesService.assignToWorkspace(assoc, privateWorkspace.getId());
         }
-    } **/
-
-
+    }
 
     // --- Private Utility Methods
 
-    /** private Association createWebsiteUsernameAssociation(Topic usernameTopic, Topic website) {
-        return dms.createAssociation(new AssociationModel("dm4.core.association",
-                new TopicRoleModel(usernameTopic.getId(), "dm4.core.default"),
-                new TopicRoleModel(website.getId(), "dm4.core.default")));
-    } **/
+    private Association createWebsiteUsernameAssociation(Topic usernameTopic, Topic website) {
+        return dm4.createAssociation(mf.newAssociationModel("dm4.core.association",
+                mf.newTopicRoleModel(usernameTopic.getId(), "dm4.core.default"),
+                mf.newTopicRoleModel(website.getId(), "dm4.core.default")));
+    }**/
 
     /**
      * If a topic of type <code>de.mikromedia.redirect</code> is simply associated with the given `Website` topic,
