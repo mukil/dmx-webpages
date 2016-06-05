@@ -2,7 +2,7 @@ package de.mikromedia.webpages.models;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.DeepaMehtaService;
+import de.deepamehta.core.service.CoreService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -12,7 +12,7 @@ public class MenuItemViewModel implements JSONEnabled {
 
 	public Topic menuItem;
 
-	public MenuItemViewModel(long topicId, DeepaMehtaService dms) {
+	public MenuItemViewModel(long topicId, CoreService dms) {
 		this.menuItem = dms.getTopic(topicId);
 		if (!isWebpageMenuItemTopic(this.menuItem)) {
 			throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");

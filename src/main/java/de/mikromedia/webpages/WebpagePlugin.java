@@ -4,14 +4,13 @@ import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.TopicModel;
 import de.deepamehta.core.service.Inject;
-import de.deepamehta.core.service.ResultList;
-import de.deepamehta.plugins.webactivator.WebActivatorPlugin;
-import de.deepamehta.plugins.accesscontrol.AccessControlService;
-import de.deepamehta.plugins.workspaces.WorkspacesService;
 import de.mikromedia.webpages.models.MenuItemViewModel;
 import de.mikromedia.webpages.models.WebpageViewModel;
 
 import com.sun.jersey.api.view.Viewable;
+import de.deepamehta.accesscontrol.AccessControlService;
+import de.deepamehta.thymeleaf.ThymeleafPlugin;
+import de.deepamehta.workspaces.WorkspacesService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -33,12 +32,11 @@ import java.util.List;
  * Simple HTML webpages with DeepaMehta 4.
  * 
  * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
- * @version 0.3-SNAPSHOT - compatible with DeepaMehta 4.7
+ * @version 0.4-SNAPSHOT - compatible with DeepaMehta 4.8.1-SNAPSHOT
  */
-@Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginService {
+public class WebpagePlugin extends ThymeleafPlugin implements WebpagePluginService {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -59,12 +57,13 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     }
 
     @GET
+    @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public InputStream getFrontpageView() {
         // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873
         // 1) check if a custom frontpage was registered by another plugin
         if (frontPageResourceName != null && bundleContextUri != null) {
-            return dms.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
+            return dm4.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
         // 2) check if there is a redirect of user "admin" set on "/"
         } else {
             Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME); // is more flexible
@@ -72,8 +71,8 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
                     "land here?)");
             handleWebsiteRedirects(adminsWebsite, "/"); // potentially throws WebAppException triggering a Redirect
             // 3) Fetch some static default HTML..
-            /** // fetch website globals for any of these templates
-            prepareTemplateSiteData();
+            // fetch website globals for any of these templates
+            prepareTemplateSiteData(adminsWebsite);
             // fetch all pages with title and stuff **/
             return getStaticResource("/views/welcome.html");
         }
@@ -166,12 +165,12 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
         log.info("Listing all published webpages for " + username);
         // fetch all pages with title and all childs
         Topic website = getWebsiteTopic(username);
-        ResultList<RelatedTopic> pages = website.getRelatedTopics("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.page", 0);
+        List<RelatedTopic> pages = website.getRelatedTopics("dm4.core.association", "dm4.core.default",
+                "dm4.core.default", "de.mikromedia.page");
         ArrayList<WebpageViewModel> result = new ArrayList();
         Iterator<RelatedTopic> iterator = pages.iterator();
         while (iterator.hasNext()) {
-            WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dms);
+            WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
             if (page.isPublished()) result.add(page);
         }
         return result;
@@ -216,11 +215,11 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
      * @param webAlias
      */
     private void handleWebsiteRedirects(Topic site, String webAlias) {
-        ResultList<RelatedTopic> redirectTopics = site.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.redirect", 0);
+        List<RelatedTopic> redirectTopics = site.getRelatedTopics("dm4.core.association",
+                "dm4.core.default","dm4.core.default", "de.mikromedia.redirect");
         Iterator<RelatedTopic> iterator = redirectTopics.iterator();
         while (iterator.hasNext()) {
-            Topic redirectTopic = dms.getTopic(iterator.next().getModel().getId()).loadChildTopics();
+            Topic redirectTopic = dm4.getTopic(iterator.next().getModel().getId()).loadChildTopics();
             String redirectAliasVaue = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.web_alias");
             if (redirectAliasVaue.equals(webAlias)) {
                 String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
@@ -257,10 +256,10 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
      * @return
      */
     private Topic getWebpageByAlias(Topic site, String webAlias) {
-        ResultList<RelatedTopic> relatedWebpages = site.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.page", 0);
-        for (RelatedTopic webpage : relatedWebpages.getItems()) {
-            Topic webpageTopic = dms.getTopic(webpage.getModel().getId()).loadChildTopics();
+        List<RelatedTopic> relatedWebpages = site.getRelatedTopics("dm4.core.association",
+                "dm4.core.default","dm4.core.default", "de.mikromedia.page");
+        for (RelatedTopic webpage : relatedWebpages) {
+            Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
             String webpageAlias = webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
             if (webpageAlias.equals(webAlias)) {
                 return webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
@@ -292,7 +291,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
         if (website == null) {
             // create a new website topic
             log.info("Webpages Module creates a ### NEW WEBSITE ### upon request for " + username);
-            return dms.createTopic(new TopicModel("de.mikromedia.site"));
+            return dm4.createTopic(mf.newTopicModel("de.mikromedia.site"));
         } else {
             log.info("Webpages Module loaded " + website.getSimpleValue() + " website upon request for " + username);
             // return the website topic
@@ -306,12 +305,12 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
      * @return
      */
     private List<MenuItemViewModel> getActiveMenuItems(Topic site) {
-        ResultList<RelatedTopic> menuItems = site.getRelatedTopics("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.menu.item", 0);
+        List<RelatedTopic> menuItems = site.getRelatedTopics("dm4.core.association", "dm4.core.default",
+                "dm4.core.default", "de.mikromedia.menu.item");
         ArrayList<MenuItemViewModel> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
-            MenuItemViewModel menuItem = new MenuItemViewModel(iterator.next().getId(), dms);
+            MenuItemViewModel menuItem = new MenuItemViewModel(iterator.next().getId(), dm4);
             if (menuItem.isActive()) result.add(menuItem); // ### yet to come to my db, adapted migration
             // result.add(menuItem);
         }
@@ -333,14 +332,14 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
         return site.getChildTopics().getString("de.mikromedia.site.css_path");
     }
 
-    /** private Topic loadWebsiteTopic(String username) {
+    private Topic loadWebsiteTopic(String username) {
         Topic user = acService.getUsernameTopic(username);
         return user.getRelatedTopic("dm4.core.association", "dm4.core.default",
                 "dm4.core.default", "de.mikromedia.site");
-    } **/
+    }
 
-    /** private Topic loadStandardSiteTopic() {
-        return dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
-    } **/
+    private Topic loadStandardSiteTopic() {
+        return dm4.getTopicByUri("de.mikromedia.standard_site");
+    }
 
 }

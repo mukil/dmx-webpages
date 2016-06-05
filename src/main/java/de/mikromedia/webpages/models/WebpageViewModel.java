@@ -3,7 +3,7 @@ package de.mikromedia.webpages.models;
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.service.DeepaMehtaService;
+import de.deepamehta.core.service.CoreService;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +25,7 @@ public class WebpageViewModel implements JSONEnabled {
 		this.page.loadChildTopics();
 	}
 
-	public WebpageViewModel(long topicId, DeepaMehtaService dms) {
+	public WebpageViewModel(long topicId, CoreService dms) {
 		this.page = dms.getTopic(topicId);
 		if (!isWebpageTopic(this.page)) {
 			throw new IllegalArgumentException("Given topic is not of type Webpage");
@@ -68,7 +68,9 @@ public class WebpageViewModel implements JSONEnabled {
 
 	public String getAuthorNames() {
 		String nameOfAuthors = "";
-		if (!page.getChildTopics().has("de.mikromedia.page.author_name")) return nameOfAuthors;
+		if (page.getChildTopics().getTopicOrNull("de.mikromedia.page.author_name") != null) {
+                    return nameOfAuthors;
+                }
 		List<RelatedTopic> authorNames = page.getChildTopics().getTopics("de.mikromedia.page.author_name");
 		Iterator<RelatedTopic> iterator = authorNames.iterator();
 		while (iterator.hasNext()) {

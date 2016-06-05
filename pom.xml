@@ -6,26 +6,30 @@
 
     <name>Mikromedia DM 4 Webpages</name>
     <groupId>de.mikromedia</groupId>
-    <artifactId>dm47-webpages</artifactId>
+    <artifactId>dm48-webpages</artifactId>
     <version>0.4-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
         <groupId>de.deepamehta</groupId>
-        <artifactId>deepamehta-plugin-parent</artifactId>
-        <version>4.7</version>
+        <artifactId>deepamehta-plugin</artifactId>
+        <version>4.8</version>
     </parent>
+
+    <properties>
+        <dm4.deploy.dir>/home/malted/source/mikro/deepamehta/bundle-deploy</dm4.deploy.dir>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>de.deepamehta</groupId>
-            <artifactId>dm47-webactivator</artifactId>
-            <version>0.4.6</version>
+            <artifactId>dm48-thymeleaf</artifactId>
+            <version>0.5</version>
         </dependency>
         <dependency>
             <groupId>de.deepamehta</groupId>
             <artifactId>deepamehta-accesscontrol</artifactId>
-            <version>4.7</version>
+            <version>4.8</version>
         </dependency>
     </dependencies>
 
