@@ -2,15 +2,9 @@ package de.mikromedia.webpages;
 
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.Association;
 import de.deepamehta.core.model.TopicModel;
-import de.deepamehta.core.model.AssociationModel;
-import de.deepamehta.core.model.SimpleValue;
-import de.deepamehta.core.model.TopicRoleModel;
 import de.deepamehta.core.service.Inject;
 import de.deepamehta.core.service.ResultList;
-import de.deepamehta.core.service.event.PostCreateTopicListener;
-import de.deepamehta.core.service.accesscontrol.AccessControl;
 import de.deepamehta.plugins.webactivator.WebActivatorPlugin;
 import de.deepamehta.plugins.accesscontrol.AccessControlService;
 import de.deepamehta.plugins.workspaces.WorkspacesService;
@@ -68,12 +62,14 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     @Produces(MediaType.TEXT_HTML)
     public InputStream getFrontpageView() {
         // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873
+        // 1) check if a custom frontpage was registered by another plugin
         if (frontPageResourceName != null && bundleContextUri != null) {
-            // 1) check if a custom frontpage was registered by another plugin
             return dms.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
+        // 2) check if there is a redirect of user "admin" set on "/"
         } else {
-            // 2) check if there is a redirect of user "admin" set on "/"
             Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME); // is more flexible
+            log.info("Fetched admins website ... is called multiple times by our standard homepage (does favicon " +
+                    "land here?)");
             handleWebsiteRedirects(adminsWebsite, "/"); // potentially throws WebAppException triggering a Redirect
             // 3) Fetch some static default HTML..
             /** // fetch website globals for any of these templates
@@ -165,7 +161,7 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
     /** Lists all currently published webpages for the users website. */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{username}/page")
+    @Path("/{username}")
     public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
         log.info("Listing all published webpages for " + username);
         // fetch all pages with title and all childs
@@ -295,8 +291,10 @@ public class WebpagePlugin extends WebActivatorPlugin implements WebpagePluginSe
                 "dm4.core.default", "de.mikromedia.site");
         if (website == null) {
             // create a new website topic
+            log.info("Webpages Module creates a ### NEW WEBSITE ### upon request for " + username);
             return dms.createTopic(new TopicModel("de.mikromedia.site"));
         } else {
+            log.info("Webpages Module loaded " + website.getSimpleValue() + " website upon request for " + username);
             // return the website topic
             return website;
         }
