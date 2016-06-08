@@ -60,7 +60,7 @@
             ]
         },
         {
-            "value": "Website Style (CSS)",
+            "value": "Website Stylesheet",
             "uri": "de.mikromedia.site.stylesheet",
             "data_type_uri": "dm4.core.text",
             "view_config_topics": [
