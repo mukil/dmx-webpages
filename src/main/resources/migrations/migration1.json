@@ -275,14 +275,13 @@
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.composition_def"
                 }
-                
             ],
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
                         "dm4.webclient.show_in_create_menu": true,
-                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-green.png"
+                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-green-page.png"
                     }
                 }
              ]
@@ -363,7 +362,7 @@
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
                         "dm4.webclient.show_in_create_menu": true,
-                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange.png"
+                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-blue-menu.png"
                     }
                 }
              ]
@@ -397,10 +396,10 @@
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
                         "dm4.webclient.show_in_create_menu": true,
-                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-purple.png"
+                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-blue-redirect.png"
                     }
                 }
-             ]
+            ]
         }
     ],
     "topics": [
