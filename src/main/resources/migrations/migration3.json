@@ -70,19 +70,6 @@
             ]
         },
         {
-            "value": "Graphic Script Path",
-            "uri": "de.mikromedia.page.script_path",
-            "data_type_uri": "dm4.core.text",
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
             "value": "Graphic Attribution",
             "uri": "de.mikromedia.page.graphic_attr",
             "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
@@ -117,26 +104,22 @@
                     "child_type_uri":           "dm4.files.file",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
+                    "assoc_type_uri":           "dm4.core.aggregation_def",
+                    "custom_assoc_type_uri":    "de.mikromedia.graphic_file"
                 },
                 { ### Graphic Hyperlink Target (Href)
                     "child_type_uri":           "dm4.webbrowser.url",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                { ### JavaScript Path
-                    "child_type_uri":           "de.mikromedia.page.script_path",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
+                    "assoc_type_uri":           "dm4.core.composition_def",
+                    "custom_assoc_type_uri":    "de.mikromedia.link_target"
                 }
             ],
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
-                        "dm4.webclient.show_in_create_menu": true,
+                        "dm4.webclient.show_in_create_menu": false,
                         "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-graphic.png"
                     }
                 }
@@ -163,9 +146,9 @@
             "assoc_defs": [
                 {
                     "child_type_uri":           "de.mikromedia.page.graphic_section_title",
-                    "child_cardinality_uri":    "dm4.core.many",
+                    "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                    "assoc_type_uri":           "dm4.core.composition_def"
                 },
                 {
                     "child_type_uri":           "de.mikromedia.page.graphic",
@@ -178,7 +161,7 @@
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
-                        "dm4.webclient.show_in_create_menu": true,
+                        "dm4.webclient.show_in_create_menu": false,
                         "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-section.png"
                     }
                 }
@@ -234,7 +217,7 @@
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
-                        "dm4.webclient.show_in_create_menu": true,
+                        "dm4.webclient.show_in_create_menu": false,
                         "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-section.png"
                     }
                 }

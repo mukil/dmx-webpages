@@ -38,7 +38,7 @@ public class WebpageViewModel implements JSONEnabled {
 	}
 
 	public String getPageHtmlText() {
-		return page.getChildTopics().getString("de.mikromedia.page.main_part");
+		return page.getChildTopics().getString("de.mikromedia.page.header");
 	}
 
 	public String getPageWebAlias() {
@@ -62,8 +62,8 @@ public class WebpageViewModel implements JSONEnabled {
 		return creationDate;
 	}
 
-	public boolean isPublished() {
-		return page.getChildTopics().getBoolean("de.mikromedia.page.is_published");
+	public boolean isDraft() {
+		return page.getChildTopics().getBoolean("de.mikromedia.page.is_draft");
 	}
 
 	public String getAuthorNames() {
@@ -83,7 +83,7 @@ public class WebpageViewModel implements JSONEnabled {
 		try {
 			return new JSONObject()
 			    .put("title", getPageTitle())
-			    .put("body", getPageHtmlText())
+			    .put("header", getPageHtmlText())
 			    .put("modification_date", getPageModificationDate())
 			    .put("creation_date", getPageCreationDate())
 				.put("author_names", getAuthorNames())
