@@ -19,12 +19,12 @@ public class Migration2 extends Migration {
     @Override
     public void run () {
 
-        // 1) Assign standard site topic and assoc to "DeepaMehta", make admins/ our standard site public.
+        // 1) Assign standard site topic and assoc to WS "DeepaMehta", make admin's our standard site public.
         Topic deepaMehtaWorkspace = workspacesService.getWorkspace(WorkspacesService.DEEPAMEHTA_WORKSPACE_URI);
         Topic siteTopic = dms.getTopic("uri", new SimpleValue("de.mikromedia.standard_site"));
         workspacesService.assignToWorkspace(siteTopic, deepaMehtaWorkspace.getId());
 
-        // 2) Our default "website" is the website of user "admin" (we do this now to support multi-sites later)
+        // 2) Our global/standard/default "website" is the website of user "admin" (we do this now to support multi-sites later)
         Topic adminTopic = accessControlService.getUsernameTopic(AccessControlService.ADMIN_USERNAME);
         Association assoc = dms.createAssociation(new AssociationModel("dm4.core.association",
                 new TopicRoleModel(adminTopic.getId(), "dm4.core.default"),
