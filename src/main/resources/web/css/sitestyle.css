@@ -60,6 +60,14 @@ blockquote p {
     display: none;
 }
 
+.padding {
+    padding: 15px;
+}
+
+.center {
+    text-align: center;
+}
+
 .page select,
 .page input[type="button"],
 .page button {
