@@ -54,6 +54,14 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4**, Upcoming
+
+* Completely revised webpage apilication model
+* Introduced new icons
+* Not compatible with 0.3
+
+Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpages-0.4_.
+
 **0.3**, Nov 23, 2015
 
 * Useful to create and publish _one_ website
