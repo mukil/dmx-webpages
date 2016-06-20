@@ -207,8 +207,8 @@
             ]
         },
         {
-            "value": "Technical Page Description (SEO)",
-            "uri": "de.mikromedia.page.seo_description",
+            "value": "What is this page about?",
+            "uri": "de.mikromedia.page.seo_description", ### .about
             "data_type_uri": "dm4.core.text",
             "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
             "view_config_topics": [

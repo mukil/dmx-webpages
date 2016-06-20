@@ -21,15 +21,15 @@ public class MenuItemViewModel implements JSONEnabled {
     }
 
     public String getLabel() {
-        return menuItem.getChildTopics().getString("de.mikromedia.menu.item_name");
+        return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_name");
     }
 
     public String getHref() {
-        return menuItem.getChildTopics().getString("de.mikromedia.menu.item_href");
+        return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
     }
 
     public boolean isActive() {
-        return menuItem.getChildTopics().getBoolean("de.mikromedia.menu.item_active");
+        return menuItem.getChildTopics().getBooleanOrNull("de.mikromedia.menu.item_active");
     }
 
     public JSONObject toJSON() {

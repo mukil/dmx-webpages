@@ -5,33 +5,42 @@
         <title th:text="${page.pageTitle} + ' - ' + ${siteName}">DM 4 Page</title>
 
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+        <!-- See http://schema.org/WebPage -->
+        <meta itemprop="name" th:content="${page.pageTitle}"/>
+        <meta itemprop="description" th:content="${page.description}"/>
+        <meta itemprop="url" th:content="${hostUrl} + ${username} + '/' + ${page.webAlias}"/>
+        <meta itemprop="dateCreated" th:content="${dateCreated}"/>
+        <meta itemprop="dateModified" th:content="${dateModified}"/>
+        <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
         
-        <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
-        <link media="all" th:href="${customCssPath}" th:if="${customCssPath}" href="" rel="stylesheet" />
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
     </head>
     <body class="page">
         
-        <div id="header">
+        <header>
             <div class="welcome">
-                <h1 th:text="${page.pageTitle}"></h1>
+                <h1 itemprop="headline" th:utext="${page.pageTitle}"></h1>
             </div>
-            <!--div id="map"></div-->
-        </div>
+        </header>
         
-        <div class="story">
-            <div class="text" th:utext="${page.pageHtmlText}"></div>
-            <div class="metadata" th:unless="${#strings.isEmpty(page.authorNames)}">
-                Author/s: <span class="text" th:text="${page.authorNames}"></span><br/>
+        <article itemprop="mainContentOfPage" itemtype="http://schema.org/WebPageElement">
+            <div class="main">
+                <div class="text" itemprop="text" th:utext="${page.mainHTML}">
+
+                </div>
+                <div class="metadata">
+                    <div th:unless="${#strings.isEmpty(page.authorNames)}">
+                        <!--meta itemprop="author" itemtype="http://schema.org/Person" /-->
+                            <!-- meta itemprop="name" content="" /-->
+                        Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                    </div>
+                    <span class="label">Created:</span><span class="created value" th:text="${#dates.format(page.creationDate)}"></span>
+                    <span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                </div>
             </div>
-            <div class="metadata">
-                <!-- Last modified: <span class="text" th:text="${page.pageModificationDate}"></span><br/>
-                Created: <span class="text" th:text="${page.pageCreationDate}"></span>-->
-                Last modified: <span class="text" th:text="${#dates.format(page.pageModificationDate)}"></span><br/>
-                Created: <span class="text" th:text="${#dates.format(page.pageCreationDate)}"></span>
-            </div>
-        </div>
+        </article>
 
         <div class="pages-menu">
             <ul>
@@ -41,7 +50,15 @@
             </ul>
         </div>
 
-        <div class="footer" th:utext="${footerText}"></div>
+        <footer>
+            <div class="main" th:utext="${footerText}"></div>
+            <div class="debug" itemprop="isPartOf" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+            </div>
+        </footer>
 
         <!-- ### Support for fragments needed div th:include="copy-fragment :: copy"></div-->
 

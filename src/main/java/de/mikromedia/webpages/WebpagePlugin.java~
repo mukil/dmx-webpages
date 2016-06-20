@@ -23,12 +23,9 @@ import java.util.logging.Logger;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Simple HTML webpages with DeepaMehta 4.
@@ -46,16 +43,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Inject AccessControlService acService;
     @Inject WorkspacesService workspacesService;
 
-    private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
-    private TimeZone tz = TimeZone.getTimeZone("UTC");
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
-
     String frontPageResourceName = null, bundleContextUri = null;
 
     @Override
     public void init() {
         initTemplateEngine();
-        df.setTimeZone(tz);
     }
 
     @Override
@@ -76,7 +68,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             handleWebsiteRedirects(adminsWebsite, "/"); // potentially throws WebAppException triggering a Redirect
             // 3) Fetch some static default HTML..
             // fetch "admins" website globals for any of these templates
-            prepareSiteTemplate(adminsWebsite);
+            prepareTemplateSiteData(adminsWebsite);
             // ### fetch all pages with title and stuff **/
             return getStaticResource("/views/welcome.html");
         }
@@ -121,6 +113,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
+<<<<<<< HEAD
     public Viewable getPageView(@PathParam("username") String username,
             @PathParam("pageWebAlias") String pageAlias) {
         log.info("Request Page /" + username + "/" + pageAlias);
@@ -128,16 +121,31 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic usersWebsite = getWebsiteTopic(username);
         log.fine("Load website \"" + usersWebsite.getSimpleValue() + "\"");
         // 1) fetch website globals for any of these templates
-        prepareSiteTemplate(usersWebsite);
+        prepareTemplateSiteData(usersWebsite);
         // 2) check related webpages
         Topic pageAliasTopic = getWebpageByAlias(usersWebsite, pageAlias);
         if (pageAliasTopic != null) {
             WebpageViewModel page = new WebpageViewModel(pageAliasTopic);
-            if (!page.isDraft()) {
-                return preparePageTemplate(pageAliasTopic);
-            } else if (page.isDraft()) {
+            if (page.isPublished()) {
+                viewData("page", page);
+                return view("page");
+            } else if (!page.isPublished()) {
                 log.fine("401 => /" + pageAlias + " is yet unpublished.");
                 return view("401");
+=======
+    public Viewable getPageView(@PathParam("username") String username, @PathParam("pageWebAlias") String pageAlias) {
+        log.info("Requested Page /" + username + "/" + pageAlias);
+        // 0) Fetch users website topic
+        Topic usersWebsite = getWebsiteTopic(username);
+        if (usersWebsite != null) {
+            log.fine("Loaded website \"" + usersWebsite.getSimpleValue() + "\"");
+            // 1) fetch website globals for any of these templates
+            prepareSiteTemplate(usersWebsite);
+            // 2) check related webpages
+            Topic pageAliasTopic = getWebpageByAlias(usersWebsite, pageAlias);
+            if (pageAliasTopic != null) {
+                return preparePageTemplate(pageAliasTopic);
+>>>>>>> master
             }
         }
         log.fine("=> /" + pageAlias + " webpage for \"" +username+ "\"s website not found.");
@@ -158,11 +166,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         ArrayList<WebpageViewModel> result = new ArrayList();
         Topic website = getWebsiteTopic(username);
         if (website != null) {
-            List<RelatedTopic> pages = website.getRelatedTopics("dm4.core.association", "dm4.core.default",
+            ist<RelatedTopic> pages = website.getRelatedTopics("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "de.mikromedia.page");
             Iterator<RelatedTopic> iterator = pages.iterator();
             while (iterator.hasNext()) {
-                WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
+                WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dms);
                 if (!page.isDraft()) result.add(page);
             }
         }
@@ -264,12 +272,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @param websiteTopic
      */
     private void prepareSiteTemplate(Topic websiteTopic) {
-        viewData("hostUrl", DM4_HOST_URL);
         viewData("siteName", getCustomSiteTitle(websiteTopic));
-        viewData("siteCaption", getCustomSiteCaption(websiteTopic));
-        viewData("siteAbout", getCustomSiteAboutHTML(websiteTopic));
         viewData("footerText", getCustomSiteFooter(websiteTopic));
-        viewData("customSiteCss", getCustomCSSPath(websiteTopic));
+        viewData("customCssPath", getCustomCSSPath(websiteTopic));
         viewData("menuItems", getActiveMenuItems(websiteTopic));
     }
 
@@ -280,9 +285,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                 log.fine("401 => /" + webAliasTopic.getSimpleValue() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
-                viewData("customPageCss", page.getStylesheet());
-                viewData("dateCreated", df.format(page.getCreationDate()));
-                viewData("dateModified", df.format(page.getModificationDate()));
                 viewData("page", page);
                 return view("page");
             }
@@ -302,7 +304,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         if (usernameTopic != null) {
              website = usernameTopic.getRelatedTopic("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "de.mikromedia.site");
-            viewData("username", usernameTopic.getSimpleValue().toString());
             if (website == null) {
                 // create a new website topic
                 log.info("Webpages Module creates a ### NEW WEBSITE ### upon request for " + username);
@@ -335,16 +336,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private String getCustomSiteFooter(Topic site) {
         site.loadChildTopics("de.mikromedia.site.footer_html");
         return site.getChildTopics().getString("de.mikromedia.site.footer_html");
-    }
-
-    private String getCustomSiteCaption(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.caption");
-        return site.getChildTopics().getStringOrNull("de.mikromedia.site.caption");
-    }
-
-    private String getCustomSiteAboutHTML(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.about_html");
-        return site.getChildTopics().getStringOrNull("de.mikromedia.site.about_html");
     }
 
     private String getCustomSiteTitle(Topic site) {

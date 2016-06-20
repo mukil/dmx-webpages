@@ -1,148 +1,51 @@
 
-@-o-viewport {
-    width: device-width;
-    zoom: 1;
-}
+/** @-o-viewport {
+    width: device-width; zoom: 1;
+} **/
 
-// ------------------------------------------------------- Basic page styles
+/** --------------------------------------------------- Basic page styles */
 
-body, .serif {
-    font-size: 16px;
-    font-family: "Cambria", "Georgia", "Times", serif;
-}
-
-textarea, input, select, .story {
-    font-size: 16px;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
-
-blockquote {
-    margin-left: 0px;
-}
-
-blockquote p {
-    font-family: "Courier New";
-    color: rgb(0, 40, 86);
-    background-color: #fff;
-    padding: 11px 10px 10px 10px;
-    border: 1px solid rgba(0, 40, 86, 0.4);
-    font-size: .9em;
-}
-
-.page .metadata {
-    font-size: .8em;
-    color: #686868;
-    margin-bottom: 15px;
-}
-
-.page .metadata .text {
-    color: #343434;
-}
-
-.page .metadata h3 {
-    color: #686868;
-}
-
-#header, .story {
-    padding: 15px; padding-left: 30px;
-    background-color: #EAEAEA;
-}
-
-.story .text {
-    margin-bottom: 50px;
-}
-
-.page .logo {
-    margin: auto;
-}
-
-.page .debug {
-    display: none;
-}
-
-.padding {
-    padding: 15px;
-}
-
-.center {
-    text-align: center;
-}
-
-.page select,
-.page input[type="button"],
-.page button {
-    cursor: pointer;
-}
-
-.page select,
-.page textarea,
-.page input {
-    padding-left: 7px;
-    padding: 4px;
-}
-
-.page textarea {
-    width: 75%;
-}
-
-.page .footer {
-    margin: 15px 0px;
-    width: 100%;
-    padding: 15px 0px;
-    text-align: center;
-    background: #fff;
-    padding-right: 0px;
-}
-
-.page .footer h2, 
-.page .footer h3,
-.page .footer p {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.page .footer a {
-    font-style: italic;
-}
-
-.not-found .footer,
-.denied .footer {
-    opacity: .3;
-}
 
 html, body {
     background-color: #fff;
     padding: 0px;
     margin: 0px;
     height: 100%;
+    color: #232323;
+}
+
+.value {
+    color: #232323;
+}
+
+body, .serif {
+    font-size: 16px;
+    font-family: "Cambria", "Georgia", "Times", serif;
 }
 
 h3 {
     color: #002856;
 }
 
-.leaflet-container a {
-    color: #002856;
-}
-
-.leaflet-container a:hover {
-    color: #8F1414;
-}
-
 a {
+    font-style: italic;
     color: #002856;
     text-decoration: underline;
     text-decoration-color: #8f1414;
 }
 
+.label {
+    margin-right: 4px;
+}
+
 .pages-menu {
     position: relative;
-    top: 30px;
+    top: 2em;
     font-size: 1.2em;
     text-align: left;
     width: 90%;
     margin: auto;
-    padding: 15px;
+    padding: 1em;
     text-align: center;
 }
 
@@ -160,7 +63,7 @@ a {
     padding-right: 10px;
     margin-right: 5px;
     margin-left: 5px;
-    margin-top: 15px;
+    margin-top: 1em;
 }
 
 .pages-menu ul li a {
@@ -172,64 +75,87 @@ a {
     text-decoration-color: #8f1414;
 }
 
-
-// ----------------------------------- Leaflet specific styles
-
-
-.leaflet-popup-content-wrapper .item {
-    border-bottom: 2px solid #e9e9e9; padding: 5px;
-    cursor: pointer; margin-top: 2px;
+textarea,
+input,
+select,
+.story,
+.sans {
+    font-size: 16px;
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
-.leaflet-left .leaflet-control {
+textarea,
+input,
+select,
+option {
+    padding: 4px 0.5em 4px;
+}
+
+blockquote {
     margin-left: 0px;
-    /** border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff; **/
 }
 
-.leaflet-control-zoom a {
+blockquote p {
+    font-family: "Courier New";
+    color: rgb(0, 40, 86);
     background-color: #fff;
-    padding: 3px;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
+    padding: 11px 10px 10px 10px;
+    border: 1px solid rgba(0, 40, 86, 0.4);
+    font-size: .9em;
 }
 
-.leaflet-control-zoom {
-    /* background-color: #388fd0; **/
-    background: none;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
+.welcome {
+    background-color: #EAEAEA;
+    padding: 1em 2em .1em;
 }
 
-.leaflet-editing-icon.leaflet-move {
-    cursor: move;
+.welcome h1 {
+    margin-bottom: 0em;
 }
 
-.leaflet-editing-icon.leaflet-radius {
-    cursor: ew-resize;
+.main {
+    padding: 1em 2em 1em;
+    background-color: #EAEAEA;
 }
 
-.leaflet-radius-control {
-    cursor: auto;
+header .text,
+article .text {
+    margin-bottom: 50px;
+    line-height: 1.5em;
+    font-size: 1.2em;
 }
 
-.leaflet-tile {
-    filter: blur(3px);
-}
-.leaflet-tile.leaflet-tile-loaded {
-    filter: blur(0);
-    transition: .3s all ease-in;
+.metadata h3,
+.metadata {
+    color: #464646;
+    margin-bottom: 1em;
 }
 
-.leaflet-control-zoom.leaflet-control {
-    margin-top: 15px;
-    z-index: 98;
+.logo {
+    margin: auto;
 }
 
-.leaflet-container g path {
-    transition: fill .75s;
+.debug {
+    display: none;
+}
+
+.padding {
+    padding: 1em;
+}
+
+.center {
+    text-align: center;
+}
+
+select,
+input[type="button"],
+button {
+    cursor: pointer;
+}
+
+.not-found footer,
+.denied footer {
+    opacity: .3;
 }
 
 /** Portrait, most smartphones. */
@@ -244,26 +170,25 @@ a {
 }
 
 @media(max-width:900px) {
-    #header .welcome p {
+    header .welcome p {
         width: 75%;
         margin: auto;
         margin-bottom: 25px;
-        margin-top: 15px;
+        margin-top: 1em;
+    }
+    article .text img {
+        max-width: 100%;
+        height: auto;
     }
 }
 
 @media (max-width:600px) {
-    #header {
+    header {
         top: 10px;
-        text-align: left;
     }
-    #header .welcome p {
+    header .welcome p {
         display: inline-block;
         width: 100%;
         margin-bottom: 0px;
     }
-}
-
-@media (max-height:810px) {
-
 }
