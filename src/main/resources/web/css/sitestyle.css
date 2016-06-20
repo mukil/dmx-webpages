@@ -158,6 +158,10 @@ button {
     opacity: .3;
 }
 
+footer .main {
+    background-color: #fff;
+}
+
 /** Portrait, most smartphones. */
 @media(min-width: 1600px) {
 
