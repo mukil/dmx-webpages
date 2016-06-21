@@ -25,7 +25,7 @@
             </div>
         </header>
         
-        <article itemprop="mainContentOfPage" itemtype="http://schema.org/WebPageElement">
+        <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
             <div class="main">
                 <div class="text" itemprop="text" th:utext="${page.mainHTML}">
 
@@ -52,7 +52,7 @@
 
         <footer>
             <div class="main" th:utext="${footerText}"></div>
-            <div class="debug" itemprop="isPartOf" itemtype="http://schema.org/WebSite">
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
                 <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>

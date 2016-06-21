@@ -91,19 +91,6 @@ option {
     padding: 4px 0.5em 4px;
 }
 
-blockquote {
-    margin-left: 0px;
-}
-
-blockquote p {
-    font-family: "Courier New";
-    color: rgb(0, 40, 86);
-    background-color: #fff;
-    padding: 11px 10px 10px 10px;
-    border: 1px solid rgba(0, 40, 86, 0.4);
-    font-size: .9em;
-}
-
 .welcome {
     background-color: #EAEAEA;
     padding: 1em 2em .1em;
@@ -123,6 +110,22 @@ article .text {
     margin-bottom: 50px;
     line-height: 1.5em;
     font-size: 1.2em;
+}
+
+article .text pre.code-block {
+    font-family: "Courier New";
+    color: rgb(0, 40, 86);
+    background-color: #fff;
+    padding: 1em;
+    border: 1px solid rgba(0, 40, 86, 0.4);
+    font-size: .8em;
+}
+
+article .text .blockquote {
+    margin-left: 0px;
+    font-style: italic;
+    font-size: 1.2em;
+    padding: 1em;
 }
 
 .metadata h3,

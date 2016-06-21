@@ -5,26 +5,38 @@
         <title>Internal server error - 500</title>
 
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+        <meta itemprop="name" content="Internal server error"/>
+        <meta itemprop="description" content="Internal server error"/>
+        <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
         
-        <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
     </head>
     <body class="page denied">
-        
-        <div id="header">
+
+        <header>
             <div class="welcome">
                 <h1>500</h1>
                 <h3>Sorry, the server experienced an internal error.</h3>
             </div>
-            <!--div id="map"></div-->
-        </div>
-        
-        <div class="story">
-            <div class="text" th:text="${message}"></div>
-        </div>
+        </header>
 
-        <div class="footer" th:utext="${footerText}"></div>
+        <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+            <div class="main">
+                <div class="text" itemprop="text" th:utext="${message}"></div
+            </div>
+        </article>
+
+        <footer>
+            <div class="main" th:utext="${footerText}"></div>
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+            </div>
+        </footer>
 
     </body>
 </html>

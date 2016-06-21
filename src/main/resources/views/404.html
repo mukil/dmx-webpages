@@ -2,29 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Not found - 404</title>
+        <title>Page not found - 404</title>
 
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+        <meta itemprop="name" content="Page not found"/>
+        <meta itemprop="description" content="Page not found"/>
         
-        <link media="all" href="/de.mikromedia.webpages/css/sitestyle.css" rel="stylesheet" />
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
     </head>
     <body class="page not-found">
-        
-        <div id="header">
+
+        <header>
             <div class="welcome">
                 <h1>404</h1>
                 <h3>Sorry, we couldn't find any page at this resource.</h3>
             </div>
-            <!--div id="map"></div-->
-        </div>
-        
-        <div class="story">
-            <div class="text"></div>
-        </div>
+        </header>
 
-        <div class="footer" th:utext="${footerText}"></div>
+        <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+            <div class="main">
+                <div class="text" itemprop="text" th:utext="${message}"></div
+            </div>
+        </article>
+
+        <footer>
+            <div class="main" th:utext="${footerText}"></div>
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+            </div>
+        </footer>
 
     </body>
 </html>
+
