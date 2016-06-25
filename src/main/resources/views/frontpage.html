@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Welcome</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+        
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+
+
+    </head>
+    <body class="page front">
+        
+        <header>
+            <div class="welcome">
+                <h1 itemprop="name" th:utext="${siteName}"></h1>
+                <h3 itemprop="headline" th:utext="${siteCaption}"></h3>
+            </div>
+        </header>
+
+        <div class="index">
+            <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'">
+                <h3>
+                    <a th:href="${hostUrl} + ${username} + '/' + ${page.webAlias}" th:text="${page.pageTitle}">Title of page</a>
+                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                </h3>
+                <p th:text="${page.description}">Description of Page</p>
+                <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
+            </article>
+        </div>
+        
+        <div class="pages-menu">
+            <ul>
+                <li th:each="item : ${menuItems}">
+                    <a th:text="${item.label}" th:href="${item.href}">Menu item</a>
+                </li>
+            </ul>
+        </div>
+
+        <footer>
+            <div class="main" th:utext="${footerText}"></div>
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+            </div>
+        </footer>
+
+    </body>
+</html>
