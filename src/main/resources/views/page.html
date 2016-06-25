@@ -22,6 +22,7 @@
         <header>
             <div class="welcome">
                 <h1 itemprop="headline" th:utext="${page.pageTitle}"></h1>
+                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
             </div>
         </header>
         
@@ -36,7 +37,6 @@
                             <!-- meta itemprop="name" content="" /-->
                         Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
                     </div>
-                    <span class="label">Created:</span><span class="created value" th:text="${#dates.format(page.creationDate)}"></span>
                     <span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import de.mikromedia.webpages.models.WebpageViewModel;
 
 import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.accesscontrol.AccessControlService;
+import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
 import javax.ws.rs.GET;
@@ -20,7 +21,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import java.util.logging.Logger;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
@@ -66,20 +66,23 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public InputStream getFrontpageView() {
+    public Viewable getFrontpageView() {
         // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873
         // 1) check if a custom frontpage was registered by another plugin
-        if (frontPageResourceName != null && bundleContextUri != null) {
-            return dm4.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
-        } else { // 2) check if there is a redirect of user "admin" set on "/"
-            Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME);
-            handleWebsiteRedirects(adminsWebsite, "/"); // potentially throws WebAppException triggering a Redirect
-            // 3) Fetch some static default HTML..
-            // fetch "admins" website globals for any of these templates
-            prepareSiteTemplate(adminsWebsite);
-            // ### fetch all pages with title and stuff **/
-            return getStaticResource("/views/welcome.html");
-        }
+        /** if (frontPageResourceName != null && bundleContextUri != null) {
+            // return dm4.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
+        } else { // 2) check if there is a redirect of user "admin" set on "/"*/
+            return getFrontpageView(AccessControlService.ADMIN_USERNAME);
+        // }
+    }
+
+    public Viewable getFrontpageView(@PathParam("username") String username) {
+        Topic usersWebsite = getWebsiteTopic(username);
+        handleWebsiteRedirects(usersWebsite, "/"); // potentially throws WebAppException triggering a Redirect
+        prepareSiteTemplate(usersWebsite);
+        viewData("username", username);
+        viewData("pages", getPublishedWebpages(username)); // sort by creation or modification date
+        return view("frontpage");
     }
 
     /**
@@ -94,19 +97,24 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Path("/{pageWebAlias}")
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
         log.fine("Requested Global Page /" + webAlias);
-        // 0) prepare admin website
+        // 0) check if webAlias is username
+        Topic username = dm4.getTopicByValue("dm4.accesscontrol.username", new SimpleValue(webAlias.trim()));
+        if (username != null) {
+            return getFrontpageView(webAlias);
+        }
+        // 1) prepare admin website
         Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME);
         prepareSiteTemplate(adminsWebsite);
-        // 1) is webpage of admin
+        // 2) is webpage of admin
         Topic webpageAliasTopic = getWebpageByAlias(adminsWebsite, webAlias);
         if (webpageAliasTopic != null) {
             return preparePageTemplate(webpageAliasTopic);
         }
         log.fine("=> /" + webAlias + " webpage for admins website not found.");
-        // 2) is redirect of admin
+        // 3) is redirect of admin
         handleWebsiteRedirects(adminsWebsite, webAlias);
         log.fine("=> /" + webAlias + " webpage redirect for admins website not found.");
-        // 3) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
+        // 4) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
         return view("404");
     }
 
@@ -148,6 +156,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return view("404");
     }
 
+
+
+    /** --------------------------------------------------------------------------------- REST API Resources ----- **/
     /** Lists all currently published webpages for the users website. */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

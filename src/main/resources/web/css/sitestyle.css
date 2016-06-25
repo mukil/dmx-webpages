@@ -14,24 +14,62 @@ html, body {
     color: #232323;
 }
 
-.value {
-    color: #232323;
-}
-
 body, .serif {
     font-size: 16px;
     font-family: "Cambria", "Georgia", "Times", serif;
 }
 
-h3 {
+.page.front {
+    background-color: #EAEAEA;
+}
+
+header {
+    padding: 1em 2em 1em;
+    background-color: #EAEAEA;
+}
+
+header h1 {
+    margin-bottom: 0em;
+}
+
+.page header h1 {
     color: #002856;
 }
 
+.page.front header h1 {
+    color: #343434;
+}
+
+h3 {
+    color: rgba(0, 40, 86, 0.95);
+    font-size: 1.3em;
+}
+
 a {
-    font-style: italic;
+    font-weight: normal;
     color: #002856;
     text-decoration: underline;
     text-decoration-color: #8f1414;
+}
+
+article .text a:hover {
+    color: #8f1414;
+}
+
+.value {
+    color: #232323;
+}
+
+h3 .value {
+    color: #232323;
+    margin-left: 1em;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+header .value {
+    font-size: 1.2em;
 }
 
 .label {
@@ -40,13 +78,10 @@ a {
 
 .pages-menu {
     position: relative;
-    top: 2em;
     font-size: 1.2em;
     text-align: left;
-    width: 90%;
     margin: auto;
     padding: 1em;
-    text-align: center;
 }
 
 .pages-menu ul {
@@ -57,17 +92,17 @@ a {
 
 .pages-menu ul li {
     display: inline-block;
-    background-color: #EAEAEA;
-    padding: 7px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 5px;
-    margin-left: 5px;
-    margin-top: 1em;
+    margin: 1em 0.5em;
+}
+
+.front .pages-menu ul li a {
+    background-color: #fff;
 }
 
 .pages-menu ul li a {
     text-decoration: none;
+    padding: 0.5em 0.7em 0.5em;
+    background-color: #EAEAEA;
 }
 
 .pages-menu ul li:hover a {
@@ -91,15 +126,7 @@ option {
     padding: 4px 0.5em 4px;
 }
 
-.welcome {
-    background-color: #EAEAEA;
-    padding: 1em 2em .1em;
-}
-
-.welcome h1 {
-    margin-bottom: 0em;
-}
-
+.index,
 .main {
     padding: 1em 2em 1em;
     background-color: #EAEAEA;
@@ -177,7 +204,7 @@ footer .main {
 }
 
 @media(max-width:900px) {
-    header .welcome p {
+    header p {
         width: 75%;
         margin: auto;
         margin-bottom: 25px;
@@ -193,7 +220,7 @@ footer .main {
     header {
         top: 10px;
     }
-    header .welcome p {
+    header p {
         display: inline-block;
         width: 100%;
         margin-bottom: 0px;
