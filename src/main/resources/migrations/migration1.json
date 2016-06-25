@@ -447,7 +447,7 @@
             "uri" : "de.mikromedia.standard_site",
             "childs": {
                 "de.mikromedia.site.name" : "Standard Website",
-                "de.mikromedia.site.stylesheet": "/de.mikromedia.webpages/css/sitestyle.css",
+                "de.mikromedia.site.stylesheet": "/de.mikromedia.webpages/css/standard-grey.css",
                 "de.mikromedia.site.footer_html" : "<p class=\"attribution\">Published with the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>"
             }
         },

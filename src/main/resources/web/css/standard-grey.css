@@ -81,7 +81,7 @@ header .value {
     font-size: 1.2em;
     text-align: left;
     margin: auto;
-    padding: 1em;
+    padding: 1em 1em 0em;
 }
 
 .pages-menu ul {
