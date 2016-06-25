@@ -26,7 +26,7 @@
                     <a th:href="${hostUrl} + ${username} + '/' + ${page.webAlias}" th:text="${page.pageTitle}">Title of page</a>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                 </h3>
-                <p th:text="${page.description}">Description of Page</p>
+                <p class="text" th:text="${page.description}">Description of Page</p>
                 <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
             </article>
         </div>
