@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.Callable;
+import javax.ws.rs.core.Response.Status;
 import org.osgi.framework.Bundle;
 
 /**
@@ -82,7 +84,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
     
     public Viewable getFrontpageView(@PathParam("username") String username) {
-        Topic usersWebsite = getWebsiteTopic(username);
+        Topic usersWebsite = getOrCreateWebsiteTopic(username);
         handleWebsiteRedirects(usersWebsite, "/"); // potentially throws WebAppException triggering a Redirect
         prepareSiteTemplate(usersWebsite);
         viewData("username", username);
@@ -108,7 +110,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             return getFrontpageView(username.getSimpleValue().toString());
         }
         // 1) prepare admin website
-        Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME);
+        Topic adminsWebsite = getOrCreateWebsiteTopic(AccessControlService.ADMIN_USERNAME);
         prepareSiteTemplate(adminsWebsite);
         // 2) is webpage of admin
         Topic webpageAliasTopic = getWebpageByAlias(adminsWebsite, webAlias);
@@ -138,7 +140,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             @PathParam("pageWebAlias") String pageAlias) {
         log.info("Request Page /" + username + "/" + pageAlias);
         // 0) Fetch users website topic
-        Topic usersWebsite = getWebsiteTopic(username);
+        Topic usersWebsite = getOrCreateWebsiteTopic(username);
         log.fine("Load website \"" + usersWebsite.getSimpleValue() + "\"");
         // 1) fetch website globals for any of these templates
         prepareSiteTemplate(usersWebsite);
@@ -172,7 +174,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         log.info("Listing all published webpages for \"" + username + "\"");
         // fetch all pages with title and all childs
         ArrayList<WebpageViewModel> result = new ArrayList();
-        Topic website = getWebsiteTopic(username);
+        Topic website = getOrCreateWebsiteTopic(username);
         if (website != null) {
             List<RelatedTopic> pages = website.getRelatedTopics("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "de.mikromedia.page");
@@ -192,34 +194,66 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic topic = acService.getUsernameTopic(username);
         Topic website = null;
         if (topic != null && topic.getSimpleValue().toString().equals(acService.getUsername())) {
-            website = getWebsiteTopic(username);
+            website = getOrCreateWebsiteTopic(username);
         }
         return website;
     }
 
-    // --- Hooks
-
-    /** @Override
-    public void postCreateTopic(Topic topic) {
-        // ### Try this with reacting upon "dm4.accesscontrol.user_account" creation.
-        if (topic.getTypeUri().equals("dm4.accesscontrol.user_account")) {
-            log.info("User Account Creation Post Create Listener: " + topic.toJSON().toString());
-            topic.loadChildTopics("dm4.accesscontrol.username");
-            Topic username = topic.getChildTopics().getTopic("dm4.accesscontrol.username");
-            // create an empty website topic for the new user
-            // TODO: Write migration covering the following setup for existing user accounts, too!
-            Topic website = getWebsiteTopic(username.getSimpleValue().toString());
-            log.info("Trying to fetch private workspace of new user: " + username.getSimpleValue().toString());
-            // Fails currently, see https://trac.deepamehta.de/ticket/889 for details
-            Topic privateWorkspace = dm4.getAccessControl().getPrivateWorkspace(username.getSimpleValue().toString());
-            workspacesService.assignToWorkspace(website, privateWorkspace.getId());
-            // associate an empty website topic to the new username topic
-            Association assoc = createWebsiteUsernameAssociation(username, website);
-            workspacesService.assignToWorkspace(assoc, privateWorkspace.getId());
+    @GET
+    @Path("/website/{username}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hasWebsiteByUsername(@PathParam("username") String username) throws WebApplicationException {
+        Topic topic = acService.getUsernameTopic(username);
+        if (topic != null && topic.getSimpleValue().toString().equals(acService.getUsername())) {
+            if (getWebsiteTopicAssociated(topic) != null) {
+                throw new WebApplicationException(Response.status(Status.OK).build());
+            }
         }
-    } */
+        throw new WebApplicationException(Response.status(Status.NOT_FOUND).build());
+    }
 
     // --- Private Utility Methods
+
+    private Topic getWebsiteTopicAssociated(Topic username) {
+        return username.getRelatedTopic("dm4.core.association", "dm4.core.default",
+                    "dm4.core.default", "de.mikromedia.site");
+    }
+
+    private Topic createWebsiteTopic(final Topic username) {
+        DeepaMehtaTransaction tx = dm4.beginTx();
+        Topic website = null;
+        try {
+            final Topic websiteTopic = dm4.getAccessControl().runWithoutWorkspaceAssignment(new Callable<Topic>() {
+                @Override
+                public Topic call() {
+                    Topic topic = dm4.createTopic(mf.newTopicModel("de.mikromedia.site", mf.newChildTopicsModel()
+                        .put("de.mikromedia.site.name", "My collection of webpages")
+                        .putRef("de.mikromedia.site.stylesheet", "de.mikromedia.standard_site_style")
+                        .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the"
+                            + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">"
+                            + "dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>")
+                    ));
+                    Topic usersWorkspace = dm4.getAccessControl().getPrivateWorkspace(username.getSimpleValue().toString());
+                    dm4.getAccessControl().assignToWorkspace(topic.getChildTopics().getTopic("de.mikromedia.site.name"), usersWorkspace.getId());
+                    dm4.getAccessControl().assignToWorkspace(topic.getChildTopics().getTopic("de.mikromedia.site.stylesheet"), usersWorkspace.getId());
+                    dm4.getAccessControl().assignToWorkspace(topic.getChildTopics().getTopic("de.mikromedia.site.footer_html"), usersWorkspace.getId());
+                    Association userWebsiteRelation = createWebsiteUsernameAssociation(username, topic);
+                    dm4.getAccessControl().assignToWorkspace(userWebsiteRelation, usersWorkspace.getId());
+                    dm4.getAccessControl().assignToWorkspace(topic, usersWorkspace.getId());
+                    return topic;
+                }
+            });
+            log.info("Created a NEW website topic (ID: " + website.getId() + ") in \"Private Workspace\" of \"" + username.getSimpleValue() + "\"");
+            tx.success();
+            tx.finish();
+            website = websiteTopic;
+        } catch (Exception e) {
+            tx.failure();
+            tx.finish();
+            throw new RuntimeException(e);
+        }
+        return website;
+    }
 
     private Association createWebsiteUsernameAssociation(Topic usernameTopic, Topic website) {
         return dm4.createAssociation(mf.newAssociationModel("dm4.core.association",
@@ -324,39 +358,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @param username
      * @return
      */
-    private Topic getWebsiteTopic(String username) {
-        Topic usernameTopic = acService.getUsernameTopic(username);
+    private Topic getOrCreateWebsiteTopic(final String username) {
+        final Topic usernameTopic = acService.getUsernameTopic(username);
         Topic website = null;
         if (usernameTopic != null) {
-            website = usernameTopic.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                    "dm4.core.default", "de.mikromedia.site");
+            website = getWebsiteTopicAssociated(usernameTopic);
             viewData("username", usernameTopic.getSimpleValue().toString());
-            // Either return website topic
-            if (website != null) return website;
-            // OR create a new private standard website topic plus its relation to a user name topic
-            DeepaMehtaTransaction tx = dm4.beginTx();
-            try {
-                website = dm4.createTopic(mf.newTopicModel("de.mikromedia.site", mf.newChildTopicsModel()
-                    .put("de.mikromedia.site.name", "My collection of webpages")
-                    .putRef("de.mikromedia.site.stylesheet", "de.mikromedia.standard_site_style")
-                    .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the"
-                        + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">"
-                        + "dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>")
-                ));
-                // Topic usersWorkspace = dm4.getAccessControl().getPrivateWorkspace(username);
-                // dm4.getAccessControl().assignToWorkspace(website, usersWorkspace.getId());
-                createWebsiteUsernameAssociation(usernameTopic, website); // Association userWebsiteRelation = 
-                // dm4.getAccessControl().assignToWorkspace(userWebsiteRelation, usersWorkspace.getId());
-                log.info("Created a NEW website topic (ID: " + website.getId() + ") for " + username);
-                tx.success();
-                tx.finish();
-            } catch (Exception e) {
-                tx.failure();
-                tx.finish();
-                throw new RuntimeException(e);
+            if (website == null) {
+                // create new Website Topic
+                website = createWebsiteTopic(usernameTopic);
+            } else {
+                // return existing website topic
+                return website;
             }
         }
-        log.info("Website topic currently assigned to Workspace \"" +workspacesService.getAssignedWorkspace(website.getId()).getSimpleValue().toString());
+        log.info("Fetched Website topic for "+username+ ", assigned to Workspace ID: \""
+            + workspacesService.getAssignedWorkspace(website.getId()).getId() + "\"");
         return website;
     }
 
