@@ -1,14 +1,18 @@
 package de.mikromedia.webpages;
 
 import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.Inject;
 import de.mikromedia.webpages.models.MenuItemViewModel;
 import de.mikromedia.webpages.models.WebpageViewModel;
 
 import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.accesscontrol.AccessControlService;
+
+import de.deepamehta.core.Association;
+import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
+import de.deepamehta.core.service.accesscontrol.SharingMode;
+import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
 import javax.ws.rs.GET;
@@ -29,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+import org.osgi.framework.Bundle;
 
 /**
  * Simple HTML webpages with DeepaMehta 4.
@@ -46,36 +51,36 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Inject AccessControlService acService;
     @Inject WorkspacesService workspacesService;
 
+    public static final String WEBPAGES_WS_URI = "de.mikromedia.webpages_ws";
+    public static final String WEBPAGES_WS_NAME = "Webpages";
+    public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
+
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
     private TimeZone tz = TimeZone.getTimeZone("UTC");
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
-    String frontPageResourceName = null, bundleContextUri = null;
+    String frontPageTemplateName = null;
 
     @Override
     public void init() {
+        log.info("Initializing Webpages Thymeleaf Template Engine");
         initTemplateEngine();
         df.setTimeZone(tz);
     }
 
-    @Override
-    public void setFrontpageResource(String fileName, String bundleUri) {
-        this.frontPageResourceName = fileName;
-        this.bundleContextUri = bundleUri;
-    }
-
     @GET
+    @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public Viewable getFrontpageView() {
         // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873
         // 1) check if a custom frontpage was registered by another plugin
-        /** if (frontPageResourceName != null && bundleContextUri != null) {
-            // return dm4.getPlugin(bundleContextUri).getStaticResource(frontPageResourceName);
-        } else { // 2) check if there is a redirect of user "admin" set on "/"*/
+        if (frontPageTemplateName != null) {
+            return view(frontPageTemplateName);
+        } else { // 2) check if there is a redirect of user "admin" set on "/"
             return getFrontpageView(AccessControlService.ADMIN_USERNAME);
-        // }
+        }
     }
-
+    
     public Viewable getFrontpageView(@PathParam("username") String username) {
         Topic usersWebsite = getWebsiteTopic(username);
         handleWebsiteRedirects(usersWebsite, "/"); // potentially throws WebAppException triggering a Redirect
@@ -100,7 +105,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 0) check if webAlias is username
         Topic username = dm4.getTopicByValue("dm4.accesscontrol.username", new SimpleValue(webAlias.trim()));
         if (username != null) {
-            return getFrontpageView(webAlias);
+            return getFrontpageView(username.getSimpleValue().toString());
         }
         // 1) prepare admin website
         Topic adminsWebsite = getWebsiteTopic(AccessControlService.ADMIN_USERNAME);
@@ -180,6 +185,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return result;
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/website/{username}")
+    public Topic getWebsiteByUsername(@PathParam("username") String username) {
+        Topic topic = acService.getUsernameTopic(username);
+        Topic website = null;
+        if (topic != null && topic.getSimpleValue().toString().equals(acService.getUsername())) {
+            website = getWebsiteTopic(username);
+        }
+        return website;
+    }
+
     // --- Hooks
 
     /** @Override
@@ -200,7 +217,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             Association assoc = createWebsiteUsernameAssociation(username, website);
             workspacesService.assignToWorkspace(assoc, privateWorkspace.getId());
         }
-    }
+    } */
 
     // --- Private Utility Methods
 
@@ -208,7 +225,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return dm4.createAssociation(mf.newAssociationModel("dm4.core.association",
                 mf.newTopicRoleModel(usernameTopic.getId(), "dm4.core.default"),
                 mf.newTopicRoleModel(website.getId(), "dm4.core.default")));
-    }**/
+    }
 
     /**
      * If a topic of type <code>de.mikromedia.redirect</code> is simply associated with the given `Website` topic,
@@ -303,7 +320,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
-     * Returns a topic of type <code>de.mikromedia.site</code> for the given `username` or null.
+     * Returns a topic of type <code>de.mikromedia.site</code> for the given `username`, if none found creates one.
      * @param username
      * @return
      */
@@ -311,17 +328,35 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic usernameTopic = acService.getUsernameTopic(username);
         Topic website = null;
         if (usernameTopic != null) {
-             website = usernameTopic.getRelatedTopic("dm4.core.association", "dm4.core.default",
+            website = usernameTopic.getRelatedTopic("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "de.mikromedia.site");
             viewData("username", usernameTopic.getSimpleValue().toString());
-            if (website == null) {
-                // create a new website topic
-                log.info("Webpages Module creates a ### NEW WEBSITE ### upon request for " + username);
-                return dm4.createTopic(mf.newTopicModel("de.mikromedia.site"));
-            } else {
-                log.info("Webpages Module loaded " + website.getSimpleValue() + " website upon request for " + username);
+            // Either return website topic
+            if (website != null) return website;
+            // OR create a new private standard website topic plus its relation to a user name topic
+            DeepaMehtaTransaction tx = dm4.beginTx();
+            try {
+                website = dm4.createTopic(mf.newTopicModel("de.mikromedia.site", mf.newChildTopicsModel()
+                    .put("de.mikromedia.site.name", "My collection of webpages")
+                    .putRef("de.mikromedia.site.stylesheet", "de.mikromedia.standard_site_style")
+                    .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the"
+                        + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">"
+                        + "dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>")
+                ));
+                // Topic usersWorkspace = dm4.getAccessControl().getPrivateWorkspace(username);
+                // dm4.getAccessControl().assignToWorkspace(website, usersWorkspace.getId());
+                createWebsiteUsernameAssociation(usernameTopic, website); // Association userWebsiteRelation = 
+                // dm4.getAccessControl().assignToWorkspace(userWebsiteRelation, usersWorkspace.getId());
+                log.info("Created a NEW website topic (ID: " + website.getId() + ") for " + username);
+                tx.success();
+                tx.finish();
+            } catch (Exception e) {
+                tx.failure();
+                tx.finish();
+                throw new RuntimeException(e);
             }
         }
+        log.info("Website topic currently assigned to Workspace \"" +workspacesService.getAssignedWorkspace(website.getId()).getSimpleValue().toString());
         return website;
     }
 
@@ -365,7 +400,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     private String getCustomCSSPath(Topic site) {
         site.loadChildTopics("de.mikromedia.site.stylesheet");
-        return site.getChildTopics().getString("de.mikromedia.site.stylesheet");
+        return site.getChildTopics().getTopic("de.mikromedia.site.stylesheet").getSimpleValue().toString();
     }
 
     private Topic loadWebsiteTopic(String username) {
@@ -377,5 +412,36 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private Topic loadStandardSiteTopic() {
         return dm4.getTopicByUri("de.mikromedia.standard_site");
     }
+
+    @Override
+    public void overrideFrontpageTemplate(String fileName) {
+        this.frontPageTemplateName = fileName;
+    }
+
+    @Override
+    public void viewData(String key, Object value) {
+        super.viewData(key, value);
+    }
+
+    @Override
+    public Viewable view(String fileName) {
+        return super.view(fileName);
+    }
+
+    @Override
+    public void reinitTemplateEngine() {
+        super.initTemplateEngine();
+    }
+
+    @Override
+    public void addTemplateResolverBundle(Bundle bundle) {
+        super.addTemplateResourceBundle(bundle);
+    }
+
+    @Override
+    public void removeTemplateResolverBundle(Bundle bundle) {
+        super.removeTemplateResourceBundle(bundle);
+    }
+
 
 }
