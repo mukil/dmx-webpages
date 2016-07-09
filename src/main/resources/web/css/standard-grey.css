@@ -196,6 +196,21 @@ button {
     opacity: .3;
 }
 
+footer .site-link {
+    margin-left: 1em;
+    margin-right: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+footer .site-link:hover {
+    background-color: #EAEAEA;
+}
+
+footer .site-link a {
+    text-decoration: none;
+}
+
 footer .main {
     background-color: #fff;
 }

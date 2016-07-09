@@ -51,6 +51,12 @@
         </div>
 
         <footer>
+            <div class="site-link">
+                <a title="Visit the frontpage of this website" alt="Link to the frontpage of this website" th:href="${hostUrl} + ${username}">
+                    <h1 th:text="${siteName}"></h1>
+                    <h3 th:text="${siteCaption}"></h3>
+                </a>
+            </div>
             <div class="main" th:utext="${footerText}"></div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
