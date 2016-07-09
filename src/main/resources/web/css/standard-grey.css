@@ -3,7 +3,7 @@
     width: device-width; zoom: 1;
 } **/
 
-/** --------------------------------------------------- Basic page styles */
+/** --------------------------------------------------- Basic website styles */
 
 
 html, body {
@@ -43,6 +43,14 @@ header h1 {
 h3 {
     color: rgba(0, 40, 86, 0.95);
     font-size: 1.3em;
+}
+
+h3 a {
+    color: #343434;
+}
+
+h3 a:hover {
+    color: rgba(0, 40, 86, 0.95);
 }
 
 a {

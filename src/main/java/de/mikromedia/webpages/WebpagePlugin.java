@@ -40,8 +40,9 @@ import org.osgi.framework.Bundle;
 /**
  * Simple HTML webpages with DeepaMehta 4.
  * 
+ * ### FIXME: Usernames might not be compatible URIComponents.
  * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
- * @version 0.4-SNAPSHOT - compatible with DeepaMehta 4.8.1-SNAPSHOT
+ * @version 0.4-SNAPSHOT - compatible with DeepaMehta 4.8.2
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -105,7 +106,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
         log.fine("Requested Global Page /" + webAlias);
         // 0) check if webAlias is username
-        Topic username = dm4.getTopicByValue("dm4.accesscontrol.username", new SimpleValue(webAlias.trim()));
+        Topic username = dm4.getAccessControl().getUsernameTopic(webAlias.trim());
         if (username != null) {
             return getFrontpageView(username.getSimpleValue().toString());
         }
@@ -166,7 +167,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
 
     /** --------------------------------------------------------------------------------- REST API Resources ----- **/
-    /** Lists all currently published webpages for the users website. */
+
+
+    
+    /**
+     * Lists all currently published webpages for the users website.
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
@@ -212,11 +218,30 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         throw new WebApplicationException(Response.status(Status.NOT_FOUND).build());
     }
 
+    @GET
+    @Path("/browse/{websiteId}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String doBrowseWebsite(@PathParam("websiteId") long websiteId) throws WebApplicationException, URISyntaxException {
+        Topic topic = dm4.getTopic(websiteId);
+        if (topic.getTypeUri().equals("de.mikromedia.site")) {
+            Topic username = getUsernameAssociated(topic);
+            if (username != null) {
+                throw new WebApplicationException(Response.temporaryRedirect(new URI("/" + username.getSimpleValue().toString())).build());
+            }
+        }
+        throw new WebApplicationException(Response.status(Status.OK).build());
+    }
+
     // --- Private Utility Methods
 
     private Topic getWebsiteTopicAssociated(Topic username) {
         return username.getRelatedTopic("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "de.mikromedia.site");
+    }
+
+    private Topic getUsernameAssociated(Topic website) {
+        return website.getRelatedTopic("dm4.core.association", "dm4.core.default",
+                    "dm4.core.default", "dm4.accesscontrol.username");
     }
 
     private Topic createWebsiteTopic(final Topic username) {
