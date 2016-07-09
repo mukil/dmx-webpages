@@ -38,11 +38,11 @@ public class WebpageViewModel implements JSONEnabled {
     }
 
     public String getDescription() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.seo_description");
+        return page.getChildTopics().getStringOrNull("de.mikromedia.page.about");
     }
 
     public String getMainHTML() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.header");
+        return page.getChildTopics().getStringOrNull("de.mikromedia.page.main");
     }
 
     public String getStylesheet() {
