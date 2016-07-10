@@ -10,7 +10,6 @@ import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.service.accesscontrol.SharingMode;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
@@ -75,20 +74,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public Viewable getFrontpageView() {
-        // ### Replace InputStream with Viewable here.. see https://trac.deepamehta.de/ticket/873
-        // 1) check if a custom frontpage was registered by another plugin
+        // 0) Set generic template data "authenticated" and "username"
+        // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
+            prepareGenericTemplateData(frontPageTemplateName);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect of user "admin" set on "/"
-            return getFrontpageView(AccessControlService.ADMIN_USERNAME);
+            return getFrontpageResource(AccessControlService.ADMIN_USERNAME);
         }
     }
     
-    public Viewable getFrontpageView(@PathParam("username") String username) {
+    public Viewable getFrontpageResource(@PathParam("username") String username) {
         Topic usersWebsite = getOrCreateWebsiteTopic(username);
         handleWebsiteRedirects(usersWebsite, "/"); // potentially throws WebAppException triggering a Redirect
+        prepareGenericTemplateData("frontpage");
         prepareSiteTemplate(usersWebsite);
-        viewData("username", username);
         viewData("pages", getPublishedWebpages(username)); // sort by creation or modification date
         return view("frontpage");
     }
@@ -108,7 +108,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 0) check if webAlias is username
         Topic username = dm4.getAccessControl().getUsernameTopic(webAlias.trim());
         if (username != null) {
-            return getFrontpageView(username.getSimpleValue().toString());
+            return getFrontpageResource(username.getSimpleValue().toString());
         }
         // 1) prepare admin website
         Topic adminsWebsite = getOrCreateWebsiteTopic(AccessControlService.ADMIN_USERNAME);
@@ -347,11 +347,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
+     * Prepares some session data used across all our Thymeleaf page templates.
+     * @param websiteTopic
+     */
+    private void prepareGenericTemplateData(String filename) {
+        String username = acService.getUsername();
+        viewData("authenticated", (username != null));
+        viewData("username", username);
+        viewData("template", filename);
+        viewData("hostUrl", DM4_HOST_URL);
+    }
+
+    /**
      * Prepares the most basic data used across all our Thymeleaf page templates.
      * @param websiteTopic
      */
     private void prepareSiteTemplate(Topic websiteTopic) {
-        viewData("hostUrl", DM4_HOST_URL);
         viewData("siteName", getCustomSiteTitle(websiteTopic));
         viewData("siteCaption", getCustomSiteCaption(websiteTopic));
         viewData("siteAbout", getCustomSiteAboutHTML(websiteTopic));
@@ -367,6 +378,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                 log.fine("401 => /" + webAliasTopic.getSimpleValue() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
+                prepareGenericTemplateData("page");
                 viewData("customPageCss", page.getStylesheet());
                 viewData("dateCreated", df.format(page.getCreationDate()));
                 viewData("dateModified", df.format(page.getModificationDate()));
@@ -388,7 +400,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic website = null;
         if (usernameTopic != null) {
             website = getWebsiteTopicAssociated(usernameTopic);
-            viewData("username", usernameTopic.getSimpleValue().toString());
             if (website == null) {
                 // create new Website Topic
                 website = createWebsiteTopic(usernameTopic);
