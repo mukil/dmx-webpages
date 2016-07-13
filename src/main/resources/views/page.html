@@ -8,7 +8,7 @@
         <!-- See http://schema.org/WebPage -->
         <meta itemprop="name" th:content="${page.pageTitle}"/>
         <meta itemprop="description" th:content="${page.description}"/>
-        <meta itemprop="url" th:content="${hostUrl} + ${username} + '/' + ${page.webAlias}"/>
+        <meta itemprop="url" th:content="${hostUrl} + ${website} + '/' + ${page.webAlias}"/>
         <meta itemprop="dateCreated" th:content="${dateCreated}"/>
         <meta itemprop="dateModified" th:content="${dateModified}"/>
         <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
@@ -52,7 +52,7 @@
 
         <footer>
             <div class="site-link">
-                <a title="Visit the frontpage of this website" alt="Link to the frontpage of this website" th:href="${hostUrl} + ${username}">
+                <a title="Visit the frontpage of this website" alt="Link to the frontpage of this website" th:href="${hostUrl} + ${website}">
                     <h1 th:text="${siteName}"></h1>
                     <h3 th:text="${siteCaption}"></h3>
                 </a>
@@ -62,7 +62,7 @@
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
                 <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
-                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${website}"/>
             </div>
         </footer>
 

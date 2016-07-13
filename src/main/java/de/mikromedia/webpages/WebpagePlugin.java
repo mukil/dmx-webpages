@@ -77,7 +77,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 0) Set generic template data "authenticated" and "username"
         // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
-            prepareGenericTemplateData(frontPageTemplateName);
+            prepareGenericTemplateData(frontPageTemplateName, null);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect of user "admin" set on "/"
             return getFrontpageResource(AccessControlService.ADMIN_USERNAME);
@@ -87,7 +87,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public Viewable getFrontpageResource(@PathParam("username") String username) {
         Topic usersWebsite = getOrCreateWebsiteTopic(username);
         handleWebsiteRedirects(usersWebsite, "/"); // potentially throws WebAppException triggering a Redirect
-        prepareGenericTemplateData("frontpage");
+        prepareGenericTemplateData("frontpage", username);
         prepareSiteTemplate(usersWebsite);
         viewData("pages", getPublishedWebpages(username)); // sort by creation or modification date
         return view("frontpage");
@@ -116,7 +116,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 2) is webpage of admin
         Topic webpageAliasTopic = getWebpageByAlias(adminsWebsite, webAlias);
         if (webpageAliasTopic != null) {
-            return preparePageTemplate(webpageAliasTopic);
+            return preparePageTemplate(webpageAliasTopic, AccessControlService.ADMIN_USERNAME);
         }
         log.fine("=> /" + webAlias + " webpage for admins website not found.");
         // 3) is redirect of admin
@@ -150,7 +150,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         if (pageAliasTopic != null) {
             WebpageViewModel page = new WebpageViewModel(pageAliasTopic);
             if (!page.isDraft()) {
-                return preparePageTemplate(pageAliasTopic);
+                return preparePageTemplate(pageAliasTopic, username);
             } else if (page.isDraft()) {
                 log.fine("401 => /" + pageAlias + " is yet unpublished.");
                 return view("401");
@@ -350,10 +350,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * Prepares some session data used across all our Thymeleaf page templates.
      * @param websiteTopic
      */
-    private void prepareGenericTemplateData(String filename) {
+    private void prepareGenericTemplateData(String filename, String websiteAlias) {
         String username = acService.getUsername();
         viewData("authenticated", (username != null));
         viewData("username", username);
+        viewData("website", websiteAlias);
         viewData("template", filename);
         viewData("hostUrl", DM4_HOST_URL);
     }
@@ -371,14 +372,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         viewData("menuItems", getActiveMenuItems(websiteTopic));
     }
 
-    private Viewable preparePageTemplate(Topic webAliasTopic) {
+    private Viewable preparePageTemplate(Topic webAliasTopic, String websiteAlias) {
         try {
             WebpageViewModel page = new WebpageViewModel(webAliasTopic);
             if (page.isDraft()) {
                 log.fine("401 => /" + webAliasTopic.getSimpleValue() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
-                prepareGenericTemplateData("page");
+                prepareGenericTemplateData("page", websiteAlias);
                 viewData("customPageCss", page.getStylesheet());
                 viewData("dateCreated", df.format(page.getCreationDate()));
                 viewData("dateModified", df.format(page.getModificationDate()));

@@ -21,13 +21,17 @@
         </header>
 
         <div class="index">
-            <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'">
+            <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                 <h3>
-                    <a th:href="${hostUrl} + ${username} + '/' + ${page.webAlias}" th:text="${page.pageTitle}">Title of page</a>
+                    <a itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
+                        <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                    </a>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                 </h3>
-                <p class="text" th:text="${page.description}">Description of Page</p>
+                <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
                 <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
+                <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
+                <meta itemprop="author" th:content="${page.authorNames}" />
             </article>
         </div>
         
@@ -45,7 +49,7 @@
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
                 <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
-                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+                <meta itemprop="url" th:content="${hostUrl} + ${website}"/>
             </div>
         </footer>
 
