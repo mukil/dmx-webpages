@@ -156,11 +156,12 @@ article .text pre.code-block {
     font-size: .8em;
 }
 
-article .text .blockquote {
+article .text blockquote {
     margin-left: 0px;
     font-style: italic;
     font-size: 1.2em;
-    padding: 1em;
+    padding-left: 1em;
+    border-left: 4px solid rgba(255,255,255,0.7);
 }
 
 .metadata h3,
