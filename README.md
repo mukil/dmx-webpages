@@ -54,22 +54,24 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
-**0.4**, Upcoming
+**0.4** -- Upcoming
 
-* Completely revised webpage apilication model
+* Completely revised webpage application model
 * Introduced new icons
 * Not compatible with 0.3
+* Uses Thymeleaf 2.1.3
 
 Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpages-0.4_.
 
-**0.3**, Nov 23, 2015
+**0.3** -- Nov 23, 2015
 
 * Useful to create and publish _one_ website
 * Compatible with the collaborative DeepaMehta 4.7
 
-**0.1.1**, Oct 09, 2015
+**0.1.1** -- Oct 09, 2015
 
 * Simple Web Pages for DeepaMehta 4.4.x
 
-Author:
-Malte Reißig, Copyright 2015
+-----------
+Malte Reißig<br/>
+Copyright 2015
