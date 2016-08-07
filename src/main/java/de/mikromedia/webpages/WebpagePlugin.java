@@ -254,7 +254,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                     Topic topic = dm4.createTopic(mf.newTopicModel("de.mikromedia.site", mf.newChildTopicsModel()
                         .put("de.mikromedia.site.name", "My collection of webpages")
                         .putRef("de.mikromedia.site.stylesheet", "de.mikromedia.standard_site_style")
-                        .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the"
+                        .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the "
                             + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">"
                             + "dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>")
                     ));
@@ -268,10 +268,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                     return topic;
                 }
             });
+            website = websiteTopic;
             log.info("Created a NEW website topic (ID: " + website.getId() + ") in \"Private Workspace\" of \"" + username.getSimpleValue() + "\"");
             tx.success();
             tx.finish();
-            website = websiteTopic;
         } catch (Exception e) {
             tx.failure();
             tx.finish();
@@ -375,7 +375,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private Viewable preparePageTemplate(Topic webAliasTopic, String websiteAlias) {
         try {
             WebpageViewModel page = new WebpageViewModel(webAliasTopic);
-            if (page.isDraft()) {
+            // while logged in users can (potentially) browse a drafted webpage
+            if (page.isDraft() && acService.getUsername() == null) {
                 log.fine("401 => /" + webAliasTopic.getSimpleValue() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
