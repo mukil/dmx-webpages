@@ -13,7 +13,7 @@ import de.mikromedia.webpages.WebpagePlugin;
  * Assigns all our custom types to the public "Webpages" workspace.
  * @author malted
  */
-public class Migration6 extends Migration {
+public class Migration5 extends Migration {
 
     @Inject WorkspacesService workspacesService;
     @Inject AccessControlService accessControlService;

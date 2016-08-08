@@ -3,8 +3,17 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
     var connected_websites = undefined
 
     function show_personal_website() {
-        var topic = dm4c.restc.request("GET", "/website/" + dm4c.selected_object.childs["dm4.accesscontrol.username"].value)
+        var topic = undefined
+        if (dm4c.selected_object.childs.hasOwnProperty("dm4.accesscontrol.username")) {
+            topic = dm4c.restc.request("GET", "/website/" + dm4c.selected_object.childs["dm4.accesscontrol.username"].value)
+        } else {
+            topic = dm4c.restc.request("GET", "/website")
+        }
         dm4c.do_reveal_topic(topic.id, "show")
+    }
+
+    function show_related_website() {
+        dm4c.do_reveal_related_topic(connected_websites[0].id, "show")
     }
 
     function browse_website() {
@@ -23,8 +32,7 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                 console.log("Browse Webpage of Website related to Standard Site", url)
             } else {
                 var usernames = get_related_username(connected_websites[0].id)
-                url += dm4c.restc.get_username() + "/"
-                    + dm4c.selected_object.childs["de.mikromedia.page.web_alias"].value
+                url += usernames[0].value + "/" + dm4c.selected_object.childs["de.mikromedia.page.web_alias"].value
                 console.log("Browse Webpage of Website of Username", url)
             }
             // ### fetch url prefix of webpage related website
@@ -76,8 +84,33 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                     handler: browse_webpage,
                     context: ['context-menu', 'detail-panel-show']
                 })
+                commands.push({is_separator: true, context: 'context-menu'})
+                commands.push({
+                    label: 'Reveal Website',
+                    handler: show_related_website,
+                    context: ['context-menu', 'detail-panel-show']
+                })
             } else {
-                console.log("No website connected, no topic command to render")
+                if ($('.page-message.hint').length === 0 && $('#page-content input').length === 0) {
+                    var $label = $('<div class="page-message hint">')
+                        $label.append('To browse this webpage you need to associate it with a '
+                            + '<em>Website</em>.<br/>To reveal your personal website ')
+                    var reveal = $('<a>').text('click here.')
+                        reveal.click(function(e) {
+                            show_personal_website()
+                            $label.remove()
+                        })
+                        $label.append(reveal)
+                    var $close = $('<a>').text("X").addClass("close").attr("title", "Hide this message")
+                        $close.click(function(e) {
+                            $label.remove()
+                        })
+                        $label.append($close)
+                    $label.insertBefore('#page-toolbar')
+                    setTimeout(function(e) {
+                        $label.remove()
+                    }, 4200)
+                }
             }
         }
         return commands
