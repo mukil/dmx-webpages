@@ -18,38 +18,34 @@ Additionally you need to install the following module:
 
 You can find both at [http://download.deepamehta.de](http://download.deepamehta.de).
 
-## Usage
+## Usage: Creating a Webpage
 
-Note: Currently just user "admin" can create a new **Webpage**, **Wepage Redirect** or **Webpage Menu Item**. Though, after moving existing topics to more collaborative workspaces other users should be able to _Edit_ the contents of such.
+To start working a _Webpage_ simply use the `Create` menu in Toolbar (upper grey area of DeepaMehta).
 
-1. Navigate and reveal the _default_ **Website** topic to edit and enter some website wide informations, like:
+To publish a _Webpage_ it must be connected to a _Website_.
 
- * Website Title
- * Website Caption
- * Website About Info
- * Website Footer
- * Path to Custom CSS File
+1. Navigate and reveal your **Website** (e.g. via following the `My Website` button after clicking your `Username` in the `Toolbar`). The website topic allows you to edit and enter some basic information which occurs on all your webpages (Footer, About, Layout, etc):
 
-You can find your website topic through clicking on the _Username_ topic of your User Account _admin_.
+You can also reveal your website through search `By Type` and then selecting `Website`.
 
-2. Create a _Webpage_ topic and publish it.
+2. Create a _Webpage_
 
  * _Create_ -> _Webpage_ and _Edit_ it, for example with a
- * Webpage Title -> Title of this webpage
- * Main Part -> The main content area of your webpage
+ * Headline -> Title of this webpage
+ * Content -> The main content area of your webpage
  * Web Alias -> This must be an URI compliant name for your resource
- * Web Description -> The meta=description for your webpage, used by search engines when indexing your content
- * Author Name -> Enter at least your name
- * Published -> A checkbox, if checked your webpage content will be published.
+ * What is this page about? -> The meta=description for your webpage as well as the summary shown on your frontpage. Used by search engines to index your webpage.
+ * Author Name -> Name of the content authors (or contributors).
+ * Draft?-> A checkbox, if checked your webpage content will only be published to logged in users who have access permissions on the topic.
 
-3. Associate the _Webpage_ topic with your _Website_ topic.
+3. Associate the _Webpage_ with your _Website_
 
- * Right click on the _Website_ or the _Webpage_ topic and select the  _Associate_ command
- * Drag & Drop the line (=Association) over the other (_Website_ or _Webpage_) topic
+ * Either: Right click on the _Website_ or the _Webpage_ and select the  _Associate_ command
+ * Or: Drag & Drop the line (=Association) over the other (_Website_ or _Webpage_) topic
 
 That's it. Your webpage is now published under your hostname and its so called _Web Alias_. The very same steps apply if you want to publish a _Redirect_ or a  _Menu item_ on your website.
 
-Note: The permission who can see your published webpage depends on the so called _SharingMode_ your webpage topic currently resides in.
+Note: The permission who can see your published webpage depends on the so called _SharingMode_ of the workspace your webpage is assigned to.
 
 
 ## Changelog
