@@ -6,7 +6,7 @@ This DeepaMehta 4 Plugin brings really simple web-publishing capabilities direct
 
 It builds on our work of last year, especially on the
 
- * [dm4-webactivator](https://github.com/jri/dm4-webactivator) module
+ * [dm4-thymeleaf](https://github.com/jri/dm4-thymeleaf) module
 
 ## Installation Requirements
 
@@ -14,7 +14,7 @@ See [jri/deepamehta](https://github.com/jri/deepamehta/#1-check-requirements)
 
 Additionally you need to install the following module:
 
- * [dm4-webactivator](https://github.com/jri/dm4-webactivator) module
+ * [dm4-thymeleaf](https://github.com/jri/dm4-thymeleaf) module
 
 You can find both at [http://download.deepamehta.de](http://download.deepamehta.de).
 
@@ -58,7 +58,7 @@ Note: The permission who can see your published webpage depends on the so called
 
 * Completely revised webpage application model
 * Introduced new icons
-* Not compatible with 0.3
+* Not compatible with previous version (dm4-webpages-0.3)
 * Uses Thymeleaf 2.1.3
 
 Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpages-0.4_.
