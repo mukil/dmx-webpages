@@ -223,6 +223,28 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         throw new WebApplicationException(Response.status(Status.OK).build());
     }
 
+    /**
+     * Lists all currently published webpages for the users website.
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{username}")
+    public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
+        log.info("Listing all published webpages for \"" + username + "\"");
+        // fetch all pages with title and all childs
+        ArrayList<WebpageViewModel> result = new ArrayList();
+        Topic website = getOrCreateWebsiteTopic(username);
+        if (website != null) {
+            List<RelatedTopic> pages = getWebsiteRelatedPages(website);
+            Iterator<RelatedTopic> iterator = pages.iterator();
+            while (iterator.hasNext()) {
+                WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
+                if (!page.isDraft()) result.add(page);
+            }
+        }
+        return result;
+    }
+
     public Viewable getWebsiteFrontpage(String username) {
         Topic website = (username == null) ? getStandardSiteTopicByURI() : getOrCreateWebsiteTopic(username);
         // check if their is a redirect setup for this web alias
