@@ -104,26 +104,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
         log.info("Requesting Global Page /" + webAlias);
         // 0) check if webAlias is valid username
-        Topic username = dm4.getAccessControl().getUsernameTopic(webAlias.trim());
+        String pageAlias = webAlias.trim();
+        Topic username = dm4.getAccessControl().getUsernameTopic(pageAlias);
         if (username != null) {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
         }
         // 1) prepare standard website
         Topic standardWebsite = getStandardSiteTopicByURI();
-        // 2) fetch website globals for any of these templates
         setWebsiteTemplateParameter(standardWebsite);
-        // 3) is webpage of standard site
-        Topic webpageAliasTopic = getWebpageByAlias(standardWebsite, webAlias);
-        if (webpageAliasTopic != null) {
-            setGlobalTemplateParameter(webAlias, STANDARD_WEBSITE_PREFIX);
-            setWebsiteTemplateParameter(standardWebsite);
-            return getWebpageTemplate(webpageAliasTopic);
-        }
-        log.info("=> /" + webAlias + " webpage for standard website not found.");
+        // 2) is webpage of standard site
+        Viewable webpage = getWebsitesWebpage(standardWebsite, pageAlias, STANDARD_WEBSITE_PREFIX);
+        if (webpage != null) return webpage;
+        log.info("=> /" + pageAlias + " webpage for standard website not found.");
         // 4) is redirect of admin
-        handleWebsiteRedirects(standardWebsite, webAlias);
-        log.info("=> /" + webAlias + " webpage redirect for standard website not found.");
-        // 5) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
+        handleWebsiteRedirects(standardWebsite, pageAlias);
+        log.info("=> /" + pageAlias + " webpage redirect for standard website not found.");
+        // 5) web alias is neither a published nor a drafted \"Webpage\" and not a \"Redirect\"
         return getWebsitesNotFoundPage(standardWebsite);
     }
 
@@ -137,20 +133,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
-    public Viewable getPageView(@PathParam("username") String prefix, @PathParam("pageWebAlias") String pageAlias) {
-        log.info("Requesting Website Page /" + prefix + "/" + pageAlias);
-        // 0) Fetch users website topic
+    public Viewable getPageView(@PathParam("username") String prefix, @PathParam("pageWebAlias") String webAlias) {
+        log.info("Requesting Website Page /" + prefix + "/" + webAlias);
+        String pageAlias = webAlias.trim();
+        // 1) Fetch users website topic
         Topic usersWebsite = getOrCreateWebsiteTopic(prefix);
-        // 1) fetch website globals for any of these templates
         setWebsiteTemplateParameter(usersWebsite);
         // 2) check related webpages
-        Topic pageAliasTopic = getWebpageByAlias(usersWebsite, pageAlias);
-        if (pageAliasTopic != null) {
-            setGlobalTemplateParameter(pageAlias, prefix);
-            setWebsiteTemplateParameter(usersWebsite);
-            return getWebpageTemplate(pageAliasTopic);
-        }
-        log.info("=> /" + pageAlias + " webpage for \"" +prefix+ "\"s website not found.");
+        Viewable webpage = getWebsitesWebpage(usersWebsite, pageAlias, prefix);
+        if (webpage != null) return webpage;
         // 2) check if it is a users redirect
         handleWebsiteRedirects(usersWebsite, pageAlias);
         // 3) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
@@ -381,8 +372,24 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
-     * If a topic of type <code>de.mikromedia.redirect</code> is simply associated with the given `Website` topic,
-     * the related is performed.
+     * @param website
+     * @param webAlias
+     * @param sitePrefix
+     * @return A processed thymeleaf template if a webpage is related to that website, <code>null</code> otherwise.
+     */
+    private Viewable getWebsitesWebpage(Topic website, String webAlias, String sitePrefix) {
+        Topic webpageAliasTopic = getWebpageByAlias(website, webAlias);
+        if (webpageAliasTopic != null) {
+            setGlobalTemplateParameter(webAlias, sitePrefix);
+            setWebsiteTemplateParameter(website);
+            return getWebpageTemplate(webpageAliasTopic);
+        }
+        log.info("=> /" + webAlias + " webpage for standard website not found.");
+        return null;
+    }
+
+    /**
+     * Performs a HTTP redirect if a <code>de.mikromedia.redirect</code> is associated with the given `Website` topic.
      * @param site
      * @param webAlias
      */
@@ -428,8 +435,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @return
      */
     private Topic getWebpageByAlias(Topic site, String webAlias) {
-        List<RelatedTopic> relatedWebpages = site.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.page");
+        List<RelatedTopic> relatedWebpages = getWebsiteRelatedPages(site);
         for (RelatedTopic webpage : relatedWebpages) {
             Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
             String webpageAlias = webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
