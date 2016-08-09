@@ -38,11 +38,11 @@ import javax.ws.rs.core.Response.Status;
 import org.osgi.framework.Bundle;
 
 /**
- * Simple HTML webpages with DeepaMehta 4.
- * 
+ * Collaborative, multi-site standard HTML webpages with DeepaMehta 4.
+ *
  * ### FIXME: Usernames might not be compatible URIComponents.
  * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
- * @version 0.4-SNAPSHOT - compatible with DeepaMehta 4.8.2
+ * @version 0.4 - compatible with DeepaMehta 4.8
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -78,7 +78,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @return  A processed Thymeleaf Template (<code>Viewable</code>).
      */
     @GET
-    @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public Viewable getFrontpageView() {
         // 0) Set generic template data "authenticated" and "username"
