@@ -126,7 +126,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * Serving a specific webpage assigned to the website related to its given prefix (currently "username").
      *
      * @param prefix
-     * @param pageAlias
+     * @param webAlias
      * @return  A processed Thymeleaf Template (<code>Viewable</code>).
      */
     @GET
@@ -226,7 +226,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
-     * Lists all currently published webpages for the users website.
+     * Lists all currently published webpages for the usernames website.
+     * @param username
+     * @return All webpage topics associated with the website for the given username not marked as \"Drafts\".
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -291,6 +293,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     /**
      * Lists and prepares all currently published webpages of the given website.
+     * @param website
+     * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
      */
     public List<WebpageViewModel> getPublishedWebpages(Topic website) {
         log.info("Listing all published webpages for \"" + website+ "\" website");

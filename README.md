@@ -53,11 +53,14 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
-**0.4** -- Upcoming
+**0.4** -- Aug 09, 2016
 
 * Completely revised webpage application model
-* Introduced new icons
+* Introduced new icons, types and a specific web-alias renderer
+* Depends on dm4-thymeleaf module version 0.6.1
 * Not compatible with previous version (dm4-webpages-0.3)
+* Developer note: This version only installs migrations 1, 2 and 3.<br/>
+  Migration 4 and 5 are still in flux and may instal with the next release.
 * Uses Thymeleaf 2.1.3
 
 Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpages-0.4_.
@@ -73,4 +76,4 @@ Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpage
 
 -----------
 Malte Reißig<br/>
-Copyright 2015
+Copyright 2016
