@@ -399,7 +399,7 @@
                     {
                         "type_uri": "dm4.webclient.view_config",
                         "childs": {
-                            "dm4.webclient.show_in_create_menu": false,
+                            "dm4.webclient.show_in_create_menu": true,
                             "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-blue-menu.png"
                         }
                     }
@@ -473,7 +473,7 @@
                 "childs": {
                     "de.mikromedia.site.name" : "Standard Website",
                     "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.standard_site_style",
-                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\">Published with the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module written by <a href=\"http://www.mikromedia.de\">Malte Rei&szlig;ig</a>, 2015-2016.</p>"
+                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\">Published with the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module.</p>"
                 }
             }
         ]

@@ -22,7 +22,10 @@
         <div class="index">
             <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                 <h3>
-                    <a itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
+                    <a th:if="${#strings.contains(website, 'standard')}" itemprop="url" th:href="${hostUrl} + ${page.webAlias}">
+                        <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                    </a>
+                    <a th:if="${!#strings.contains(website, 'standard')}" itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
                         <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
                     </a>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
@@ -37,13 +40,18 @@
         <div class="pages-menu">
             <ul>
                 <li th:each="item : ${menuItems}">
-                    <a th:text="${item.label}" th:href="${item.href}">Menu item</a>
+                    <a th:if="${#strings.contains(website, 'standard')}" itemprop="url" th:text="${item.label}" th:href="'/' + ${item.href}">Menu Item</a>
+                    <a th:if="${!#strings.contains(website, 'standard')}" itemprop="url" th:text="${item.label}" th:href="'/' + ${website} + '/' + ${item.href}">Menu Item</a>
                 </li>
             </ul>
         </div>
 
         <footer>
             <div class="main" th:utext="${footerText}"></div>
+            <div class="main">
+                <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
+                <a th:if="${authenticated}" href="/de.deepamehta.webclient/">Open DeepaMehta 4 Webclient</a>
+            </div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>

@@ -216,9 +216,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic topic = dm4.getTopic(websiteId);
         if (topic.getTypeUri().equals("de.mikromedia.site")) {
             Topic username = getWebsiteRelatedUser(topic);
-            if (username != null) {
+            if (username != null) { // browse user site
                 throw new WebApplicationException(
                     Response.temporaryRedirect(new URI("/" + username.getSimpleValue().toString())).build());
+            } else { // browse standard site
+                throw new WebApplicationException(Response.temporaryRedirect(new URI("/")).build());
             }
         }
         throw new WebApplicationException(Response.status(Status.OK).build());
@@ -256,12 +258,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             website = getOrCreateWebsiteTopic(username);
             setGlobalTemplateParameter("frontpage", username);
         }
-        setWebsiteTemplateParameter(website);
-        // check if their is a redirect setup for this web alias
-        handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
-        // collect all webpages associated with this website
-        viewData("pages", getPublishedWebpages(website)); // ### sort by creation or modification date
-        return view("frontpage");
+        // website is null if the request does not have the necessary permissions to access it
+        if (website != null) {
+            // private workspace via our getRelatedTopics()-call
+            setWebsiteTemplateParameter(website);
+            // check if their is a redirect setup for this web alias
+            handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
+            // collect all webpages associated with this website
+            viewData("pages", getPublishedWebpages(website)); // ### sort by creation or modification date
+            return view("frontpage");
+        } else {
+            return getWebsitesNotFoundPage(website); // which loads standard topic if website is null
+        }
     }
 
     /**
@@ -345,8 +353,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                         username.getSimpleValue().toString());
                     dm4.getAccessControl().assignToWorkspace(topic.getChildTopics()
                         .getTopic("de.mikromedia.site.name"), usersWorkspace.getId());
-                    dm4.getAccessControl().assignToWorkspace(topic.getChildTopics()
-                        .getTopic("de.mikromedia.site.stylesheet"), usersWorkspace.getId());
                     dm4.getAccessControl().assignToWorkspace(topic.getChildTopics()
                         .getTopic("de.mikromedia.site.footer_html"), usersWorkspace.getId());
                     Association userWebsiteRelation = createWebsiteUsernameAssociation(username, topic);

@@ -48,17 +48,26 @@
                     <a th:text="${item.label}" th:href="${item.href}">Menu item</a>
                 </li>
             </ul>
-            <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
         </div>
 
         <footer>
             <div class="site-link">
-                <a title="Visit the frontpage of this website" alt="Link to the frontpage of this website" th:href="${hostUrl} + ${website}">
+                <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+                   alt="Link to the frontpage of this website" href="/">
+                    <h1 th:text="${siteName}"></h1>
+                    <h3 th:text="${siteCaption}"></h3>
+                </a>
+                <a th:if="${!#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+                   alt="Link to the frontpage of this website" th:href="'/' + ${website}">
                     <h1 th:text="${siteName}"></h1>
                     <h3 th:text="${siteCaption}"></h3>
                 </a>
             </div>
             <div class="main" th:utext="${footerText}"></div>
+            <div class="main">
+                <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
+                <a th:if="${authenticated}" href="/de.deepamehta.webclient/">Open DeepaMehta 4 Webclient</a>
+            </div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
