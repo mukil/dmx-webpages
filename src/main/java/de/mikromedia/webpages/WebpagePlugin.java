@@ -185,6 +185,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/website/{username}")
+    @Override
     public Topic getWebsiteByUsername(@PathParam("username") String username) {
         Topic website = null;
         // return the website topic for the requested username
@@ -229,6 +230,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
+    @Override
     public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
         log.info("Listing all published webpages for \"" + username + "\"");
         // fetch all pages with title and all childs
@@ -267,6 +269,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @param site
      * @return
      */
+    @Override
     public List<MenuItemViewModel> getActiveMenuItems(Topic site) {
         List<RelatedTopic> menuItems = site.getRelatedTopics("dm4.core.association", "dm4.core.default",
                 "dm4.core.default", "de.mikromedia.menu.item");
