@@ -109,22 +109,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
         }
         // 1) prepare standard website
-        Topic website = getStandardSiteTopicByURI();
+        Topic standardWebsite = getStandardSiteTopicByURI();
         // 2) fetch website globals for any of these templates
-        setWebsiteTemplateParameter(website);
+        setWebsiteTemplateParameter(standardWebsite);
         // 3) is webpage of standard site
-        Topic webpageAliasTopic = getWebpageByAlias(website, webAlias);
+        Topic webpageAliasTopic = getWebpageByAlias(standardWebsite, webAlias);
         if (webpageAliasTopic != null) {
             setGlobalTemplateParameter(webAlias, STANDARD_WEBSITE_PREFIX);
-            setWebsiteTemplateParameter(website);
+            setWebsiteTemplateParameter(standardWebsite);
             return getWebpageTemplate(webpageAliasTopic);
         }
-        log.info("=> /" + webAlias + " webpage for admins website not found.");
+        log.info("=> /" + webAlias + " webpage for standard website not found.");
         // 4) is redirect of admin
-        handleWebsiteRedirects(website, webAlias);
-        log.info("=> /" + webAlias + " webpage redirect for admins website not found.");
+        handleWebsiteRedirects(standardWebsite, webAlias);
+        log.info("=> /" + webAlias + " webpage redirect for standard website not found.");
         // 5) web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
-        return getStandardWebsitesNotFoundPage(website);
+        return getWebsitesNotFoundPage(standardWebsite);
     }
 
     /**
@@ -155,8 +155,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         handleWebsiteRedirects(usersWebsite, pageAlias);
         // 3) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
         log.info("=> /" + pageAlias + " webpage redirect for \"" +prefix+ "\"s website not found.");
-        // 4) Return 404 page with admins website footer
-        return getStandardWebsitesNotFoundPage(null);
+        // 4) Return 404 page with users website footer
+        return getWebsitesNotFoundPage(usersWebsite);
     }
 
     @Override
@@ -487,7 +487,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         }
     }
 
-    private Viewable getStandardWebsitesNotFoundPage(Topic standardWebsite) {
+    private Viewable getWebsitesNotFoundPage(Topic standardWebsite) {
         // 1) If no page was returned by now we use the footer of the standard / admins website in our 404 page
         Topic website = standardWebsite;
         if (standardWebsite == null) {
