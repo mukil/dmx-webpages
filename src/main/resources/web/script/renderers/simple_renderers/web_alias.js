@@ -14,7 +14,8 @@ function transform_title_to_url(value) {
         .replace(/\{/g, "-").replace(/\}/g, "-")
         .replace(/§/g, "-").replace(/\%/g, "-")
         .replace(/ä/g, "ae").replace(/ö/g, "oe")
-        .replace(/ü/g, "ue").replace(/ß/g, "ss").replace(/\--/g, "-").toLowerCase()
+        .replace(/ü/g, "ue").replace(/ß/g, "ss")
+    result = result.replace(/\--+/g, "-").toLowerCase()
     if (result.length === (result.lastIndexOf("-") + 1)) result = result.substr(0, result.length - 1)
     return result
 }
@@ -40,8 +41,6 @@ dm4c.add_simple_renderer("de.mikromedia.page.web_alias_renderer", {
         if (page_model.value.length === 0) {
             return function() {
                 var headline = $('input.headline').val()
-                console.log("Initial Web Alias Calculation by Headline", headline)
-                console.log("Initial Web Alias Calculation by Headline By PageCSS", $('de\.mikromedia\.page\.headline input'))
                 var webalias = transform_title_to_url(headline)
                 console.log("Initial Web Alias", webalias)
                 return webalias
@@ -58,10 +57,9 @@ dm4c.add_simple_renderer("de.mikromedia.page.web_alias_renderer", {
             return function() {
                 if (manual_change) {
                     var changedWebAlias = transform_title_to_url($disabled.val())
-                    console.log("Returning changed value", changedWebAlias)
                     return changedWebAlias
                 } else {
-                    return transform_title_to_url(page_model.value)
+                    return page_model.value
                 }
             }
         }
