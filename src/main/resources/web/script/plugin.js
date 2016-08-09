@@ -21,7 +21,22 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
     }
 
     function webpage_is_draft() {
-        return dm4c.selected_object.childs["de.mikromedia.page.is_draft"].value
+        if (dm4c.selected_object.childs.hasOwnProperty("de.mikromedia.page.is_draft")) {
+            return dm4c.selected_object.childs["de.mikromedia.page.is_draft"].value
+        } else {
+            return true
+        }
+    }
+
+    function create_webpage() {
+        var website = dm4c.selected_object
+        var webpage = dm4c.create_topic("de.mikromedia.page")
+        var assoc = dm4c.create_association("dm4.core.association",
+            {topic_id: website.id, role_type_uri: "dm4.core.default"},
+            {topic_id: webpage.id, role_type_uri: "dm4.core.default"}
+        )
+        dm4c.show_topic(webpage, "edit", undefined, true) // do_center=true
+        dm4c.show_association(assoc, "none")
     }
 
     function browse_webpage() {
@@ -74,10 +89,15 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                 handler: browse_website,
                 context: ['context-menu', 'detail-panel-show']
             })
+            commands.push({
+                label: 'New Webpage',
+                handler: create_webpage,
+                context: ['context-menu', 'detail-panel-show']
+            })
         } else if (topic.type_uri === 'de.mikromedia.page') {
             connected_websites = get_related_website(topic.id)
             if (connected_websites && connected_websites.length > 0) {
-                var button_label = (webpage_is_draft()) ? "Browse Draft" : "Browse"
+                var button_label = (webpage_is_draft()) ? "Browse Draft" : "Browse Page"
                 commands.push({is_separator: true, context: 'context-menu'})
                 commands.push({
                     label: button_label,
