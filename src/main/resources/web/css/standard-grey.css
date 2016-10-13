@@ -105,6 +105,10 @@ header .value {
     padding-bottom: .7em;
 }
 
+.front .pages-menu {
+    padding-bottom: 2em;
+}
+
 .pages-menu ul {
     list-style-type: none;
     font-size: 1.2em;
@@ -275,6 +279,9 @@ footer .main {
 @media (max-width:600px) {
     header {
         top: 10px;
+    }
+    .front h3 {
+        margin-bottom: 0px;
     }
     header p {
         display: inline-block;
