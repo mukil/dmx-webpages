@@ -473,7 +473,7 @@
                 "childs": {
                     "de.mikromedia.site.name" : "Standard Website",
                     "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.standard_site_style",
-                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\">Published with the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module.</p>"
+                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\">Published with <a href=\"http://www.deepamehta.de\" title=\"DeepaMehta is a platform for collaboration and knowledge management.\">DeepaMehta</a> and the <a href=\"http://github.com/mukil/dm4-webpages\" title=\"dm4-webpages Website\">dm4-webpages</a> module.</p>"
                 }
             }
         ]

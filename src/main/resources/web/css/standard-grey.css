@@ -45,6 +45,15 @@ h3 {
     font-size: 1.3em;
 }
 
+.front h3 {
+    display: inline-block;
+    padding: 5px 10px 5px;
+}
+
+.front h3:hover {
+    background-color: #fff;
+}
+
 h3 a {
     color: #343434;
 }
@@ -65,11 +74,11 @@ article .text a:hover {
 }
 
 .value {
-    color: #232323;
+    color: #002856;
 }
 
 h3 .value {
-    color: #232323;
+    color: #002856;
     margin-left: 0.5em;
     font-weight: normal;
     font-style: italic;
@@ -104,7 +113,11 @@ header .value {
 }
 
 .front .pages-menu ul li a {
-    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+.front .pages-menu ul li a:hover {
+    background: #fff;
 }
 
 .pages-menu ul li a {
@@ -204,12 +217,22 @@ footer .site-link {
     padding-right: 1em;
 }
 
-footer .site-link:hover {
-    background-color: #EAEAEA;
-}
-
 footer .site-link a {
     text-decoration: none;
+}
+
+footer .site-link a h1 {
+    border: 1px solid #eaeaea;
+    padding: 5px 10px 5px;
+    display: inline-block;
+}
+
+footer .site-link a h1:hover {
+    background-color: #eaeaea;
+}
+
+footer .site-link a:hover {
+    text-decoration: underline;
 }
 
 footer .main {

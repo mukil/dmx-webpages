@@ -22,10 +22,12 @@
         <div class="index">
             <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                 <h3>
-                    <a th:if="${#strings.contains(website, 'standard')}" itemprop="url" th:href="${hostUrl} + ${page.webAlias}">
+                    <a th:if="${#strings.contains(website, 'standard')}"
+                       itemprop="url" th:href="${hostUrl} + ${page.webAlias}">
                         <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
                     </a>
-                    <a th:if="${!#strings.contains(website, 'standard')}" itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
+                    <a th:if="${!#strings.contains(website, 'standard')}"
+                       itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
                         <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
                     </a>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
@@ -33,6 +35,7 @@
                 <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
                 <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
                 <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
+                <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
                 <meta itemprop="author" th:content="${page.authorNames}" />
             </article>
         </div>
@@ -40,17 +43,19 @@
         <div class="pages-menu">
             <ul>
                 <li th:each="item : ${menuItems}">
-                    <a th:if="${#strings.contains(website, 'standard')}" itemprop="url" th:text="${item.label}" th:href="'/' + ${item.href}">Menu Item</a>
-                    <a th:if="${!#strings.contains(website, 'standard')}" itemprop="url" th:text="${item.label}" th:href="'/' + ${website} + '/' + ${item.href}">Menu Item</a>
+                    <a th:if="${#strings.contains(website, 'standard')}"
+                       itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="'/' + ${item.href}">Menu Item</a>
+                    <a th:if="${!#strings.contains(website, 'standard')}"
+                       itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="'/' + ${website} + '/' + ${item.href}">Menu Item</a>
                 </li>
             </ul>
         </div>
 
         <footer>
             <div class="main" th:utext="${footerText}"></div>
-            <div class="main">
+            <div class="main" th:if="${authenticated}">
                 <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-                Open <a th:if="${authenticated}" href="/de.deepamehta.webclient/">DeepaMehta 4 Webclient</a> to create or edit your website.
+                Open <a href="/de.deepamehta.webclient/">DeepaMehta 4 Webclient</a> to create or edit your website.
             </div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

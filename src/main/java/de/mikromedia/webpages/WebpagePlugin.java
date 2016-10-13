@@ -101,9 +101,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Produces(MediaType.TEXT_HTML)
     @Path("/{pageWebAlias}")
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
-        log.info("Requesting Global Page /" + webAlias);
         // 0) check if webAlias is valid username
         String pageAlias = webAlias.trim();
+        log.info("Requesting Global Page /" + webAlias);
         Topic username = dm4.getAccessControl().getUsernameTopic(pageAlias);
         if (username != null) {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
@@ -133,14 +133,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
     public Viewable getPageView(@PathParam("username") String prefix, @PathParam("pageWebAlias") String webAlias) {
-        log.info("Requesting Website Page /" + prefix + "/" + webAlias);
         String pageAlias = webAlias.trim();
+        log.info("Requesting Website Page /" + prefix + "/" + webAlias);
         // 1) Fetch users website topic
         Topic usersWebsite = getOrCreateWebsiteTopic(prefix);
         setWebsiteTemplateParameter(usersWebsite);
         // 2) check related webpages
         Viewable webpage = getWebsitesWebpage(usersWebsite, pageAlias, prefix);
         if (webpage != null) return webpage;
+        log.info("=> /" + pageAlias + " webpage for \"" +prefix+ "\"s website not found.");
         // 2) check if it is a users redirect
         handleWebsiteRedirects(usersWebsite, pageAlias);
         // 3) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
@@ -396,7 +397,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             setWebsiteTemplateParameter(website);
             return getWebpageTemplate(webpageAliasTopic);
         }
-        log.info("=> /" + webAlias + " webpage for standard website not found.");
         return null;
     }
 

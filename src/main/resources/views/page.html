@@ -5,6 +5,8 @@
         <title th:text="${page.pageTitle} + ' - ' + ${siteName}">DM 4 Page</title>
 
         <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+
         <!-- See http://schema.org/WebPage -->
         <meta itemprop="name" th:content="${page.pageTitle}"/>
         <meta itemprop="description" th:content="${page.description}"/>
@@ -37,7 +39,7 @@
                             <!-- meta itemprop="name" content="" /-->
                         Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
                     </div>
-                    <span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                    <span class="label">Last modified at</span><span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                 </div>
             </div>
         </article>
@@ -45,7 +47,7 @@
         <div class="pages-menu">
             <ul>
                 <li th:each="item : ${menuItems}">
-                    <a th:text="${item.label}" th:href="${item.href}">Menu item</a>
+                    <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
                 </li>
             </ul>
         </div>
@@ -53,20 +55,20 @@
         <footer>
             <div class="site-link">
                 <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
-                   alt="Link to the frontpage of this website" href="/">
+                    alt="Link to the frontpage of this website" href="/">
                     <h1 th:text="${siteName}"></h1>
-                    <h3 th:text="${siteCaption}"></h3>
+                    <h3 th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
                 </a>
-                <a th:if="${!#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
-                   alt="Link to the frontpage of this website" th:href="'/' + ${website}">
+                <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+                    title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website" th:href="'/' + ${website}">
                     <h1 th:text="${siteName}"></h1>
                     <h3 th:text="${siteCaption}"></h3>
                 </a>
             </div>
             <div class="main" th:utext="${footerText}"></div>
-            <div class="main">
+            <div th:if="${authenticated}" class="main">
                 <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-                Open <a th:if="${authenticated}" href="/de.deepamehta.webclient/">DeepaMehta 4 Webclient</a> to create or edit your webpages.
+                Open <a href="/de.deepamehta.webclient/">DeepaMehta 4 Webclient</a> to create or edit your website.
             </div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
