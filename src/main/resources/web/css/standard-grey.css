@@ -48,6 +48,7 @@ h3 {
 .front h3 {
     display: inline-block;
     padding: 5px 10px 5px;
+    background-color: #fff;
 }
 
 .front h3:hover {
@@ -56,10 +57,12 @@ h3 {
 
 h3 a {
     color: #343434;
+    text-decoration: none;
 }
 
 h3 a:hover {
     color: rgba(0, 40, 86, 0.95);
+    text-decoration: underline;
 }
 
 a {
@@ -98,18 +101,19 @@ header .value {
     font-size: 1.2em;
     text-align: left;
     margin: auto;
-    padding: 1em 1em 0em;
+    padding: 1.7em;
+    padding-bottom: .7em;
 }
 
 .pages-menu ul {
     list-style-type: none;
     font-size: 1.2em;
     padding-left: 0px;
+    margin-bottom: 0px;
 }
 
 .pages-menu ul li {
     display: inline-block;
-    margin: 1em 0.5em;
 }
 
 .front .pages-menu ul li a {
@@ -158,6 +162,11 @@ article .text {
     margin-bottom: 50px;
     line-height: 1.5em;
     font-size: 1.2em;
+}
+
+.front header .text,
+.front article .text {
+    padding-left: 10px;
 }
 
 article .text pre.code-block {

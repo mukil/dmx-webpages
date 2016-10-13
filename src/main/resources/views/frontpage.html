@@ -15,7 +15,7 @@
         <header>
             <div class="welcome">
                 <h1 itemprop="name" th:utext="${siteName}"></h1>
-                <h3 itemprop="headline" th:utext="${siteCaption}"></h3>
+                <h3 th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}"></h3>
             </div>
         </header>
 
