@@ -56,7 +56,8 @@
             <div class="main" th:utext="${footerText}"></div>
             <div class="main" th:if="${authenticated}">
                 <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-                Open <a href="/de.deepamehta.webclient/">DeepaMehta 4 Webclient</a> to create or edit your website.
+                Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>, open 
+                <a href="/de.deepamehta.webclient/">DeepaMehta 4</a> to create or edit your website.
             </div>
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
