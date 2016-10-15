@@ -24,13 +24,14 @@
                 <h3>
                     <a th:if="${#strings.contains(website, 'standard')}"
                        itemprop="url" th:href="${hostUrl} + ${page.webAlias}">
-                        <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                        <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                        <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                     </a>
                     <a th:if="${!#strings.contains(website, 'standard')}"
                        itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
-                        <span itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                        <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                        <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                     </a>
-                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                 </h3>
                 <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
                 <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->

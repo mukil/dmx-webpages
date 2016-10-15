@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:text="${page.pageTitle} + ' - ' + ${siteName}">DM 4 Page</title>
+        <title th:text="${page.pageTitle} + ' - ' + ${siteName}">Webpage</title>
 
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -30,9 +30,7 @@
         
         <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
             <div class="main">
-                <div class="text" itemprop="text" th:utext="${page.mainHTML}">
-
-                </div>
+                <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
                 <div class="metadata">
                     <div th:unless="${#strings.isEmpty(page.authorNames)}">
                         <!--meta itemprop="author" itemtype="http://schema.org/Person" /-->

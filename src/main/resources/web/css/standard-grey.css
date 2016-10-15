@@ -60,7 +60,7 @@ h3 a {
     text-decoration: none;
 }
 
-h3 a:hover {
+h3 a:hover .title {
     color: rgba(0, 40, 86, 0.95);
     text-decoration: underline;
 }
