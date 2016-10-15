@@ -23,6 +23,18 @@ public interface WebpageService {
     Topic getWebsiteByUsername(String username);
 
     /**
+     * Fetches the standard website topic.
+     * @return A topic representing the global website.
+     */
+    Topic getStandardWebsite();
+
+    /**
+     * Fetches all published webpages related to the given website topic.
+     * @return A list of webpages associated with the given website.
+     */
+    List<WebpageViewModel> getPublishedWebpages(Topic website);
+
+    /**
      * Fetches all published webpages related to the website associated with the username.
      * @param username
      * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
@@ -35,7 +47,7 @@ public interface WebpageService {
      * @return All \"active\" menu items associated with the website for the given username..
      */
     List<MenuItemViewModel> getActiveMenuItems(Topic site);
-
+    
     /**
      * IMPORTANT: If you register your own bundle as a resource for thymeleaf templates you must call
      * reinitTemplateEngine afterwards.

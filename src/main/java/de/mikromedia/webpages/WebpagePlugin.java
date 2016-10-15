@@ -112,7 +112,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
         }
         // 1) prepare standard website
-        Topic standardWebsite = getStandardSiteTopicByURI();
+        Topic standardWebsite = getStandardWebsite();
         setWebsiteTemplateParameter(standardWebsite);
         // 2) is webpage of standard site
         Viewable webpage = getWebsitesWebpage(standardWebsite, pageAlias, STANDARD_WEBSITE_PREFIX);
@@ -254,10 +254,28 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return result;
     }
 
+    /**
+     * Lists and prepares all currently published webpages of the given website.
+     * @param website
+     * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
+     */
+    @Override
+    public List<WebpageViewModel> getPublishedWebpages(Topic website) {
+        log.info("Listing all published webpages for \"" + website.getSimpleValue()+ "\" website");
+        ArrayList<WebpageViewModel> result = new ArrayList();
+        List<RelatedTopic> pages = getWebsiteRelatedPages(website);
+        Iterator<RelatedTopic> iterator = pages.iterator();
+        while (iterator.hasNext()) {
+            WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
+            if (!page.isDraft()) result.add(page);
+        }
+        return result;
+    }
+
     public Viewable getWebsiteFrontpage(String username) {
         Topic website = null;
         if (username == null) {
-            website = getStandardSiteTopicByURI();
+            website = getStandardWebsite();
             setGlobalTemplateParameter("frontpage", STANDARD_WEBSITE_PREFIX);
         } else {
             website = getOrCreateWebsiteTopic(username);
@@ -297,22 +315,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return result;
     }
 
-    /**
-     * Lists and prepares all currently published webpages of the given website.
-     * @param website
-     * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
-     */
-    public List<WebpageViewModel> getPublishedWebpages(Topic website) {
-        log.info("Listing all published webpages for \"" + website.getSimpleValue()+ "\" website");
-        ArrayList<WebpageViewModel> result = new ArrayList();
-        List<RelatedTopic> pages = getWebsiteRelatedPages(website);
-        Iterator<RelatedTopic> iterator = pages.iterator();
-        while (iterator.hasNext()) {
-            WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
-            if (!page.isDraft()) result.add(page);
-        }
-        return result;
+    /** Bring it back the old "Standard Site", give "admin" back her personal one! */
+    @Override
+    public Topic getStandardWebsite() {
+        return dm4.getTopicByUri("de.mikromedia.standard_site");
     }
+
+
 
     // --- Private Utility Methods
 
@@ -514,7 +523,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 1) If no page was returned by now we use the footer of the standard / admins website in our 404 page
         Topic website = standardWebsite;
         if (standardWebsite == null) {
-            website = getStandardSiteTopicByURI();
+            website = getStandardWebsite();
         }
         // 2) fetch standard website globals for filling up the basics in our "404" page
         setGlobalTemplateParameter("404", STANDARD_WEBSITE_PREFIX);
@@ -583,11 +592,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private String getWebsiteStylesheetPath(Topic site) {
         site.loadChildTopics("de.mikromedia.site.stylesheet");
         return site.getChildTopics().getTopic("de.mikromedia.site.stylesheet").getSimpleValue().toString();
-    }
-
-    /** Bring it back the old "Standard Site", give "admin" back her personal one! */
-    private Topic getStandardSiteTopicByURI() {
-        return dm4.getTopicByUri("de.mikromedia.standard_site");
     }
 
 }
