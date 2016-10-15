@@ -30,6 +30,9 @@ import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
@@ -267,7 +270,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
             // collect all webpages associated with this website
-            viewData("pages", getPublishedWebpages(website)); // ### sort by creation or modification date
+            List<WebpageViewModel> webpages = getPublishedWebpages(website);
+            // sort by creation or modification date
+            viewData("pages", getWebpagesSortedByModificationDate(webpages));
             return view("frontpage");
         } else {
             return getWebsitesNotFoundPage(website); // which loads standard topic if website is null
@@ -298,7 +303,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
      */
     public List<WebpageViewModel> getPublishedWebpages(Topic website) {
-        log.info("Listing all published webpages for \"" + website+ "\" website");
+        log.info("Listing all published webpages for \"" + website.getSimpleValue()+ "\" website");
         ArrayList<WebpageViewModel> result = new ArrayList();
         List<RelatedTopic> pages = getWebsiteRelatedPages(website);
         Iterator<RelatedTopic> iterator = pages.iterator();
@@ -529,6 +534,25 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private Topic getWebsiteRelatedUser(Topic website) {
         return website.getRelatedTopic("dm4.core.association", "dm4.core.default",
                     "dm4.core.default", "dm4.accesscontrol.username");
+    }
+
+    private List<WebpageViewModel> getWebpagesSortedByModificationDate(List<WebpageViewModel> all) {
+        Collections.sort(all, new Comparator<WebpageViewModel>() {
+            public int compare(WebpageViewModel t1, WebpageViewModel t2) {
+                try {
+                    Date one = t1.getModificationDate();
+                    Date two = t2.getModificationDate();
+                    if ( one.getTime() < two.getTime() ) return 1;
+                    if ( one.getTime() > two.getTime() ) return -1;
+                } catch (Exception nfe) {
+                    log.warning("Error while accessing modification timestamp of Webpage1: " + t1.getId() + " Webpage2: "
+                            + t2.getId() + " nfe: " + nfe.getMessage());
+                    return 0;
+                }
+                return 0;
+            }
+        });
+        return all;
     }
 
     private List<RelatedTopic> getWebsiteRelatedPages(Topic website) {

@@ -33,6 +33,10 @@ public class WebpageViewModel implements JSONEnabled {
         this.page.loadChildTopics();
     }
 
+    public long getId() {
+        return page.getId();
+    }
+
     public String getPageTitle() {
         return page.getSimpleValue().toString();
     }
