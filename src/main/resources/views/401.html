@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Access denied - 401</title>
+        <title th:text="'Access denied (401) - ' + ${siteName}">Access denied - 401</title>
 
         <meta charset="utf-8" />
         <meta itemprop="name" content="Access denied"/>
         <meta itemprop="description" content="Access denied"/>
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 

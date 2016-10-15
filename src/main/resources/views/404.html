@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Page not found - 404</title>
+        <title th:text="'Page not found (404) - ' + ${siteName}">Page not found - 404</title>
 
         <meta charset="utf-8" />
         <meta itemprop="name" content="Page not found"/>
         <meta itemprop="description" content="Page not found"/>
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
