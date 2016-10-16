@@ -23,12 +23,12 @@
             <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                 <h3>
                     <a th:if="${#strings.contains(website, 'standard')}"
-                       itemprop="url" th:href="${hostUrl} + ${page.webAlias}">
+                       itemprop="url" th:href="'/' + ${page.webAlias}">
                         <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
                         <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                     </a>
                     <a th:if="${!#strings.contains(website, 'standard')}"
-                       itemprop="url" th:href="${hostUrl} + ${website} + '/' + ${page.webAlias}">
+                       itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                         <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
                         <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                     </a>
