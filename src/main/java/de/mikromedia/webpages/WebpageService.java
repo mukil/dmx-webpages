@@ -4,6 +4,7 @@ import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.core.Topic;
 import de.mikromedia.webpages.models.MenuItemViewModel;
 import de.mikromedia.webpages.models.WebpageViewModel;
+import java.util.HashMap;
 import java.util.List;
 import org.osgi.framework.Bundle;
 
@@ -59,6 +60,8 @@ public interface WebpageService {
     void reinitTemplateEngine();
 
     void overrideFrontpageTemplate(String templateName);
+
+    void setFrontpageAliases(HashMap<String, String[]> frontpageAliases);
 
     void viewData(String key, Object value);
 

@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
@@ -68,6 +69,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
     String frontPageTemplateName = null;
+    HashMap<String, String[]> frontpageTemplateAliases = new HashMap<String, String[]>();
 
     @Override
     public void init() {
@@ -106,7 +108,16 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
         // 0) check if webAlias is valid username
         String pageAlias = webAlias.trim();
-        log.info("Requesting Global Page /" + webAlias);
+        // 0.1) Check if webAlias is a registered frontpageAlias
+        if (isFrontpageAlias(pageAlias)) {
+            String[] templateValue = frontpageTemplateAliases.get(pageAlias);
+            log.info("Loading template \"views/" + templateValue[0] + ".html\" for \"" + templateValue[1] + "\"");
+            setGlobalTemplateParameter(templateValue[0], templateValue[1]);
+            viewData("siteName", templateValue[1]); // set manual
+            viewData("website", pageAlias); // override value set with setGlobalTemplateParameter
+            return view(templateValue[0]);
+        }
+        log.info("Requesting Webpage /" + webAlias);
         Topic username = dm4.getAccessControl().getUsernameTopic(pageAlias);
         if (username != null) {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
@@ -156,6 +167,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Override
     public void overrideFrontpageTemplate(String fileName) {
         this.frontPageTemplateName = fileName;
+    }
+
+    @Override
+    public void setFrontpageAliases(HashMap aliases) {
+        this.frontpageTemplateAliases = aliases;
     }
 
     @Override
@@ -471,6 +487,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             }
         }
         return null;
+    }
+
+    private boolean isFrontpageAlias(String frontpageAlias) {
+        return (frontpageTemplateAliases.get(frontpageAlias) != null);
     }
 
     /**
