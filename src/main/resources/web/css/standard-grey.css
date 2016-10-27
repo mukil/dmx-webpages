@@ -51,6 +51,12 @@ h3 {
     background-color: #fff;
 }
 
+.front h3.headline:hover,
+.front h3.headline {
+    padding: 0px;
+    background-color: transparent;
+}
+
 .front h3:hover {
     background-color: #fff;
 }
@@ -244,12 +250,17 @@ footer .site-link a h1:hover {
     background-color: #eaeaea;
 }
 
+footer .site-link h3 {
+    margin-left: .5em;
+}
+
 footer .site-link a:hover {
     text-decoration: underline;
 }
 
 footer .main {
     background-color: #fff;
+    padding-left: 3em;
 }
 
 /** Portrait, most smartphones. */
