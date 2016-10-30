@@ -82,6 +82,17 @@ article .text a:hover {
     color: #8f1414;
 }
 
+article figure {
+    margin: 0px;
+}
+
+article figure figcaption {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: .8em;
+    color: #666;
+    padding: 0em 0.7em 0em;
+}
+
 .value {
     color: #002856;
 }

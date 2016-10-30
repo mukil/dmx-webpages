@@ -305,8 +305,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
             // collect all webpages associated with this website
             List<WebpageViewModel> webpages = getPublishedWebpages(website);
-            // sort by creation or modification date
-            viewData("pages", getWebpagesSortedByModificationDate(webpages));
+            // sort webpages on websites frontpage by time
+            viewData("pages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate
             return view("frontpage");
         } else {
             return getWebsitesNotFoundPage(website); // which loads standard topic if website is null
@@ -565,12 +565,19 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                     "dm4.core.default", "dm4.accesscontrol.username");
     }
 
-    private List<WebpageViewModel> getWebpagesSortedByModificationDate(List<WebpageViewModel> all) {
+    private List<WebpageViewModel> getWebpagesSortedByTimestamp(List<WebpageViewModel> all, final boolean lastModified) {
         Collections.sort(all, new Comparator<WebpageViewModel>() {
             public int compare(WebpageViewModel t1, WebpageViewModel t2) {
                 try {
-                    Date one = t1.getModificationDate();
-                    Date two = t2.getModificationDate();
+                    Date one = null;
+                    Date two = null;
+                    if (lastModified) {
+                        one = t1.getModificationDate();
+                        two = t2.getModificationDate();
+                    } else { // Default
+                        one = t1.getCreationDate();
+                        two = t2.getCreationDate();
+                    }
                     if ( one.getTime() < two.getTime() ) return 1;
                     if ( one.getTime() > two.getTime() ) return -1;
                 } catch (Exception nfe) {
