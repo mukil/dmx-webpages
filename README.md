@@ -15,11 +15,11 @@ It builds on our recent work, especially on the [dm4-thymeleaf](https://github.c
 
 See [system requirements at jri/deepamehta](https://github.com/jri/deepamehta/#1-check-requirements)
 
-Additionally you need to install the following module:
+It is recommended to use DeepaMehta 4.8.3 (or higher) and it is required to use the following
 
- * [dm4-thymeleaf](https://github.com/jri/dm4-thymeleaf) module
+ * [dm4-thymeleaf-0.6.1](https://github.com/jri/dm4-thymeleaf) module
 
-You'll find the most recent stable builds of both plugins at [http://download.deepamehta.de](http://download.deepamehta.de).
+You'll find both available for download both at [http://download.deepamehta.de](http://download.deepamehta.de).
 
 ## Usage: Creating a Webpage
 
