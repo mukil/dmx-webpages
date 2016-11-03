@@ -53,6 +53,10 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.1** -- Nov 03, 2016
+
+Pleae have read tjhe commit message for a description of fixes and improvements [here](https://github.com/mukil/dm4-webpages/commit/79ad5ea048d440e780e58022bb51adcba62e18be).
+
 **0.4** -- Aug 09, 2016
 
 * Completely revised webpage application model
