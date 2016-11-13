@@ -2,8 +2,6 @@ package de.mikromedia.webpages;
 
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.Inject;
-import de.mikromedia.webpages.models.MenuItemViewModel;
-import de.mikromedia.webpages.models.WebpageViewModel;
 
 import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.accesscontrol.AccessControlService;
@@ -29,7 +27,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -38,15 +35,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
-import javax.ws.rs.core.Response.Status;
 import org.osgi.framework.Bundle;
 
 /**
- * Collaborative, multi-site standard HTML webpages with DeepaMehta 4.
+ * Collaborative, multi-site standard HTML web pages with DeepaMehta 4.
  *
  * ### FIXME: Usernames might not be compatible URIComponents.
- * @author Malte Rei&szlig;ig (<a href="mailto:malte@mikromedia.de">Mail</a>)
- * @version 0.4 - compatible with DeepaMehta 4.8
+ * @author Malte Rei&szlig;ig
+ * @version 0.4.2 - compatible with DeepaMehta 4.8
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -58,37 +54,38 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Inject AccessControlService acService;
     @Inject WorkspacesService workspacesService;
 
-    public static final String WEBPAGES_WS_URI = "de.mikromedia.webpages_ws";
-    public static final String WEBPAGES_WS_NAME = "Webpages";
-    public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
-
-    private static final String STANDARD_WEBSITE_PREFIX = "standard";
-
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
     private TimeZone tz = TimeZone.getTimeZone("UTC");
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
+    /** A name of a Viewable registered by another plugin to be served at "/". **/
     String frontPageTemplateName = null;
+
+    /** A map with "name" of Viewables as values registered by other plugins to be served at "/webalias". **/
     HashMap<String, String[]> frontpageTemplateAliases = new HashMap<String, String[]>();
+
+
 
     @Override
     public void init() {
-        log.info("Initializing Webpages Thymeleaf Template Engine");
+        log.info("Initializing Mikromedia DM 4 Webpages Thymeleaf Engine");
         initTemplateEngine();
         df.setTimeZone(tz);
     }
 
     /**
      * The method managing the root resource / frontpage.
+     * Note: If overrideFrontpageTemplate() is used (frontpageTemplateName != null),
+     * the frontpage for the "standard" site is inaccessible.
      * @return  A processed Thymeleaf Template (<code>Viewable</code>).
      */
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Viewable getFrontpageView() {
-        // 0) Set generic template data "authenticated" and "username"
         // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
-            setGlobalTemplateParameter(frontPageTemplateName, null);
+            // Set generic template data "authenticated" and "username"
+            prepareGenericViewData(frontPageTemplateName, null);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             return getWebsiteFrontpage(null);
@@ -106,33 +103,33 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Produces(MediaType.TEXT_HTML)
     @Path("/{pageWebAlias}")
     public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
-        // 0) check if webAlias is valid username
         String pageAlias = webAlias.trim();
-        // 0.1) Check if webAlias is a registered frontpageAlias
-        if (isFrontpageAlias(pageAlias)) {
-            String[] templateValue = frontpageTemplateAliases.get(pageAlias);
-            log.info("Loading template \"views/" + templateValue[0] + ".html\" for \"" + templateValue[1] + "\"");
-            setGlobalTemplateParameter(templateValue[0], templateValue[1]);
-            viewData("siteName", templateValue[1]); // set manual
-            viewData("website", pageAlias); // override value set with setGlobalTemplateParameter
-            return view(templateValue[0]);
+        // 1) Check if for the given "/webAlias" a template was registered by other plugins
+        Viewable registeredPage = getCustomRootResourcePage(pageAlias);
+        if (registeredPage != null) {
+           return registeredPage;
         }
         log.info("Requesting Webpage /" + webAlias);
+        // 2) check if webAlias is valid username
         Topic username = dm4.getAccessControl().getUsernameTopic(pageAlias);
         if (username != null) {
             return getWebsiteFrontpage(username.getSimpleValue().toString());
         }
-        // 1) prepare standard website
+        // 3) prepare standard website
         Topic standardWebsite = getStandardWebsite();
-        setWebsiteTemplateParameter(standardWebsite);
-        // 2) is webpage of standard site
+        if (standardWebsite != null) {
+            prepareWebsiteViewData(standardWebsite);
+        }
+        // 4) is webpage of standard site
         Viewable webpage = getWebsitesWebpage(standardWebsite, pageAlias, STANDARD_WEBSITE_PREFIX);
-        if (webpage != null) return webpage;
-        log.info("=> /" + pageAlias + " webpage for standard website not found.");
-        // 4) is redirect of admin
+        if (webpage != null) {
+            return webpage;
+        }
+        log.fine("=> /" + pageAlias + " webpage for standard website not found.");
+        // 5) is redirect of admin
         handleWebsiteRedirects(standardWebsite, pageAlias);
-        log.info("=> /" + pageAlias + " webpage redirect for standard website not found.");
-        // 5) web alias is neither a published nor a drafted \"Webpage\" and not a \"Redirect\"
+        log.fine("=> /" + pageAlias + " redirect for standard website not found.");
+        // 6) Resource is neither a custom webAlias page, nor a published or drafted \"Webpage\" or \"Redirect\"
         return getWebsitesNotFoundPage(standardWebsite);
     }
 
@@ -151,52 +148,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         log.info("Requesting Website Page /" + prefix + "/" + webAlias);
         // 1) Fetch users website topic
         Topic usersWebsite = getOrCreateWebsiteTopic(prefix);
-        setWebsiteTemplateParameter(usersWebsite);
+        if (usersWebsite != null) {
+            prepareWebsiteViewData(usersWebsite);
+        }
         // 2) check related webpages
         Viewable webpage = getWebsitesWebpage(usersWebsite, pageAlias, prefix);
-        if (webpage != null) return webpage;
+        if (webpage != null) {
+            return webpage;
+        }
         log.info("=> /" + pageAlias + " webpage for \"" +prefix+ "\"s website not found.");
-        // 2) check if it is a users redirect
+        // 3) check if it is a users redirect
         handleWebsiteRedirects(usersWebsite, pageAlias);
-        // 3) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
+        // 4) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
         log.info("=> /" + pageAlias + " webpage redirect for \"" +prefix+ "\"s website not found.");
-        // 4) Return 404 page with users website footer
+        // 5) Return 404 page with users website footer
         return getWebsitesNotFoundPage(usersWebsite);
-    }
-
-    @Override
-    public void overrideFrontpageTemplate(String fileName) {
-        this.frontPageTemplateName = fileName;
-    }
-
-    @Override
-    public void setFrontpageAliases(HashMap aliases) {
-        this.frontpageTemplateAliases = aliases;
-    }
-
-    @Override
-    public void viewData(String key, Object value) {
-        super.viewData(key, value);
-    }
-
-    @Override
-    public Viewable view(String fileName) {
-        return super.view(fileName);
-    }
-
-    @Override
-    public void reinitTemplateEngine() {
-        super.initTemplateEngine();
-    }
-
-    @Override
-    public void addTemplateResolverBundle(Bundle bundle) {
-        super.addTemplateResourceBundle(bundle);
-    }
-
-    @Override
-    public void removeTemplateResolverBundle(Bundle bundle) {
-        super.removeTemplateResourceBundle(bundle);
     }
 
     /** --------------------------------------------------------------------------------- REST API Resources ----- **/
@@ -233,16 +199,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public String doRedirectToWebsite(@PathParam("websiteId") long websiteId)
             throws WebApplicationException, URISyntaxException {
         Topic topic = dm4.getTopic(websiteId);
-        if (topic.getTypeUri().equals("de.mikromedia.site")) {
-            Topic username = getWebsiteRelatedUser(topic);
-            if (username != null) { // browse user site
-                throw new WebApplicationException(
-                    Response.temporaryRedirect(new URI("/" + username.getSimpleValue().toString())).build());
-            } else { // browse standard site
-                throw new WebApplicationException(Response.temporaryRedirect(new URI("/")).build());
-            }
+        Website site = new Website(topic, dm4);
+        Topic username = site.getRelatedUsername();
+        if (username != null) { // browse user site
+            throw new WebApplicationException(
+                Response.temporaryRedirect(new URI("/" + username.getSimpleValue().toString())).build());
+        } else { // browse standard site
+            throw new WebApplicationException(Response.temporaryRedirect(new URI("/")).build());
         }
-        throw new WebApplicationException(Response.status(Status.OK).build());
     }
 
     /**
@@ -254,92 +218,73 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
     @Override
-    public List<WebpageViewModel> getPublishedWebpages(@PathParam("username") String username) {
+    public List<Webpage> getPublishedWebpages(@PathParam("username") String username) {
         log.info("Listing all published webpages for \"" + username + "\"");
-        // fetch all pages with title and all childs
-        ArrayList<WebpageViewModel> result = new ArrayList();
         Topic website = getOrCreateWebsiteTopic(username);
         if (website != null) {
-            List<RelatedTopic> pages = getWebsiteRelatedPages(website);
-            Iterator<RelatedTopic> iterator = pages.iterator();
-            while (iterator.hasNext()) {
-                WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
-                if (!page.isDraft()) result.add(page);
-            }
+            Website site = new Website(website, dm4);
+            return site.getRelatedWebpagesPublished();
         }
-        return result;
+        return null;
     }
 
     /**
      * Lists and prepares all currently published webpages of the given website.
-     * @param website
+     * @param websiteTopic
      * @return All webpage topics associated with the website for the given username and not marked as \"Drafts\".
      */
     @Override
-    public List<WebpageViewModel> getPublishedWebpages(Topic website) {
-        log.info("Listing all published webpages for \"" + website.getSimpleValue()+ "\" website");
-        ArrayList<WebpageViewModel> result = new ArrayList();
-        List<RelatedTopic> pages = getWebsiteRelatedPages(website);
-        Iterator<RelatedTopic> iterator = pages.iterator();
-        while (iterator.hasNext()) {
-            WebpageViewModel page = new WebpageViewModel(iterator.next().getId(), dm4);
-            if (!page.isDraft()) result.add(page);
-        }
-        return result;
-    }
-
-    public Viewable getWebsiteFrontpage(String username) {
-        Topic website = null;
-        if (username == null) {
-            website = getStandardWebsite();
-            setGlobalTemplateParameter("frontpage", STANDARD_WEBSITE_PREFIX);
-        } else {
-            website = getOrCreateWebsiteTopic(username);
-            setGlobalTemplateParameter("frontpage", username);
-        }
-        // website is null if the request does not have the necessary permissions to access it
-        if (website != null) {
-            // private workspace via our getRelatedTopics()-call
-            setWebsiteTemplateParameter(website);
-            // check if their is a redirect setup for this web alias
-            handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
-            // collect all webpages associated with this website
-            List<WebpageViewModel> webpages = getPublishedWebpages(website);
-            // sort webpages on websites frontpage by time
-            viewData("pages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate
-            return view("frontpage");
-        } else {
-            return getWebsitesNotFoundPage(website); // which loads standard topic if website is null
-        }
+    public List<Webpage> getPublishedWebpages(Topic websiteTopic) {
+        log.info("Listing all published webpages for \"" + websiteTopic.getSimpleValue()+ "\" website");
+        Website site = new Website(websiteTopic, dm4);
+        return site.getRelatedWebpagesPublished();
     }
 
     /**
      * Returns all topics of type <code>de.mikromedia.menu.item</code> related to the given `Website` topic.
-     * @param site
+     * @param website
      * @return
      */
     @Override
-    public List<MenuItemViewModel> getActiveMenuItems(Topic site) {
-        List<RelatedTopic> menuItems = site.getRelatedTopics("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.menu.item");
-        ArrayList<MenuItemViewModel> result = new ArrayList();
-        Iterator<RelatedTopic> iterator = menuItems.iterator();
-        while (iterator.hasNext()) {
-            MenuItemViewModel menuItem = new MenuItemViewModel(iterator.next().getId(), dm4);
-            if (menuItem.isActive()) result.add(menuItem);
-        }
-        return result;
+    public List<MenuItem> getActiveMenuItems(Topic website) {
+        Website site = new Website(website, dm4);
+        return site.getActiveMenuItems();
     }
 
     /** Bring it back the old "Standard Site", give "admin" back her personal one! */
     @Override
     public Topic getStandardWebsite() {
-        return dm4.getTopicByUri("de.mikromedia.standard_site");
+        return dm4.getTopicByUri(STANDARD_WEBSITE_URI);
     }
 
-
-
     // --- Private Utility Methods
+
+    /**
+     * Performs a HTTP redirect if a <code>de.mikromedia.redirect</code> is associated with the given `Website` topic.
+     * @param site
+     * @param webAlias
+     */
+    private void handleWebsiteRedirects(Topic site, String webAlias) {
+        if (site != null) {
+            Website website = new Website(site, dm4);
+            List<RelatedTopic> redirects = website.getConfiguredRedirects();
+            Iterator<RelatedTopic> iterator = redirects.iterator();
+            while (iterator.hasNext()) {
+                Topic redirectTopic = dm4.getTopic(iterator.next().getModel().getId()).loadChildTopics();
+                String redirectAliasVaue = redirectTopic.getChildTopics().getString(REDIRECT_WEB_ALIAS);
+                if (redirectAliasVaue.equals(webAlias)) {
+                    String redirectUrl = redirectTopic.getChildTopics().getString(REDIRECT_TARGET_URL);
+                    int statusCode = redirectTopic.getChildTopics().getInt(REDIRECT_STATUS_CODE);
+                    performRedirect(webAlias, redirectUrl, statusCode);
+                }
+            }
+        }
+    }
+
+    private Topic getUserRelatedWebsite(Topic username) {
+        return username.getRelatedTopic("dm4.core.association", "dm4.core.default",
+                    "dm4.core.default", WEBSITE);
+    }
 
     /**
      * @param username
@@ -350,7 +295,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic website = null;
         if (usernameTopic != null) {
             try {
-                website = getRelatedWebsite(usernameTopic);
+                website = getUserRelatedWebsite(usernameTopic);
                 if (website != null) {
                     log.info("Loaded website topic of user " + username);
                     return website;
@@ -376,19 +321,19 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             final Topic websiteTopic = dm4.getAccessControl().runWithoutWorkspaceAssignment(new Callable<Topic>() {
                 @Override
                 public Topic call() {
-                    Topic topic = dm4.createTopic(mf.newTopicModel("de.mikromedia.site", mf.newChildTopicsModel()
-                        .put("de.mikromedia.site.name", "My collection of webpages")
-                        .putRef("de.mikromedia.site.stylesheet", "de.mikromedia.standard_site_style")
-                        .put("de.mikromedia.site.footer_html", "<p class=\"attribution\">Published with the "
+                    Topic topic = dm4.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
+                        .put(WEBSITE_NAME, "My collection of webpages")
+                        .putRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
+                        .put(WEBSITE_FOOTER, "<p class=\"attribution\">Published with the "
                             + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"Source Coude: dm4-webpages\">"
                             + "dm4-webpages</a> module.</p>")
                     ));
                     Topic usersWorkspace = dm4.getAccessControl().getPrivateWorkspace(
                         username.getSimpleValue().toString());
                     dm4.getAccessControl().assignToWorkspace(topic.getChildTopics()
-                        .getTopic("de.mikromedia.site.name"), usersWorkspace.getId());
+                        .getTopic(WEBSITE_NAME), usersWorkspace.getId());
                     dm4.getAccessControl().assignToWorkspace(topic.getChildTopics()
-                        .getTopic("de.mikromedia.site.footer_html"), usersWorkspace.getId());
+                        .getTopic(WEBSITE_FOOTER), usersWorkspace.getId());
                     Association userWebsiteRelation = createWebsiteUsernameAssociation(username, topic);
                     dm4.getAccessControl().assignToWorkspace(userWebsiteRelation, usersWorkspace.getId());
                     dm4.getAccessControl().assignToWorkspace(topic, usersWorkspace.getId());
@@ -415,48 +360,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
-     * @param website
-     * @param webAlias
-     * @param sitePrefix
-     * @return A processed thymeleaf template if a webpage is related to that website, <code>null</code> otherwise.
-     */
-    private Viewable getWebsitesWebpage(Topic website, String webAlias, String sitePrefix) {
-        Topic webpageAliasTopic = getWebpageByAlias(website, webAlias);
-        if (webpageAliasTopic != null) {
-            setGlobalTemplateParameter(webAlias, sitePrefix);
-            setWebsiteTemplateParameter(website);
-            return getWebpageTemplate(webpageAliasTopic);
-        }
-        return null;
-    }
-
-    /**
-     * Performs a HTTP redirect if a <code>de.mikromedia.redirect</code> is associated with the given `Website` topic.
-     * @param site
-     * @param webAlias
-     */
-    private void handleWebsiteRedirects(Topic site, String webAlias) {
-        List<RelatedTopic> redirectTopics = site.getRelatedTopics("dm4.core.association",
-                "dm4.core.default","dm4.core.default", "de.mikromedia.redirect");
-        Iterator<RelatedTopic> iterator = redirectTopics.iterator();
-        while (iterator.hasNext()) {
-            Topic redirectTopic = dm4.getTopic(iterator.next().getModel().getId()).loadChildTopics();
-            String redirectAliasVaue = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.web_alias");
-            if (redirectAliasVaue.equals(webAlias)) {
-                String redirectUrl = redirectTopic.getChildTopics().getString("de.mikromedia.redirect.target_url");
-                int statusCode = redirectTopic.getChildTopics().getInt("de.mikromedia.redirect.status_code");
-                doRedirect(webAlias, redirectUrl, statusCode);
-            }
-        }
-    }
-
-    /**
      * This method performs HTTP redirects to whatever the caller wants.
      * @param webAlias
      * @param redirectUrl
      * @param statusCode
      */
-    private void doRedirect(String webAlias, String redirectUrl, int statusCode) {
+    private void performRedirect(String webAlias, String redirectUrl, int statusCode) {
         try {
             if (statusCode == 302 || statusCode == 303 || statusCode == 307) {
                 log.fine(" => /" + webAlias + " temporary redirects to " + redirectUrl);
@@ -471,57 +380,74 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     /**
-     * Returns a topic of type <code>de.mikromedia.page</code> if its associated with the given `Website` topic.
-     * @param site
+     * @param website
      * @param webAlias
-     * @return
+     * @param sitePrefix
+     * @return A processed thymeleaf template if a webpage is related to that website, <code>null</code> otherwise.
      */
-    private Topic getWebpageByAlias(Topic site, String webAlias) {
-        List<RelatedTopic> relatedWebpages = getWebsiteRelatedPages(site);
-        for (RelatedTopic webpage : relatedWebpages) {
-            Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
-            String webpageAlias = webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
-            if (webpageAlias.equals(webAlias)) {
-                log.info("Loaded webpage with web alias \"" + webAlias + "\" Title: " + webpageTopic.getSimpleValue());
-                return webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
-            }
+    private Viewable getWebsitesWebpage(Topic website, String webAlias, String sitePrefix) {
+        Website site = new Website(website, dm4);
+        Topic webpageAliasTopic = site.getWebpageByAlias(webAlias);
+        if (webpageAliasTopic != null) {
+            prepareGenericViewData(webAlias, sitePrefix);
+            prepareWebsiteViewData(website);
+            return getWebpageTemplate(webpageAliasTopic);
         }
         return null;
     }
 
-    private boolean isFrontpageAlias(String frontpageAlias) {
-        return (frontpageTemplateAliases.get(frontpageAlias) != null);
+    private Viewable getWebsiteFrontpage(String username) {
+        Topic website = null;
+        if (username == null) {
+            website = getStandardWebsite();
+            prepareGenericViewData("frontpage", STANDARD_WEBSITE_PREFIX);
+        } else {
+            website = getOrCreateWebsiteTopic(username);
+            prepareGenericViewData("frontpage", username);
+        }
+        // website is null if the request does not have the necessary permissions to access it
+        if (website != null) {
+            // private workspace via our getRelatedTopics()-call
+            prepareWebsiteViewData(website);
+            // check if their is a redirect setup for this web alias
+            handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
+            // collect all webpages associated with this website
+            List<Webpage> webpages = getPublishedWebpages(website);
+            // sort webpages on websites frontpage by time
+            viewData("pages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate
+            return view("frontpage");
+        } else {
+            return getWebsitesNotFoundPage(website); // which loads standard topic if website is null
+        }
     }
 
-    /**
-     * Prepares some session data used across all our Thymeleaf page templates.
-     * @param websiteTopic
-     */
-    private void setGlobalTemplateParameter(String filename, String websitePrefix) {
-        String username = acService.getUsername();
-        viewData("authenticated", (username != null));
-        viewData("username", username);
-        viewData("website", websitePrefix);
-        viewData("template", filename);
-        viewData("hostUrl", DM4_HOST_URL);
+    private Viewable getWebsitesNotFoundPage(Topic standardWebsite) {
+        // 1) If no page was returned by now we use the value placed in "Footer" of the standard / admins website in our 404 page
+        Topic website = standardWebsite;
+        if (website == null) {
+            website = getStandardWebsite();
+        }
+        prepareGenericViewData("404", STANDARD_WEBSITE_PREFIX);
+        prepareWebsiteViewData(website);
+        return view("404");
     }
 
-    /**
-     * Prepares the most basic data used across all our Thymeleaf page templates.
-     * @param website
-     */
-    private void setWebsiteTemplateParameter(Topic website) {
-        viewData("siteName", getWebsiteName(website));
-        viewData("siteCaption", getWebsiteCaption(website));
-        viewData("siteAbout", getWebsiteAboutHTML(website));
-        viewData("footerText", getWebsiteFooter(website));
-        viewData("customSiteCss", getWebsiteStylesheetPath(website));
-        viewData("menuItems", getActiveMenuItems(website));
+    private Viewable getCustomRootResourcePage(String pageAlias) {
+        if (isFrontpageAliasRegistered(pageAlias)) {
+            String[] templateValue = frontpageTemplateAliases.get(pageAlias);
+            String templateName = templateValue[0];
+            log.info("Loading template \"views/" + templateName + ".html\" for \"" + pageAlias + "\"");
+            prepareGenericViewData(templateName, pageAlias);
+            viewData("website", pageAlias); // Fixme: used as url prefix? Otherwise drop.
+            viewData("siteName", pageAlias);
+            return view(templateName);
+        }
+        return null;
     }
 
     private Viewable getWebpageTemplate(Topic webAliasTopic) {
         try {
-            WebpageViewModel page = new WebpageViewModel(webAliasTopic);
+            Webpage page = new Webpage(webAliasTopic);
             // while logged in users can (potentially) browse a drafted webpage
             if (isNotAllowedToAccessDraft(page)) {
                 log.fine("401 => /" + webAliasTopic.getSimpleValue() + " is a DRAFT (yet unpublished)");
@@ -539,35 +465,48 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         }
     }
 
-    private Viewable getWebsitesNotFoundPage(Topic standardWebsite) {
-        // 1) If no page was returned by now we use the footer of the standard / admins website in our 404 page
-        Topic website = standardWebsite;
-        if (standardWebsite == null) {
-            website = getStandardWebsite();
-        }
-        // 2) fetch standard website globals for filling up the basics in our "404" page
-        setGlobalTemplateParameter("404", STANDARD_WEBSITE_PREFIX);
-        setWebsiteTemplateParameter(website);
-        return view("404");
+    /**
+     * Prepares some session data used across all our Thymeleaf page templates.
+     * @param websiteTopic
+     */
+    private void prepareGenericViewData(String filename, String websitePrefix) {
+        String username = acService.getUsername();
+        viewData("authenticated", (username != null));
+        viewData("username", username);
+        viewData("website", websitePrefix);
+        viewData("template", filename);
+        viewData("hostUrl", DM4_HOST_URL);
     }
 
-    private boolean isNotAllowedToAccessDraft(WebpageViewModel page) {
+    /**
+     * Prepares the most basic data used across all our Thymeleaf page templates.
+     * @param website
+     */
+    private void prepareWebsiteViewData(Topic website) {
+        if (website != null) {
+            Website site = new Website(website, dm4);
+            viewData("siteName", site.getName());
+            viewData("siteCaption", site.getCaption());
+            viewData("siteAbout", site.getAboutHTML());
+            viewData("footerText", site.getFooter());
+            viewData("customSiteCss", site.getStylesheetPath());
+            viewData("menuItems", site.getActiveMenuItems());
+        } else {
+            log.warning("Preparing webpage template failed because a given website could not be found");
+        }
+    }
+
+    private boolean isFrontpageAliasRegistered(String frontpageAlias) {
+        return (frontpageTemplateAliases.get(frontpageAlias) != null);
+    }
+
+    private boolean isNotAllowedToAccessDraft(Webpage page) {
         return (page.isDraft() && acService.getUsername() == null);
     }
 
-    private Topic getRelatedWebsite(Topic username) {
-        return username.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                    "dm4.core.default", "de.mikromedia.site");
-    }
-
-    private Topic getWebsiteRelatedUser(Topic website) {
-        return website.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                    "dm4.core.default", "dm4.accesscontrol.username");
-    }
-
-    private List<WebpageViewModel> getWebpagesSortedByTimestamp(List<WebpageViewModel> all, final boolean lastModified) {
-        Collections.sort(all, new Comparator<WebpageViewModel>() {
-            public int compare(WebpageViewModel t1, WebpageViewModel t2) {
+    private List<Webpage> getWebpagesSortedByTimestamp(List<Webpage> all, final boolean lastModified) {
+        Collections.sort(all, new Comparator<Webpage>() {
+            public int compare(Webpage t1, Webpage t2) {
                 try {
                     Date one = null;
                     Date two = null;
@@ -591,34 +530,39 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return all;
     }
 
-    private List<RelatedTopic> getWebsiteRelatedPages(Topic website) {
-        return website.getRelatedTopics("dm4.core.association", "dm4.core.default",
-                    "dm4.core.default", "de.mikromedia.page");
+    @Override
+    public void overrideFrontpageTemplate(String fileName) {
+        this.frontPageTemplateName = fileName;
     }
 
-    private String getWebsiteFooter(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.footer_html");
-        return site.getChildTopics().getString("de.mikromedia.site.footer_html");
+    @Override
+    public void setFrontpageAliases(HashMap aliases) {
+        this.frontpageTemplateAliases = aliases;
     }
 
-    private String getWebsiteCaption(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.caption");
-        return site.getChildTopics().getStringOrNull("de.mikromedia.site.caption");
+    @Override
+    public void viewData(String key, Object value) {
+        super.viewData(key, value);
     }
 
-    private String getWebsiteAboutHTML(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.about_html");
-        return site.getChildTopics().getStringOrNull("de.mikromedia.site.about_html");
+    @Override
+    public Viewable view(String fileName) {
+        return super.view(fileName);
     }
 
-    private String getWebsiteName(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.name");
-        return site.getChildTopics().getString("de.mikromedia.site.name");
+    @Override
+    public void reinitTemplateEngine() {
+        super.initTemplateEngine();
     }
 
-    private String getWebsiteStylesheetPath(Topic site) {
-        site.loadChildTopics("de.mikromedia.site.stylesheet");
-        return site.getChildTopics().getTopic("de.mikromedia.site.stylesheet").getSimpleValue().toString();
+    @Override
+    public void addTemplateResolverBundle(Bundle bundle) {
+        super.addTemplateResourceBundle(bundle);
+    }
+
+    @Override
+    public void removeTemplateResolverBundle(Bundle bundle) {
+        super.removeTemplateResourceBundle(bundle);
     }
 
 }

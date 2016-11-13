@@ -1,4 +1,4 @@
-package de.mikromedia.webpages.models;
+package de.mikromedia.webpages;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-public class WebpageViewModel implements JSONEnabled {
+public class Webpage implements JSONEnabled {
 
     public Topic page;
 
-    public WebpageViewModel(Topic pageAliasTopic) {
+    public Webpage(Topic pageAliasTopic) {
         this.page = pageAliasTopic.getRelatedTopic("dm4.core.composition",
             "dm4.core.child", "dm4.core.parent", "de.mikromedia.page");
         if (!isWebpageTopic(this.page)) {
@@ -25,7 +25,7 @@ public class WebpageViewModel implements JSONEnabled {
         this.page.loadChildTopics();
     }
 
-    public WebpageViewModel(long topicId, CoreService dms) {
+    public Webpage(long topicId, CoreService dms) {
         this.page = dms.getTopic(topicId);
         if (!isWebpageTopic(this.page)) {
             throw new IllegalArgumentException("Given topic is not of type Webpage");
@@ -108,7 +108,7 @@ public class WebpageViewModel implements JSONEnabled {
              * .put("web_description", webDescription) *
              */
         } catch (JSONException ex) {
-            Logger.getLogger(WebpageViewModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Webpage.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
