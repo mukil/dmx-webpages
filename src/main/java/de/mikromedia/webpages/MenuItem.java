@@ -1,4 +1,4 @@
-package de.mikromedia.webpages.models;
+package de.mikromedia.webpages;
 
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-public class MenuItemViewModel implements JSONEnabled {
+public class MenuItem implements JSONEnabled {
 
     public Topic menuItem;
 
-    public MenuItemViewModel(long topicId, CoreService dms) {
+    public MenuItem(long topicId, CoreService dms) {
         this.menuItem = dms.getTopic(topicId);
         if (!isWebpageMenuItemTopic(this.menuItem)) {
             throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");
@@ -38,7 +38,7 @@ public class MenuItemViewModel implements JSONEnabled {
                 .put("label", getLabel())
                 .put("href", getHref());
         } catch (JSONException ex) {
-            Logger.getLogger(MenuItemViewModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuItem.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
