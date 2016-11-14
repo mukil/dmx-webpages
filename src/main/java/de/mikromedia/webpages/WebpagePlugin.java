@@ -243,7 +243,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     /**
      * Returns all topics of type <code>de.mikromedia.menu.item</code> related to the given `Website` topic.
      * @param website
-     * @return
+     * @return All topics of type menu item associated with the given website.
      */
     @Override
     public List<MenuItem> getActiveMenuItems(Topic website) {
@@ -251,7 +251,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return site.getActiveMenuItems();
     }
 
-    /** Bring it back the old "Standard Site", give "admin" back her personal one! */
+    /**
+     * Fetches the global standard website.
+     * @return A topic representing the global standard website which is unrelated to any username.
+     * Its pages are accessible under the root resource.
+     */
     @Override
     public Topic getStandardWebsite() {
         return dm4.getTopicByUri(STANDARD_WEBSITE_URI);

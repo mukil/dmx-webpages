@@ -71,9 +71,8 @@ public class Website {
 
     /**
      * Returns a topic of type <code>de.mikromedia.page</code> if its associated with the given `Website` topic.
-     * @param website
      * @param webAlias
-     * @return
+     * @return Topic    A topic representing the Webpage.
      */
     public Topic getWebpageByAlias(String webAlias) {
         List<RelatedTopic> relatedWebpages = getRelatedWebpages();
