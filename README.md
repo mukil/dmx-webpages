@@ -31,20 +31,7 @@ To publish a _Webpage_ it must be connected to a _Website_.
 
 You can also reveal your website through search `By Type` and then selecting `Website`.
 
-2. Create a _Webpage_
-
- * _Create_ -> _Webpage_ and _Edit_ it, for example with a
- * Headline -> Title of this webpage
- * Content -> The main content area of your webpage
- * Web Alias -> This must be an URI compliant name for your resource
- * What is this page about? -> The meta=description for your webpage as well as the summary shown on your frontpage. Used by search engines to index your webpage.
- * Author Name -> Name of the content authors (or contributors).
- * Draft?-> A checkbox, if checked your webpage content will only be published to logged in users who have access permissions on the topic.
-
-3. Associate the _Webpage_ with your _Website_
-
- * Either: Right click on the _Website_ or the _Webpage_ and select the  _Associate_ command
- * Or: Drag & Drop the line (=Association) over the other (_Website_ or _Webpage_) topic
+2. Creating a _Webpage_ is as simple as using the `New Webpage` when having selected a `Website` item.
 
 That's it. Your webpage is now published under your hostname and its so called _Web Alias_. The very same steps apply if you want to publish a _Redirect_ or a  _Menu item_ on your website.
 
@@ -53,9 +40,14 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.2** -- Nov 14, 2016
+
+* Revision of "standard-grey" stylesheet
+* Revision of server side java plugin code
+
 **0.4.1** -- Nov 03, 2016
 
-Pleae have read tjhe commit message for a description of fixes and improvements [here](https://github.com/mukil/dm4-webpages/commit/79ad5ea048d440e780e58022bb51adcba62e18be).
+Pleae have a look at [this commit message](https://github.com/mukil/dm4-webpages/commit/79ad5ea048d440e780e58022bb51adcba62e18be) for a short description of fixes and improvements in 0.4.1.
 
 **0.4** -- Aug 09, 2016
 
