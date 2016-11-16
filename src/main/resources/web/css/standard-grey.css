@@ -131,6 +131,10 @@ button {
     background-color: #EAEAEA;
 }
 
+.front .pages-menu ul li {
+    padding: 0em;
+}
+
 .pages-menu ul li:hover {
     text-decoration: underline;
     text-decoration-color: #8f1414;
@@ -138,6 +142,7 @@ button {
 
 .pages-menu ul li a {
     text-decoration: none;
+    padding: 0.5em;
 }
 
 /** ------------------------------- Header Element Styles -------------- **/
