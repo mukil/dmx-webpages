@@ -20,6 +20,10 @@ public class MenuItem implements JSONEnabled {
         this.menuItem.loadChildTopics();
     }
 
+    public long getId() {
+        return menuItem.getId();
+    }
+
     public String getLabel() {
         return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_name");
     }

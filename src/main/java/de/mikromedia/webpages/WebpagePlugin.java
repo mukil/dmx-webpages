@@ -86,6 +86,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         if (frontPageTemplateName != null) {
             // Set generic template data "authenticated" and "username"
             prepareGenericViewData(frontPageTemplateName, null);
+            // expose published "webpages" and "menu items" of the standard website to third party frontpages
+            prepareStandardWebpageViewData();
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             return getWebsiteFrontpage(null);
@@ -480,6 +482,16 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         viewData("website", websitePrefix);
         viewData("template", filename);
         viewData("hostUrl", DM4_HOST_URL);
+    }
+
+    private void prepareStandardWebpageViewData() {
+        // fetch all published webpages for the standard website
+        Topic standardSite = getStandardWebsite();
+        List<Webpage> webpages = getPublishedWebpages(standardSite);
+        // sort webpages on websites frontpage by modification time
+        viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate
+        // fetcha all active menu items and other basic metadata interesting for a sitemap like footer
+        prepareWebsiteViewData(standardSite);
     }
 
     /**
