@@ -15,8 +15,8 @@ public class Migration3 extends Migration {
     @Override
     public void run () {
 
-        TopicType tagType = dm4.getTopicType("de.mikromedia.page.headline");
-        ViewConfiguration viewConfig = tagType.getViewConfig();
+        TopicType headlineType = dm4.getTopicType("de.mikromedia.page.headline");
+        ViewConfiguration viewConfig = headlineType.getViewConfig();
         viewConfig.addSetting("dm4.webclient.view_config",
                 "dm4.webclient.simple_renderer_uri", "de.mikromedia.page.headline_renderer");
 

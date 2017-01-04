@@ -2,7 +2,6 @@ package de.mikromedia.webpages.migrations;
 
 import de.deepamehta.accesscontrol.AccessControlService;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.Association;
 import de.deepamehta.core.TopicType;
 import de.deepamehta.core.service.Migration;
 import de.deepamehta.core.service.Inject;
