@@ -40,6 +40,11 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.3** -- Jan 04, 2017
+
+* Expose standard webpages and menu items to a 3rd party frontpage
+* A CSS fix in the "standard grey" stylesheet fixing menu position on each page
+
 **0.4.2** -- Nov 14, 2016
 
 * Revision of "standard-grey" stylesheet
