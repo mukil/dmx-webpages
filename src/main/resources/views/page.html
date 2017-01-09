@@ -44,6 +44,7 @@
 
         <div class="pages-menu">
             <ul>
+                <!-- Todo: Mark current menu item as selected -->
                 <li th:each="item : ${menuItems}">
                     <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
                 </li>
