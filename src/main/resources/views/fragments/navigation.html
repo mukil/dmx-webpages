@@ -1,0 +1,78 @@
+
+<!--- Standard Horizontal Top Navigation -->
+<div th:fragment="top (publisher)">
+
+    <div class="ui menu top fixed">
+        <h3 class="citymap-title"></h3>
+        <div th:class="${is_publisher} ? 'ui container fluid' : 'ui container'">
+            <a href="/" class="home" title="zur Startseite">
+                <img src="/de.kiezatlas.website/images/kiezatlas2-logo.png" height="40" class="mobile-logo" />
+            </a>
+            <a th:if="${authenticated}" href="/angebote/my" class="item angebote">Meine Eintr&auml;ge</a>
+            <a th:if="!${#strings.contains(template, 'index')}" href="/" class="item">Startseite</a>
+            <a href="/angebote" class="item all-angebote">Angebote</a>
+            <div class="right menu">
+                <div class="item search-input">
+                    <div class="ui search small input">
+                        <div class="ui icon input">
+                            <input class="prompt" id="text-search" type="text"
+                                   placeholder="Suchanfrage"/>&nsbp;<!-- onfocus="show_search_options()" -->
+                        </div>
+                        <button id="search-submit" onclick="fulltext_search_pages()" class="circular ui icon button basic small">
+                            <i class="icon search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Standard Webpage Links Sitemap like Footer -->
+<div th:fragment="footer-links (publisher)" class="footer-links">
+
+    <div class="provider">
+        <div class="block infos">
+            <h3>Infos</h3>
+            <ul class="menu-items" th:if="${!#lists.isEmpty(menuItems)}">
+                <li th:each="menuItem : ${menuItems}">
+                    <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="block user">
+            <h3>Mein Zugang</h3>
+            <ul class="menu" th:if="!${authenticated}">
+                <li><a href="/sign-up/login" class="item">Login</a></li>
+                <li><a href="/sign-up/" class="item">Registrieren</a></li>
+            </ul>
+            <ul class="menu" th:if="${authenticated}">
+                <li><a href="/sign-up/edit" class="item">Bearbeiten</a></li>
+                <li><a href="/sign-up/login" class="item">Logout</a></li>
+            </ul>
+        </div>
+
+        <div class="block about">
+            <h3>Kontakt</h3>
+            <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
+        </div>
+
+        <div class="block webpages">
+            <h3 th:text="${siteName}">Webpages</h3>
+            <ul class="webpages" th:if="${!#lists.isEmpty(webpages)}">
+                <li th:each="webpage : ${webpages}">
+                    <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="powered-by" th:if="${!#strings.isEmpty(siteAbout)}">
+            <p th:utext="${footerText}">
+                Configure Website Footer Text (HTML)
+            </p>
+        </div>
+    </div>
+
+</div>

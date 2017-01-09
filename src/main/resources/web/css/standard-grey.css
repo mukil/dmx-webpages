@@ -37,6 +37,10 @@ body .pages-menu {
     margin: auto;
 }
 
+.top-menu .mobile-logo {
+    padding: 0.5em;
+}
+
 .debug {
     display: none;
 }

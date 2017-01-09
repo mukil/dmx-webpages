@@ -62,8 +62,9 @@
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>
                 <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
                 <meta itemprop="url" th:content="${hostUrl} + ${website}"/>
+                <meta itemprop="description" th:content="${footerText}"></meta>
             </div>
         </footer>
 
