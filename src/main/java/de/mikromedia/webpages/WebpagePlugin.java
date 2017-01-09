@@ -87,7 +87,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             // Set generic template data "authenticated" and "username"
             prepareGenericViewData(frontPageTemplateName, null);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
-            prepareStandardWebpageViewData();
+            Topic standardSite = getStandardWebsite();
+            prepareWebsiteViewData(standardSite);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             return getWebsiteFrontpage(null);
@@ -395,7 +396,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Website site = new Website(website, dm4);
         Topic webpageAliasTopic = site.getWebpageByAlias(webAlias);
         if (webpageAliasTopic != null) {
-            prepareGenericViewData(webAlias, sitePrefix);
+            prepareGenericViewData("page", sitePrefix);
             prepareWebsiteViewData(website);
             return getWebpageTemplate(webpageAliasTopic);
         }
@@ -444,6 +445,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             String templateName = templateValue[0];
             log.info("Loading template \"views/" + templateName + ".html\" for \"" + pageAlias + "\"");
             prepareGenericViewData(templateName, pageAlias);
+            Topic standardSite = getStandardWebsite();
+            prepareWebsiteViewData(standardSite);
             viewData("website", pageAlias); // Fixme: used as url prefix? Otherwise drop.
             viewData("siteName", pageAlias);
             return view(templateName);
@@ -484,16 +487,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         viewData("hostUrl", DM4_HOST_URL);
     }
 
-    private void prepareStandardWebpageViewData() {
-        // fetch all published webpages for the standard website
-        Topic standardSite = getStandardWebsite();
-        List<Webpage> webpages = getPublishedWebpages(standardSite);
-        // sort webpages on websites frontpage by modification time
-        viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate
-        // fetcha all active menu items and other basic metadata interesting for a sitemap like footer
-        prepareWebsiteViewData(standardSite);
-    }
-
     /**
      * Prepares the most basic data used across all our Thymeleaf page templates.
      * @param website
@@ -504,9 +497,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             viewData("siteName", site.getName());
             viewData("siteCaption", site.getCaption());
             viewData("siteAbout", site.getAboutHTML());
+            viewData("siteId", website.getId());
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());
+            List<Webpage> webpages = getPublishedWebpages(website);
+            // sort webpages on websites frontpage by modification time
+            viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate
         } else {
             log.warning("Preparing webpage template failed because a given website could not be found");
         }

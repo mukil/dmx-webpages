@@ -7,7 +7,7 @@
     <name>Mikromedia DM 4 Webpages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dm48-webpages</artifactId>
-    <version>0.4.3</version>
+    <version>0.4.4-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
@@ -16,10 +16,10 @@
         <version>4.8</version>
     </parent>
 
-    <!--properties>
+    <properties>
         <dm4.deploy.dir>/home/malted/source/mikro/deepamehta/bundle-deploy</dm4.deploy.dir>
-	<dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir>
-    </properties-->
+	<!--dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir-->
+    </properties>
 
     <dependencies>
         <dependency>
