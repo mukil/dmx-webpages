@@ -9,7 +9,6 @@ import de.deepamehta.accesscontrol.AccessControlService;
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.accesscontrol.AccessControlException;
-import de.deepamehta.core.service.accesscontrol.SharingMode;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
@@ -517,7 +516,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return (page.isDraft() && acService.getUsername() == null);
     }
 
-    private List<Webpage> getWebpagesSortedByTimestamp(List<Webpage> all, final boolean lastModified) {
+    @Override
+    public List<Webpage> getWebpagesSortedByTimestamp(List<Webpage> all, final boolean lastModified) {
         Collections.sort(all, new Comparator<Webpage>() {
             public int compare(Webpage t1, Webpage t2) {
                 try {

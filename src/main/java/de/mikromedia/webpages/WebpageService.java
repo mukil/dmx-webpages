@@ -65,6 +65,8 @@ public interface WebpageService {
      * @return All \"active\" menu items associated with the website for the given username..
      */
     List<MenuItem> getActiveMenuItems(Topic site);
+
+    List<Webpage> getWebpagesSortedByTimestamp(List<Webpage> all, final boolean lastModified);
     
     /**
      * IMPORTANT: If you register your own bundle as a resource for thymeleaf templates you must call
