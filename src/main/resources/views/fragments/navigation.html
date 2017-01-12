@@ -61,9 +61,14 @@
 
         <div class="block webpages">
             <h3 th:text="${siteName}">Webpages</h3>
-            <ul class="webpages" th:if="${!#lists.isEmpty(webpages)}">
+            <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
                 <li th:each="webpage : ${webpages}">
                     <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                </li>
+            </ul>
+            <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                <li th:each="webpage : ${webpages}">
+                    <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
                 </li>
             </ul>
         </div>

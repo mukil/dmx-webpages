@@ -84,7 +84,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
             // Set generic template data "authenticated" and "username"
-            prepareGenericViewData(frontPageTemplateName, null);
+            prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
             Topic standardSite = getStandardWebsite();
             prepareWebsiteViewData(standardSite);
