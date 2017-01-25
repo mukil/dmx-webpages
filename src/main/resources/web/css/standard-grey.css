@@ -276,8 +276,10 @@ footer h3 {
 .footer {
     position: relative;
     min-height: 100px;
-    font-size: 1.2em;
+    font-size: .9em;
     background-color: #fff;
+    margin: auto;
+    max-width: 1127px;
 }
 
 footer {
@@ -291,7 +293,10 @@ footer {
 .footer .provider {
     padding-top: .5em;
     padding-bottom: .5em;
-    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    overflow: auto;
+    flex: 1;
 }
 
 .footer h3 {
@@ -300,12 +305,9 @@ footer {
 }
 
 .footer .block {
-    display: inline-block;
+    display: inline-flex;
+    flex: 1 0 200px;
     margin: 1em;
-    vertical-align: top;
-    text-align: left;
-    max-width: 300px;
-    min-width: 200px;
 }
 
 .footer .block ul {
@@ -326,9 +328,9 @@ footer {
 }
 
 .footer .powered-by {
-    max-width: 66%;
+    max-width: 1100px;
     margin: auto;
-    padding-bottom: 2em;
+    padding: 1em 3em;
 }
 
 .footer .powered-by a,

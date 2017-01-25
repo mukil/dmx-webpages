@@ -6,11 +6,14 @@
  */
 
 function register_input_handler() {
-    document.getElementById("text-search").addEventListener('keyup', function(e) {
-        if (e.target.value.length >= 3 && e.keyCode === 13) {
-            do_fulltext_search()
-        }
-    })
+    var searchInput = document.getElementById("text-search")
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.target.value.length >= 3 && e.keyCode === 13) {
+                do_fulltext_search()
+            }
+        })
+    }
 }
 
 function do_fulltext_search() {

@@ -34,43 +34,51 @@
 
     <div class="provider">
         <div class="block infos">
-            <h3>Infos</h3>
-            <ul class="menu-items" th:if="${!#lists.isEmpty(menuItems)}">
-                <li th:each="menuItem : ${menuItems}">
-                    <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
-                </li>
-            </ul>
+            <div class="content">
+                <h3>Infos</h3>
+                <ul class="menu-items" th:if="${!#lists.isEmpty(menuItems)}">
+                    <li th:each="menuItem : ${menuItems}">
+                        <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="block user">
-            <h3>Mein Zugang</h3>
-            <ul class="menu" th:if="!${authenticated}">
-                <li><a href="/sign-up/login" class="item">Login</a></li>
-                <li><a href="/sign-up/" class="item">Registrieren</a></li>
-            </ul>
-            <ul class="menu" th:if="${authenticated}">
-                <li><a href="/sign-up/edit" class="item">Bearbeiten</a></li>
-                <li><a href="/sign-up/login" class="item">Logout</a></li>
-            </ul>
+            <div class="content">
+                <h3>Mein Zugang</h3>
+                <ul class="menu" th:if="!${authenticated}">
+                    <li><a href="/sign-up/login" class="item">Login</a></li>
+                    <li><a href="/sign-up/" class="item">Registrieren</a></li>
+                </ul>
+                <ul class="menu" th:if="${authenticated}">
+                    <li><a href="/sign-up/edit" class="item">Bearbeiten</a></li>
+                    <li><a href="/sign-up/login" class="item">Logout</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="block about">
-            <h3>Kontakt</h3>
-            <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
+            <div class="content">
+                <h3>Kontakt</h3>
+                <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
+            </div>
         </div>
 
         <div class="block webpages">
-            <h3 th:text="${siteName}">Webpages</h3>
-            <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
-                <li th:each="webpage : ${webpages}">
-                    <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
-                </li>
-            </ul>
-            <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
-                <li th:each="webpage : ${webpages}">
-                    <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
-                </li>
-            </ul>
+            <div class="content">
+                <h3 th:text="${siteName}">Webpages</h3>
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
+                    <li th:each="webpage : ${webpages}">
+                        <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    </li>
+                </ul>
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                    <li th:each="webpage : ${webpages}">
+                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="powered-by" th:if="${!#strings.isEmpty(siteAbout)}">
