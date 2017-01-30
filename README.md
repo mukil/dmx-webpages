@@ -40,6 +40,13 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.4** -- Jan 31, 2017
+
+* Arrange site navigation blocks as `flexbox` layout
+* Feature: Allow 3rd party plugins to hook in a top menu navigation fragment
+* Feature: Allow 3rd party plugins to gather menu items and webpage topics (for the "standard" website)
+* Fix: Website name is always "standard" on pages/templates registered by 3rd party plugins
+
 **0.4.3** -- Jan 04, 2017
 
 * Expose standard webpages and menu items to a 3rd party frontpage
