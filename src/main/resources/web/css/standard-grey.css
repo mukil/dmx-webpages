@@ -177,6 +177,10 @@ header .value {
     background-color: #fff;
 }
 
+.front footer h3 {
+    padding: 0em;
+}
+
 .front h3.headline:hover,
 .front h3.headline {
     padding: 0px;
