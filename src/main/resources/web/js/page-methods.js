@@ -4,6 +4,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function show_search_options() {
+    console.log("### todo: show search options")
+}
+
+function render_page() {
+   // $('.ui.dropdown').dropdown()
+}
 
 function register_input_handler() {
     var searchInput = document.getElementById("text-search")

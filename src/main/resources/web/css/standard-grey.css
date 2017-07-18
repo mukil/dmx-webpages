@@ -10,7 +10,7 @@ html, body {
 }
 
 body.page {
-    margin-top: 0em;
+    padding-top: 5em;
 }
 
 body, .serif {
@@ -35,6 +35,10 @@ body .pages-menu {
 
 .logo {
     margin: auto;
+}
+
+.searchbar {
+    zoom: .75;
 }
 
 .top-menu .mobile-logo {
@@ -163,6 +167,7 @@ header .value {
 }
 
 /** ------------------------------- Frontpage styles ------------------- **/
+
 .page.front {
     background-color: #EAEAEA;
 }
@@ -280,10 +285,6 @@ footer h3 {
     background-color: #fff;
     margin: auto;
     max-width: 1127px;
-}
-
-footer {
-    padding: 0em;
 }
 
 .footer h4 {
