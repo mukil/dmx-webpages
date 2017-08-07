@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Mikromedia DM 4 Webpages</name>
+    <name>Mikromedia DM 4 - Webpages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dm48-webpages</artifactId>
     <version>0.4.5-SNAPSHOT</version>
@@ -13,13 +13,13 @@
     <parent>
         <groupId>de.deepamehta</groupId>
         <artifactId>deepamehta-plugin</artifactId>
-        <version>4.8</version>
+        <version>4.8.8</version>
     </parent>
 
-    <!--properties>
-        <dm4.deploy.dir>/home/malted/source/mikro/deepamehta/bundle-deploy</dm4.deploy.dir>
-	<dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir>
-    </properties-->
+    <properties>
+        <dm4.deploy.dir>/Users/malt/source/deepamehta/bundle-deploy</dm4.deploy.dir>
+	<!--dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir-->
+    </properties>
 
     <dependencies>
         <dependency>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>de.deepamehta</groupId>
             <artifactId>deepamehta-accesscontrol</artifactId>
-            <version>4.8</version>
+            <version>4.8.8</version>
         </dependency>
     </dependencies>
 
