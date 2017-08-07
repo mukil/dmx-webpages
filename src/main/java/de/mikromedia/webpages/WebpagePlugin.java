@@ -26,6 +26,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -41,7 +42,7 @@ import org.osgi.framework.Bundle;
  *
  * ### FIXME: Usernames might not be compatible URIComponents.
  * @author Malte Rei&szlig;ig
- * @version 0.4.2 - compatible with DeepaMehta 4.8
+ * @version 0.4.5-SNAPSHOT - compatible with DeepaMehta 4.8.6+
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -50,8 +51,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
-    @Inject AccessControlService acService;
-    @Inject WorkspacesService workspacesService;
+    @Inject AccessControlService accesscontrol;
+    @Inject WorkspacesService workspaces;
 
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
     private TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -80,7 +81,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      */
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public Viewable getFrontpageView() {
+    public Viewable getIndexWebpage() {
         // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
             // Set generic template data "authenticated" and "username"
@@ -104,7 +105,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{pageWebAlias}")
-    public Viewable getPageView(@PathParam("pageWebAlias") String webAlias) {
+    public Viewable getWebpage(@PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
         // 1) Check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
@@ -145,7 +146,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{username}/{pageWebAlias}")
-    public Viewable getPageView(@PathParam("username") String prefix, @PathParam("pageWebAlias") String webAlias) {
+    public Viewable getWebsitePage(@PathParam("username") String prefix, @PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
         log.info("Requesting Website Page /" + prefix + "/" + webAlias);
         // 1) Fetch users website topic
@@ -176,8 +177,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public Topic getWebsiteByUsername(@PathParam("username") String username) {
         Topic website = null;
         // return the website topic for the requested username
-        Topic usernameTopic = acService.getUsernameTopic(username);
-        if (usernameTopic != null && usernameTopic.getSimpleValue().toString().equals(acService.getUsername())) {
+        Topic usernameTopic = accesscontrol.getUsernameTopic(username);
+        if (usernameTopic != null && usernameTopic.getSimpleValue().toString().equals(accesscontrol.getUsername())) {
             website = getOrCreateWebsiteTopic(username);
         }
         return website;
@@ -188,7 +189,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Path("/website")
     public Topic getWebsite() {
         Topic website = null;
-        String username = acService.getUsername();
+        String username = accesscontrol.getUsername();
         if (username != null) {
             website = getOrCreateWebsiteTopic(username);
         }
@@ -225,9 +226,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic website = getOrCreateWebsiteTopic(username);
         if (website != null) {
             Website site = new Website(website, dm4);
-            return site.getRelatedWebpagesPublished();
+            if (site.isWebsiteTopic()) {
+                return site.getRelatedWebpagesPublished();
+            }
+        } else {
+            log.warning("No website available under username/prefix \"/" + username + "\" - Returning empty list");
         }
-        return null;
+        return new ArrayList<Webpage>();
     }
 
     /**
@@ -239,7 +244,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     public List<Webpage> getPublishedWebpages(Topic websiteTopic) {
         log.info("Listing all published webpages for \"" + websiteTopic.getSimpleValue()+ "\" website");
         Website site = new Website(websiteTopic, dm4);
-        return site.getRelatedWebpagesPublished();
+        if (site.isWebsiteTopic()) {
+            return site.getRelatedWebpagesPublished();
+        }
+        return new ArrayList<Webpage>();
     }
 
     /**
@@ -297,7 +305,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @return A topic of type <code>de.mikromedia.site</code> for the given `username`, if none found creates one.
      */
     private Topic getOrCreateWebsiteTopic(final String username) {
-        final Topic usernameTopic = acService.getUsernameTopic(username);
+        final Topic usernameTopic = accesscontrol.getUsernameTopic(username);
         Topic website = null;
         if (usernameTopic != null) {
             try {
@@ -393,11 +401,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      */
     private Viewable getWebsitesWebpage(Topic website, String webAlias, String sitePrefix) {
         Website site = new Website(website, dm4);
-        Topic webpageAliasTopic = site.getWebpageByAlias(webAlias);
-        if (webpageAliasTopic != null) {
-            prepareGenericViewData("page", sitePrefix);
-            prepareWebsiteViewData(website);
-            return getWebpageTemplate(webpageAliasTopic);
+        if (site.isWebsiteTopic()) {
+            Topic webpageAliasTopic = site.getWebpageByAlias(webAlias);
+            if (webpageAliasTopic != null) {
+                prepareGenericViewData("page", sitePrefix);
+                prepareWebsiteViewData(website);
+                return getWebpageTemplate(webpageAliasTopic);
+            }
         }
         return null;
     }
@@ -429,6 +439,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     private Viewable getWebsitesNotFoundPage(Topic standardWebsite) {
         // 1) If no page was returned by now we use the value placed in "Footer" of the standard / admins website in our 404 page
+        // ### Fixme: Can we respond with HTTP Status 404 and a template, too? Serving robots and humans?
         Topic website = standardWebsite;
         if (website == null) {
             website = getStandardWebsite();
@@ -478,7 +489,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
      * @param websiteTopic
      */
     private void prepareGenericViewData(String filename, String websitePrefix) {
-        String username = acService.getUsername();
+        String username = accesscontrol.getUsername();
         viewData("authenticated", (username != null));
         viewData("username", username);
         viewData("website", websitePrefix);
@@ -513,7 +524,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     }
 
     private boolean isNotAllowedToAccessDraft(Webpage page) {
-        return (page.isDraft() && acService.getUsername() == null);
+        return (page.isDraft() && accesscontrol.getUsername() == null);
     }
 
     @Override
@@ -548,8 +559,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         this.frontPageTemplateName = fileName;
     }
 
+    /** TODO: Renanem to configureRootResources() **/
     @Override
     public void setFrontpageAliases(HashMap aliases) {
+        log.info("Configured " + aliases.size() + " webAliases under webpages \"/\" resource");
         this.frontpageTemplateAliases = aliases;
     }
 

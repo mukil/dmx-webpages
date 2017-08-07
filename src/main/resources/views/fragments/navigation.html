@@ -1,27 +1,27 @@
 
 <!--- Standard Horizontal Top Navigation -->
-<div th:fragment="top (publisher)">
+<div th:fragment="search">
 
-    <div class="ui menu top fixed">
-        <h3 class="citymap-title"></h3>
-        <div th:class="${is_publisher} ? 'ui container fluid' : 'ui container'">
-            <a href="/" class="home" title="zur Startseite">
-                <img src="/de.kiezatlas.website/images/kiezatlas2-logo.png" height="40" class="mobile-logo" />
-            </a>
-            <a th:if="${authenticated}" href="/angebote/my" class="item angebote">Meine Eintr&auml;ge</a>
-            <a th:if="!${#strings.contains(template, 'index')}" href="/" class="item">Startseite</a>
-            <a href="/angebote" class="item all-angebote">Angebote</a>
-            <div class="right menu">
+    <div class="ui menu top fixed searchbar">
+        <div class="ui container fluid">
+            <a class="ui item large button basic" href="/" title="View frontpage"><i class="disk outline icon"></i></a>
+            <div class="ui right menu">
                 <div class="item search-input">
-                    <div class="ui search small input">
-                        <div class="ui icon input">
-                            <input class="prompt" id="text-search" type="text"
-                                   placeholder="Suchanfrage"/>&nsbp;<!-- onfocus="show_search_options()" -->
-                        </div>
-                        <button id="search-submit" onclick="fulltext_search_pages()" class="circular ui icon button basic small">
+                    <form method="GET" action="/webpages/search">
+                        <div class="ui left icon action input focus">
+                            <input class="prompt" name="query" id="text-search" type="text"
+                                   placeholder="Search" onfocus="show_search_options()"/>
                             <i class="icon search"></i>
-                        </button>
-                    </div>
+                            <select name="option" class="ui selection dropdown">
+                                <option value="all">All</option>
+                                <option value="notes">Institutions</option>
+                                <option value="notes">Notes</option>
+                                <option selected="" value="pages">Pages</option>
+                                <option value="notes">Persons</option>
+                                <option value="notes">Web Resources</option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

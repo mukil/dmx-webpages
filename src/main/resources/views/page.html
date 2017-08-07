@@ -17,15 +17,22 @@
         
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
-        <link media="all" href="/de.kiezatlas.website/css/kiezatlas-pages.css" rel="stylesheet" />
 
-        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="page_init()"></script>
+        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
+        <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
+
+        <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-1.9.1-and-1.12.1-ui-custom.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/css/semantic.min.js"></script>
+        <!--script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/search.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/transition.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dropdown.min.js"></script-->
+        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
     </head>
     <body class="page">
 
-        <nav class="top-menu" th:include="fragments/navigation :: top (publisher=false)"></nav>
+        <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
 
         <header>
             <div class="welcome">
@@ -87,7 +94,7 @@
                     <meta id="siteId" th:content="${siteId}"></meta>
                 </div>
 
-                <div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div>
+                <!--div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div-->
 
             </footer>
 

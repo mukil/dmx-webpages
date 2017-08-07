@@ -7,18 +7,23 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" rel="stylesheet" />
-        <link media="all" href="/de.kiezatlas.website/css/kiezatlas-pages.css" rel="stylesheet" />
+        <!--link media="all" href="/de.kiezatlas.website/css/kiezatlas-pages.css" rel="stylesheet" /-->
 
         <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="page_init()"></script>
 
         <meta th:replace="fragments/tracker" />
 
+        <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-1.9.1-and-1.12.1-ui-custom.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/css/semantic.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+
     </head>
     <body class="page front">
 
-        <nav class="top-menu" th:include="fragments/navigation :: top (publisher=false)"></nav>
+        <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
 
         <header>
             <div class="welcome">

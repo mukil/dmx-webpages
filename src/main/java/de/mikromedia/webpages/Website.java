@@ -22,12 +22,10 @@ public class Website {
     public Website(Topic website, CoreService dm4) {
         this.topic = website;
         this.dm4 = dm4;
-        if (!isWebsiteTopic()) {
-            throw new RuntimeException("Error constructing Website, topic is not of type \"de.mikromedia.site\"");
-        }
     }
 
-    private boolean isWebsiteTopic() {
+    public boolean isWebsiteTopic() {
+        if (this.topic == null) return false;
         return (this.topic.getTypeUri().equals("de.mikromedia.site"));
     }
 
