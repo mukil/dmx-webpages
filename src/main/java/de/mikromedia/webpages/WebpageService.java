@@ -3,6 +3,8 @@ package de.mikromedia.webpages;
 import com.sun.jersey.api.view.Viewable;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.accesscontrol.SharingMode;
+import de.mikromedia.webpages.model.MenuItem;
+import de.mikromedia.webpages.model.Webpage;
 import java.util.HashMap;
 import java.util.List;
 import org.osgi.framework.Bundle;
@@ -19,6 +21,10 @@ public interface WebpageService {
     public static final String WEBSITE_NAME = "de.mikromedia.site.name";
     public static final String WEBSITE_STYLESHEET = "de.mikromedia.site.stylesheet";
     public static final String WEBSITE_FOOTER = "de.mikromedia.site.footer_html";
+
+    public static final String WEBPAGE = "de.mikromedia.page";
+    public static final String WEBPAGE_TITLE = "de.mikromedia.page.headline";
+    public static final String WEBPAGE_CONTENT = "de.mikromedia.page.main";
 
     public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";
     public static final String STANDARD_WEBSITE_URI = "de.mikromedia.standard_site";

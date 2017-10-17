@@ -1,9 +1,11 @@
-package de.mikromedia.webpages;
+package de.mikromedia.webpages.model;
 
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -53,13 +55,34 @@ public class Website {
     public List<MenuItem> getActiveMenuItems() {
         List<RelatedTopic> menuItems = this.topic.getRelatedTopics("dm4.core.association", "dm4.core.default",
                 "dm4.core.default", "de.mikromedia.menu.item");
+        sortMenuItems(menuItems);
         ArrayList<MenuItem> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
             MenuItem menuItem = new MenuItem(iterator.next().getId(), dm4);
-            if (menuItem.isActive()) result.add(menuItem);
+            if (menuItem.isActive()) {
+                menuItem.getChildMenuItems();
+                result.add(menuItem);
+            }
         }
         return result;
+    }
+
+    private void sortMenuItems(List<RelatedTopic> items) {
+        Collections.sort(items, new Comparator<RelatedTopic>() {
+            @Override
+            public int compare(RelatedTopic item1, RelatedTopic item2) {
+                int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
+                int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
+                if (value1 > value2) {
+                    return 1;
+                } else if (value1 == value2) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
     }
 
     public List<RelatedTopic> getConfiguredRedirects() {

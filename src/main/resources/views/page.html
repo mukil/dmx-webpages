@@ -46,7 +46,7 @@
         <div class="pusher">
 
             <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-                <div class="main">
+                <div class="ui main text container">
                     <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
                     <div class="metadata">
                         <div th:unless="${#strings.isEmpty(page.authorNames)}">
@@ -59,14 +59,13 @@
                 </div>
             </article>
 
-            <div class="pages-menu">
+            <!--div class="pages-menu">
                 <ul>
-		    <!-- Todo: Mark current menu item as selected -->
 	            <li th:each="item : ${menuItems}">
         	        <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
                     </li>
                 </ul>
-            </div>
+            </div-->
 
             <footer>
                 <div class="site-link">

@@ -1,5 +1,6 @@
-package de.mikromedia.webpages;
+package de.mikromedia.webpages.model;
 
+import de.mikromedia.webpages.*;
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.RelatedTopic;

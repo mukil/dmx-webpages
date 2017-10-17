@@ -26,14 +26,14 @@
         <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
 
         <header>
-            <div class="welcome">
+            <div class="ui container welcome">
                 <h1 itemprop="name" th:utext="${siteName}"></h1>
                 <h3 class="headline" th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}"></h3>
             </div>
         </header>
 
         <div class="pusher">
-            <div class="index">
+            <div class="index main text container ui">
                 <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                     <h3>
                         <a th:if="${#strings.contains(website, 'standard')}"
@@ -55,16 +55,16 @@
                 </article>
             </div>
 
-            <div class="pages-menu">
+            <!--div class="pages-menu">
                 <ul>
                     <li th:each="item : ${menuItems}">
                         <a th:if="${#strings.contains(website, 'standard')}"
-                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="'/' + ${item.href}">Menu Item</a>
+                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${item.href}">Menu Item</a>
                         <a th:if="${!#strings.contains(website, 'standard')}"
-                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="'/' + ${website} + '/' + ${item.href}">Menu Item</a>
+                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${website} + '/' + ${item.href}">Menu Item</a>
                     </li>
                 </ul>
-            </div>
+            </div-->
 
             <footer>
                 <div class="site-link">

@@ -1,32 +1,65 @@
 
 <!--- Standard Horizontal Top Navigation -->
 <div th:fragment="search">
+    <div class="ui top fixed menu inverted">
+        <div class="ui container">
 
-    <div class="ui menu top fixed searchbar">
-        <div class="ui container fluid">
-            <a class="ui item large button basic" href="/" title="View frontpage"><i class="disk outline icon"></i></a>
-            <div class="ui right menu">
-                <div class="item search-input">
-                    <form method="GET" action="/webpages/search">
-                        <div class="ui left icon action input focus">
-                            <input class="prompt" name="query" id="text-search" type="text"
-                                   placeholder="Search" onfocus="show_search_options()"/>
-                            <i class="icon search"></i>
-                            <select name="option" class="ui selection dropdown">
-                                <option value="all">All</option>
-                                <option value="notes">Institutions</option>
-                                <option value="notes">Notes</option>
-                                <option selected="" value="pages">Pages</option>
-                                <option value="notes">Persons</option>
-                                <option value="notes">Web Resources</option>
-                            </select>
-                        </div>
-                    </form>
+            <div th:each="menuItem : ${menuItems}">
+                <a th:if="!${menuItem.hasChildItems}"
+                   th:class="${#strings.contains(location, menuItem.href) ? 'active item' : 'item'}"
+                   th:href="${menuItem.href}" th:text="${menuItem.label}"></a>
+                <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
+                    <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
+                    <span th:text="${menuItem.label}"></span>
+                    <i class="icon dropdown"></i>
+                    <div class="menu" th:each="childItem : ${menuItem.childMenuItems}">
+                        <a class="item" th:href="${childItem.href}" th:text="${childItem.label}"></a>
+                    </div>
                 </div>
             </div>
+
+            <!--div class="ui dropdown icon item">
+                <i class="wrench icon"></i>
+                <div class="menu">
+                    <div class="item">
+                        <i class="dropdown icon"></i>
+                        <span class="text">New</span>
+                        <div class="menu">
+                            <div class="item">Document</div>
+                            <div class="item">Image</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        Open...
+                    </div>
+                    <div class="item">
+                        Save...
+                    </div>
+                    <div class="item">Edit Permissions</div>
+                    <div class="divider"></div>
+                    <div class="header">
+                        Export
+                    </div>
+                    <div class="item">
+                        Share...
+                    </div>
+                </div>
+            </div>
+
+            <a class="item active">Item #0</a-->
+
+            <div class="right menu">
+                <div class="ui right aligned category search item">
+                    <div class="ui transparent inverted icon input">
+                        <input class="prompt" type="text" placeholder="Search..." />
+                        <i class="search link icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+            </div>
+
         </div>
     </div>
-
 </div>
 
 <!-- Standard Webpage Links Sitemap like Footer -->

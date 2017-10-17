@@ -4,16 +4,19 @@
 html, body {
     background-color: #EAEAEA;
     margin: 0px;
-    height: 100%;
+    /** height: 100%; **/
     color: #232323;
     margin-top: 2em;
 }
 
 body.page {
-    padding-top: 5em;
+    padding-top: .5em;
 }
 
-body, .serif {
+body,
+.serif,
+body .ui.menu,
+body .ui.input input {
     font-size: 16px;
     font-family: "Cambria", "Georgia", "Times", serif;
 }
@@ -35,10 +38,6 @@ body .pages-menu {
 
 .logo {
     margin: auto;
-}
-
-.searchbar {
-    zoom: .75;
 }
 
 .top-menu .mobile-logo {
@@ -115,6 +114,10 @@ select,
 input[type="button"],
 button {
     cursor: pointer;
+}
+
+header .welcome {
+    text-align: center;
 }
 
 /** -------------------------------- Page Menu Styles --------------------- **/
