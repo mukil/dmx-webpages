@@ -16,28 +16,32 @@
     </head>
     <body class="page denied">
 
-        <header>
-            <div class="welcome">
-                <h1>500</h1>
-                <h3>Sorry, the server experienced an internal error.</h3>
-            </div>
-        </header>
+        <div class="page-top-space">
 
-        <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-            <div class="main">
-                <div class="text" itemprop="text" th:utext="${message}"></div>
-            </div>
-        </article>
+            <header>
+                <div class="welcome">
+                    <h1>500</h1>
+                    <h3>Sorry, the server experienced an internal error.</h3>
+                </div>
+            </header>
 
-        <footer>
-            <div class="main" th:utext="${footerText}"></div>
-            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
-                <meta itemprop="name" th:content="${siteName}"/>
-                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
-                <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
-            </div>
-        </footer>
+            <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+                <div class="main">
+                    <div class="text" itemprop="text" th:utext="${message}"></div>
+                </div>
+            </article>
+
+            <footer>
+                <div class="main" th:utext="${footerText}"></div>
+                <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                    <meta itemprop="name" th:content="${siteName}"/>
+                    <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                    <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="description" th:content="${siteAbout}"/>
+                    <meta itemprop="url" th:content="${hostUrl} + ${username}"/>
+                </div>
+            </footer>
+
+        </div>
 
     </body>
 </html>

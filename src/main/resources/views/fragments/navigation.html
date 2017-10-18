@@ -29,24 +29,28 @@
 
                 <!-- The global "standard" website is routed at "/" root resource -->
                 <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
-                    th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
-                    th:data="${location} + '.' + ${menuItem.fullHref}"
+                    th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
+                    th:data="${location} + '.'+ '/' + ${menuItem.href}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                     th:href="'/' + ${menuItem.href}">Menu Item</a>
 
                 <!-- All other user websites are routed below their respective "/website-prefix/" -->
                 <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
-                    th:class="${#strings.equalsIgnoreCase(location, menuItem.fullHref) ? 'active item' : 'item'}"
+                    th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-                    th:href="${menuItem.fullHref}">Menu Item</a>
+                    th:href="'/' + ${website} + '/' + ${menuItem.href}">Menu Item</a>
 
                 <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
                     <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-                    <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
+                    <span th:text="${menuItem.label}" th:data="${menuItem.href}"></span>
                     <i class="icon dropdown"></i>
                     <div class="menu" th:each="childItem : ${menuItem.childMenuItems}">
-                        <a th:class="${#strings.equalsIgnoreCase(location, childItem.fullHref) ? 'active item' : 'item'}"
-                           th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
+                        <a th:if="${!#strings.contains(website, 'standard')}"
+                           th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + childItem.href) ? 'active item' : 'item'}"
+                           th:href="'/' + ${website} + '/' + ${childItem.href}" th:text="${childItem.label}"></a>
+                        <a th:if="${#strings.contains(website, 'standard')}"
+                           th:class="${#strings.equalsIgnoreCase(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                           th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
                     </div>
                 </div>
 

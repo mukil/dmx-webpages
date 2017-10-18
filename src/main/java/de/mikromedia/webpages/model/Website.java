@@ -84,7 +84,7 @@ public class Website {
                     }
                 } catch (NumberFormatException nex) {
                     // Supresses sorting of ordinal number for one of the two items with a NFException
-                    log.warning("Sorting Menu Items by Ordinal Number encountered an error: "
+                    log.fine("Sorting Menu Items by Ordinal Number encountered an error: "
                             + nex.getLocalizedMessage());
                     return 0; // ### Depending which item has a bad number, continue sorting
                 }
