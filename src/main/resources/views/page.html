@@ -14,18 +14,16 @@
         <meta itemprop="dateCreated" th:content="${dateCreated}"/>
         <meta itemprop="dateModified" th:content="${dateModified}"/>
         <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
+
+        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
         
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
-        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
         <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
 
         <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-1.9.1-and-1.12.1-ui-custom.min.js"></script>
         <script defer="true" src="/de.mikromedia.webpages/css/semantic.min.js"></script>
-        <!--script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/search.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/transition.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dropdown.min.js"></script-->
         <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
@@ -34,68 +32,61 @@
 
         <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
 
-        <header>
-            <div class="welcome">
-                <h1 itemprop="headline" th:utext="${page.pageTitle}"></h1>
-                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-            </div>
-        </header>
+        <div class="page-top-space">
 
-        <!--div class="ui vertical left menu sidebar" th:include="fragments/navigation :: vertical (publisher=false)"></div-->
+            <header>
+                <div class="welcome">
+                    <h1 itemprop="headline" th:utext="${page.pageTitle}"></h1>
+                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                </div>
+            </header>
 
-        <div class="pusher">
+            <!--div class="ui vertical left menu sidebar" th:include="fragments/navigation :: vertical (publisher=false)"></div-->
 
-            <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-                <div class="ui main text container">
-                    <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
-                    <div class="metadata">
-                        <div th:unless="${#strings.isEmpty(page.authorNames)}">
-                            <!--meta itemprop="author" itemtype="http://schema.org/Person" /-->
-                                <!-- meta itemprop="name" content="" /-->
-                            Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+            <div class="pusher">
+
+                <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+                    <div class="ui main text container">
+                        <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
+                        <div class="metadata">
+                            <div th:unless="${#strings.isEmpty(page.authorNames)}">
+                                <!--meta itemprop="author" itemtype="http://schema.org/Person" /-->
+                                    <!-- meta itemprop="name" content="" /-->
+                                Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                            </div>
+                            <span class="label">Last modified at</span><span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                         </div>
-                        <span class="label">Last modified at</span><span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <!--div class="pages-menu">
-                <ul>
-	            <li th:each="item : ${menuItems}">
-        	        <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
-                    </li>
-                </ul>
-            </div-->
+                <!--div class="pages-menu">
+                    <ul>
+                        <li th:each="item : ${menuItems}">
+                            <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
+                        </li>
+                    </ul>
+                </div-->
 
-            <footer>
-                <div class="site-link">
-                    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
-                        alt="Link to the frontpage of this website" href="/">
-                        <h1 th:text="${siteName}"></h1>
-                    </a>
-                    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
-                        title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website" th:href="'/' + ${website}">
-                        <h1 th:text="${siteName}"></h1>
-                    </a>
-                    <h3 th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
-                </div>
-                <div th:if="${authenticated}" class="main">
-                    <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-                    Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>, open 
-                    <a href="/de.deepamehta.webclient/">DeepaMehta 4</a> to create or edit your website.
-                </div>
-                <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
-                    <meta itemprop="name" th:content="${siteName}"/>
-                    <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                    <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
-                    <link itemprop="url" th:href="${hostUrl} + ${website}"/>
-                    <meta itemprop="description" th:content="${footerText}"></meta>
-                    <meta id="siteId" th:content="${siteId}"></meta>
-                </div>
+                <footer>
 
-                <!--div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div-->
+                    <div class="site-link" th:include="fragments/navigation :: site-link"></div>
 
-            </footer>
+                    <!--div class="editor-link" th:include="fragments/navigation :: editor-link"></div-->
+
+                    <div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div>
+
+                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                        <meta itemprop="name" th:content="${siteName}"/>
+                        <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                        <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
+                        <link itemprop="url" th:href="${hostUrl} + ${website}"/>
+                        <meta itemprop="description" th:content="${footerText}"></meta>
+                        <meta id="siteId" th:content="${siteId}"></meta>
+                    </div>
+
+                </footer>
+
+            </div>
 
         </div>
 

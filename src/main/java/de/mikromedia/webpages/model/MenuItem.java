@@ -14,12 +14,14 @@ import org.codehaus.jettison.json.JSONObject;
 public class MenuItem implements JSONEnabled {
 
     public Topic menuItem;
+    public Website website;
     private List<RelatedTopic> relatedItems;
     private List<MenuItem> childItems = new ArrayList<MenuItem>();
     public boolean hasChildItems = false;
 
-    public MenuItem(Topic menuItem) {
+    public MenuItem(Topic menuItem, Website website) {
         this.menuItem = menuItem;
+        this.website = website;
         if (!isWebpageMenuItemTopic(this.menuItem)) {
             throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");
         }
@@ -27,8 +29,9 @@ public class MenuItem implements JSONEnabled {
         loadRelatedMenuItems();
     }
 
-    public MenuItem(long topicId, CoreService dms) {
+    public MenuItem(long topicId, Website website, CoreService dms) {
         this.menuItem = dms.getTopic(topicId);
+        this.website = website;
         if (!isWebpageMenuItemTopic(this.menuItem)) {
             throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");
         }
@@ -48,6 +51,16 @@ public class MenuItem implements JSONEnabled {
         return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
     }
 
+    public String getFullHref() {
+        Topic username = this.website.getRelatedUsername();
+        String fullHref = "";
+        if (username != null) {
+            fullHref += "/" + username.getSimpleValue().toString();
+        }
+        fullHref += "/" + menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
+        return fullHref;
+    }
+
     public boolean isActive() {
         return menuItem.getChildTopics().getBooleanOrNull("de.mikromedia.menu.item_active");
     }
@@ -55,7 +68,7 @@ public class MenuItem implements JSONEnabled {
     public List<MenuItem> getChildMenuItems() {
         if (relatedItems == null) loadRelatedMenuItems();
         for (Topic relatedItem : relatedItems) {
-            childItems.add(new MenuItem(relatedItem));
+            childItems.add(new MenuItem(relatedItem, this.website));
         }
         return childItems;
     }

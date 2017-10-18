@@ -8,11 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
-        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
-        <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" rel="stylesheet" />
-        <!--link media="all" href="/de.kiezatlas.website/css/kiezatlas-pages.css" rel="stylesheet" /-->
 
-        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="page_init()"></script>
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <!--link media="all" href="/de.kiezatlas.website/css/kiezatlas-pages.css" rel="stylesheet" /-->
 
         <meta th:replace="fragments/tracker" />
 
@@ -25,76 +23,73 @@
 
         <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
 
-        <header>
-            <div class="ui container welcome">
-                <h1 itemprop="name" th:utext="${siteName}"></h1>
-                <h3 class="headline" th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}"></h3>
+        <div class="page-top-space">
+ 
+            <header>
+                <div class="ui container welcome">
+                    <h1 itemprop="name" th:utext="${siteName}"></h1>
+                </div>
+            </header>
+
+            <div class="pusher">
+
+                <div class="index main text container ui">
+                    <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
+                        <h3>
+                            <a th:if="${#strings.contains(website, 'standard')}"
+                               itemprop="url" th:href="'/' + ${page.webAlias}">
+                                <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                            </a>
+                            <a th:if="${!#strings.contains(website, 'standard')}"
+                               itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
+                                <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                            </a>
+                        </h3>
+                        <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
+                        <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
+                        <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
+                        <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
+                        <meta itemprop="author" th:content="${page.authorNames}" />
+                    </article>
+                </div>
+
+                <!--div class="pages-menu">
+                    <ul>
+                        <li th:each="item : ${menuItems}">
+                            <a th:if="${#strings.contains(website, 'standard')}"
+                               itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${item.href}">Menu Item</a>
+                            <a th:if="${!#strings.contains(website, 'standard')}"
+                               itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${website} + '/' + ${item.href}">Menu Item</a>
+                        </li>
+                    </ul>
+                </div-->
+
+                <footer>
+                    <div class="site-link">
+                        <h3 class="caption"
+                            th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}"></h3>
+                    </div>
+
+                    <!--div class="site-link" th:include="fragments/navigation :: site-link"></div-->
+
+                    <!--div class="editor-link" th:include="fragments/navigation :: editor-link"></div-->
+
+                    <div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div>
+
+                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                        <meta itemprop="name" th:content="${siteName}"/>
+                        <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                        <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
+                        <link itemprop="url" th:href="${hostUrl} + ${website}"/>
+                        <meta itemprop="description" th:content="${footerText}"></meta>
+                        <meta id="siteId" th:content="${siteId}"></meta>
+                    </div>
+
+                </footer>
             </div>
-        </header>
 
-        <div class="pusher">
-            <div class="index main text container ui">
-                <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
-                    <h3>
-                        <a th:if="${#strings.contains(website, 'standard')}"
-                           itemprop="url" th:href="'/' + ${page.webAlias}">
-                            <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
-                            <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                        </a>
-                        <a th:if="${!#strings.contains(website, 'standard')}"
-                           itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
-                            <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
-                            <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                        </a>
-                    </h3>
-                    <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
-                    <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
-                    <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
-                    <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
-                    <meta itemprop="author" th:content="${page.authorNames}" />
-                </article>
-            </div>
-
-            <!--div class="pages-menu">
-                <ul>
-                    <li th:each="item : ${menuItems}">
-                        <a th:if="${#strings.contains(website, 'standard')}"
-                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${item.href}">Menu Item</a>
-                        <a th:if="${!#strings.contains(website, 'standard')}"
-                           itemprop="url" th:title="'Open Page ' + ${item.label}" th:text="${item.label}" th:href="${website} + '/' + ${item.href}">Menu Item</a>
-                    </li>
-                </ul>
-            </div-->
-
-            <footer>
-                <div class="site-link">
-                    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
-                        alt="Link to the frontpage of this website" href="/">
-                        <h1 th:text="${siteName}"></h1>
-                    </a>
-                    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
-                        title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website" th:href="'/' + ${website}">
-                        <h1 th:text="${siteName}"></h1>
-                    </a>
-                    <h3 th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
-                </div>
-                <div th:if="${authenticated}" class="main">
-                    <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-                    Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>, open
-                    <a href="/de.deepamehta.webclient/">DeepaMehta 4</a> to create or edit your website.
-                </div>
-                <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
-                    <meta itemprop="name" th:content="${siteName}"/>
-                    <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                    <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
-                    <link itemprop="url" th:href="${hostUrl} + ${website}"/>
-                    <meta itemprop="description" th:content="${footerText}"></meta>
-                    <meta id="siteId" th:content="${siteId}"></meta>
-                </div>
-
-                <div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div>
-
-            </footer>
         </div>
 
     </body>

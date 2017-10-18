@@ -24,7 +24,7 @@ public class SearchResultList implements JSONEnabled {
                 pages.put("name", "Pages");
                 pages.put("results", new JSONArray());
             JSONObject sites = new JSONObject();
-                sites.put("name", "Sites");
+                sites.put("name", "Websites");
                 sites.put("results", new JSONArray());
             results.put("cat1", pages);
             results.put("cat2", sites);

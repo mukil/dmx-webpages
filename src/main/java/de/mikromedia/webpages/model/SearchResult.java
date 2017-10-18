@@ -56,7 +56,7 @@ public class SearchResult implements JSONEnabled {
     private String getSiteLocation(Topic website) {
         Topic username = website.getRelatedTopic("dm4.core.association", "dm4.core.default",
                 "dm4.core.default", "dm4.accesscontrol.username");
-        return (username == null) ? "" :  "/" + username.getSimpleValue().toString();
+        return (username == null) ? "/" :  "/" + username.getSimpleValue().toString();
     }
 
     @Override

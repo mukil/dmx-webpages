@@ -59,7 +59,7 @@ public class Website {
         ArrayList<MenuItem> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
-            MenuItem menuItem = new MenuItem(iterator.next().getId(), dm4);
+            MenuItem menuItem = new MenuItem(iterator.next().getId(), this, dm4);
             if (menuItem.isActive()) {
                 menuItem.getChildMenuItems();
                 result.add(menuItem);
@@ -72,14 +72,21 @@ public class Website {
         Collections.sort(items, new Comparator<RelatedTopic>() {
             @Override
             public int compare(RelatedTopic item1, RelatedTopic item2) {
-                int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
-                int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
-                if (value1 > value2) {
-                    return 1;
-                } else if (value1 == value2) {
-                    return 0;
-                } else {
-                    return -1;
+                try {
+                    int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
+                    int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
+                    if (value1 > value2) {
+                        return 1;
+                    } else if (value1 == value2) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                } catch (NumberFormatException nex) {
+                    // Supresses sorting of ordinal number for one of the two items with a NFException
+                    log.warning("Sorting Menu Items by Ordinal Number encountered an error: "
+                            + nex.getLocalizedMessage());
+                    return 0; // ### Depending which item has a bad number, continue sorting
                 }
             }
         });

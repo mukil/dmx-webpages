@@ -2,15 +2,14 @@
 /** --------------------------------------------------- Basic website styles */
 
 html, body {
-    background-color: #EAEAEA;
+    background-color: #fff;
     margin: 0px;
     /** height: 100%; **/
     color: #232323;
-    margin-top: 2em;
 }
 
-body.page {
-    padding-top: .5em;
+.page-top-space {
+    padding-top: 5em;
 }
 
 body,
@@ -18,6 +17,10 @@ body,
 body .ui.menu,
 body .ui.input input {
     font-size: 16px;
+    font-family: "Cambria", "Georgia", "Times", serif;
+}
+
+body .ui.text.container {
     font-family: "Cambria", "Georgia", "Times", serif;
 }
 
@@ -171,12 +174,22 @@ header .value {
 
 /** ------------------------------- Frontpage styles ------------------- **/
 
-.page.front {
+.page {
     background-color: #EAEAEA;
 }
 
 .page.front header h1 {
     color: #343434;
+}
+
+footer .caption {
+    margin-top: 0em;
+    padding-left: 0.5em;
+}
+
+.front footer .caption {
+    margin: auto;
+    padding-left: 4px;
 }
 
 .front h3 {
@@ -185,7 +198,7 @@ header .value {
     background-color: #fff;
 }
 
-.front footer h3 {
+.front footer .block h3 {
     padding: 0em;
 }
 
@@ -391,6 +404,9 @@ footer h3 {
     }
     .pages-menu {
         padding: 1em;
+    }
+    footer .powered-by {
+        text-align: left;
     }
 }
 

@@ -243,7 +243,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/websites/search")
-    public SearchResultList searchWebsite(@QueryParam("q") String query, @QueryParam("t") String typeName) throws JSONException {
+    public SearchResultList searchWebsites(@QueryParam("q") String query, @QueryParam("t") String typeName) throws JSONException {
         SearchResultList response = new SearchResultList();
         List<Topic> pages = searchWebpageContents(query);
         List<Topic> sites = searchWebsites(query);
