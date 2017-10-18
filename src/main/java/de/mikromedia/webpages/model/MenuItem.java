@@ -52,10 +52,10 @@ public class MenuItem implements JSONEnabled {
     }
 
     public String getFullHref() {
-        Topic username = this.website.getRelatedUsername();
+        String sitePrefix = this.website.getSitePrefix();
         String fullHref = "";
-        if (username != null) {
-            fullHref += "/" + username.getSimpleValue().toString();
+        if (sitePrefix != null) {
+            fullHref += "/" + sitePrefix;
         }
         fullHref += "/" + menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
         return fullHref;

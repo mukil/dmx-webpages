@@ -120,6 +120,10 @@ public class Website {
         return this.topic.getChildTopics().getString("de.mikromedia.site.footer_html");
     }
 
+    public String getSitePrefix() {
+        return this.topic.getChildTopics().getString("de.mikromedia.site.prefix");
+    }
+
     public String getCaption() {
         return this.topic.getChildTopics().getStringOrNull("de.mikromedia.site.caption");
     }
