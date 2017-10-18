@@ -16,9 +16,9 @@ import org.codehaus.jettison.json.JSONObject;
  * @author malted
  */
 public class SearchResult implements JSONEnabled {
-    
+
     JSONObject result = new JSONObject();
-    
+
     public SearchResult(Topic topic) {
         try {
             result.put("name", topic.getSimpleValue());
