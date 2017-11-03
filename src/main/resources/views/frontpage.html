@@ -33,7 +33,7 @@
 
             <div class="pusher">
 
-                <div class="index main text container ui">
+                <div class="index main text ui container">
                     <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                         <h3>
                             <a th:if="${#strings.contains(website, 'standard')}"

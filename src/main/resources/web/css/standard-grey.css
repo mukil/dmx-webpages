@@ -121,6 +121,7 @@ button {
 
 header .welcome {
     text-align: center;
+    padding-bottom: 3em;
 }
 
 /** -------------------------------- Page Menu Styles --------------------- **/
@@ -238,7 +239,7 @@ article .text a:hover {
 }
 
 article figure {
-    margin: 0em 1em;
+    margin: 0em;
 }
 
 article figure figcaption {
@@ -246,6 +247,11 @@ article figure figcaption {
     font-size: .8em;
     color: #666;
     padding: 0em 0.7em 0em;
+}
+
+article figure img {
+    max-width: 100%;
+    height: auto;
 }
 
 article .text pre.code-block {
