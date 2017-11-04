@@ -181,6 +181,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             log.info("Preparing WEBPAGE view data ("+webpage.toString()+") in dm4-webpages plugin...");
             Viewable webpageTemplate = getWebpageTemplate(webpage);
             return webpageTemplate;
+        } else if (webAlias.equals(STANDARD_WEBSITE_PREFIX)) {
+            return getIndexWebpage();
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) is redirect of admin
