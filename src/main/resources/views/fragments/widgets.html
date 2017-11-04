@@ -1,0 +1,36 @@
+
+<div th:fragment="logo-site-link">
+    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+        alt="Link to the frontpage of this website" href="/"
+        class="item sitename header" th:text="${siteName}">
+        Sitename
+    </a>
+    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+        title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
+        class="item sitename header"
+        th:href="'/' + ${website}" th:text="${siteName}">
+        Sitename
+    </a>
+</div>
+
+<div th:fragment="footer-site-link">
+    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+        alt="Link to the frontpage of this website" href="/">
+        <h1 th:text="${siteName}"></h1>
+    </a>
+    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+        title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
+        th:href="'/' + ${website}">
+        <h1 th:text="${siteName}"></h1>
+    </a>
+    <h3 class="caption" th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
+</div>
+
+<div th:fragment="editor-link">
+    <div th:if="${authenticated}" class="main">
+        <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
+        Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>,  
+        <a href="/de.deepamehta.webclient/">launch the Webclient</a> to create or edit your website.
+    </div>
+</div>
+

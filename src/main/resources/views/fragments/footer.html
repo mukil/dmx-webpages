@@ -1,0 +1,112 @@
+
+<!-- New Company Footer -->
+<div th:fragment="footer-new" class="footer-links">
+
+    <div class="ui stackable inverted divided equal height stackable grid">
+        <div class="three wide column menu">
+            <h4 class="ui inverted header">Menu</h4>
+            <div class="ui inverted link list menu-items" th:if="${!#lists.isEmpty(menuItems)}">
+                <div th:each="menuItem : ${menuItems}">
+                    <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="three wide column recent">
+            <h4 class="ui inverted header">Recent Pages</h4>
+            <div class="ui inverted link list webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
+                <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
+                    <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                </div>
+            </div>
+            <div class="ui inverted link list webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
+                    <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="three wide column your-data">
+            <h4 class="ui inverted header">Your Data</h4>
+            <div th:if="!${authenticated}" class="ui inverted link list webpages">
+                <div><a href="/sign-up/login" class="item">Login</a></div>
+                <div><a href="/sign-up/" class="item">Register</a></div>
+            </div>
+            <div th:if="${authenticated}" class="ui inverted link list webpages">
+                <div><a href="/sign-up/edit" class="item">Edit</a></div>
+                <div><a href="/sign-up/login" class="item">Logout</a></div>
+            </div>
+        </div>
+
+        <div class="seven wide column about">
+            <h4 class="ui inverted header">About</h4>
+            <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
+            <p th:utext="${footerText}">Configure Website Footer Text (HTML)</p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Standard Webpage Links Sitemap like Footer -->
+<div th:fragment="footer-links (publisher)" class="footer-links">
+
+    <div class="provider">
+
+        <div class="block menu">
+            <div class="content">
+                <h3>Menu</h3>
+                <ul class="menu-items" th:if="${!#lists.isEmpty(menuItems)}">
+                    <li th:each="menuItem : ${menuItems}">
+                        <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="block webpages">
+            <div class="content">
+                <h3>Recent Pages</h3>
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
+                    <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
+                        <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    </li>
+                </ul>
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                    <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
+                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="block about">
+            <div class="content">
+                <h3>Contact</h3>
+                <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
+            </div>
+        </div>
+
+        <div class="block user">
+            <div class="content">
+                <h3>Your Data</h3>
+                <ul class="menu" th:if="!${authenticated}">
+                    <li><a href="/sign-up/login" class="item">Login</a></li>
+                    <li><a href="/sign-up/" class="item">Register</a></li>
+                </ul>
+                <ul class="menu" th:if="${authenticated}">
+                    <li><a href="/sign-up/edit" class="item">Edit</a></li>
+                    <li><a href="/sign-up/login" class="item">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="powered-by" th:if="${!#strings.isEmpty(siteAbout)}">
+            <p th:utext="${footerText}">
+                Configure Website Footer Text (HTML)
+            </p>
+        </div>
+
+    </div>
+
+</div>
