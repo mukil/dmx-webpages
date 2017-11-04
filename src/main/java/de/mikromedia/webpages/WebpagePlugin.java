@@ -69,6 +69,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private TimeZone tz = TimeZone.getTimeZone("UTC");
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
+    private static final String FRONTPAGE_TEMPLATE_NAME = "frontpage";
+
     /** A name of a Viewable registered by another plugin to be served at "/". **/
     String frontPageTemplateName = null;
 
@@ -535,7 +537,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by time
             viewData("pages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate
-            return view("frontpage");
+            return view(FRONTPAGE_TEMPLATE_NAME);
         } else {
             return getWebsiteNotFoundPage(website); // which loads standard topic if website is null
         }
@@ -545,10 +547,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic website = null;
         if (username == null) {
             website = getStandardWebsite();
-            prepareGenericViewData("frontpage", STANDARD_WEBSITE_PREFIX);
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
         } else {
             website = getOrCreateWebsiteTopic(username);
-            prepareGenericViewData("frontpage", username);
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, username);
         }
         return website;
     }

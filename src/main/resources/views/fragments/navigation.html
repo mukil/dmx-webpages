@@ -1,31 +1,116 @@
 
-<div th:fragment="site-link">
-    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
-        alt="Link to the frontpage of this website" href="/">
-        <h1 th:text="${siteName}"></h1>
-    </a>
-    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
-        title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
-        th:href="'/' + ${website}">
-        <h1 th:text="${siteName}"></h1>
-    </a>
-    <h3 class="caption" th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
+<!-- Sidebar Nav Menu -->
+<div th:fragment="vertical-nav">
+
+    <a th:replace="fragments/widgets :: logo-site-link"></a>
+
+    <div th:each="menuItem : ${menuItems}">
+        <!-- The global "standard" website is routed at "/" root resource -->
+        <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+            th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
+            th:data="${location} + '.'+ '/' + ${menuItem.href}"
+            itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+            th:href="'/' + ${menuItem.href}">Menu Item</a>
+
+        <!-- All other user websites are routed below their respective "/website-prefix/" -->
+        <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+            th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
+            itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+            th:href="${menuItem.fullHref}">Menu Item</a>
+
+        <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
+            <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
+            <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
+            <i class="icon dropdown"></i>
+            <div class="menu" th:each="childItem : ${menuItem.childMenuItems}">
+
+                <a th:if="${#strings.contains(website, 'standard')}"
+                   th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                   th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
+
+                <a th:if="${!#strings.contains(website, 'standard')}"
+                   th:class="${#strings.equalsIgnoreCase(location, childItem.fullHref) ? 'active item' : 'item'}"
+                   th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui category search item">
+        <div class="ui transparent inverted icon input">
+            <input class="prompt" type="text" placeholder="Search..." />
+            <i class="search link icon"></i>
+        </div>
+        <div class="results"></div>
+    </div>
+
 </div>
 
-<div th:fragment="editor-link">
-    <div th:if="${authenticated}" class="main">
-        <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
-        Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>,  
-        <a href="/de.deepamehta.webclient/">launch the Webclient</a> to create or edit your website.
+<!-- Header Nav Menu -->
+<div th:fragment="standard-nav">
+    <div class="ui large inverted menu">
+
+        <a th:replace="fragments/widgets :: logo-site-link"></a>
+
+        <a class="toc item">
+            <i class="sidebar icon"></i>
+        </a>
+
+        <div th:each="menuItem : ${menuItems}" class="menu-items">
+            <!-- The global "standard" website is routed at "/" root resource -->
+            <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+                th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
+                th:data="${location} + '.'+ '/' + ${menuItem.href}"
+                itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+                th:href="'/' + ${menuItem.href}">Menu Item</a>
+
+            <!-- All other user websites are routed below their respective "/website-prefix/" -->
+            <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+                th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
+                itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+                th:href="${menuItem.fullHref}">Menu Item</a>
+
+            <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
+                <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
+                <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
+                <i class="icon dropdown"></i>
+                <div class="menu" th:each="childItem : ${menuItem.childMenuItems}">
+
+                    <a th:if="${#strings.contains(website, 'standard')}"
+                       th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                       th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
+
+                    <a th:if="${!#strings.contains(website, 'standard')}"
+                       th:class="${#strings.equalsIgnoreCase(location, childItem.fullHref) ? 'active item' : 'item'}"
+                       th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right menu">
+            <div class="ui right aligned category search item">
+                <div class="ui transparent inverted icon input">
+                    <input class="prompt" type="text" placeholder="Search..." />
+                    <i class="search link icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<!--- Standard Horizontal Top Navigation -->
-<div th:fragment="search">
-    <div class="ui top fixed menu inverted">
+<!-- Lower Page Top Nav  -->
+<div th:fragment="lower-page-nav">
+    <div class="ui large top fixed menu inverted">
         <div class="ui container">
 
-            <div th:each="menuItem : ${menuItems}">
+            <a th:replace="fragments/widgets :: logo-site-link"></a>
+
+            <a class="toc item">
+                <i class="sidebar icon"></i>
+            </a>
+
+            <div th:each="menuItem : ${menuItems}" class="menu-items">
 
                 <!-- The global "standard" website is routed at "/" root resource -->
                 <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
@@ -72,65 +157,3 @@
     </div>
 </div>
 
-<!-- Standard Webpage Links Sitemap like Footer -->
-<div th:fragment="footer-links (publisher)" class="footer-links">
-
-    <div class="provider">
-
-        <div class="block menu">
-            <div class="content">
-                <h3>Menu</h3>
-                <ul class="menu-items" th:if="${!#lists.isEmpty(menuItems)}">
-                    <li th:each="menuItem : ${menuItems}">
-                        <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="block webpages">
-            <div class="content">
-                <h3>Recent Pages</h3>
-                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
-                    <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                        <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
-                    </li>
-                </ul>
-                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
-                    <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="block about">
-            <div class="content">
-                <h3>Contact</h3>
-                <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
-            </div>
-        </div>
-
-        <div class="block user">
-            <div class="content">
-                <h3>Your Data</h3>
-                <ul class="menu" th:if="!${authenticated}">
-                    <li><a href="/sign-up/login" class="item">Login</a></li>
-                    <li><a href="/sign-up/" class="item">Register</a></li>
-                </ul>
-                <ul class="menu" th:if="${authenticated}">
-                    <li><a href="/sign-up/edit" class="item">Edit</a></li>
-                    <li><a href="/sign-up/login" class="item">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="powered-by" th:if="${!#strings.isEmpty(siteAbout)}">
-            <p th:utext="${footerText}">
-                Configure Website Footer Text (HTML)
-            </p>
-        </div>
-
-    </div>
-
-</div>

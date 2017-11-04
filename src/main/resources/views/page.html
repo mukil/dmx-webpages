@@ -15,35 +15,66 @@
         <meta itemprop="dateModified" th:content="${dateModified}"/>
         <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
 
-        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui.css" rel="stylesheet" />
+        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css" rel="stylesheet" />
+        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui-overrides.css" rel="stylesheet" />
         
-        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
 
         <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
 
-        <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-1.9.1-and-1.12.1-ui-custom.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/css/semantic.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+        <script src="/de.mikromedia.webpages/jquery/jquery-1.9.1-and-1.12.1-ui-custom.min.js"></script>
+        <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
+        <script src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+        <script>
+            $(document).ready(function () {
+                // fix menu when passed
+                $('.masthead').visibility({
+                        once: false,
+                        onBottomPassed: function () {
+                            $('.fixed.menu').transition('fade in');
+                        },
+                        onBottomPassedReverse: function () {
+                            $('.fixed.menu').transition('fade out');
+                        }
+                    })
 
+                // create sidebar and attach to menu open
+                $('.ui.sidebar').sidebar('attach events', '.toc.item')
+                render_page()
+            })
+        </script>
         <meta th:replace="fragments/tracker" />
     </head>
     <body class="page">
 
-        <nav class="ui vertical fixed" th:include="fragments/navigation :: search"></nav>
+        <!-- Following Menu -->
+        <div class="ui large top fixed hidden menu inverted">
+            <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+        </div>
 
-        <div class="page-top-space">
+        <!-- Sidebar Menu -->
+        <div class="ui vertical inverted sidebar menu">
+            <nav id="sidebar-nav" class="ui container" th:include="fragments/navigation :: vertical-nav"></nav>
+        </div>
 
-            <header>
-                <div class="welcome">
-                    <h1 itemprop="headline" th:utext="${page.pageTitle}"></h1>
+        <!-- Page Contents -->
+        <div class="pusher">
+
+            <header class="ui inverted vertical masthead center aligned segment">
+
+                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
+
+                <div class="ui text container">
+                    <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
+                        Site name
+                    </h1>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                 </div>
+
             </header>
 
-            <!--div class="ui vertical left menu sidebar" th:include="fragments/navigation :: vertical (publisher=false)"></div-->
-
-            <div class="pusher">
+            <div class="ui vertical stripe segment">
 
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
                     <div class="ui main text container">
@@ -54,26 +85,22 @@
                                     <!-- meta itemprop="name" content="" /-->
                                 Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
                             </div>
-                            <span class="label">Last modified at</span><span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                            <span class="label">Last modified at</span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                         </div>
                     </div>
                 </article>
 
-                <!--div class="pages-menu">
-                    <ul>
-                        <li th:each="item : ${menuItems}">
-                            <a th:text="${item.label}" th:title="'Open Page ' + ${item.label}" th:href="${item.href}">Menu item</a>
-                        </li>
-                    </ul>
-                </div-->
+            </div>
 
-                <footer>
+            <div class="ui inverted vertical footer segment">
 
-                    <div class="site-link" th:include="fragments/navigation :: site-link"></div>
+                <div class="ui container">
 
-                    <!--div class="editor-link" th:include="fragments/navigation :: editor-link"></div-->
+                    <div class="site-link" th:include="fragments/widgets :: footer-site-link"></div>
 
-                    <div class="footer" th:include="fragments/navigation :: footer-links (publisher=false)"></div>
+                    <!--div class="editor-link" th:include="fragments/widgets :: editor-link"></div-->
+                    
+                    <div class="footer" th:include="fragments/footer :: footer-new"></div>
 
                     <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                         <meta itemprop="name" th:content="${siteName}"/>
@@ -84,10 +111,10 @@
                         <meta id="siteId" th:content="${siteId}"></meta>
                     </div>
 
-                </footer>
+                </div>
 
             </div>
-
+            
         </div>
 
     </body>
