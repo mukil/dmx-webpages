@@ -1,4 +1,11 @@
+
 /** Comapny Homepage Semantic UI Overrides **/
+
+select,
+input[type="button"],
+button {
+    cursor: pointer;
+}
 
 .hidden.menu {
     display: none;
@@ -31,6 +38,13 @@ h3.header .value{
 .masthead h2 {
     font-size: 1.7em;
     font-weight: normal;
+}
+
+.ui.text.container .metadata {
+    margin-top: 1.5em;
+}
+.ui.text.container li {
+    font-size: 1.33em;
 }
 
 .ui.vertical.stripe {
@@ -76,6 +90,57 @@ h3.header .value{
 #lower-page-nav .toc.item,
 #header-page-nav .toc.item {
     display: none;
+}
+
+/** --- Article Stuff --- **/
+
+article figure {
+    margin: 0em;
+}
+
+article .ui.table td,
+article table td {
+    padding: .2125em .725em;
+}
+
+article table caption {
+    margin-bottom: .5em;
+}
+
+article .text caption,
+article figure figcaption {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: .8em;
+    color: #666;
+    padding: 0em 0.7em 0em;
+}
+
+article figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+article .text pre.code-block {
+    font-family: "Courier", "Courier New";
+    color: rgb(0, 40, 86);
+    background-color: #efefef;
+    padding: .5em 1em;
+    /** border: 1px solid rgba(0, 40, 86, 0.4); **/
+    -moz-box-shadow:    inset 0 0 3px #767676;
+    -webkit-box-shadow: inset 0 0 3px #767676;
+    box-shadow:         inset 0 0 3px #767676;
+}
+
+article .text .blockquote {
+    margin-left: 0px;
+    font-style: italic;
+    font-size: 1.2em;
+    padding-left: 1em;
+    border-left: 4px solid rgba(255,255,255,0.7);
+}
+
+article .text td {
+    font-size: 1.33em;
 }
 
 @media only screen and (max-width: 700px) {

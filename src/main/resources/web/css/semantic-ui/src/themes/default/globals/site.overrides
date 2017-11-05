@@ -20,3 +20,10 @@
 
 @winered          : #8F1414;
 @darkblue         : #002856;
+lightBlue         : #40b0e2;
+
+@primaryColor     : @darkblue;
+@secondaryColor   : @winered;
+
+@lightPrimaryColor   : @lightBlue;
+

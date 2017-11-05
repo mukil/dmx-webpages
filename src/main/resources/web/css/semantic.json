@@ -36,7 +36,8 @@
     "sidebar",
     "transition",
     "visibility",
-    "api"
+    "api",
+    "table"
   ],
   "permission": false,
   "autoInstall": false,

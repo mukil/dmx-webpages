@@ -36,6 +36,7 @@ function render_page() {
                 noResults   : 'Wir konnten zu dieser Suchanfrage keine Ergebnisse finden.',
                 serverError : 'Bei der Verarbeitung dieser Suchanfarge ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
             }, **/
+    $('table').addClass('ui celled table')
 }
 
 function register_input_handler() {
