@@ -10,12 +10,14 @@ import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.service.DeepaMehtaEvent;
 import de.deepamehta.core.service.EventListener;
 import de.deepamehta.core.service.accesscontrol.AccessControlException;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
+import de.mikromedia.webpages.events.RootResourceRequestedListener;
 import de.mikromedia.webpages.model.MenuItem;
 import de.mikromedia.webpages.model.SearchResult;
 import de.mikromedia.webpages.model.SearchResultList;
@@ -89,6 +91,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         }
     };
 
+    static DeepaMehtaEvent ROOT_RESOURCE_REQUESTED = new DeepaMehtaEvent(RootResourceRequestedListener.class) {
+        @Override
+        public void dispatch(EventListener listener, Object... params) {
+            ((RootResourceRequestedListener) listener).frontpageRequested((Topic) params[0]);
+        }
+    };
+
     /**
      * Custom event fired up on HTTP request to a website's frontpage.
      *
@@ -157,19 +166,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         // 1) Check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
         if (registeredPage != null) {
-           return registeredPage;
+            log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
+            dm4.fireEvent(ROOT_RESOURCE_REQUESTED, pageAlias);
+            return registeredPage;
         }
-        log.info("Requesting Webpage /" + webAlias);
-        // 2) check if webAlias is valid username
-        Topic username = dm4.getAccessControl().getUsernameTopic(pageAlias);
-        if (username != null) {
-            Topic website = getWebsiteFrontpage(username.getSimpleValue().toString());
-            dm4.fireEvent(FRONTPAGE_REQUESTED, website);
+        log.info("Requesting Webpage /" + pageAlias);
+        // 2) check if webAlias refers to a special site
+        Topic website = getWebsiteByPrefix(pageAlias);
+        if (website != null) {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
+            dm4.fireEvent(FRONTPAGE_REQUESTED, website);
             return getWebsiteTemplate(website);
         }
-        // 3) prepare standard website
+        // 3) if not, prepare standard website
         Topic standardWebsite = getStandardWebsite();
         if (standardWebsite != null) {
             prepareWebsiteViewData(standardWebsite, webAlias);
@@ -181,8 +192,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             log.info("Preparing WEBPAGE view data ("+webpage.toString()+") in dm4-webpages plugin...");
             Viewable webpageTemplate = getWebpageTemplate(webpage);
             return webpageTemplate;
-        } else if (webAlias.equals(STANDARD_WEBSITE_PREFIX)) {
-            return getIndexWebpage();
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) is redirect of admin
@@ -195,35 +204,34 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     /**
      * Serving a specific webpage assigned to the website related to its given prefix (currently "username").
      *
-     * @param prefix
+     * @param sitePrefix
      * @param webAlias
      * @return  A processed Thymeleaf Template (<code>Viewable</code>).
      */
     @GET
     @Produces(MediaType.TEXT_HTML)
-    @Path("/{username}/{pageWebAlias}")
-    public Viewable getWebsitePage(@PathParam("username") String prefix, @PathParam("pageWebAlias") String webAlias) {
+    @Path("/{site}/{pageWebAlias}")
+    public Viewable getWebsitePage(@PathParam("site") String sitePrefix, @PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
-        String location = "/" + prefix + "/" + webAlias;
+        String location = "/" + sitePrefix + "/" + webAlias;
         log.info("Requesting Website Page " + location);
-        // 1) Fetch users website topic
-        Topic usersWebsite = getOrCreateWebsiteTopic(prefix);
+        // 1) Fetch some website topic
+        Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
         if (usersWebsite != null) {
             prepareWebsiteViewData(usersWebsite, location);
         }
         // 2) check related webpages
-        Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias, prefix);
+        Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias, sitePrefix);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage);
             log.info("Preparing WEBPAGE view data ("+webpage.toString()+") in dm4-webpages plugin...");
-            Viewable webpageTemplate = getWebpageTemplate(webpage);
-            return webpageTemplate;
+            return getWebpageTemplate(webpage);
         }
-        log.info("=> /" + pageAlias + " webpage for \"" +prefix+ "\"s website not found.");
+        log.info("=> /" + pageAlias + " webpage for \"" +sitePrefix+ "\"s website not found.");
         // 3) check if it is a users redirect
         handleWebsiteRedirects(usersWebsite, pageAlias);
         // 4) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
-        log.info("=> /" + pageAlias + " webpage redirect for \"" +prefix+ "\"s website not found.");
+        log.info("=> /" + pageAlias + " webpage redirect for \"" +sitePrefix+ "\"s website not found.");
         // 5) Return 404 page with users website footer
         return getWebsiteNotFoundPage(usersWebsite);
     }
@@ -390,6 +398,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         return dm4.getTopicByUri(STANDARD_WEBSITE_URI);
     }
 
+    public Topic getWebsiteByPrefix(String value) {
+        Topic prefix = dm4.getTopicByValue(WEBSITE_PREFIX, new SimpleValue(value));
+        Topic website = null;
+        if (prefix != null) {
+            website = prefix.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.site");
+        }
+        return website;
+    }
+
     // --- Private Utility Methods
 
     /**
@@ -457,6 +474,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                     Topic topic = dm4.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
                         .put(WEBSITE_NAME, "My collection of webpages")
                         .putRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
+                        .put(WEBSITE_PREFIX, username.getSimpleValue().toString())
                         .put(WEBSITE_FOOTER, "<p class=\"attribution\">Published with the "
                             + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"Source Coude: dm4-webpages\">"
                             + "dm4-webpages</a> module.</p>")
@@ -535,10 +553,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     private Viewable getWebsiteTemplate(Topic website) {
         // website is null if the request does not have the necessary permissions to access it
         if (website != null) {
-            // collect all webpages associated with this website
-            List<Webpage> webpages = getPublishedWebpages(website);
-            // sort webpages on websites frontpage by time
-            viewData("pages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate
             return view(FRONTPAGE_TEMPLATE_NAME);
         } else {
             return getWebsiteNotFoundPage(website); // which loads standard topic if website is null
@@ -633,7 +647,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             viewData("location", href);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
-            viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate
+            viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate */
         } else {
             log.warning("Preparing webpage template failed because a given website could not be found");
         }

@@ -43,9 +43,6 @@ h3.header .value{
 .ui.text.container .metadata {
     margin-top: 1.5em;
 }
-.ui.text.container li {
-    font-size: 1.33em;
-}
 
 .ui.vertical.stripe {
     padding: 8em 0em;
@@ -60,8 +57,11 @@ h3.header .value{
 .ui.vertical.stripe .floated.image {
     clear: both;
 }
+
+article .text td,
+.ui.text.container li,
 .ui.vertical.stripe p {
-    font-size: 1.33em;
+    font-size: 1.1em;
 }
 .ui.vertical.stripe .horizontal.divider {
     margin: 3em 0em;
@@ -122,6 +122,7 @@ article figure img {
 
 article .text pre.code-block {
     font-family: "Courier", "Courier New";
+    font-size: .9em;
     color: rgb(0, 40, 86);
     background-color: #efefef;
     padding: .5em 1em;
@@ -137,10 +138,6 @@ article .text .blockquote {
     font-size: 1.2em;
     padding-left: 1em;
     border-left: 4px solid rgba(255,255,255,0.7);
-}
-
-article .text td {
-    font-size: 1.33em;
 }
 
 @media only screen and (max-width: 700px) {

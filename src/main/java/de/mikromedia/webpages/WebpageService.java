@@ -21,6 +21,7 @@ public interface WebpageService {
     public static final String WEBSITE_NAME = "de.mikromedia.site.name";
     public static final String WEBSITE_STYLESHEET = "de.mikromedia.site.stylesheet";
     public static final String WEBSITE_FOOTER = "de.mikromedia.site.footer_html";
+    public static final String WEBSITE_PREFIX = "de.mikromedia.site.prefix";
 
     public static final String WEBPAGE = "de.mikromedia.page";
     public static final String WEBPAGE_TITLE = "de.mikromedia.page.headline";

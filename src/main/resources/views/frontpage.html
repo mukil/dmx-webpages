@@ -110,7 +110,7 @@
                 </div>
             </div-->
 
-            <div class="ui vertical stripe segment">
+            <div class="ui vertical stripe segment posts">
                 <div class="ui text container">
                     
                     <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
@@ -133,10 +133,10 @@
                         <meta itemprop="author" th:content="${page.authorNames}" />
                         <a th:if="${#strings.contains(website, 'standard')}"
                             itemprop="url" th:href="'/' + ${page.webAlias}"
-                            class="ui large button">Read More</a>
+                            class="ui large right floated button">Read More</a>
                         <a th:if="${!#strings.contains(website, 'standard')}"
                             itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}"
-                            class="ui large button">Read More</a>
+                            class="ui large right floated button">Read More</a>
                         <div class="ui divider"></div>
                     </article>
 

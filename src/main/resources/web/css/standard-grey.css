@@ -205,38 +205,6 @@ article .text a:hover {
     color: #8f1414;
 }
 
-article figure {
-    margin: 0em;
-}
-
-article figure figcaption {
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size: .8em;
-    color: #666;
-    padding: 0em 0.7em 0em;
-}
-
-article figure img {
-    max-width: 100%;
-    height: auto;
-}
-
-article .text pre.code-block {
-    font-family: "Courier New";
-    color: rgb(0, 40, 86);
-    background-color: #fff;
-    padding: 1em;
-    border: 1px solid rgba(0, 40, 86, 0.4);
-    font-size: .8em;
-}
-
-article .text blockquote {
-    margin-left: 0px;
-    font-style: italic;
-    font-size: 1.2em;
-    padding-left: 1em;
-    border-left: 4px solid rgba(255,255,255,0.7);
-}
 
 /** ----------- Footer Styles ------ **/
 
