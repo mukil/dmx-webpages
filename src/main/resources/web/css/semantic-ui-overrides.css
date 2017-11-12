@@ -115,6 +115,7 @@ article figure figcaption {
     padding: 0em 0.7em 0em;
 }
 
+article img,
 article figure img {
     max-width: 100%;
     height: auto;
