@@ -40,6 +40,14 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.5** -- Nov 13, 2017
+
+* Standard Theme: Integrate semantic-ui standard theme
+* Multi-sites: Migrated username based prefixes to simple Website prefixes
+* Top-navigation bar with support for dropdown menus
+* Ajax based fulltext search in top nav bar
+* New custom events for 3rd parties to hook into template preparation
+
 **0.4.4** -- Jan 31, 2017
 
 * Arrange site navigation blocks as `flexbox` layout
