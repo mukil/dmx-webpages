@@ -113,7 +113,7 @@
             <div class="ui vertical stripe segment posts">
                 <div class="ui text container">
                     
-                    <article th:each="page : ${pages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
+                    <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
                         <h3 class="ui header">
                             <a th:if="${#strings.contains(website, 'standard')}"
                                itemprop="url" th:href="'/' + ${page.webAlias}">
