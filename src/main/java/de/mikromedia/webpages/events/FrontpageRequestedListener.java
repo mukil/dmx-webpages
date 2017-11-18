@@ -9,6 +9,6 @@ import de.deepamehta.core.service.EventListener;
  */
 public interface FrontpageRequestedListener extends EventListener {
     
-    void frontpageRequested(Topic website);
+    void frontpageRequested(Topic website, String webAlias);
 
 }

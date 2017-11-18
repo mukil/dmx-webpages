@@ -40,6 +40,10 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.4.6** -- Nov 18, 2017
+
+* Maintenance relase improving on the custom events fired for 3rd party plugins
+
 **0.4.5** -- Nov 13, 2017
 
 * Standard Theme: Integrate semantic-ui standard theme

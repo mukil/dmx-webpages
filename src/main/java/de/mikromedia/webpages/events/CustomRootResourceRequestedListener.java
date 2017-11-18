@@ -7,7 +7,7 @@ import de.deepamehta.core.service.EventListener;
  *
  * @author malte
  */
-public interface RootResourceRequestedListener extends EventListener {
+public interface CustomRootResourceRequestedListener extends EventListener {
     
     void frontpageRequested(Topic website);
 

@@ -1,7 +1,7 @@
 package de.mikromedia.webpages.events;
 
-import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.EventListener;
+import de.mikromedia.webpages.model.Webpage;
 
 /**
  *
@@ -9,6 +9,6 @@ import de.deepamehta.core.service.EventListener;
  */
 public interface WebpageRequestedListener extends EventListener {
     
-    void webpageRequested(Topic webpage);
+    void webpageRequested(Webpage webpage, String sitePrefix);
 
 }
