@@ -40,6 +40,10 @@ h3.header .value{
     font-weight: normal;
 }
 
+.page .ui.text.container {
+    max-width: 900px !important;
+}
+
 .ui.text.container .metadata {
     margin-top: 1.5em;
 }
@@ -50,17 +54,14 @@ h3.header .value{
 .ui.vertical.stripe h3 {
     font-size: 2em;
 }
-.ui.vertical.stripe .button + h3,
-.ui.vertical.stripe p + h3 {
+.ui.vertical.stripe .button {
     margin-top: 3em;
 }
 .ui.vertical.stripe .floated.image {
     clear: both;
 }
 
-article .text td,
-.ui.text.container li,
-.ui.vertical.stripe p {
+article .text {
     font-size: 1.1em;
 }
 .ui.vertical.stripe .horizontal.divider {
@@ -112,7 +113,7 @@ article figure figcaption {
     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size: .8em;
     color: #666;
-    padding: 0em 0.7em 0em;
+    padding: 0.7em;
 }
 
 article img,
