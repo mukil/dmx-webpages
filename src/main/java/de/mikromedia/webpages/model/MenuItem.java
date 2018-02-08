@@ -67,6 +67,7 @@ public class MenuItem implements JSONEnabled {
 
     public List<MenuItem> getChildMenuItems() {
         if (relatedItems == null) loadRelatedMenuItems();
+        childItems =  new ArrayList<MenuItem>();
         for (Topic relatedItem : relatedItems) {
             childItems.add(new MenuItem(relatedItem, this.website));
         }

@@ -20,8 +20,29 @@
         
         <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
-
         <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
+        <style th:inline="text">
+            /*<![CDATA[*/
+            .page #lower-page-nav .ui.menu,
+            .page .ui.segment.header-bg-color,
+            .page .ui.segment.header-bg-color .ui.menu {
+                background-color: [[${header.childTopics.getString('de.mikromedia.header.color_bg')}]];
+                color: [[${header.childTopics.getString('de.mikromedia.header.color_font')}]];
+            }
+            @media(min-width: 1025px) {
+                .page .ui.segment.header-bg-color {
+                    background-image: url('/filerepo[[${desktopHeaderImage.childTopics.getString('dm4.files.path')}]]');
+                    background-repeat: none;
+                }
+            }
+            @media(max-width: 1024px) {
+                .page .ui.segment.header-bg-color {
+                    background-image: url('/filerepo[[${mobileHeaderImage.childTopics.getString('dm4.files.path')}]]');
+                    background-repeat: none;
+                }
+            }
+        /*]]>*/
+        </style>
 
         <script src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
@@ -61,15 +82,27 @@
         <!-- Page Contents -->
         <div class="pusher">
 
-            <header class="ui inverted vertical masthead center aligned segment">
+            <header class="ui inverted vertical masthead center aligned segment header-bg-color">
 
                 <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
-                <div class="ui text container">
+                <div th:if="${not header}" class="ui text container">
                     <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
-                        Site name
+                        Page name
                     </h1>
                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                </div>
+                <div th:if="${header}" class="ui text container">
+                    <h1 class="ui inverted header"
+                        itemprop="headline" th:utext="${header.childTopics.getString('de.mikromedia.header.title')}">
+                        Page header title
+                    </h1>
+                    <h2 class="caption" itemprop="headline"
+                        th:utext="${header.childTopics.getString('de.mikromedia.header.content')}">
+                        Page header content
+                    </h2>
+                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                    <!--div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div-->
                 </div>
 
             </header>

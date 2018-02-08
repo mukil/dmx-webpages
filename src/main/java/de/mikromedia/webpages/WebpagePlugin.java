@@ -10,11 +10,15 @@ import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.model.AssociationModel;
+import de.deepamehta.core.model.RoleModel;
 import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.service.DeepaMehtaEvent;
 import de.deepamehta.core.service.EventListener;
 import de.deepamehta.core.service.accesscontrol.AccessControlException;
+import de.deepamehta.core.service.event.PreCreateAssociationListener;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
+import de.deepamehta.core.util.DeepaMehtaUtils;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
 import de.mikromedia.webpages.model.MenuItem;
@@ -60,7 +64,7 @@ import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
+public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, PreCreateAssociationListener {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -137,6 +141,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             dm4.fireEvent(FRONTPAGE_REQUESTED, website, location);
             log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
+            preparePageHeader(website);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             website = getWebsiteFrontpage(null);
@@ -145,6 +150,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             log.info("Preparing STANDARD FRONTPAGE view data for website ("
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
+            preparePageHeader(website);
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
             return getWebsiteTemplate(website);
@@ -177,6 +183,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
+            preparePageHeader(website);
             dm4.fireEvent(FRONTPAGE_REQUESTED, website, pageAlias);
             return getWebsiteTemplate(website);
         }
@@ -184,6 +191,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         Topic standardWebsite = getStandardWebsite();
         if (standardWebsite != null) {
             prepareWebsiteViewData(standardWebsite, webAlias);
+            preparePageHeader(standardWebsite);
         }
         // 4) is webpage of standard site
         Webpage webpage = getWebsitesWebpage(standardWebsite, pageAlias, STANDARD_WEBSITE_PREFIX);
@@ -309,6 +317,33 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
 
     private Topic getParentSite(Topic child) {
         return child.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.site");
+    }
+
+    public Topic getRelatedHeader(Topic topic) {
+        Topic header = topic.getRelatedTopic("dm4.core.association", "dm4.core.default",
+                "dm4.core.default", "de.mikromedia.header");
+        if (header != null) {
+            header.loadChildTopics();
+        }
+        return header;
+    }
+
+    public Topic getRelatedHeaderDesktopImage(Topic header) {
+        Topic desktopImage = header.getRelatedTopic("de.mikromedia.header.desktop_image", "dm4.core.default",
+                "dm4.core.default", "dm4.files.file");
+        if (desktopImage != null) {
+            desktopImage.loadChildTopics();
+        }
+        return desktopImage;
+    }
+
+    public Topic getRelatedHeaderMobileImage(Topic header) {
+        Topic mobileImage = header.getRelatedTopic("de.mikromedia.header.mobile_image", "dm4.core.default",
+                "dm4.core.default", "dm4.files.file");
+        if (mobileImage != null) {
+            mobileImage.loadChildTopics();
+        }
+        return mobileImage;
     }
 
     @GET
@@ -609,6 +644,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
                 viewData("dateCreated", df.format(page.getCreationDate()));
                 viewData("dateModified", df.format(page.getModificationDate()));
                 viewData("page", page);
+                preparePageHeader(page.getTopic());
                 return view("page");
             }
         } catch (RuntimeException re) {
@@ -628,6 +664,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
         viewData("website", websitePrefix);
         viewData("template", filename);
         viewData("hostUrl", DM4_HOST_URL);
+    }
+
+    private void preparePageHeader(Topic topic) {
+        Topic header = getRelatedHeader(topic);
+        if (header != null) {
+            viewData("header", header);
+            Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
+            if (desktopHeaderImage != null) {
+                log.info("Loading Desktop Header Image: " + desktopHeaderImage.toJSON().toString());
+                viewData("desktopHeaderImage", desktopHeaderImage);
+            }
+            Topic mobileHeaderImage = getRelatedHeaderMobileImage(header);
+            if (mobileHeaderImage != null) {
+                viewData("mobileHeaderImage", mobileHeaderImage);
+            }
+        }
     }
 
     /**
@@ -723,6 +775,26 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService {
     @Override
     public void removeTemplateResolverBundle(Bundle bundle) {
         super.removeTemplateResourceBundle(bundle);
+    }
+
+    @Override
+    public void preCreateAssociation(AssociationModel am) {
+        if (am.getTypeUri().equals("dm4.core.association")) {
+            RoleModel player1 = am.getRoleModel1();
+            RoleModel player2 = am.getRoleModel2();
+            Topic topic1 = dm4.getTopic(player1.getPlayerId());
+            Topic topic2 = dm4.getTopic(player2.getPlayerId());
+            // Between Header and File we auto-type to "de.mikromedia.header.desktop_image"
+            if (topic1.getTypeUri().equals("de.mikromedia.header")
+                    || topic2.getTypeUri().equals("de.mikromedia.header")) {
+                if (topic1.getTypeUri().equals("dm4.files.file")
+                        || topic2.getTypeUri().equals("dm4.files.file") ) {
+                    DeepaMehtaUtils.associationAutoTyping(am, "de.mikromedia.header",
+                        "dm4.files.file", "de.mikromedia.header.desktop_image",
+                        "dm4.core.default", "dm4.core.default", dm4);
+                }
+            }
+        }
     }
 
 }

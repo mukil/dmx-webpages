@@ -50,6 +50,10 @@ public class Webpage implements JSONEnabled {
         return page.getChildTopics().getStringOrNull("de.mikromedia.page.main");
     }
 
+    public Topic getTopic() {
+        return this.page;
+    }
+
     public String getStylesheet() {
         return page.getChildTopics().getStringOrNull("de.mikromedia.page.stylesheet");
     }

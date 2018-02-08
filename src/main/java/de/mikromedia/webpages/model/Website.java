@@ -36,6 +36,16 @@ public class Website {
             "dm4.core.default", "dm4.accesscontrol.username");
     }
 
+    public Topic getDesktopHeaderImage() {
+        return this.topic.getRelatedTopic("de.mikromedia.header.desktop_image", "dm4.core.default",
+            "dm4.core.default", "dm4.files.file");
+    }
+
+    public Topic getMobileHeaderImage() {
+        return this.topic.getRelatedTopic("de.mikromedia.header.mobile_image", "dm4.core.default",
+            "dm4.core.default", "dm4.files.file");
+    }
+
     public List<RelatedTopic> getRelatedWebpages() {
         return this.topic.getRelatedTopics("dm4.core.association", "dm4.core.default",
             "dm4.core.default", "de.mikromedia.page");

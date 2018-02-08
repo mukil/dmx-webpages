@@ -23,61 +23,36 @@ public class Migration7 extends Migration {
 
         // 0) Assign standard site to public "Webpages" workspace upon installation of plugin
         Topic webpagesWorkspace = dm4.getAccessControl().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
-        Topic standardSite = dm4.getTopicByUri("de.mikromedia.standard_site");
-        workspacesService.assignToWorkspace(standardSite, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(standardSite.getChildTopics().getTopic("de.mikromedia.site.name"), webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(standardSite.getChildTopics().getTopic("de.mikromedia.site.stylesheet"), webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(standardSite.getChildTopics().getTopic("de.mikromedia.site.footer_html"), webpagesWorkspace.getId());
-        // 1) Assing Website child types to new "Webpages" workspace too
-        TopicType captionType = dm4.getTopicType("de.mikromedia.site.caption");
-        TopicType nameType = dm4.getTopicType("de.mikromedia.site.name");
-        TopicType footerType = dm4.getTopicType("de.mikromedia.site.footer_html");
-        TopicType stylesheetType = dm4.getTopicType("de.mikromedia.site.stylesheet");
-        TopicType aboutType = dm4.getTopicType("de.mikromedia.site.about_html");
-        workspacesService.assignToWorkspace(captionType, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(nameType, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(footerType, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(stylesheetType, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(aboutType, webpagesWorkspace.getId());
-        // 2) Assing Webpage child types to new "Administration" workspace too
-        TopicType pageTitle = dm4.getTopicType("de.mikromedia.page.headline");
-        TopicType pageHeader = dm4.getTopicType("de.mikromedia.page.main");
-        TopicType pageAlias = dm4.getTopicType("de.mikromedia.page.web_alias");
-        TopicType pageDescription = dm4.getTopicType("de.mikromedia.page.about");
-        TopicType isDraft = dm4.getTopicType("de.mikromedia.page.is_draft");
-        TopicType authorName = dm4.getTopicType("de.mikromedia.page.author_name");
-        TopicType pageStylesheet = dm4.getTopicType("de.mikromedia.page.stylesheet");
-        workspacesService.assignToWorkspace(pageTitle, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(pageHeader, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(pageAlias, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(pageDescription, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(isDraft, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(authorName, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(pageStylesheet, webpagesWorkspace.getId());
-        // 3) Assing Webpage Section child types to new "webpages" workspace too
-        TopicType section = dm4.getTopicType("de.mikromedia.section");
-        TopicType headline = dm4.getTopicType("de.mikromedia.section.headline");
-        TopicType sectionHtml = dm4.getTopicType("de.mikromedia.section.html");
-        TopicType sectionAlignment = dm4.getTopicType("de.mikromedia.section.alignment");
-        workspacesService.assignToWorkspace(section, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionHtml, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(headline, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionAlignment, webpagesWorkspace.getId());
-        // 4) Assign all Webpage Element child types to new "Webapges" workspace.
-        TopicType element = dm4.getTopicType("de.mikromedia.element");
-        TopicType elementHeadline = dm4.getTopicType("de.mikromedia.element.headline");
-        TopicType elementContent = dm4.getTopicType("de.mikromedia.element.content");
-        TopicType elementId = dm4.getTopicType("de.mikromedia.element.id");
-        TopicType elementAttribution = dm4.getTopicType("de.mikromedia.element.attr");
-        TopicType elementLinkTarget = dm4.getTopicType("de.mikromedia.element.link_target");
-        AssociationType fileElementEdge = dm4.getAssociationType("de.mikromedia.element.file_edge");
-        workspacesService.assignToWorkspace(element, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(elementHeadline, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(elementContent, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(elementAttribution, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(elementId, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(elementLinkTarget, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(fileElementEdge, webpagesWorkspace.getId());
+        // 1) Assign new association types to "Webpages" workspace too
+        AssociationType desktopHeaderImage = dm4.getAssociationType("de.mikromedia.header.desktop_image");
+        workspacesService.assignToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
+        AssociationType mobileHeaderImage = dm4.getAssociationType("de.mikromedia.header.mobile_image");
+        workspacesService.assignToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
+        // 2) Assign new topic types to "Webpages" workspace
+        TopicType header = dm4.getTopicType("de.mikromedia.header");
+        Topic headerViewConfig = header.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
+        workspacesService.assignToWorkspace(headerViewConfig, webpagesWorkspace.getId());
+        workspacesService.assignToWorkspace(header, webpagesWorkspace.getId());
+        TopicType headerTitle = dm4.getTopicType("de.mikromedia.header.title");
+        workspacesService.assignToWorkspace(headerTitle, webpagesWorkspace.getId());
+        TopicType headerContent = dm4.getTopicType("de.mikromedia.header.content");
+        workspacesService.assignToWorkspace(headerContent, webpagesWorkspace.getId());
+        TopicType headerColorBg = dm4.getTopicType("de.mikromedia.header.color_bg");
+        workspacesService.assignToWorkspace(headerColorBg, webpagesWorkspace.getId());
+        TopicType headerColorFont = dm4.getTopicType("de.mikromedia.header.color_font");
+        workspacesService.assignToWorkspace(headerColorFont, webpagesWorkspace.getId());
+        TopicType headerScript = dm4.getTopicType("de.mikromedia.header.script");
+        workspacesService.assignToWorkspace(headerScript, webpagesWorkspace.getId());
+        TopicType button = dm4.getTopicType("de.mikromedia.button");
+        Topic buttonViewConfig = button.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
+        workspacesService.assignToWorkspace(buttonViewConfig, webpagesWorkspace.getId());
+        workspacesService.assignToWorkspace(button, webpagesWorkspace.getId());
+        TopicType buttonTitle = dm4.getTopicType("de.mikromedia.button.title");
+        workspacesService.assignToWorkspace(buttonTitle, webpagesWorkspace.getId());
+        TopicType buttonHref = dm4.getTopicType("de.mikromedia.button.href");
+        workspacesService.assignToWorkspace(buttonHref, webpagesWorkspace.getId());
+        TopicType buttonStyle = dm4.getTopicType("de.mikromedia.button.style");
+        workspacesService.assignToWorkspace(buttonStyle, webpagesWorkspace.getId());
 
     }
 
