@@ -54,9 +54,7 @@ h3.header .value{
 .ui.vertical.stripe h3 {
     font-size: 2em;
 }
-.ui.vertical.stripe .button {
-    margin-top: 3em;
-}
+
 .ui.vertical.stripe .floated.image {
     clear: both;
 }
@@ -95,8 +93,28 @@ article .text {
 
 /** --- Header Styles --- **/
 
+header {
+    position: relative;
+}
+
+header .page-meta,
 header .page-buttons {
     margin-top: 1.7em;
+}
+
+header .ui.primary.button {
+    font-size: 1em;
+}
+
+header .page-meta {
+    position: absolute;
+    bottom: .5em;
+    right: 2em;
+}
+
+header.inverted .page-meta .value,
+header.inverted .page-meta .label {
+    color: #585858;
 }
 
 /** --- Article Styles --- **/
@@ -170,5 +188,8 @@ article .text .blockquote {
     .masthead h2 {
         margin-top: 0.5em;
         font-size: 1.5em;
+    }
+    header .page-meta {
+        font-size: .7em;
     }
 }

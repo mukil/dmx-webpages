@@ -1,0 +1,23 @@
+
+/**
+ * Website style by Malte Reißig (malte -at- mikromedia.de).
+ * Written exclusively for Quid Pro Quo (TM).
+ * Last modified: June 2017
+ **/
+
+html, body {
+    background-color: #qpq;
+    margin: 0px;
+    height: 100%;
+    color: #232323;
+    margin-top: 2em;
+    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+}
+
+h3 {
+    font-weight: 900;
+    margin: 0px;
+    line-height: 2.5em;
+}
+
+

@@ -670,7 +670,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             // 2.) fetch and set custom header background images
             Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
             if (desktopHeaderImage != null) {
-                log.info("Loading Desktop Header Image: " + desktopHeaderImage.toJSON().toString());
                 viewData("desktopHeaderImage", desktopHeaderImage);
             }
             Topic mobileHeaderImage = getRelatedHeaderMobileImage(header);
@@ -680,9 +679,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             // 3.) fetch and set custom header buttons
             List<RelatedTopic> buttons = header.getRelatedTopics(AGGREGATION, ROLE_PARENT, ROLE_CHILD, BUTTON);
             DeepaMehtaUtils.loadChildTopics(buttons);
-            for (RelatedTopic button : buttons) {
-                log.info("Page Button: " + button.toJSON().toString());
-            }
             viewData("headerButtons", buttons);
         }
     }

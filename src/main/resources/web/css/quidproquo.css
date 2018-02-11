@@ -1,0 +1,124 @@
+
+/**
+ * Website style by Malte Reißig (malte -at- mikromedia.de).
+ * Written exclusively for Quid Pro Quo (TM).
+ * Last modified: June 2017
+ **/
+
+html, body {
+    margin: 0em;
+}
+
+html, body, input, text {
+    color: #232323;
+    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    font-size: 2em;
+}
+
+h3 {
+    font-weight: 900;
+    margin: 0px;
+    line-height: 2.5em;
+}
+
+p {
+    font-weight: 600;
+    padding: .5em;
+}
+
+a {
+    text-decoration: none;
+    padding: .15em;
+    padding-right: .2em;
+}
+
+a:hover {
+    color: #fff;
+    background-color: #620000;
+}
+
+.topnav {
+    border-bottom: 1px solid #a0a9a8;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-align: right;
+    background-color: #fff;
+}
+
+input[type="text"] {
+    position: absolute;
+    top: 0px; left: 0px;
+    width: 100%;
+    padding-left: 2em;
+    padding-top: .3em;
+    padding-bottom: .2em;
+    font-size: 1.2em;
+    color: #790812;
+    font-weight: bold;
+    border: 2px solid transparent;
+}
+
+input:focus {
+    border: 2px solid #99ccff;
+}
+
+.command {
+    position: absolute;
+    top: .2em; right: .2em;
+    font-weight: bold;
+    padding: .2em .3em .2em .4em;
+    color: #a9a9a9;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 110;
+}
+
+.section {
+    padding: 5em;
+    margin: auto;
+}
+
+.red {
+    color: #620000;
+}
+
+.up {
+    text-transform: uppercase;
+}
+
+.right {
+    text-align: right;
+}
+
+.slug {
+    font-weight: bold;
+    background-color: #4a0000;
+    color: #fff;
+    padding: .5em;
+}
+
+/** Layouts **/
+
+@media (max-width: 1800px) {
+    .section {
+        padding: 4em;
+    }
+}
+
+
+@media (max-width: 1200px) {
+    .section {
+        padding: 2em;
+        font-size: .7em;
+    }
+}
+
+@media (max-width: 900px) {
+    .section {
+        padding: 1em;
+        font-size: .5em;
+    }
+}
+
+
