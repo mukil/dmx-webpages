@@ -111,6 +111,10 @@ header .welcome {
     padding-bottom: 3em;
 }
 
+header .page-buttons {
+    margin-top: 1.7em;
+}
+
 /** -------------------------------- Page Menu Styles --------------------- **/
 .pages-menu {
     position: relative;

@@ -53,11 +53,15 @@
             Page header content
         </h2>
         <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+
         <!-- Render Header Buttons -->
-        <div class="header-buttons" th:each="button : ${headerButtons}">
-            <a class="ui button primary" th:classappend="${button.childTopics.getString('de.mikromedia.button.style')}"
-               th:href="${button.childTopics.getString('de.mikromedia.button.href')}"
-               th:text="${button.childTopics.getString('de.mikromedia.button.title')}">Get Started</a>
+        <div class="page-buttons">
+            <a th:each="button : ${headerButtons}"
+                class="ui button primary" th:classappend="${button.childTopics.getString('de.mikromedia.button.style')}"
+                th:href="${button.childTopics.getString('de.mikromedia.button.href')}"
+                th:text="${button.childTopics.getString('de.mikromedia.button.title')}">
+                Button label
+            </a>
         </div>
     </div>
 
