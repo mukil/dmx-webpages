@@ -1,0 +1,64 @@
+
+<!-- Frontpage Header -->
+<header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-bg-color">
+
+    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
+
+    <div th:if="${not header}" class="ui text container">
+        <h1 class="ui inverted header" th:utext="${siteName}">
+            Site name
+        </h1>
+        <h2 th:if="${not header}" class="caption"
+            th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}">
+            Do whatever you want when you want to.
+        </h2>
+    </div>
+    <div th:if="${header}" class="ui text container">
+        <h1 class="ui inverted header"
+            th:utext="${header.childTopics.getString('de.mikromedia.header.title')}">
+            Site header name
+        </h1>
+        <h2 class="caption" itemprop="headline"
+            th:utext="${header.childTopics.getString('de.mikromedia.header.content')}">
+            Do whatever you want when you want to.
+        </h2>
+        <!--div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div-->
+    </div>
+
+</header>
+
+
+<!-- Simple Page Header -->
+<header th:fragment="page" class="ui inverted vertical masthead center aligned segment header-bg-color">
+
+    <!-- Include First Navigation -->
+    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
+
+    <!-- Render standard header if no custom header available  -->
+    <div th:if="${not header}" class="ui text container">
+        <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
+            Page name
+        </h1>
+        <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+    </div>
+
+    <!-- Render custom "Header" (topic), override standard header  -->
+    <div th:if="${header}" class="ui text container">
+        <h1 class="ui inverted header"
+            itemprop="headline" th:utext="${header.childTopics.getString('de.mikromedia.header.title')}">
+            Page header title
+        </h1>
+        <h2 class="caption" itemprop="headline"
+            th:utext="${header.childTopics.getString('de.mikromedia.header.content')}">
+            Page header content
+        </h2>
+        <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+        <!-- Render Header Buttons -->
+        <div class="header-buttons" th:each="button : ${headerButtons}">
+            <a class="ui button primary" th:classappend="${button.childTopics.getString('de.mikromedia.button.style')}"
+               th:href="${button.childTopics.getString('de.mikromedia.button.href')}"
+               th:text="${button.childTopics.getString('de.mikromedia.button.title')}">Get Started</a>
+        </div>
+    </div>
+
+</header>

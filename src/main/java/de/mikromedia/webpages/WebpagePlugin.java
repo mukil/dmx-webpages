@@ -296,15 +296,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     private List<Topic> searchWebsites(String query) {
         List<Topic> results = new ArrayList<Topic>();
-        for (Topic siteName : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.site.name")) {
+        for (Topic siteName : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_NAME)) {
             Topic website = getParentSite(siteName);
             if (!results.contains(website)) results.add(website);
         }
-        for (Topic siteCaption : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.site.caption")) {
+        for (Topic siteCaption : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_CAPTION)) {
             Topic website = getParentSite(siteCaption);
             if (!results.contains(website)) results.add(website);
         }
-        for (Topic siteFooter : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.site.footer")) {
+        for (Topic siteFooter : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_FOOTER)) {
             Topic website = getParentSite(siteFooter);
             if (!results.contains(website)) results.add(website);
         }
@@ -312,16 +312,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private Topic getParentPage(Topic child) {
-        return child.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.page");
+        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBPAGE);
     }
 
     private Topic getParentSite(Topic child) {
-        return child.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.site");
+        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
     }
 
     public Topic getRelatedHeader(Topic topic) {
-        Topic header = topic.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.header");
+        Topic header = topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, HEADER);
         if (header != null) {
             header.loadChildTopics();
         }
@@ -329,8 +328,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     public Topic getRelatedHeaderDesktopImage(Topic header) {
-        Topic desktopImage = header.getRelatedTopic("de.mikromedia.header.desktop_image", "dm4.core.default",
-                "dm4.core.default", "dm4.files.file");
+        Topic desktopImage = header.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, FILE);
         if (desktopImage != null) {
             desktopImage.loadChildTopics();
         }
@@ -338,8 +336,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     public Topic getRelatedHeaderMobileImage(Topic header) {
-        Topic mobileImage = header.getRelatedTopic("de.mikromedia.header.mobile_image", "dm4.core.default",
-                "dm4.core.default", "dm4.files.file");
+        Topic mobileImage = header.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, FILE);
         if (mobileImage != null) {
             mobileImage.loadChildTopics();
         }
@@ -437,7 +434,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         Topic prefix = dm4.getTopicByValue(WEBSITE_PREFIX, new SimpleValue(value));
         Topic website = null;
         if (prefix != null) {
-            website = prefix.getRelatedTopic("dm4.core.composition", "dm4.core.child", "dm4.core.parent", "de.mikromedia.site");
+            website = prefix.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
         }
         return website;
     }
@@ -467,8 +464,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private Topic getUserRelatedWebsite(Topic username) {
-        return username.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                    "dm4.core.default", WEBSITE);
+        return username.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, WEBSITE);
     }
 
     /**
@@ -540,9 +536,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private Association createWebsiteUsernameAssociation(Topic usernameTopic, Topic website) {
-        return dm4.createAssociation(mf.newAssociationModel("dm4.core.association",
-                mf.newTopicRoleModel(usernameTopic.getId(), "dm4.core.default"),
-                mf.newTopicRoleModel(website.getId(), "dm4.core.default")));
+        return dm4.createAssociation(mf.newAssociationModel(ASSOCIATION,
+                mf.newTopicRoleModel(usernameTopic.getId(), ROLE_DEFAULT),
+                mf.newTopicRoleModel(website.getId(), ROLE_DEFAULT)));
     }
 
     /**
@@ -669,7 +665,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     private void preparePageHeader(Topic topic) {
         Topic header = getRelatedHeader(topic);
         if (header != null) {
+            // 1.) set custom Header data
             viewData("header", header);
+            // 2.) fetch and set custom header background images
             Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
             if (desktopHeaderImage != null) {
                 log.info("Loading Desktop Header Image: " + desktopHeaderImage.toJSON().toString());
@@ -679,6 +677,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             if (mobileHeaderImage != null) {
                 viewData("mobileHeaderImage", mobileHeaderImage);
             }
+            // 3.) fetch and set custom header buttons
+            List<RelatedTopic> buttons = header.getRelatedTopics(AGGREGATION, ROLE_PARENT, ROLE_CHILD, BUTTON);
+            DeepaMehtaUtils.loadChildTopics(buttons);
+            for (RelatedTopic button : buttons) {
+                log.info("Page Button: " + button.toJSON().toString());
+            }
+            viewData("headerButtons", buttons);
         }
     }
 
@@ -779,19 +784,16 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @Override
     public void preCreateAssociation(AssociationModel am) {
-        if (am.getTypeUri().equals("dm4.core.association")) {
+        if (am.getTypeUri().equals(ASSOCIATION)) {
             RoleModel player1 = am.getRoleModel1();
             RoleModel player2 = am.getRoleModel2();
             Topic topic1 = dm4.getTopic(player1.getPlayerId());
             Topic topic2 = dm4.getTopic(player2.getPlayerId());
             // Between Header and File we auto-type to "de.mikromedia.header.desktop_image"
-            if (topic1.getTypeUri().equals("de.mikromedia.header")
-                    || topic2.getTypeUri().equals("de.mikromedia.header")) {
-                if (topic1.getTypeUri().equals("dm4.files.file")
-                        || topic2.getTypeUri().equals("dm4.files.file") ) {
-                    DeepaMehtaUtils.associationAutoTyping(am, "de.mikromedia.header",
-                        "dm4.files.file", "de.mikromedia.header.desktop_image",
-                        "dm4.core.default", "dm4.core.default", dm4);
+            if (topic1.getTypeUri().equals(HEADER) || topic2.getTypeUri().equals(HEADER)) {
+                if (topic1.getTypeUri().equals(FILE) || topic2.getTypeUri().equals(FILE) ) {
+                    DeepaMehtaUtils.associationAutoTyping(am, HEADER,
+                        FILE, DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
                 }
             }
         }

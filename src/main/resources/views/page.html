@@ -82,30 +82,7 @@
         <!-- Page Contents -->
         <div class="pusher">
 
-            <header class="ui inverted vertical masthead center aligned segment header-bg-color">
-
-                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
-
-                <div th:if="${not header}" class="ui text container">
-                    <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
-                        Page name
-                    </h1>
-                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                </div>
-                <div th:if="${header}" class="ui text container">
-                    <h1 class="ui inverted header"
-                        itemprop="headline" th:utext="${header.childTopics.getString('de.mikromedia.header.title')}">
-                        Page header title
-                    </h1>
-                    <h2 class="caption" itemprop="headline"
-                        th:utext="${header.childTopics.getString('de.mikromedia.header.content')}">
-                        Page header content
-                    </h2>
-                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                    <!--div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div-->
-                </div>
-
-            </header>
+            <header th:replace="fragments/header :: page"></header>
 
             <div class="ui vertical stripe segment">
 

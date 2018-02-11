@@ -19,6 +19,7 @@ public interface WebpageService {
 
     public static final String WEBSITE = "de.mikromedia.site";
     public static final String WEBSITE_NAME = "de.mikromedia.site.name";
+    public static final String WEBSITE_CAPTION = "de.mikromedia.site.caption";
     public static final String WEBSITE_STYLESHEET = "de.mikromedia.site.stylesheet";
     public static final String WEBSITE_FOOTER = "de.mikromedia.site.footer_html";
     public static final String WEBSITE_PREFIX = "de.mikromedia.site.prefix";
@@ -26,6 +27,21 @@ public interface WebpageService {
     public static final String WEBPAGE = "de.mikromedia.page";
     public static final String WEBPAGE_TITLE = "de.mikromedia.page.headline";
     public static final String WEBPAGE_CONTENT = "de.mikromedia.page.main";
+
+    public static final String HEADER = "de.mikromedia.header";
+    public static final String HEADER_TITLE = "de.mikromedia.header.title";
+    public static final String HEADER_CONTENT = "de.mikromedia.header.content";
+    public static final String HEADER_BG_COLOR = "de.mikromedia.header.color_bg";
+    public static final String HEADER_COLOR = "de.mikromedia.header.color_font";
+    public static final String HEADER_SCRIPT = "de.mikromedia.header.script";
+
+    public static final String DESKTOP_IMAGE_ASSOC = "de.mikromedia.header.desktop_image";
+    public static final String MOBILE_IMAGE_ASSOC = "de.mikromedia.header.mobile_image";
+
+    public static final String BUTTON = "de.mikromedia.button";
+    public static final String BUTTON_TITLE = "de.mikromedia.button.title";
+    public static final String BUTTON_HREF = "de.mikromedia.button.href";
+    public static final String BUTTON_STYLE = "de.mikromedia.button.style";
 
     public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";
     public static final String STANDARD_WEBSITE_URI = "de.mikromedia.standard_site";
@@ -39,6 +55,16 @@ public interface WebpageService {
     public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
 
     public static final String STANDARD_WEBSITE_PREFIX = "standard";
+
+    /** Standard Distribution URIs (DM4) **/
+    public static final String ROLE_DEFAULT = "dm4.core.default";
+    public static final String ROLE_CHILD = "dm4.core.child";
+    public static final String ROLE_PARENT = "dm4.core.parent";
+    public static final String ASSOCIATION = "dm4.core.association";
+    public static final String COMPOSITION = "dm4.core.composition";
+    public static final String AGGREGATION = "dm4.core.aggregation";
+    public static final String FILE = "dm4.files.file";
+    public static final String FILE_PATH = "dm4.files.path";
 
     /**
      * Fetches an existing or creates a new website topic (if non exists and the requesting user equals given username).
