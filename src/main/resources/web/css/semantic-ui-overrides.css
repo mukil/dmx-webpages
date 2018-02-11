@@ -93,7 +93,13 @@ article .text {
     display: none;
 }
 
-/** --- Article Stuff --- **/
+/** --- Header Styles --- **/
+
+header .page-buttons {
+    margin-top: 1.7em;
+}
+
+/** --- Article Styles --- **/
 
 article figure {
     margin: 0em;
