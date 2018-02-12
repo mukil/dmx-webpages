@@ -51,7 +51,7 @@
                         $('.fixed.menu').transition('fade out');
                     }
                 })
-                // create sidebar and attach to menu open
+                // pro-actively create sidebar and attach to menu open
                 $('.ui.sidebar').sidebar('attach events', '.toc.item')
                 render_page()
             })
@@ -76,39 +76,51 @@
 
             <header th:replace="fragments/header :: front"></header>
 
-            <div class="ui vertical stripe segment posts">
-                <div class="ui text container">
-                    
-                    <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
-                        <h3 class="ui header">
+            <div class="body">
+
+                <div th:replace="fragments/sections :: n-equal-padded" />
+
+                <div class="ui basic vertical stripe segment posts container">
+
+                    <div class="ui container">
+                        <h1 class="ui header">Posts</h1>
+                    </div>
+
+                    <div class="ui text">
+
+                        <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
+                            <h3 class="ui header">
+                                <a th:if="${#strings.contains(website, 'standard')}"
+                                   itemprop="url" th:href="'/' + ${page.webAlias}">
+                                    <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                </a>
+                                <a th:if="${!#strings.contains(website, 'standard')}"
+                                   itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
+                                    <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                </a>
+                            </h3>
+                            <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
+                            <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
+                            <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
+                            <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
+                            <meta itemprop="author" th:content="${page.authorNames}" />
                             <a th:if="${#strings.contains(website, 'standard')}"
-                               itemprop="url" th:href="'/' + ${page.webAlias}">
-                                <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
-                                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                            </a>
+                                itemprop="url" th:href="'/' + ${page.webAlias}"
+                                class="ui large right floated button">Read More</a>
                             <a th:if="${!#strings.contains(website, 'standard')}"
-                               itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
-                                <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
-                                <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-                            </a>
-                        </h3>
-                        <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
-                        <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
-                        <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
-                        <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
-                        <meta itemprop="author" th:content="${page.authorNames}" />
-                        <a th:if="${#strings.contains(website, 'standard')}"
-                            itemprop="url" th:href="'/' + ${page.webAlias}"
-                            class="ui large right floated button">Read More</a>
-                        <a th:if="${!#strings.contains(website, 'standard')}"
-                            itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}"
-                            class="ui large right floated button">Read More</a>
-                        <div class="ui divider"></div>
-                    </article>
+                                itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}"
+                                class="ui large right floated button">Read More</a>
+                            <div class="ui divider"></div>
+                        </article>
 
+                    </div>
                 </div>
-            </div>
 
+                <div th:replace="fragments/sections :: ten-six-grid" />
+
+            </div>
 
             <div class="ui inverted vertical footer segment">
 

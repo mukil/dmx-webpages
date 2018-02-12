@@ -51,17 +51,18 @@
             $(document).ready(function () {
                 // fix menu when passed
                 $('.masthead').visibility({
-                        once: false,
-                        onBottomPassed: function () {
-                            $('.fixed.menu').transition('fade in');
-                        },
-                        onBottomPassedReverse: function () {
-                            $('.fixed.menu').transition('fade out');
-                        }
-                    })
-
-                // create sidebar and attach to menu open
+                    once: false,
+                    onBottomPassed: function () {
+                        $('.fixed.menu').transition('fade in');
+                    },
+                    onBottomPassedReverse: function () {
+                        $('.fixed.menu').transition('fade out');
+                    }
+                })
+                // pro-actively create sidebar and attach to menu open
                 $('.ui.sidebar').sidebar('attach events', '.toc.item')
+                // pro-actively activate accordion interactions on any page
+                $('.ui.accordion').accordion();
                 render_page()
             })
         </script>
@@ -84,21 +85,29 @@
 
             <header th:replace="fragments/header :: page"></header>
 
-            <div class="ui vertical stripe segment">
+            <div class="body">
 
-                <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-                    <div class="ui main text container">
-                        <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
-                        <div class="metadata">
-                            <div th:unless="${#strings.isEmpty(page.authorNames)}">
-                                <!--meta itemprop="author" itemtype="http://schema.org/Person" /-->
-                                    <!-- meta itemprop="name" content="" /-->
-                                Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                <div th:replace="fragments/sections :: 2-columns-equal" />
+
+                <div class="ui vertical stripe segment">
+                    <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+                        <div class="ui main text styled container">
+                            <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
+                            <div class="metadata">
+                                <div th:unless="${#strings.isEmpty(page.authorNames)}">
+                                    <!-- Todo: meta itemprop="author" itemtype="http://schema.org/Person" /-->
+                                        <!-- meta itemprop="name" content="" /-->
+                                    Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                                </div>
+                                <span class="label">Last modified at</span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                             </div>
-                            <span class="label">Last modified at</span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </div>
+
+                <div th:replace="fragments/sections :: styled-accordion" />
+                <div th:replace="fragments/sections :: n-equal-padded" />
+
 
             </div>
 

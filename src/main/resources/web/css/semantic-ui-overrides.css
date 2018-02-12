@@ -79,7 +79,7 @@ article .text {
 }
 
 .footer .site-link a h1 {
-    margin-bottom: 0em;
+    margin-bottom: 1em;
 }
 
 .footer .caption {
@@ -115,6 +115,31 @@ header .page-meta {
 header.inverted .page-meta .value,
 header.inverted .page-meta .label {
     color: #585858;
+}
+
+/** --- Segments Stylings --- **/
+
+.body .ui.spaced.segment {
+    padding-bottom: 6em;
+}
+
+.body .ui.segment h1.ui.header {
+    font-size: 3rem;
+    margin: 2em 0em;
+}
+
+.body .ui.segment.posts h1.ui.header {
+    margin-bottom: 1em;
+}
+
+.body .ui.vertical.posts.stripe  {
+    padding: 0em;
+    padding-bottom: 6em;
+}
+
+.ui.styled.accordion .accordion .content,
+.ui.styled.accordion .content {
+    padding: 1.5em;
 }
 
 /** --- Article Styles --- **/
@@ -158,12 +183,46 @@ article .text pre.code-block {
     box-shadow:         inset 0 0 3px #767676;
 }
 
+.ui.vertical.segment.bg-medium-light,
+.ui.basic.segment.bg-medium-light,
+.bg-medium-light {
+    background-color: #efefef;
+}
+
+.ui.vertical.segment.bg-light,
+.ui.basic.segment.bg-light,
+.bg-light {
+    background-color: #fff8db;
+}
+
+.ui.vertical.segment.no-padding {
+    border-top: 1px solid rgba(34, 36, 38, 0.15);
+    padding: 0em;
+}
+
+.ui.vertical.segment.no-border {
+    border-top: 0px solid transparent;
+}
+
 article .text .blockquote {
     margin-left: 0px;
     font-style: italic;
     font-size: 1.2em;
     padding-left: 1em;
     border-left: 4px solid rgba(255,255,255,0.7);
+}
+
+@media only screen and (max-width: 1024px) {
+    .body .ui.segment h1.ui.header {
+        font-size: 2rem;
+        margin: 1em 0em;
+    }
+    .body .ui.segment h2.ui.header {
+        font-size: 1.5em;
+    }
+    .ui.vertical.stripe h3 {
+        font-size: 1.5em;
+    }
 }
 
 @media only screen and (max-width: 700px) {
@@ -182,7 +241,7 @@ article .text .blockquote {
         min-height: 350px;
     }
     .masthead h1.ui.header {
-        font-size: 2em;
+        font-size: 3em;
         margin-top: 1.5em;
     }
     .masthead h2 {
