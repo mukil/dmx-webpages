@@ -1,10 +1,24 @@
 {
     "topic_types": [
         {
+            "value": "Section Title",
+            "uri": "de.mikromedia.section.title",
+            "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key", "dm4.core.fulltext", "dm4.core.fulltext_key"],
+            "view_config_topics": [
+                {
+                    "type_uri": "dm4.webclient.view_config",
+                    "childs": {
+                        "dm4.webclient.show_in_create_menu": false
+                    }
+                }
+            ]
+        },
+        {
             "value": "Section Headline",
             "uri": "de.mikromedia.section.headline",
             "data_type_uri": "dm4.core.text",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
+            "index_mode_uris": ["dm4.core.key", "dm4.core.fulltext", "dm4.core.fulltext_key"],
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
@@ -29,8 +43,8 @@
             ]
         },
         {
-            "value": "Section Alignment",
-            "uri": "de.mikromedia.section.alignment",
+            "value": "Section Layout",
+            "uri": "de.mikromedia.section.layout",
             "data_type_uri": "dm4.core.text",
             "index_mode_uris": ["dm4.core.key"],
             "view_config_topics": [
@@ -43,10 +57,10 @@
             ]
         },
         {
-            "value": "Element ID",
-            "uri": "de.mikromedia.element.id",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
+            "value": "Section Background Color",
+            "uri": "de.mikromedia.section.color_bg",
             "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
@@ -57,110 +71,15 @@
             ]
         },
         {
-            "value": "Element Headline",
-            "uri": "de.mikromedia.element.headline",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
+            "value": "Section Font Color",
+            "uri": "de.mikromedia.section.color_font",
             "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
                         "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Element HTML",
-            "uri": "de.mikromedia.element.content",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
-            "data_type_uri": "dm4.core.html",
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Element Attribution",
-            "uri": "de.mikromedia.element.attr",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
-            "data_type_uri": "dm4.core.html",
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Element Link Target",
-            "uri": "de.mikromedia.element.link_target",
-            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
-            "data_type_uri": "dm4.core.text",
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Webpage Element",
-            "uri": "de.mikromedia.element",
-            "data_type_uri": "dm4.core.composite",
-            "assoc_defs": [
-                { ### HTML Alt and Title Attribute
-                    "child_type_uri":           "de.mikromedia.element.headline",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                { ### HTML Content of the Webpage Element
-                    "child_type_uri":           "de.mikromedia.element.content",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                { ### WebpageElement Attribution (Author, License, Date)
-                    "child_type_uri":           "de.mikromedia.element.attr",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                { ### File as WebpageElement
-                    "child_type_uri":           "dm4.files.file",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.aggregation_def",
-                    "custom_assoc_type_uri":    "de.mikromedia.element.file_edge"
-                },
-                { ### Webpage Element Target (Href, Hyperlink)
-                    "child_type_uri":           "de.mikromedia.element.link_target",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                { ### Webpage Element ID
-                    "child_type_uri":           "de.mikromedia.element.id",
-                    "child_cardinality_uri":    "dm4.core.one",
-                    "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
-                }
-            ],
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": true,
-                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-element.png"
                     }
                 }
             ]
@@ -174,19 +93,13 @@
                     "child_type_uri":           "de.mikromedia.section.headline",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.composition_def"
+                    "assoc_type_uri":           "dm4.core.aggregation_def"
                 },
                 {
                     "child_type_uri":           "de.mikromedia.section.html",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.composition_def"
-                },
-                {
-                    "child_type_uri":           "de.mikromedia.element",
-                    "child_cardinality_uri":    "dm4.core.many",
-                    "parent_cardinality_uri":   "dm4.core.many",
-                    "assoc_type_uri":           "dm4.core.aggregation_def"
                 }
             ],
             "view_config_topics": [
@@ -194,7 +107,7 @@
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
                         "dm4.webclient.show_in_create_menu": false,
-                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-section.png"
+                        "dm4.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-content.png"
                     }
                 }
              ]
@@ -205,13 +118,31 @@
             "data_type_uri": "dm4.core.composite",
             "assoc_defs": [
                 {
+                    "child_type_uri":           "de.mikromedia.section.title",
+                    "child_cardinality_uri":    "dm4.core.one",
+                    "parent_cardinality_uri":   "dm4.core.one",
+                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                },
+                {
                     "child_type_uri":           "de.mikromedia.section.content",
                     "child_cardinality_uri":    "dm4.core.many",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.section.alignment",
+                    "child_type_uri":           "de.mikromedia.section.layout",
+                    "child_cardinality_uri":    "dm4.core.one",
+                    "parent_cardinality_uri":   "dm4.core.one",
+                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                },
+                {
+                    "child_type_uri":           "de.mikromedia.section.color_bg",
+                    "child_cardinality_uri":    "dm4.core.one",
+                    "parent_cardinality_uri":   "dm4.core.one",
+                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                },
+                {
+                    "child_type_uri":           "de.mikromedia.section.color_font",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
@@ -230,14 +161,29 @@
     ],
     "topics": [
         {
-            "type_uri": "de.mikromedia.section.alignment",
-            "uri" : "de.mikromedia.section.align_left",
-            "value": "Left"
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.fixed_two_columns",
+            "value": "Grid: Fixed 2 Column (No Padding)"
         },
         {
-            "type_uri": "de.mikromedia.section.alignment",
-            "uri" : "de.mikromedia.section.align_right",
-            "value": "Right"
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.stackable_ten_six",
+            "value": "Grid: Stackable 10:6"
+        },
+        {
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.stackable_n_column",
+            "value": "Grid: Stackable N-Column Grid (No Padding)"
+        },
+        {
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.stackable_2_and_n",
+            "value": "Grid: Stackable 2 & N-Grid (No Padding)"
+        },
+        {
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.accordion_styled",
+            "value": "Styled Accordion"
         }
     ]
 }

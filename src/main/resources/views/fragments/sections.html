@@ -1,5 +1,5 @@
 
- <!-- Basic Colored (Padding) Segment -->
+<!-- Stackable Basic Colored (Padding) Segment -->
 <div th:fragment="ten-six-grid" class="ui vertical basic spaced segment bg-light"><!-- bg-color-->
     <div class="ui container">
         <h1 class="ui header aligned center">Ten Six Section Title</h1>
@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<!-- Segment with Border, n-Columns Equal Width Columns -->
+<!-- Stackable Segment with Border, n-Columns Equal Width Columns -->
 <div th:fragment="n-equal-padded" class="ui vertical segment no-padding"><!-- bg-color-->
     <div class="ui container">
         <h1 class="ui header aligned center">Equal Columns Section Title</h1>
@@ -39,7 +39,24 @@
     </div>
 </div>
 
-<!-- No Border Segment, 2 and N-Column Equal Width Columns Padded -->
+<!-- Unstackable Basic 2 Column Grid Equal Width Padded -->
+<div th:fragment="2-columns-equal" class="ui vertical basic segment no-padding"><!-- bg-medium-light -->
+    <!--div class="ui container">
+        <h1 class="ui header aligned center">2 Column Section title</h1>
+    </div-->
+    <div class="ui equal width grid padded">
+        <div class="column bg-light"><!-- bg-color -->
+            <h2 class="ui header">Column Header A</h2>
+            <p>Column A</p>
+        </div>
+        <div class="column bg-medium-light"><!-- bg-color -->
+            <h2 class="ui header">Column Header A</h2>
+            <p>Column B</p>
+        </div>
+    </div>
+</div>
+
+<!-- Stackable No Border Segment, 2 and N-Column Equal Width Columns Padded -->
 <div th:fragment="two-and-n-equal-padded" class="ui vertical basic segment">
     <div class="ui container">
         <h1 class="ui header aligned center">Two and N Equal Columns Section title</h1>
@@ -66,23 +83,6 @@
             <div class="column">
                 Column F
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Basic 2 Column Grid Equal Width Padded -->
-<div th:fragment="2-columns-equal" class="ui vertical basic segment no-padding"><!-- bg-medium-light -->
-    <!--div class="ui container">
-        <h1 class="ui header aligned center">2 Column Section title</h1>
-    </div-->
-    <div class="ui equal width grid padded">
-        <div class="column bg-light"><!-- bg-color -->
-            <h2 class="ui header">Column Header A</h2>
-            <p>Column A</p>
-        </div>
-        <div class="column bg-medium-light"><!-- bg-color -->
-            <h2 class="ui header">Column Header A</h2>
-            <p>Column B</p>
         </div>
     </div>
 </div>
