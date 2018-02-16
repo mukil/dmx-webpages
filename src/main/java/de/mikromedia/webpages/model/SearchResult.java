@@ -8,6 +8,11 @@ package de.mikromedia.webpages.model;
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
 import de.mikromedia.webpages.WebpageService;
+import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
+import static de.mikromedia.webpages.WebpageService.WEBSITE;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_PREFIX;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
@@ -45,16 +50,16 @@ public class SearchResult implements JSONEnabled {
     // --- Private Utility Methods
    
     private String getPageAlias(Topic webpage) {
-        return webpage.getChildTopics().getString("de.mikromedia.page.web_alias");
+        return webpage.getChildTopics().getString(WEBPAGE_ALIAS);
     }
 
     private Topic getPageSite(Topic webpage) {
-        return webpage.getRelatedTopic("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.site");
+        return webpage.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
+                ROLE_DEFAULT, WEBSITE);
     }
 
     private String getSiteLocation(Topic website) {
-        String sitePrefix = website.getChildTopics().getStringOrNull("de.mikromedia.site.prefix");
+        String sitePrefix = website.getChildTopics().getStringOrNull(WEBSITE_PREFIX);
         return (sitePrefix == null) ? "/" :  "/" + sitePrefix;
     }
 

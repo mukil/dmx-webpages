@@ -53,6 +53,7 @@ import javax.ws.rs.QueryParam;
 import org.codehaus.jettison.json.JSONException;
 import org.osgi.framework.Bundle;
 import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
+import de.mikromedia.webpages.model.Section;
 
 /**
  * Collaborative, multi-site standard HTML web pages with DeepaMehta 4.
@@ -142,6 +143,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
             preparePageHeader(website);
+            preparePageSections(website);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             website = getWebsiteFrontpage(null);
@@ -151,6 +153,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
             preparePageHeader(website);
+            preparePageSections(website);
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
             return getWebsiteTemplate(website);
@@ -169,7 +172,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     @Path("/{pageWebAlias}")
     public Viewable getWebpage(@PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
-        // 1) Check if for the given "/webAlias" a template was registered by other plugins
+        // 1) check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
         if (registeredPage != null) {
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
@@ -177,36 +180,38 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             return registeredPage;
         }
         log.info("Requesting Webpage /" + pageAlias);
-        // 2) check if webAlias refers to a special site
+        // 2) check if webAlias matches to a special website prefix
         Topic website = getWebsiteByPrefix(pageAlias);
         if (website != null) {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
             preparePageHeader(website);
+            preparePageSections(website);
             dm4.fireEvent(FRONTPAGE_REQUESTED, website, pageAlias);
             return getWebsiteTemplate(website);
         }
-        // 3) if not, prepare standard website
-        Topic standardWebsite = getStandardWebsite();
-        if (standardWebsite != null) {
-            prepareWebsiteViewData(standardWebsite, webAlias);
-            preparePageHeader(standardWebsite);
+        // 3) if not, use standard website for page preparation
+        website = getStandardWebsite();
+        if (website != null) {
+            prepareWebsiteViewData(website, webAlias);
         }
         // 4) is webpage of standard site
-        Webpage webpage = getWebsitesWebpage(standardWebsite, pageAlias, STANDARD_WEBSITE_PREFIX);
+        Webpage webpage = getWebsitesWebpage(website, pageAlias, STANDARD_WEBSITE_PREFIX);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, STANDARD_WEBSITE_PREFIX);
-            log.info("Preparing WEBPAGE view data ("+webpage.toString()+") in dm4-webpages plugin...");
+            log.info("Preparing WEBPAGE view data ("+webpage.getPageTitle().toString()+") of " + website + " plugin...");
+            preparePageHeader(webpage.getTopic());
+            preparePageSections(webpage.getTopic());
             Viewable webpageTemplate = getWebpageTemplate(webpage);
             return webpageTemplate;
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) is redirect of admin
-        handleWebsiteRedirects(standardWebsite, pageAlias);
+        handleWebsiteRedirects(website, pageAlias);
         log.fine("=> /" + pageAlias + " redirect for standard website not found.");
         // 6) Resource is neither a custom webAlias page, nor a published or drafted \"Webpage\" or \"Redirect\"
-        return getWebsiteNotFoundPage(standardWebsite);
+        return getWebsiteNotFoundPage(website);
     }
 
     /**
@@ -327,8 +332,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return header;
     }
 
+    public List<RelatedTopic> getRelatedWebpageSections(Topic page) {
+        List<RelatedTopic> sections = null;
+        if (page != null ) {
+            sections = page.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, SECTION);
+            if (sections != null && sections.size() > 0) {
+                DeepaMehtaUtils.loadChildTopics(sections);
+            }
+        } else {
+            log.warning("Webpage Sections are NULL");
+        }
+        return sections;
+    }
+
     public Topic getRelatedHeaderDesktopImage(Topic header) {
-        Topic desktopImage = header.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, FILE);
+        Topic desktopImage = header.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
         if (desktopImage != null) {
             desktopImage.loadChildTopics();
         }
@@ -336,7 +354,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     public Topic getRelatedHeaderMobileImage(Topic header) {
-        Topic mobileImage = header.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, FILE);
+        Topic mobileImage = header.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
         if (mobileImage != null) {
             mobileImage.loadChildTopics();
         }
@@ -641,6 +659,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 viewData("dateModified", df.format(page.getModificationDate()));
                 viewData("page", page);
                 preparePageHeader(page.getTopic());
+                preparePageSections(page.getTopic());
                 return view("page");
             }
         } catch (RuntimeException re) {
@@ -663,8 +682,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private void preparePageHeader(Topic topic) {
+        log.info("Preparing Page Header for " + topic.getSimpleValue().toString());
         Topic header = getRelatedHeader(topic);
         if (header != null) {
+            log.info("Found Page Header " + header.getSimpleValue().toString());
             // 1.) set custom Header data
             viewData("header", header);
             // 2.) fetch and set custom header background images
@@ -680,6 +701,43 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             List<RelatedTopic> buttons = header.getRelatedTopics(AGGREGATION, ROLE_PARENT, ROLE_CHILD, BUTTON);
             DeepaMehtaUtils.loadChildTopics(buttons);
             viewData("headerButtons", buttons);
+        }
+    }
+
+    private void preparePageSections(Topic topic) {
+        List<RelatedTopic> sections = getRelatedWebpageSections(topic);
+        List<Section> above = new ArrayList();
+        List<Section> below = new ArrayList();
+        List<Section> asideLeft = new ArrayList();
+        List<Section> asideRight = new ArrayList();
+        if (sections != null && sections.size() > 0) {
+            for (Topic section : sections) {
+                Section pageSection = new Section(section);
+                Topic placement = pageSection.getPlacement();
+                if (placement != null && placement.getUri().equals(PLACEMENT_ABOVE)) {
+                    above.add(pageSection);
+                } else if(placement != null && placement.getUri().equals(PLACEMENT_BELOW)) {
+                    below.add(pageSection);
+                } else if(placement != null && placement.getUri().equals(PLACEMENT_ASIDE_LEFT)) {
+                    asideLeft.add(pageSection);
+                } else if(placement != null && placement.getUri().equals(PLACEMENT_ASIDE_RIGHT)) {
+                    asideRight.add(pageSection);
+                }
+            }
+            // 1.) set custom Header data
+            if (above.size() > 0) viewData("sectionsAbove", above);
+            if (below.size() > 0) viewData("sectionsBelow", below);
+            if (asideLeft.size() > 0) viewData("sectionsLeft", asideLeft);
+            if (asideRight.size() > 0) viewData("sectionsRight", asideRight);
+            /** // 2.) fetch and set custom header background images
+            Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
+            if (desktopHeaderImage != null) {
+                viewData("desktopHeaderImage", desktopHeaderImage);
+            }
+            Topic mobileHeaderImage = getRelatedHeaderMobileImage(header);
+            if (mobileHeaderImage != null) {
+                viewData("mobileHeaderImage", mobileHeaderImage);
+            } **/
         }
     }
 
@@ -787,9 +845,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             Topic topic2 = dm4.getTopic(player2.getPlayerId());
             // Between Header and File we auto-type to "de.mikromedia.header.desktop_image"
             if (topic1.getTypeUri().equals(HEADER) || topic2.getTypeUri().equals(HEADER)) {
-                if (topic1.getTypeUri().equals(FILE) || topic2.getTypeUri().equals(FILE) ) {
+                if (topic1.getTypeUri().equals(DEEPAMEHTA_FILE) || topic2.getTypeUri().equals(DEEPAMEHTA_FILE) ) {
                     DeepaMehtaUtils.associationAutoTyping(am, HEADER,
-                        FILE, DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
+                        DEEPAMEHTA_FILE, DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
                 }
             }
         }

@@ -1,10 +1,21 @@
 package de.mikromedia.webpages.model;
 
-import de.mikromedia.webpages.*;
 import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.CoreService;
+import static de.mikromedia.webpages.WebpageService.AUTHOR_NAME;
+import static de.mikromedia.webpages.WebpageService.COMPOSITION;
+import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
+import static de.mikromedia.webpages.WebpageService.ROLE_PARENT;
+import static de.mikromedia.webpages.WebpageService.TIME_CREATED;
+import static de.mikromedia.webpages.WebpageService.TIME_MODIFIED;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_ABOUT;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_CONTENT;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_CSS;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_IS_DRAFT;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -18,9 +29,9 @@ public class Webpage implements JSONEnabled {
     public Topic page;
 
     public Webpage(Topic pageAliasTopic) {
-        this.page = pageAliasTopic.getRelatedTopic("dm4.core.composition",
-            "dm4.core.child", "dm4.core.parent", "de.mikromedia.page");
-        if (!isWebpageTopic(this.page)) {
+        this.page = pageAliasTopic.getRelatedTopic(COMPOSITION,
+            ROLE_CHILD, ROLE_PARENT, WEBPAGE);
+        if (!isWebpageTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Webpage");
         }
         this.page.loadChildTopics();
@@ -28,7 +39,7 @@ public class Webpage implements JSONEnabled {
 
     public Webpage(long topicId, CoreService dms) {
         this.page = dms.getTopic(topicId);
-        if (!isWebpageTopic(this.page)) {
+        if (!isWebpageTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Webpage");
         }
         this.page.loadChildTopics();
@@ -43,11 +54,11 @@ public class Webpage implements JSONEnabled {
     }
 
     public String getDescription() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.about");
+        return page.getChildTopics().getStringOrNull(WEBPAGE_ABOUT);
     }
 
     public String getMainHTML() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.main");
+        return page.getChildTopics().getStringOrNull(WEBPAGE_CONTENT);
     }
 
     public Topic getTopic() {
@@ -55,15 +66,15 @@ public class Webpage implements JSONEnabled {
     }
 
     public String getStylesheet() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.stylesheet");
+        return page.getChildTopics().getStringOrNull(WEBPAGE_CSS);
     }
 
     public String getWebAlias() {
-        return page.getChildTopics().getStringOrNull("de.mikromedia.page.web_alias");
+        return page.getChildTopics().getStringOrNull(WEBPAGE_ALIAS);
     }
 
     public Date getModificationDate() {
-        Object modified = page.getProperty("dm4.time.modified");
+        Object modified = page.getProperty(TIME_MODIFIED);
         Date modificationDate = new Date();
         modificationDate.setTime((Long) modified);
         // DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.GERMANY);
@@ -72,7 +83,7 @@ public class Webpage implements JSONEnabled {
     }
 
     public Date getCreationDate() {
-        Object created = page.getProperty("dm4.time.created");
+        Object created = page.getProperty(TIME_CREATED);
         Date creationDate = new Date();
         creationDate.setTime((Long) created);
         // DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.GERMANY);
@@ -80,12 +91,12 @@ public class Webpage implements JSONEnabled {
     }
 
     public boolean isDraft() {
-        return page.getChildTopics().getBooleanOrNull("de.mikromedia.page.is_draft");
+        return page.getChildTopics().getBooleanOrNull(WEBPAGE_IS_DRAFT);
     }
 
     public String getAuthorNames() {
         String nameOfAuthors = "";
-        List<RelatedTopic> authorNames = page.getChildTopics().getTopicsOrNull("de.mikromedia.page.author_name");
+        List<RelatedTopic> authorNames = page.getChildTopics().getTopicsOrNull(AUTHOR_NAME);
         if (authorNames != null) {
             Iterator<RelatedTopic> nameIterator = authorNames.iterator();
             while (nameIterator.hasNext()) {
@@ -118,8 +129,9 @@ public class Webpage implements JSONEnabled {
         }
     }
 
-    private boolean isWebpageTopic(Topic topic) {
-        return (topic.getTypeUri().equals("de.mikromedia.page"));
+    private boolean isWebpageTopic() {
+        if (this.page == null) return false;
+        return (this.page.getTypeUri().equals("de.mikromedia.page"));
     }
 
 }

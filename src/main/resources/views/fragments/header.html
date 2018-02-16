@@ -1,4 +1,5 @@
 
+
 <!-- Frontpage Header -->
 <header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-bg-color">
 
@@ -22,6 +23,17 @@
             th:utext="${header.childTopics.getString('de.mikromedia.header.content')}">
             Do whatever you want when you want to.
         </h2>
+
+        <!-- Render Header Buttons -->
+        <div class="page-buttons">
+            <a th:each="button : ${headerButtons}"
+                class="ui button primary" th:classappend="${button.childTopics.getString('de.mikromedia.button.style')}"
+                th:href="${button.childTopics.getString('de.mikromedia.button.href')}"
+                th:text="${button.childTopics.getString('de.mikromedia.button.title')}">
+                Button label
+            </a>
+        </div>
+
         <!--div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div-->
     </div>
 

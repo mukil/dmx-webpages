@@ -1,18 +1,46 @@
 
 <!-- Stackable Basic Colored (Padding) Segment -->
-<div th:fragment="ten-six-grid" class="ui vertical basic spaced segment bg-light"><!-- bg-color-->
+<div th:fragment="ten-six-grid (section) " class="ui vertical basic spaced segment bg-light section-image"><!-- bg-color-->
+    <style th:inline="text">
+        /*<![CDATA[*/
+         @media(min-width: 1025px) {
+            .page .ui.segment.section-image {
+                background-image: url('/filerepo[[${section.desktopImage}]]');
+                background-repeat: none;
+                background-color: [[${section.backgroundColor}]];
+                color: [[${section.fontColor}]];
+            }
+            .page .ui.container .ui.header,
+            .page .ui.segment .ui.header {
+                color: [[${section.fontColor}]];
+            }
+        }
+        @media(max-width: 1024px) {
+            .page .ui.segment.section-image {
+                background-image: url('/filerepo[[${section.mobileImage}]]');
+                background-repeat: none;
+                background-color: [[${section.backgroundColor}]];
+                color: [[${section.fontColor}]];
+            }
+            .page .ui.container .ui.header,
+            .page .ui.segment .ui.header {
+                color: [[${section.fontColor}]];
+            }
+        }
+        /*]]>*/
+    </style>
     <div class="ui container">
-        <h1 class="ui header aligned center">Ten Six Section Title</h1>
+        <h1 class="ui header aligned center" th:text="${section.title}">Ten Six Section Title</h1>
     </div>
     <div class="ui stackable grid basic segment">
         <div class="ui row">
-            <div class="ten wide column">
-                <h2 class="ui header">Column Header A</h2>
-                <p>Ten Wide</p>
+            <div th:if="${iterator.index} == 0" class="ten wide column" th:each="element, iterator : ${section.contents}">
+                <h2 class="ui header" th:text="${element.simpleValue}">Column Header A</h2>
+                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">Ten Wide</div>
             </div>
-            <div class="six wide column ">
-                <h2 class="ui header">Column Header B</h2>
-                <p>Six Wide</p>
+            <div th:if="${iterator.index} == 1" class="six wide column" th:each="element, iterator : ${section.contents}">
+                <h2 class="ui header" th:text="${element.simpleValue}">Column Header B</h2>
+                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">Six Wide</div>
             </div>
         </div>
     </div>

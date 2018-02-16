@@ -3,6 +3,23 @@ package de.mikromedia.webpages.model;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
+import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
+import static de.mikromedia.webpages.WebpageService.DESKTOP_IMAGE_ASSOC;
+import static de.mikromedia.webpages.WebpageService.MOBILE_IMAGE_ASSOC;
+import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
+import static de.mikromedia.webpages.WebpageService.REDIRECT;
+import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
+import static de.mikromedia.webpages.WebpageService.USERNAME;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
+import static de.mikromedia.webpages.WebpageService.WEBSITE;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_ABOUT;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_CAPTION;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_CSS;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_FOOTER;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_NAME;
+import static de.mikromedia.webpages.WebpageService.WEBSITE_PREFIX;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,27 +45,27 @@ public class Website {
 
     public boolean isWebsiteTopic() {
         if (this.topic == null) return false;
-        return (this.topic.getTypeUri().equals("de.mikromedia.site"));
+        return (this.topic.getTypeUri().equals(WEBSITE));
     }
 
     public Topic getRelatedUsername() {
-        return this.topic.getRelatedTopic("dm4.core.association", "dm4.core.default",
-            "dm4.core.default", "dm4.accesscontrol.username");
+        return this.topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
+            ROLE_DEFAULT, USERNAME);
     }
 
     public Topic getDesktopHeaderImage() {
-        return this.topic.getRelatedTopic("de.mikromedia.header.desktop_image", "dm4.core.default",
-            "dm4.core.default", "dm4.files.file");
+        return this.topic.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
+            ROLE_DEFAULT, DEEPAMEHTA_FILE);
     }
 
     public Topic getMobileHeaderImage() {
-        return this.topic.getRelatedTopic("de.mikromedia.header.mobile_image", "dm4.core.default",
-            "dm4.core.default", "dm4.files.file");
+        return this.topic.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
+            ROLE_DEFAULT, DEEPAMEHTA_FILE);
     }
 
     public List<RelatedTopic> getRelatedWebpages() {
-        return this.topic.getRelatedTopics("dm4.core.association", "dm4.core.default",
-            "dm4.core.default", "de.mikromedia.page");
+        return this.topic.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT,
+            ROLE_DEFAULT, WEBPAGE);
     }
 
     public List<Webpage> getRelatedWebpagesPublished() {
@@ -63,8 +80,8 @@ public class Website {
     }
 
     public List<MenuItem> getActiveMenuItems() {
-        List<RelatedTopic> menuItems = this.topic.getRelatedTopics("dm4.core.association", "dm4.core.default",
-                "dm4.core.default", "de.mikromedia.menu.item");
+        List<RelatedTopic> menuItems = this.topic.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT,
+                ROLE_DEFAULT, MENU_ITEM);
         sortMenuItems(menuItems);
         ArrayList<MenuItem> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
@@ -103,8 +120,8 @@ public class Website {
     }
 
     public List<RelatedTopic> getConfiguredRedirects() {
-        return this.topic.getRelatedTopics("dm4.core.association",
-            "dm4.core.default","dm4.core.default", "de.mikromedia.redirect");
+        return this.topic.getRelatedTopics(ASSOCIATION,
+            ROLE_DEFAULT, ROLE_DEFAULT, REDIRECT);
     }
 
     /**
@@ -117,37 +134,37 @@ public class Website {
         if (relatedWebpages == null) return null;
         for (RelatedTopic webpage : relatedWebpages) {
             Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
-            String webpageAlias = webpageTopic.getChildTopics().getString("de.mikromedia.page.web_alias");
+            String webpageAlias = webpageTopic.getChildTopics().getString(WEBPAGE_ALIAS);
             if (webpageAlias.equals(webAlias)) {
                 log.fine("Loaded webpage with web alias \"" + webAlias + "\" Title: " + webpageTopic.getSimpleValue());
-                return webpageTopic.getChildTopics().getTopic("de.mikromedia.page.web_alias");
+                return webpageTopic.getChildTopics().getTopic(WEBPAGE_ALIAS);
             }
         }
         return null;
     }
     
     public String getFooter() {
-        return this.topic.getChildTopics().getString("de.mikromedia.site.footer_html");
+        return this.topic.getChildTopics().getString(WEBSITE_FOOTER);
     }
 
     public String getSitePrefix() {
-        return this.topic.getChildTopics().getString("de.mikromedia.site.prefix");
+        return this.topic.getChildTopics().getString(WEBSITE_PREFIX);
     }
 
     public String getCaption() {
-        return this.topic.getChildTopics().getStringOrNull("de.mikromedia.site.caption");
+        return this.topic.getChildTopics().getStringOrNull(WEBSITE_CAPTION);
     }
 
     public String getAboutHTML() {
-        return this.topic.getChildTopics().getStringOrNull("de.mikromedia.site.about_html");
+        return this.topic.getChildTopics().getStringOrNull(WEBSITE_ABOUT);
     }
 
     public String getName() {
-        return this.topic.getChildTopics().getString("de.mikromedia.site.name");
+        return this.topic.getChildTopics().getString(WEBSITE_NAME);
     }
 
     public String getStylesheetPath() {
-        return this.topic.getChildTopics().getString("de.mikromedia.site.stylesheet");
+        return this.topic.getChildTopics().getString(WEBSITE_CSS);
     }
 
 }

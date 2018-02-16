@@ -20,13 +20,22 @@ public interface WebpageService {
     public static final String WEBSITE = "de.mikromedia.site";
     public static final String WEBSITE_NAME = "de.mikromedia.site.name";
     public static final String WEBSITE_CAPTION = "de.mikromedia.site.caption";
+    public static final String WEBSITE_ABOUT = "de.mikromedia.site.about_html";
     public static final String WEBSITE_STYLESHEET = "de.mikromedia.site.stylesheet";
     public static final String WEBSITE_FOOTER = "de.mikromedia.site.footer_html";
     public static final String WEBSITE_PREFIX = "de.mikromedia.site.prefix";
+    public static final String WEBSITE_CSS = "de.mikromedia.site.stylesheet";
 
     public static final String WEBPAGE = "de.mikromedia.page";
     public static final String WEBPAGE_TITLE = "de.mikromedia.page.headline";
     public static final String WEBPAGE_CONTENT = "de.mikromedia.page.main";
+    public static final String WEBPAGE_ABOUT = "de.mikromedia.page.about";
+    public static final String WEBPAGE_CSS = "de.mikromedia.page.stylesheet";
+    public static final String WEBPAGE_ALIAS = "de.mikromedia.page.web_alias";
+    public static final String WEBPAGE_IS_DRAFT = "de.mikromedia.page.is_draft";
+
+    // ### TODO: Switch to related "Person" topics for authorship
+    public static final String AUTHOR_NAME = "de.mikromedia.page.author_name";
 
     public static final String HEADER = "de.mikromedia.header";
     public static final String HEADER_TITLE = "de.mikromedia.header.title";
@@ -35,17 +44,39 @@ public interface WebpageService {
     public static final String HEADER_COLOR = "de.mikromedia.header.color_font";
     public static final String HEADER_SCRIPT = "de.mikromedia.header.script";
 
-    public static final String DESKTOP_IMAGE_ASSOC = "de.mikromedia.header.desktop_image";
-    public static final String MOBILE_IMAGE_ASSOC = "de.mikromedia.header.mobile_image";
+    public static final String DESKTOP_IMAGE_ASSOC = "de.mikromedia.image.desktop";
+    public static final String MOBILE_IMAGE_ASSOC = "de.mikromedia.image.mobile";
+
+    public static final String SECTION = "de.mikromedia.section";
+    public static final String SECTION_CONTENT = "de.mikromedia.section.content";
+    public static final String SECTION_HEADLINE = "de.mikromedia.section.headline";
+    public static final String SECTION_LAYOUT = "de.mikromedia.section.layout";
+    public static final String SECTION_PLACEMENT = "de.mikromedia.section.placement";
+
+    public static final String SECTION_HTML = "de.mikromedia.section.html";
+    public static final String SECTION_BG_COLOR = "de.mikromedia.section.color_bg";
+    public static final String SECTION_COLOR = "de.mikromedia.section.color_font";
+
+    public static final String PLACEMENT_ABOVE = "de.mikromedia.placement.above";
+    public static final String PLACEMENT_BELOW = "de.mikromedia.placement.below";
+    public static final String PLACEMENT_ASIDE_RIGHT = "de.mikromedia.placement.aside_right";
+    public static final String PLACEMENT_ASIDE_LEFT = "de.mikromedia.placement.aside_left";
 
     public static final String BUTTON = "de.mikromedia.button";
     public static final String BUTTON_TITLE = "de.mikromedia.button.title";
     public static final String BUTTON_HREF = "de.mikromedia.button.href";
     public static final String BUTTON_STYLE = "de.mikromedia.button.style";
 
+    public static final String MENU_ITEM = "de.mikromedia.menu.item";
+    public static final String MENU_ITEM_ACTIVE = "de.mikromedia.menu.item_active";
+    public static final String MENU_ITEM_HREF = "de.mikromedia.menu.item_href";
+    public static final String MENU_ITEM_NAME = "de.mikromedia.menu.item_name";
+
     public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";
     public static final String STANDARD_WEBSITE_URI = "de.mikromedia.standard_site";
+    public static final String STANDARD_WEBSITE_PREFIX = "standard";
 
+    public static final String REDIRECT = "de.mikromedia.redirect";
     public static final String REDIRECT_STATUS_CODE = "de.mikromedia.redirect.status_code";
     public static final String REDIRECT_TARGET_URL = "de.mikromedia.redirect.target_url";
     public static final String REDIRECT_WEB_ALIAS = "de.mikromedia.redirect.web_alias";
@@ -54,8 +85,6 @@ public interface WebpageService {
     public static final String WEBPAGES_WS_NAME = "Webpages";
     public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
 
-    public static final String STANDARD_WEBSITE_PREFIX = "standard";
-
     /** Standard Distribution URIs (DM4) **/
     public static final String ROLE_DEFAULT = "dm4.core.default";
     public static final String ROLE_CHILD = "dm4.core.child";
@@ -63,8 +92,11 @@ public interface WebpageService {
     public static final String ASSOCIATION = "dm4.core.association";
     public static final String COMPOSITION = "dm4.core.composition";
     public static final String AGGREGATION = "dm4.core.aggregation";
-    public static final String FILE = "dm4.files.file";
+    public static final String DEEPAMEHTA_FILE = "dm4.files.file";
     public static final String FILE_PATH = "dm4.files.path";
+    public static final String TIME_CREATED = "dm4.time.created";
+    public static final String TIME_MODIFIED = "dm4.time.modified";
+    public static final String USERNAME = "dm4.accesscontrol.username";
 
     /**
      * Fetches an existing or creates a new website topic (if non exists and the requesting user equals given username).

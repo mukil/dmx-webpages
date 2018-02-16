@@ -4,6 +4,13 @@ import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
+import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
+import static de.mikromedia.webpages.WebpageService.MENU_ITEM_ACTIVE;
+import static de.mikromedia.webpages.WebpageService.MENU_ITEM_HREF;
+import static de.mikromedia.webpages.WebpageService.MENU_ITEM_NAME;
+import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
+import static de.mikromedia.webpages.WebpageService.ROLE_PARENT;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,7 +29,7 @@ public class MenuItem implements JSONEnabled {
     public MenuItem(Topic menuItem, Website website) {
         this.menuItem = menuItem;
         this.website = website;
-        if (!isWebpageMenuItemTopic(this.menuItem)) {
+        if (!isWebpageMenuItemTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");
         }
         this.menuItem.loadChildTopics();
@@ -32,7 +39,7 @@ public class MenuItem implements JSONEnabled {
     public MenuItem(long topicId, Website website, CoreService dms) {
         this.menuItem = dms.getTopic(topicId);
         this.website = website;
-        if (!isWebpageMenuItemTopic(this.menuItem)) {
+        if (!isWebpageMenuItemTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Webpage Menu Item");
         }
         this.menuItem.loadChildTopics();
@@ -44,11 +51,11 @@ public class MenuItem implements JSONEnabled {
     }
 
     public String getLabel() {
-        return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_name");
+        return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_NAME);
     }
 
     public String getHref() {
-        return menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
+        return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
     }
 
     public String getFullHref() {
@@ -57,12 +64,12 @@ public class MenuItem implements JSONEnabled {
         if (sitePrefix != null) {
             fullHref += "/" + sitePrefix;
         }
-        fullHref += "/" + menuItem.getChildTopics().getStringOrNull("de.mikromedia.menu.item_href");
+        fullHref += "/" + menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
         return fullHref;
     }
 
     public boolean isActive() {
-        return menuItem.getChildTopics().getBooleanOrNull("de.mikromedia.menu.item_active");
+        return menuItem.getChildTopics().getBooleanOrNull(MENU_ITEM_ACTIVE);
     }
 
     public List<MenuItem> getChildMenuItems() {
@@ -87,13 +94,14 @@ public class MenuItem implements JSONEnabled {
     }
 
     private void loadRelatedMenuItems() {
-        relatedItems = menuItem.getRelatedTopics("dm4.core.association", "dm4.core.parent",
-                "dm4.core.child", "de.mikromedia.menu.item");
+        relatedItems = menuItem.getRelatedTopics(ASSOCIATION, ROLE_PARENT,
+                ROLE_CHILD, MENU_ITEM);
         hasChildItems = (relatedItems.size() > 0);
     }
 
-    private boolean isWebpageMenuItemTopic(Topic topic) {
-        return (topic.getTypeUri().equals("de.mikromedia.menu.item"));
+    private boolean isWebpageMenuItemTopic() {
+        if (this.menuItem == null) return false;
+        return (menuItem.getTypeUri().equals(MENU_ITEM));
     }
 
 }

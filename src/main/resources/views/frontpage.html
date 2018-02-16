@@ -78,13 +78,19 @@
 
             <div class="body">
 
-                <div th:replace="fragments/sections :: n-equal-padded" />
+                <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                    Sections Above available
+                    <div th:if="${#strings.equals(section.layout, 'ten-six-grid')}"
+                         th:replace="fragments/sections :: ten-six-grid (${section})"></div>
+                </div>
 
                 <div class="ui basic vertical stripe segment posts container">
 
                     <div class="ui container">
                         <h1 class="ui header">Posts</h1>
                     </div>
+
+                    <div th:if="${sectionsBelow}">Sections Left Aside Available </div>
 
                     <div class="ui text">
 
@@ -115,10 +121,15 @@
                             <div class="ui divider"></div>
                         </article>
 
+                        <div th:if="${sectionsBelow}">Sections Right Aside Available </div>
+                        
                     </div>
                 </div>
 
-                <div th:replace="fragments/sections :: ten-six-grid" />
+                <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
+                    <div th:if="${#strings.equals(section.layout, 'ten-six-grid')}"
+                         th:replace="fragments/sections :: ten-six-grid (${section})"></div>
+                </div>                <!--div th:replace="fragments/sections :: ten-six-grid" /-->
 
             </div>
 

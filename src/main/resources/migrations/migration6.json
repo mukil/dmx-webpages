@@ -200,9 +200,9 @@
     ],
     "assoc_types": [
         {
-            "value":            "Header Image (Desktop)",
+            "value":            "Background Image (Large)",
             "data_type_uri":    "dm4.core.text",
-            "uri":              "de.mikromedia.header.desktop_image",
+            "uri":              "de.mikromedia.image.desktop",
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
@@ -213,14 +213,14 @@
             ]
        },
        {
-            "value":            "Header Image (Mobile)",
+            "value":            "Background Image (Small)",
             "data_type_uri":    "dm4.core.text",
-            "uri":              "de.mikromedia.header.mobile_image",
+            "uri":              "de.mikromedia.image.mobile",
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
                     "childs": {
-                        "dm4.webclient.color": "#ec8181"
+                        "dm4.webclient.color": "#f8b6b6"
                     }
                 }
             ]

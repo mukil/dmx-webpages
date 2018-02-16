@@ -24,9 +24,9 @@ public class Migration7 extends Migration {
         // 0) Assign standard site to public "Webpages" workspace upon installation of plugin
         Topic webpagesWorkspace = dm4.getAccessControl().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         // 1) Assign new association types to "Webpages" workspace too
-        AssociationType desktopHeaderImage = dm4.getAssociationType("de.mikromedia.header.desktop_image");
+        AssociationType desktopHeaderImage = dm4.getAssociationType("de.mikromedia.image.desktop");
         workspacesService.assignToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
-        AssociationType mobileHeaderImage = dm4.getAssociationType("de.mikromedia.header.mobile_image");
+        AssociationType mobileHeaderImage = dm4.getAssociationType("de.mikromedia.image.mobile");
         workspacesService.assignToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
         // 2) Assign new topic types to "Webpages" workspace
         TopicType header = dm4.getTopicType("de.mikromedia.header");
