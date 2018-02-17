@@ -1,6 +1,31 @@
 
+<!-- Header (Area) Inline Styles -->
+<style th:fragment="header-style (header)" th:inline="text">
+    /*<![CDATA[*/
+    .page #lower-page-nav .ui.menu,
+    .page .ui.segment.header-bg-color,
+    .page .ui.segment.header-bg-color .ui.menu {
+        background-color: [[${header.childTopics.getString('de.mikromedia.header.color_bg')}]];
+        color: [[${header.childTopics.getString('de.mikromedia.header.color_font')}]];
+    }
+    @media(min-width: 1025px) {
+        .page .ui.segment.header-bg-color {
+            background-image: url('/filerepo[[${desktopHeaderImage.childTopics.getString('dm4.files.path')}]]');
+            background-repeat: no-repeat;
+        }
+    }
+    @media(max-width: 1024px) {
+        .page .ui.segment.header-bg-color {
+            background-image: url('/filerepo[[${mobileHeaderImage.childTopics.getString('dm4.files.path')}]]');
+            background-repeat: no-repeat;
+        }
+    }
+/*]]>*/
+</style>
+
+<!-- Section (Area) Inline Styles -->
 <div class="inline-styles" th:fragment="section-background (section)">
-    <style th:inline="text">
+    <style th:if="${not #strings.isEmpty(section.backgroundColor) and not #strings.equals(section.fontColor)}" th:inline="text">
         /*<![CDATA[*/
         .page .ui.segment.section-bg {
             background-color: [[${section.backgroundColor}]];
@@ -27,6 +52,42 @@
         @media(max-width: 1024px) {
             .page .ui.segment.section-bg {
                 background-image: url('/filerepo[[${section.mobileImage}]]');
+                background-repeat: no-repeat;
+            }
+        }
+        /*]]>*/
+    </style>
+</div>
+
+<!-- Section Content Inline Styles -->
+<div class="inline-styles" th:fragment="section-content-background (content)">
+    <style th:if="${not #strings.isEmpty(content.backgroundColor) and not #strings.isEmpty(content.fontColor)}" th:inline="text">
+        /*<![CDATA[*/
+        .page .ui.segment.section-content-bg {
+            background-color: [[${content.backgroundColor}]];
+            color: [[${content.fontColor}]];
+        }
+        .page .ui.container .ui.header,
+        .page .ui.segment .ui.header {
+            color: [[${content.fontColor}]];
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${not #strings.isEmpty(content.desktopImage)}" th:inline="text">
+        /*<![CDATA[*/
+         @media(min-width: 1025px) {
+            .page .ui.segment.section-content-bg {
+                background-image: url('/filerepo[[${content.desktopImage}]]');
+                background-repeat: no-repeat;
+            }
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${not #strings.isEmpty(content.mobileImage)}" th:inline="text">
+        /*<![CDATA[*/
+        @media(max-width: 1024px) {
+            .page .ui.segment.section-content-bg {
+                background-image: url('/filerepo[[${content.mobileImage}]]');
                 background-repeat: no-repeat;
             }
         }

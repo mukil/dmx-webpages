@@ -4,24 +4,30 @@
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Content Elements -->
-    <div class="ui container">
+    <div class="ui">
         <h1 class="ui header aligned center" th:text="${section.title}">
             Ten Six Section Title
         </h1>
     </div>
-    <div class="ui container stackable grid basic segment">
+    <div class="ui stackable grid basic segment">
         <div class="ui row">
-            <div th:if="${iterator.index} == 0" class="ten wide column"
-                 th:each="element, iterator : ${section.contents}">
-                <h2 class="ui header" th:text="${element.simpleValue}">Column Header A</h2>
-                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div th:if="${iterator.index} == 0" class="ten wide column section-content-bg"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Section Content Styles -->
+                <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+                <h2 class="ui header" th:text="${content.title}">Column Header A</h2>
+                <!-- Section Contents -->
+                <div th:utext="${content.html}">
                     Ten Wide
                 </div>
             </div>
-            <div th:if="${iterator.index} == 1" class="six wide column"
-                 th:each="element, iterator : ${section.contents}">
-                <h2 class="ui header" th:text="${element.simpleValue}">Column Header B</h2>
-                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div th:if="${iterator.index} == 1" class="six wide column section-content-bg"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Section Content Styles -->
+                <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+                <!-- Section Contents -->
+                <h2 class="ui header" th:text="${content.title}">Column Header B</h2>
+                <div th:utext="${content.html}">
                     Six Wide
                 </div>
             </div>
@@ -29,43 +35,53 @@
     </div>
 </div>
 
-<!-- Stackable Segment with Border, n-Columns Equal Width Columns -->
+<!-- Stackable Segment with Border, N-Columns Equal Padded Width Columns -->
 <div th:fragment="n-equal-padded (section)" class="ui vertical segment n-columns section-bg">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
-    <!-- Section Content Elements -->
-    <div class="ui container">
+    <!-- Section Title -->
+    <div class="ui">
         <h1 class="ui header aligned center" th:text="${section.title}">
             Equal Columns Section Title
         </h1>
     </div>
-    <div class="ui equal width center aligned stackable grid padded">
-        <div class="column" th:each="element, iterator : ${section.contents}">
-           <h2 class="ui header" th:text="${element.simpleValue}">Section Title</h2>
-           <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
-               Section Content
-           </div>
+    <!-- Section Content Elements -->
+    <div class="ui equal width stackable grid padded">
+        <div class="column section-content-bg" th:each="content, iterator : ${section.contents}">
+            <!-- Inline Section Content Styles -->
+            <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+            <!-- Section Contents -->
+            <h2 class="ui header" th:text="${content.title}">Section Title</h2>
+            <div th:utext="${content.html}">
+                Section Content
+            </div>
        </div>
     </div>
 </div>
 
-<!-- Unstackable Basic 2 Column Grid Equal Width Padded -->
+<!-- Unstackable Basic 2 Column Grid - No Title - Equal Width Padded -->
 <div th:fragment="2-columns-equal (section)" class="ui vertical basic segment two-columns-equal section-bg no-padding">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Content Elements -->
     <div class="ui equal width grid padded">
-        <div th:if="${iterator.index} == 0" class="column"
-             th:each="element, iterator : ${section.contents}">
-            <h2 class="ui header" th:text="${element.simpleValue}">Section Title A</h2>
-            <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+        <div th:if="${iterator.index} == 0" class="column section-content-bg"
+             th:each="content, iterator : ${section.contents}">
+            <!-- Inline Section Content Styles -->
+            <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+            <!-- Section Contents -->
+            <h2 class="ui header" th:text="${content.title}">Section Title A</h2>
+            <div th:utext="${content.html}">
                Section Content A
             </div>
         </div>
-        <div th:if="${iterator.index} == 1" class="column"
-             th:each="element, iterator : ${section.contents}">
-            <h2 class="ui header" th:text="${element.simpleValue}">Section Title B</h2>
-            <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+        <div th:if="${iterator.index} == 1" class="column section-content-bg"
+             th:each="content, iterator : ${section.contents}">
+            <!-- Inline Section Content Styles -->
+            <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+            <!-- Section Contents -->
+            <h2 class="ui header" th:text="${content.title}">Section Title B</h2>
+            <div th:utext="${content.html}">
                Section Content B
             </div>
         </div>
@@ -78,7 +94,7 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
 
     <!-- Section Content Elements -->
-    <div class="ui container">
+    <div class="ui">
         <h1 class="ui header aligned center" th:text="${section.title}">
             Two and N Equal Columns Section title
         </h1>
@@ -86,26 +102,36 @@
     <div class="ui equal width stackable grid padded">
 
         <div class="row first">
-            <div th:if="${iterator.index} == 0" class="column"
-                 th:each="element, iterator : ${section.contents}">
-                <h2 class="ui header" th:text="${element.simpleValue}">Section Title A</h2>
-                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div th:if="${iterator.index} == 0" class="column section-content-bg"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Section Content Styles -->
+                <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+                <!-- Section Contents -->
+                <h2 class="ui header" th:text="${content.title}">Section Title A</h2>
+                <div th:utext="${content.html}">
                    Section Content A
                 </div>
             </div>
-            <div th:if="${iterator.index} == 1" class="column"
-                 th:each="element, iterator : ${section.contents}">
-                <h2 class="ui header" th:text="${element.simpleValue}">Section Title B</h2>
-                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div th:if="${iterator.index} == 1" class="column section-content-bg"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Section Content Styles -->
+                <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+                <!-- Section Contents -->
+                <h2 class="ui header" th:text="${content.title}">Section Title B</h2>
+                <div th:utext="${content.html}">
                    Section Content B
                 </div>
             </div>
         </div>
 
         <div class="row second">
-            <div th:if="${iterator.index} > 1" class="column" th:each="element, iterator : ${section.contents}">
-                <h2 class="ui header" th:text="${element.simpleValue}">Section Title</h2>
-                <div th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div th:if="${iterator.index} > 1" class="column section-content-bg"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Section Content Styles -->
+                <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+                <!-- Section Contents -->
+                <h2 class="ui header" th:text="${content.title}">Section Title</h2>
+                <div th:utext="${content.html}">
                     Section Content C, D, E, ..
                 </div>
             </div>
@@ -115,7 +141,8 @@
 </div>
 
 <!-- Dummy Accordion Section -->
-<div th:fragment="accordion-styled (section)" class="ui basic spaced container accordion-section section-bg segment">
+<div th:fragment="accordion-styled (section)"
+     class="ui basic spaced container accordion-section section-bg segment">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headliine -->
@@ -126,11 +153,14 @@
     </div>
     <!-- Section Content Elements -->
     <div class="ui styled fluid accordion">
-        <div th:each="element, iterator : ${section.contents}">
-            <div class="title" th:text="${element.simpleValue}">
+        <div th:each="content, iterator : ${section.contents}">
+            <!-- Inline Section Content Styles -->
+            <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
+            <!-- Section Contents -->
+            <div class="title" th:text="${content.title}">
               Section Title
             </div>
-            <div class="content" th:utext="${element.childTopics.getString('de.mikromedia.section.html')}">
+            <div class="content" th:utext="${content.html}">
               <p>Section content</p>
             </div>
         </div>

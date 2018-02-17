@@ -158,11 +158,6 @@ header.inverted .page-meta .label {
     padding: 2em;
 }
 
-.ui.vertical.segment.two-n-columns .first.row h2,
-.ui.vertical.segment.two-n-columns .first.row p {
-    text-align: center;
-}
-
 /** ### **/
 .ui.vertical.segment.two-n-columns .second.row .column {
     padding-left: 3em;

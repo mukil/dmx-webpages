@@ -48,11 +48,12 @@ public interface WebpageService {
     public static final String MOBILE_IMAGE_ASSOC = "de.mikromedia.image.mobile";
 
     public static final String SECTION = "de.mikromedia.section";
+    public static final String SECTION_TITLE = "de.mikromedia.section.title";
     public static final String SECTION_CONTENT = "de.mikromedia.section.content";
-    public static final String SECTION_HEADLINE = "de.mikromedia.section.headline";
     public static final String SECTION_LAYOUT = "de.mikromedia.section.layout";
     public static final String SECTION_PLACEMENT = "de.mikromedia.section.placement";
 
+    public static final String SECTION_HEADLINE = "de.mikromedia.section.headline";
     public static final String SECTION_HTML = "de.mikromedia.section.html";
     public static final String SECTION_BG_COLOR = "de.mikromedia.section.color_bg";
     public static final String SECTION_COLOR = "de.mikromedia.section.color_font";

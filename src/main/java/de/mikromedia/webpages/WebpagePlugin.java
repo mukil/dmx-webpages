@@ -706,8 +706,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         List<RelatedTopic> sections = getRelatedWebpageSections(topic);
         List<Section> above = new ArrayList();
         List<Section> below = new ArrayList();
-        List<Section> asideLeft = new ArrayList();
-        List<Section> asideRight = new ArrayList();
         if (sections != null && sections.size() > 0) {
             for (Topic section : sections) {
                 Section pageSection = new Section(section);

@@ -14,6 +14,7 @@ import static de.mikromedia.webpages.WebpageService.SECTION_COLOR;
 import static de.mikromedia.webpages.WebpageService.SECTION_CONTENT;
 import static de.mikromedia.webpages.WebpageService.SECTION_LAYOUT;
 import static de.mikromedia.webpages.WebpageService.SECTION_PLACEMENT;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,8 +59,14 @@ public class Section {
         return this.pageSection.getSimpleValue().toString();
     }
 
-    public List<RelatedTopic> getContents() {
-        return this.pageSection.getChildTopics().getTopics(SECTION_CONTENT);
+    public List<SectionContent> getContents() {
+        List<SectionContent> sectionContents = new ArrayList();
+        List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopics(SECTION_CONTENT);
+        for (RelatedTopic content : contents) {
+            SectionContent sectionContent = new SectionContent(content);
+            sectionContents.add(sectionContent);
+        }
+        return sectionContents;
     }
 
     public String getMobileImage() {

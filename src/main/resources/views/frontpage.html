@@ -13,28 +13,9 @@
         <link media="all" href="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css" rel="stylesheet" />
         <link media="all" href="/de.mikromedia.webpages/css/semantic-ui-overrides.css" rel="stylesheet" />
         <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
-        <style th:inline="text">
-            /*<![CDATA[*/
-            .page #lower-page-nav .ui.menu,
-            .page .ui.segment.header-bg-color,
-            .page .ui.segment.header-bg-color .ui.menu {
-                background-color: [[${header.childTopics.getString('de.mikromedia.header.color_bg')}]];
-                color: [[${header.childTopics.getString('de.mikromedia.header.color_font')}]];
-            }
-            @media(min-width: 1025px) {
-                .page .ui.segment.header-bg-color {
-                    background-image: url('/filerepo[[${desktopHeaderImage.childTopics.getString('dm4.files.path')}]]');
-                    background-repeat: none;
-                }
-            }
-            @media(max-width: 1024px) {
-                .page .ui.segment.header-bg-color {
-                    background-image: url('/filerepo[[${mobileHeaderImage.childTopics.getString('dm4.files.path')}]]');
-                    background-repeat: none;
-                }
-            }
-        /*]]>*/
-        </style>
+
+        <!-- Inline Header Styles -->
+        <style th:replace="fragments/inline-styles :: header-style (${header})" />
 
         <script src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
