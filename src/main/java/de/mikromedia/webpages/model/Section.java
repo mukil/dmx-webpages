@@ -14,6 +14,7 @@ import static de.mikromedia.webpages.WebpageService.SECTION_COLOR;
 import static de.mikromedia.webpages.WebpageService.SECTION_CONTENT;
 import static de.mikromedia.webpages.WebpageService.SECTION_LAYOUT;
 import static de.mikromedia.webpages.WebpageService.SECTION_PLACEMENT;
+import static de.mikromedia.webpages.WebpageService.SECTION_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -56,7 +57,7 @@ public class Section {
     // --- Custom Section Data Accessors
     
     public String getTitle() {
-        return this.pageSection.getSimpleValue().toString();
+        return this.pageSection.getChildTopics().getStringOrNull(SECTION_TITLE);
     }
 
     public List<SectionContent> getContents() {

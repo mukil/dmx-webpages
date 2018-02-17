@@ -158,7 +158,7 @@ header.inverted .page-meta .label {
 }
 
 /** ### **/
-.ui.vertical.segment.two-n-columns .second.row .column {
+.ui.vertical.segment.two-n-columns .row .column {
     padding-left: 3em;
     padding-right: 3em;
 }
