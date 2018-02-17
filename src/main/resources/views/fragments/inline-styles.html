@@ -30,9 +30,10 @@
         .page .ui.segment.section-bg {
             background-color: [[${section.backgroundColor}]];
             color: [[${section.fontColor}]];
+            border-top: 1px solid [[${section.fontColor}]]33; /** Add some opacity to all upper borders of section **/
         }
-        .page .ui.container .ui.header,
-        .page .ui.segment .ui.header {
+        .page .ui.container.section-bg .ui.header,
+        .page .ui.segment.section-bg .ui.header {
             color: [[${section.fontColor}]];
         }
         /*]]>*/
@@ -67,8 +68,8 @@
             background-color: [[${content.backgroundColor}]];
             color: [[${content.fontColor}]];
         }
-        .page .ui.container .ui.header,
-        .page .ui.segment .ui.header {
+        .page .ui.container.section-bg .ui.header,
+        .page .ui.segment.section-bg .ui.header {
             color: [[${content.fontColor}]];
         }
         /*]]>*/
