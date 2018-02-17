@@ -87,12 +87,32 @@
 
             <div class="body">
 
-                <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
-                    <div th:if="${#strings.equals(section.layout, 'ten-six-grid')}"
-                         th:replace="fragments/sections :: ten-six-grid (${section})"></div>
+                <!-- Webpage Sections Above Standard HTML Content -->
+                <div class="sections-above" th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+
+                    <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
+                        <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
+                        <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
+                        <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
+                        <div th:replace="fragments/sections :: ten-six-grid (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
+                        <div th:replace="fragments/sections :: accordion-styled (${section})" />
+                    </div>
+
                 </div>
 
-                <div class="ui vertical stripe segment">
+                <div class="ui vertical stripe segment main-segment">
                     <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
                         <div class="ui main text styled container">
                             <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
@@ -108,13 +128,30 @@
                     </article>
                 </div>
 
-                <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-                    <div th:if="${#strings.equals(section.layout, 'ten-six-grid')}"
-                         th:replace="fragments/sections :: ten-six-grid (${section})"></div>
-                </div>
+                <!-- Webpage Sections Below Standard HTML Content -->
+                <div class="sections-below" th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
 
-                <!--div th:replace="fragments/sections :: styled-accordion" /-->
-                <!--div th:replace="fragments/sections :: n-equal-padded" /-->
+                    <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
+                        <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
+                        <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
+                        <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
+                        <div th:replace="fragments/sections :: ten-six-grid (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
+                        <div th:replace="fragments/sections :: accordion-styled (${section})" />
+                    </div>
+
+                </div>
 
             </div>
 

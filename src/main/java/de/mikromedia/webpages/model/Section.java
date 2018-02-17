@@ -65,16 +65,16 @@ public class Section {
     public String getMobileImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getDesktopImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
-    public String getLayout() {
+    public String getLayoutName() {
         String layoutName = null;
         Topic layout = this.pageSection.getChildTopics().getTopicOrNull(SECTION_LAYOUT);
         if (layout != null) {
@@ -85,7 +85,7 @@ public class Section {
             } else if (layout.getUri().equals("de.mikromedia.layout.stackable_n_column")) {
                 layoutName = "n-columns";
             } else if (layout.getUri().equals("de.mikromedia.layout.stackable_2_and_n")) {
-                layoutName = "2-and-n-columns";
+                layoutName = "two-and-n-columns";
             } else if (layout.getUri().equals("de.mikromedia.layout.accordion_styled")) {
                 layoutName = "accordion-styled";
             }
@@ -110,7 +110,7 @@ public class Section {
             return new JSONObject()
                 .put("titl", getTitle())
                 .put("contents", getContents())
-                .put("layout", getLayout())
+                .put("layout", getLayoutName())
                 .put("placement", getPlacement())
                 .put("font_color", getFontColor())
                 .put("bg_color", getBackgroundColor());

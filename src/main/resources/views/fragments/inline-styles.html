@@ -1,0 +1,35 @@
+
+<div class="inline-styles" th:fragment="section-background (section)">
+    <style th:inline="text">
+        /*<![CDATA[*/
+        .page .ui.segment.section-bg {
+            background-color: [[${section.backgroundColor}]];
+            color: [[${section.fontColor}]];
+        }
+        .page .ui.container .ui.header,
+        .page .ui.segment .ui.header {
+            color: [[${section.fontColor}]];
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${not #strings.isEmpty(section.desktopImage)}" th:inline="text">
+        /*<![CDATA[*/
+         @media(min-width: 1025px) {
+            .page .ui.segment.section-bg {
+                background-image: url('/filerepo[[${section.desktopImage}]]');
+                background-repeat: no-repeat;
+            }
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${not #strings.isEmpty(section.mobileImage)}" th:inline="text">
+        /*<![CDATA[*/
+        @media(max-width: 1024px) {
+            .page .ui.segment.section-bg {
+                background-image: url('/filerepo[[${section.mobileImage}]]');
+                background-repeat: no-repeat;
+            }
+        }
+        /*]]>*/
+    </style>
+</div>

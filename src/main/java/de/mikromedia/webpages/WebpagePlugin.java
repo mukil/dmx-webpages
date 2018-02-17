@@ -201,8 +201,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, STANDARD_WEBSITE_PREFIX);
             log.info("Preparing WEBPAGE view data ("+webpage.getPageTitle().toString()+") of " + website + " plugin...");
-            preparePageHeader(webpage.getTopic());
-            preparePageSections(webpage.getTopic());
             Viewable webpageTemplate = getWebpageTemplate(webpage);
             return webpageTemplate;
         }
@@ -716,28 +714,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 Topic placement = pageSection.getPlacement();
                 if (placement != null && placement.getUri().equals(PLACEMENT_ABOVE)) {
                     above.add(pageSection);
-                } else if(placement != null && placement.getUri().equals(PLACEMENT_BELOW)) {
+                } else if (placement != null && placement.getUri().equals(PLACEMENT_BELOW)) {
                     below.add(pageSection);
-                } else if(placement != null && placement.getUri().equals(PLACEMENT_ASIDE_LEFT)) {
-                    asideLeft.add(pageSection);
-                } else if(placement != null && placement.getUri().equals(PLACEMENT_ASIDE_RIGHT)) {
-                    asideRight.add(pageSection);
                 }
             }
             // 1.) set custom Header data
             if (above.size() > 0) viewData("sectionsAbove", above);
             if (below.size() > 0) viewData("sectionsBelow", below);
-            if (asideLeft.size() > 0) viewData("sectionsLeft", asideLeft);
-            if (asideRight.size() > 0) viewData("sectionsRight", asideRight);
-            /** // 2.) fetch and set custom header background images
-            Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
-            if (desktopHeaderImage != null) {
-                viewData("desktopHeaderImage", desktopHeaderImage);
-            }
-            Topic mobileHeaderImage = getRelatedHeaderMobileImage(header);
-            if (mobileHeaderImage != null) {
-                viewData("mobileHeaderImage", mobileHeaderImage);
-            } **/
         }
     }
 

@@ -142,6 +142,33 @@ header.inverted .page-meta .label {
     padding: 1.5em;
 }
 
+/** Section Layout Stylings --*/
+
+/** ### **/
+.ui.vertical.segment.two-n-columns,
+.ui.vertical.segment.n-columns {
+    padding-top: 0em;
+    padding-bottom: 3em;
+}
+
+/** ### **/
+.ui.vertical.segment.two-n-columns .grid .column,
+.ui.segment.n-columns .grid .column,
+.ui.segment.two-columns-equal .grid .column {
+    padding: 2em;
+}
+
+.ui.vertical.segment.two-n-columns .first.row h2,
+.ui.vertical.segment.two-n-columns .first.row p {
+    text-align: center;
+}
+
+/** ### **/
+.ui.vertical.segment.two-n-columns .second.row .column {
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
 /** --- Article Styles --- **/
 
 article figure {

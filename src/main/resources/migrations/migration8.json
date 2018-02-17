@@ -226,16 +226,6 @@
             "type_uri": "de.mikromedia.section.placement",
             "uri" : "de.mikromedia.placement.below",
             "value": "Below Content"
-        },
-        {
-            "type_uri": "de.mikromedia.section.placement",
-            "uri" : "de.mikromedia.placement.aside_left",
-            "value": "Left Aside"
-        },
-        {
-            "type_uri": "de.mikromedia.section.placement",
-            "uri" : "de.mikromedia.placement.aside_right",
-            "value": "Right Aside"
         }
     ]
 }
