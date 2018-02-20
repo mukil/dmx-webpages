@@ -5,18 +5,18 @@
     .page #lower-page-nav .ui.menu,
     .page .ui.segment.header-bg-color,
     .page .ui.segment.header-bg-color .ui.menu {
-        background-color: [[${header.childTopics.getString('de.mikromedia.header.color_bg')}]];
-        color: [[${header.childTopics.getString('de.mikromedia.header.color_font')}]];
+        background-color: [[${header.backgroundColor}]];
+        color: [[${header.fontColor}]];
     }
     @media(min-width: 1025px) {
         .page .ui.segment.header-bg-color {
-            background-image: url('/filerepo[[${desktopHeaderImage.childTopics.getString('dm4.files.path')}]]');
+            background-image: url('/filerepo/[[${header.desktopImage}]]');
             background-repeat: no-repeat;
         }
     }
     @media(max-width: 1024px) {
         .page .ui.segment.header-bg-color {
-            background-image: url('/filerepo[[${mobileHeaderImage.childTopics.getString('dm4.files.path')}]]');
+            background-image: url('/filerepo/[[${header.mobileImage}]]');
             background-repeat: no-repeat;
         }
     }
@@ -42,7 +42,7 @@
         /*<![CDATA[*/
          @media(min-width: 1025px) {
             .page .ui.segment.section-bg {
-                background-image: url('/filerepo[[${section.desktopImage}]]');
+                background-image: url('/filerepo/[[${section.desktopImage}]]');
                 background-repeat: no-repeat;
             }
         }
@@ -52,7 +52,7 @@
         /*<![CDATA[*/
         @media(max-width: 1024px) {
             .page .ui.segment.section-bg {
-                background-image: url('/filerepo[[${section.mobileImage}]]');
+                background-image: url('/filerepo/[[${section.mobileImage}]]');
                 background-repeat: no-repeat;
             }
         }
@@ -78,7 +78,7 @@
         /*<![CDATA[*/
          @media(min-width: 1025px) {
             .page .ui.segment.section-content-bg {
-                background-image: url('/filerepo[[${content.desktopImage}]]');
+                background-image: url('/filerepo/[[${content.desktopImage}]]');
                 background-repeat: no-repeat;
             }
         }
@@ -88,7 +88,7 @@
         /*<![CDATA[*/
         @media(max-width: 1024px) {
             .page .ui.segment.section-content-bg {
-                background-image: url('/filerepo[[${content.mobileImage}]]');
+                background-image: url('/filerepo/[[${content.mobileImage}]]');
                 background-repeat: no-repeat;
             }
         }

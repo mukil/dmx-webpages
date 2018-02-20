@@ -107,7 +107,8 @@
                     "child_type_uri":           "de.mikromedia.section.headline",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                    "assoc_type_uri":           "dm4.core.aggregation_def",
+                    "include_in_label":         true
                 },
                 {
                     "child_type_uri":           "de.mikromedia.section.html",
@@ -147,7 +148,8 @@
                     "child_type_uri":           "de.mikromedia.section.title",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                    "assoc_type_uri":           "dm4.core.aggregation_def",
+                    "include_in_label":         true
                 },
                 {
                     "child_type_uri":           "de.mikromedia.section.content",
@@ -165,7 +167,8 @@
                     "child_type_uri":           "de.mikromedia.section.placement",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
-                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                    "assoc_type_uri":           "dm4.core.aggregation_def",
+                    "include_in_label":         true
                 },
                 {
                     "child_type_uri":           "de.mikromedia.section.color_bg",
@@ -195,22 +198,22 @@
         {
             "type_uri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.fixed_two_columns",
-            "value": "Grid: Fixed 2 Column (No Padding)"
+            "value": "Two Column Grid (No Padding)"
         },
         {
             "type_uri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.stackable_ten_six",
-            "value": "Grid: Stackable 10:6"
+            "value": "Stackable 10:6 Grid"
         },
         {
             "type_uri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.stackable_n_column",
-            "value": "Grid: Stackable N-Column Grid (No Padding)"
+            "value": "Stackable N-Column Grid (No Padding)"
         },
         {
             "type_uri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.stackable_2_and_n",
-            "value": "Grid: Stackable 2 & N-Grid (No Padding)"
+            "value": "Stackable 2 & N-Column Grid (No Padding)"
         },
         {
             "type_uri": "de.mikromedia.section.layout",

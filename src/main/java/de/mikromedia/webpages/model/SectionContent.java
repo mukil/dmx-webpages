@@ -97,7 +97,7 @@ public class SectionContent {
     public JSONObject toJSON() {
         try {
             return new JSONObject()
-                .put("titl", getTitle())
+                .put("title", getTitle())
                 .put("html", getHtml())
                 .put("related_topic", getRelatedTopic())
                 .put("font_color", getFontColor())

@@ -116,7 +116,7 @@ public class Section {
     public JSONObject toJSON() {
         try {
             return new JSONObject()
-                .put("titl", getTitle())
+                .put("title", getTitle())
                 .put("contents", getContents())
                 .put("layout", getLayoutName())
                 .put("placement", getPlacement())

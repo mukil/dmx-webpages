@@ -28,7 +28,7 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
         }
     }
 
-    function create_webpage() {
+    function add_webpage() {
         var website = dm4c.selected_object
         var webpage = dm4c.create_topic("de.mikromedia.page")
         var assoc = dm4c.create_association("dm4.core.association",
@@ -36,6 +36,28 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
             {topic_id: webpage.id, role_type_uri: "dm4.core.default"}
         )
         dm4c.show_topic(webpage, "edit", undefined, true) // do_center=true
+        dm4c.show_association(assoc, "none")
+    }
+
+    function add_webpage_section() {
+        var webpage = dm4c.selected_object
+        var section = dm4c.create_topic("de.mikromedia.section")
+        var assoc = dm4c.create_association("dm4.core.association",
+            {topic_id: webpage.id, role_type_uri: "dm4.core.default"},
+            {topic_id: section.id, role_type_uri: "dm4.core.default"}
+        )
+        dm4c.show_topic(section, "edit", undefined, true) // do_center=true
+        dm4c.show_association(assoc, "none")
+    }
+
+    function add_webpage_header() {
+        var webpage = dm4c.selected_object
+        var header = dm4c.create_topic("de.mikromedia.header")
+        var assoc = dm4c.create_association("dm4.core.association",
+            {topic_id: webpage.id, role_type_uri: "dm4.core.default"},
+            {topic_id: header.id, role_type_uri: "dm4.core.default"}
+        )
+        dm4c.show_topic(header, "edit", undefined, true) // do_center=true
         dm4c.show_association(assoc, "none")
     }
 
@@ -90,14 +112,14 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                 context: ['context-menu', 'detail-panel-show']
             })
             commands.push({
-                label: 'New Webpage',
-                handler: create_webpage,
+                label: 'Add Webpage',
+                handler: add_webpage,
                 context: ['context-menu', 'detail-panel-show']
             })
         } else if (topic.type_uri === 'de.mikromedia.page') {
             connected_websites = get_related_website(topic.id)
             if (connected_websites && connected_websites.length > 0) {
-                var button_label = (webpage_is_draft()) ? "Browse Draft" : "Browse Page"
+                var button_label = (webpage_is_draft()) ? "View Draft" : "Browse"
                 commands.push({is_separator: true, context: 'context-menu'})
                 commands.push({
                     label: button_label,
@@ -106,7 +128,18 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                 })
                 commands.push({is_separator: true, context: 'context-menu'})
                 commands.push({
-                    label: 'Reveal Website',
+                    label: 'Add Section',
+                    handler: add_webpage_section,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+                commands.push({
+                    label: 'Add Header',
+                    handler: add_webpage_header,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+                commands.push({is_separator: true, context: 'context-menu'})
+                commands.push({
+                    label: 'Website',
                     handler: show_related_website,
                     context: ['context-menu', 'detail-panel-show']
                 })

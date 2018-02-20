@@ -53,6 +53,7 @@ import javax.ws.rs.QueryParam;
 import org.codehaus.jettison.json.JSONException;
 import org.osgi.framework.Bundle;
 import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
+import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
 
 /**
@@ -680,25 +681,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private void preparePageHeader(Topic topic) {
-        log.info("Preparing Page Header for " + topic.getSimpleValue().toString());
-        Topic header = getRelatedHeader(topic);
-        if (header != null) {
-            log.info("Found Page Header " + header.getSimpleValue().toString());
-            // 1.) set custom Header data
+        Topic headerTopic = getRelatedHeader(topic);
+        if (headerTopic != null) {
+            Header header = new Header(headerTopic);
             viewData("header", header);
-            // 2.) fetch and set custom header background images
-            Topic desktopHeaderImage = getRelatedHeaderDesktopImage(header);
-            if (desktopHeaderImage != null) {
-                viewData("desktopHeaderImage", desktopHeaderImage);
-            }
-            Topic mobileHeaderImage = getRelatedHeaderMobileImage(header);
-            if (mobileHeaderImage != null) {
-                viewData("mobileHeaderImage", mobileHeaderImage);
-            }
-            // 3.) fetch and set custom header buttons
-            List<RelatedTopic> buttons = header.getRelatedTopics(AGGREGATION, ROLE_PARENT, ROLE_CHILD, BUTTON);
-            DeepaMehtaUtils.loadChildTopics(buttons);
-            viewData("headerButtons", buttons);
         }
     }
 
