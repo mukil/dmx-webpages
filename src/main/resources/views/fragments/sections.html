@@ -1,6 +1,7 @@
 
 <!-- Stackable Basic Colored (Padding) Segment -->
-<div th:fragment="ten-six-grid (section)" class="ui vertical basic spaced segment ten-six-columns section-bg">
+<div th:fragment="ten-six-grid (section)"
+     th:class="'ui vertical basic spaced segment ten-six-columns section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Content Elements -->
@@ -11,7 +12,7 @@
     </div>
     <div class="ui stackable grid basic segment">
         <div class="ui row">
-            <div th:if="${iterator.index} == 0" class="ten wide column section-content-bg"
+            <div th:if="${iterator.index} == 0" th:class="'ten wide column section-content-bg-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
                 <!-- Inline Section Content Styles -->
                 <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -21,7 +22,7 @@
                     Ten Wide
                 </div>
             </div>
-            <div th:if="${iterator.index} == 1" class="six wide column section-content-bg"
+            <div th:if="${iterator.index} == 1" th:class="'six wide column section-content-bg-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
                 <!-- Inline Section Content Styles -->
                 <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -36,7 +37,8 @@
 </div>
 
 <!-- Stackable Segment with Border, N-Columns Equal Padded Width Columns -->
-<div th:fragment="n-equal-padded (section)" class="ui vertical segment n-columns section-bg">
+<div th:fragment="n-equal-padded (section)"
+     th:class="'ui vertical segment n-columns section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
@@ -47,7 +49,8 @@
     </div>
     <!-- Section Content Elements -->
     <div class="ui equal width stackable grid padded">
-        <div class="column section-content-bg" th:each="content, iterator : ${section.contents}">
+        <div th:class="'column section-content-bg-' + ${content.id}"
+             th:each="content, iterator : ${section.contents}">
             <!-- Inline Section Content Styles -->
             <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
             <!-- Section Contents -->
@@ -60,12 +63,13 @@
 </div>
 
 <!-- Unstackable Basic 2 Column Grid - No Title - Equal Width Padded -->
-<div th:fragment="2-columns-equal (section)" class="ui vertical basic segment two-columns-equal section-bg no-padding">
+<div th:fragment="2-columns-equal (section)"
+     th:class="'ui vertical basic segment two-columns-equal no-padding section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Content Elements -->
     <div class="ui equal width grid padded">
-        <div th:if="${iterator.index} == 0" class="column section-content-bg"
+        <div th:if="${iterator.index} == 0" th:class="'column section-content-bg-' + ${content.id}"
              th:each="content, iterator : ${section.contents}">
             <!-- Inline Section Content Styles -->
             <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -75,7 +79,7 @@
                Section Content A
             </div>
         </div>
-        <div th:if="${iterator.index} == 1" class="column section-content-bg"
+        <div th:if="${iterator.index} == 1" th:class="'column section-content-bg-' + ${content.id}"
              th:each="content, iterator : ${section.contents}">
             <!-- Inline Section Content Styles -->
             <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -89,7 +93,8 @@
 </div>
 
 <!-- Stackable No Border Segment, 2 and N-Column Equal Width Columns Padded -->
-<div th:fragment="2-and-n-equal-padded (section)" class="ui vertical two-n-columns basic section-bg segment">
+<div th:fragment="2-and-n-equal-padded (section)"
+     th:class="'ui vertical two-n-columns basic segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
 
@@ -102,7 +107,7 @@
     <div class="ui equal width stackable grid padded">
 
         <div class="row first">
-            <div th:if="${iterator.index} == 0" class="column section-content-bg"
+            <div th:if="${iterator.index} == 0" th:class="'column section-content-bg-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
                 <!-- Inline Section Content Styles -->
                 <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -112,7 +117,7 @@
                    Section Content A
                 </div>
             </div>
-            <div th:if="${iterator.index} == 1" class="column section-content-bg"
+            <div th:if="${iterator.index} == 1" th:class="'column section-content-bg-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
                 <!-- Inline Section Content Styles -->
                 <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -125,7 +130,7 @@
         </div>
 
         <div class="row second">
-            <div th:if="${iterator.index} > 1" class="column section-content-bg"
+            <div th:if="${iterator.index} > 1" th:class="'column section-content-bg-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
                 <!-- Inline Section Content Styles -->
                 <div th:replace="fragments/inline-styles :: section-content-background (${content})" />
@@ -142,10 +147,10 @@
 
 <!-- Dummy Accordion Section -->
 <div th:fragment="accordion-styled (section)"
-     class="ui basic spaced container accordion-section section-bg segment">
+     th:class="'ui basic spaced container accordion-section segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
-    <!-- Section Headliine -->
+    <!-- Section Headline -->
     <div class="ui container">
         <h1 class="ui header aligned center" th:text="${section.title}">
             Accordion Title

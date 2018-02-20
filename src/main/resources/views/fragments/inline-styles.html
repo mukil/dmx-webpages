@@ -27,13 +27,14 @@
 <div class="inline-styles" th:fragment="section-background (section)">
     <style th:if="${not #strings.isEmpty(section.backgroundColor) and not #strings.equals(section.fontColor)}" th:inline="text">
         /*<![CDATA[*/
-        .page .ui.segment.section-bg {
+        .page .ui.segment.section-bg-[[${section.id}]] {
             background-color: [[${section.backgroundColor}]];
             color: [[${section.fontColor}]];
-            border-top: 1px solid [[${section.fontColor}]]33; /** Add some opacity to all upper borders of section **/
+            /** border-top: 1px solid [[${section.fontColor}]]33; 
+            Add some opacity to all upper borders of section **/
         }
-        .page .ui.container.section-bg .ui.header,
-        .page .ui.segment.section-bg .ui.header {
+        .page .ui.container.section-bg-[[${section.id}]] .ui.header,
+        .page .ui.segment.section-bg-[[${section.id}]] .ui.header {
             color: [[${section.fontColor}]];
         }
         /*]]>*/
@@ -41,7 +42,7 @@
     <style th:if="${not #strings.isEmpty(section.desktopImage)}" th:inline="text">
         /*<![CDATA[*/
          @media(min-width: 1025px) {
-            .page .ui.segment.section-bg {
+            .page .ui.segment.section-bg-[[${section.id}]] {
                 background-image: url('/filerepo/[[${section.desktopImage}]]');
                 background-repeat: no-repeat;
             }
@@ -51,7 +52,7 @@
     <style th:if="${not #strings.isEmpty(section.mobileImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(max-width: 1024px) {
-            .page .ui.segment.section-bg {
+            .page .ui.segment.section-bg-[[${section.id}]] {
                 background-image: url('/filerepo/[[${section.mobileImage}]]');
                 background-repeat: no-repeat;
             }
@@ -64,12 +65,12 @@
 <div class="inline-styles" th:fragment="section-content-background (content)">
     <style th:if="${not #strings.isEmpty(content.backgroundColor) and not #strings.isEmpty(content.fontColor)}" th:inline="text">
         /*<![CDATA[*/
-        .page .ui.segment.section-content-bg {
+        .page .ui.segment .section-content-bg-[[${content.id}]] {
             background-color: [[${content.backgroundColor}]];
             color: [[${content.fontColor}]];
         }
-        .page .ui.container.section-bg .ui.header,
-        .page .ui.segment.section-bg .ui.header {
+        .page .ui.container.section-bg .section-content-bg-[[${content.id}]] .ui.header,
+        .page .ui.segment.section-bg .section-content-bg-[[${content.id}]] .ui.header {
             color: [[${content.fontColor}]];
         }
         /*]]>*/
@@ -77,7 +78,7 @@
     <style th:if="${not #strings.isEmpty(content.desktopImage)}" th:inline="text">
         /*<![CDATA[*/
          @media(min-width: 1025px) {
-            .page .ui.segment.section-content-bg {
+            .page .ui.segment .section-content-bg-[[${content.id}]] {
                 background-image: url('/filerepo/[[${content.desktopImage}]]');
                 background-repeat: no-repeat;
             }
@@ -87,7 +88,7 @@
     <style th:if="${not #strings.isEmpty(content.mobileImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(max-width: 1024px) {
-            .page .ui.segment.section-content-bg {
+            .page .ui.segment .section-content-bg-[[${content.id}]] {
                 background-image: url('/filerepo/[[${content.mobileImage}]]');
                 background-repeat: no-repeat;
             }

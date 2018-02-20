@@ -127,9 +127,17 @@ header.inverted .page-meta .label {
     padding-bottom: 6em;
 }
 
+.ui.grid > .row > .column {
+    padding: 1em 2em 2.5em 2em;
+}
+
+.ui.stackable.grid.basic.segment {
+    padding: 0em;
+}
+
 .body .ui.segment h1.ui.header {
     font-size: 3rem;
-    margin: 2em 0em;
+    margin: 1em 0em;
 }
 
 .body .ui.segment.posts h1.ui.header {
@@ -221,7 +229,7 @@ article .text pre.code-block {
 }
 
 .ui.vertical.segment.no-padding {
-    border-top: 1px solid rgba(34, 36, 38, 0.15);
+    /** border-top: 1px solid rgba(34, 36, 38, 0.15); **/
     padding: 0em;
 }
 

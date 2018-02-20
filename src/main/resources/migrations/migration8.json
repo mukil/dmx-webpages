@@ -117,6 +117,12 @@
                     "assoc_type_uri":           "dm4.core.composition_def"
                 },
                 {
+                    "child_type_uri":           "de.mikromedia.button.href",
+                    "child_cardinality_uri":    "dm4.core.one",
+                    "parent_cardinality_uri":   "dm4.core.one",
+                    "assoc_type_uri":           "dm4.core.aggregation_def"
+                },
+                {
                     "child_type_uri":           "de.mikromedia.section.color_bg",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
