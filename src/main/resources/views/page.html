@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title th:text="${page.pageTitle} + ' - ' + ${siteName}">Webpage</title>
+        <title th:text="${page.title} + ' - ' + ${siteName}">Webpage</title>
 
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
         <!-- See http://schema.org/WebPage -->
-        <meta itemprop="name" th:content="${page.pageTitle}"/>
+        <meta itemprop="name" th:content="${page.title}"/>
         <meta itemprop="description" th:content="${page.description}"/>
         <meta itemprop="url" th:content="${hostUrl} + ${website} + '/' + ${page.webAlias}"/>
         <meta itemprop="dateCreated" th:content="${dateCreated}"/>
@@ -21,9 +21,6 @@
         <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
         <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
-
-        <!-- Inline Header Styles -->
-        <style th:replace="fragments/inline-styles :: header-style (${header})" />
 
         <script src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>

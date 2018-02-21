@@ -4,13 +4,13 @@ import de.deepamehta.core.JSONEnabled;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.BUTTON;
-import static de.mikromedia.webpages.WebpageService.BUTTON_HREF;
 import static de.mikromedia.webpages.WebpageService.BUTTON_STYLE;
 import static de.mikromedia.webpages.WebpageService.BUTTON_TITLE;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import static de.mikromedia.webpages.WebpageService.LINK;
 
 public class Button implements JSONEnabled {
 
@@ -46,8 +46,8 @@ public class Button implements JSONEnabled {
         return this.button.getChildTopics().getStringOrNull(BUTTON_TITLE);
     }
 
-    public String getHref() {
-        return this.button.getChildTopics().getStringOrNull(BUTTON_HREF);
+    public String getLink() {
+        return this.button.getChildTopics().getStringOrNull(LINK);
     }
 
     public String getStyle() {
@@ -58,7 +58,7 @@ public class Button implements JSONEnabled {
         try {
             return new JSONObject()
                 .put("label", getLabel())
-                .put("href", getHref())
+                .put("href", getLink())
                 .put("style", getStyle());
         } catch (JSONException ex) {
             Logger.getLogger(MenuItem.class.getName()).log(Level.SEVERE, null, ex);

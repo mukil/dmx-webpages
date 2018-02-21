@@ -16,12 +16,12 @@
             <h4 class="ui inverted header">Recent Pages</h4>
             <div class="ui inverted link list webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
                 <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                    <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                 </div>
             </div>
             <div class="ui inverted link list webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
                 <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                    <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                    <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                 </div>
             </div>
         </div>
@@ -69,12 +69,12 @@
                 <h3>Recent Pages</h3>
                 <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
                     <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                        <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                        <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                     </li>
                 </ul>
                 <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
                     <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.pageTitle}">Menu Item</a>
+                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                     </li>
                 </ul>
             </div>

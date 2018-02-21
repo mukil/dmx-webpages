@@ -4,14 +4,9 @@ import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
-import static de.mikromedia.webpages.WebpageService.DESKTOP_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
-import static de.mikromedia.webpages.WebpageService.MOBILE_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import static de.mikromedia.webpages.WebpageService.SECTION;
-import static de.mikromedia.webpages.WebpageService.SECTION_BG_COLOR;
-import static de.mikromedia.webpages.WebpageService.SECTION_COLOR;
-import static de.mikromedia.webpages.WebpageService.SECTION_CONTENT;
 import static de.mikromedia.webpages.WebpageService.SECTION_LAYOUT;
 import static de.mikromedia.webpages.WebpageService.SECTION_PLACEMENT;
 import static de.mikromedia.webpages.WebpageService.SECTION_TITLE;
@@ -21,6 +16,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
+import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
+import static de.mikromedia.webpages.WebpageService.TILE;
 
 /**
  *
@@ -60,24 +60,24 @@ public class Section {
         return this.pageSection.getChildTopics().getStringOrNull(SECTION_TITLE);
     }
 
-    public List<SectionContent> getContents() {
-        List<SectionContent> sectionContents = new ArrayList();
-        List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopics(SECTION_CONTENT);
+    public List<Tile> getContents() {
+        List<Tile> sectionContents = new ArrayList();
+        List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopics(TILE);
         for (RelatedTopic content : contents) {
-            SectionContent sectionContent = new SectionContent(content);
+            Tile sectionContent = new Tile(content);
             sectionContents.add(sectionContent);
         }
         return sectionContents;
     }
 
-    public String getMobileImage() {
-        Topic imageFile = this.pageSection.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getSmallImage() {
+        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
-    public String getDesktopImage() {
-        Topic imageFile = this.pageSection.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getLargeImage() {
+        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
@@ -86,15 +86,15 @@ public class Section {
         String layoutName = null;
         Topic layout = this.pageSection.getChildTopics().getTopicOrNull(SECTION_LAYOUT);
         if (layout != null) {
-            if (layout.getUri().equals("de.mikromedia.layout.stackable_ten_six")) {
+            if (layout.getUri().equals("de.mikromedia.layout.tiles_ten_six")) {
                 layoutName = "ten-six-grid";
-            } else if (layout.getUri().equals("de.mikromedia.layout.fixed_two_columns")) {
+            } else if (layout.getUri().equals("de.mikromedia.layout.two_tiles")) {
                 layoutName = "two-columns";
-            } else if (layout.getUri().equals("de.mikromedia.layout.stackable_n_column")) {
+            } else if (layout.getUri().equals("de.mikromedia.layout.n_tiles")) {
                 layoutName = "n-columns";
-            } else if (layout.getUri().equals("de.mikromedia.layout.stackable_2_and_n")) {
+            } else if (layout.getUri().equals("de.mikromedia.layout.2_and_n_tiles")) {
                 layoutName = "two-and-n-columns";
-            } else if (layout.getUri().equals("de.mikromedia.layout.accordion_styled")) {
+            } else if (layout.getUri().equals("de.mikromedia.layout.accordion")) {
                 layoutName = "accordion-styled";
             }
         }
@@ -106,11 +106,11 @@ public class Section {
     }
 
     public String getBackgroundColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(SECTION_BG_COLOR);
+        return this.pageSection.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
     }
 
     public String getFontColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(SECTION_COLOR);
+        return this.pageSection.getChildTopics().getStringOrNull(FONT_COLOR);
     }
 
     public JSONObject toJSON() {

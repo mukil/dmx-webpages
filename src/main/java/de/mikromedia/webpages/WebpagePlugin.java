@@ -201,7 +201,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         Webpage webpage = getWebsitesWebpage(website, pageAlias, STANDARD_WEBSITE_PREFIX);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, STANDARD_WEBSITE_PREFIX);
-            log.info("Preparing WEBPAGE view data ("+webpage.getPageTitle().toString()+") of " + website + " plugin...");
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             Viewable webpageTemplate = getWebpageTemplate(webpage);
             return webpageTemplate;
         }
@@ -236,7 +236,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias, sitePrefix);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, sitePrefix);
-            log.info("Preparing WEBPAGE view data ("+webpage.toString()+") in dm4-webpages plugin...");
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             return getWebpageTemplate(webpage);
         }
         log.info("=> /" + pageAlias + " webpage for \"" +sitePrefix+ "\"s website not found.");
@@ -344,16 +344,16 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return sections;
     }
 
-    public Topic getRelatedHeaderDesktopImage(Topic header) {
-        Topic desktopImage = header.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
+    public Topic getLargeImageRelated(Topic header) {
+        Topic desktopImage = header.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
         if (desktopImage != null) {
             desktopImage.loadChildTopics();
         }
         return desktopImage;
     }
 
-    public Topic getRelatedHeaderMobileImage(Topic header) {
-        Topic mobileImage = header.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
+    public Topic getSmallImageRelated(Topic header) {
+        Topic mobileImage = header.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT, ROLE_DEFAULT, DEEPAMEHTA_FILE);
         if (mobileImage != null) {
             mobileImage.loadChildTopics();
         }
@@ -685,6 +685,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         if (headerTopic != null) {
             Header header = new Header(headerTopic);
             viewData("header", header);
+            log.info("Debugging Small Header: " + header.getSmallImage());
+            log.info("Debugging Large Header: " + header.getLargeImage());
+
         }
     }
 
@@ -692,6 +695,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         List<RelatedTopic> sections = getRelatedWebpageSections(topic);
         List<Section> above = new ArrayList();
         List<Section> below = new ArrayList();
+        // TODO: Aside Left and Right
         if (sections != null && sections.size() > 0) {
             for (Topic section : sections) {
                 Section pageSection = new Section(section);
@@ -814,7 +818,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             if (topic1.getTypeUri().equals(HEADER) || topic2.getTypeUri().equals(HEADER)) {
                 if (topic1.getTypeUri().equals(DEEPAMEHTA_FILE) || topic2.getTypeUri().equals(DEEPAMEHTA_FILE) ) {
                     DeepaMehtaUtils.associationAutoTyping(am, HEADER,
-                        DEEPAMEHTA_FILE, DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
+                        DEEPAMEHTA_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
+                }
+            } else if (topic1.getTypeUri().equals(TILE) || topic2.getTypeUri().equals(TILE)) {
+                if (topic1.getTypeUri().equals(DEEPAMEHTA_FILE) || topic2.getTypeUri().equals(DEEPAMEHTA_FILE) ) {
+                    DeepaMehtaUtils.associationAutoTyping(am, TILE,
+                        DEEPAMEHTA_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
                 }
             }
         }

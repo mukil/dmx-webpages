@@ -37,26 +37,25 @@ public interface WebpageService {
     // ### TODO: Switch to related "Person" topics for authorship
     public static final String AUTHOR_NAME = "de.mikromedia.page.author_name";
 
+    public static final String BACKGROUND_COLOR = "de.mikromedia.background.color";
+    public static final String FONT_COLOR = "de.mikromedia.font.color";
+
     public static final String HEADER = "de.mikromedia.header";
     public static final String HEADER_TITLE = "de.mikromedia.header.title";
-    public static final String HEADER_CONTENT = "de.mikromedia.header.content";
-    public static final String HEADER_BG_COLOR = "de.mikromedia.header.color_bg";
-    public static final String HEADER_COLOR = "de.mikromedia.header.color_font";
+    public static final String HEADER_CONTENT = "de.mikromedia.header.html";
     public static final String HEADER_SCRIPT = "de.mikromedia.header.script";
 
-    public static final String DESKTOP_IMAGE_ASSOC = "de.mikromedia.image.desktop";
-    public static final String MOBILE_IMAGE_ASSOC = "de.mikromedia.image.mobile";
+    public static final String IMAGE_LARGE = "de.mikromedia.image.large";
+    public static final String IMAGE_SMALL = "de.mikromedia.image.small";
 
     public static final String SECTION = "de.mikromedia.section";
     public static final String SECTION_TITLE = "de.mikromedia.section.title";
-    public static final String SECTION_CONTENT = "de.mikromedia.section.content";
     public static final String SECTION_LAYOUT = "de.mikromedia.section.layout";
     public static final String SECTION_PLACEMENT = "de.mikromedia.section.placement";
 
-    public static final String SECTION_HEADLINE = "de.mikromedia.section.headline";
-    public static final String SECTION_HTML = "de.mikromedia.section.html";
-    public static final String SECTION_BG_COLOR = "de.mikromedia.section.color_bg";
-    public static final String SECTION_COLOR = "de.mikromedia.section.color_font";
+    public static final String TILE = "de.mikromedia.tile";
+    public static final String TILE_HEADLINE = "de.mikromedia.tile.headline";
+    public static final String TILE_HTML = "de.mikromedia.tile.html";
 
     public static final String PLACEMENT_ABOVE = "de.mikromedia.placement.above";
     public static final String PLACEMENT_BELOW = "de.mikromedia.placement.below";
@@ -65,12 +64,13 @@ public interface WebpageService {
 
     public static final String BUTTON = "de.mikromedia.button";
     public static final String BUTTON_TITLE = "de.mikromedia.button.title";
-    public static final String BUTTON_HREF = "de.mikromedia.button.href";
     public static final String BUTTON_STYLE = "de.mikromedia.button.style";
+
+    public static final String LINK = "de.mikromedia.link";
 
     public static final String MENU_ITEM = "de.mikromedia.menu.item";
     public static final String MENU_ITEM_ACTIVE = "de.mikromedia.menu.item_active";
-    public static final String MENU_ITEM_HREF = "de.mikromedia.menu.item_href";
+    public static final String MENU_ITEM_HREF = "de.mikromedia.menu.item_href"; // ### Migrate > "de.mikromedia.link";
     public static final String MENU_ITEM_NAME = "de.mikromedia.menu.item_name";
 
     public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";

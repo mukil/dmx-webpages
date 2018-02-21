@@ -6,13 +6,9 @@ import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.BUTTON;
 import static de.mikromedia.webpages.WebpageService.HEADER_TITLE;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
-import static de.mikromedia.webpages.WebpageService.DESKTOP_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.HEADER;
-import static de.mikromedia.webpages.WebpageService.HEADER_BG_COLOR;
-import static de.mikromedia.webpages.WebpageService.HEADER_COLOR;
 import static de.mikromedia.webpages.WebpageService.HEADER_CONTENT;
-import static de.mikromedia.webpages.WebpageService.MOBILE_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
+import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 
 public class Header {
     
@@ -69,24 +69,24 @@ public class Header {
         return headerButtons;
     }
 
-    public String getMobileImage() {
-        Topic imageFile = this.pageHeader.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getSmallImage() {
+        Topic imageFile = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
-    public String getDesktopImage() {
-        Topic imageFile = this.pageHeader.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getLargeImage() {
+        Topic imageFile = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getBackgroundColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(HEADER_BG_COLOR);
+        return this.pageHeader.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
     }
 
     public String getFontColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(HEADER_COLOR);
+        return this.pageHeader.getChildTopics().getStringOrNull(FONT_COLOR);
     }
 
     public JSONObject toJSON() {

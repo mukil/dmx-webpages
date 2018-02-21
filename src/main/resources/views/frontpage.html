@@ -14,9 +14,6 @@
         <link media="all" href="/de.mikromedia.webpages/css/semantic-ui-overrides.css" rel="stylesheet" />
         <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
 
-        <!-- Inline Header Styles -->
-        <style th:replace="fragments/inline-styles :: header-style (${header})" />
-
         <script src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
         <script src="/de.mikromedia.webpages/js/page-methods.js"></script>
@@ -96,12 +93,12 @@
                             <h3 class="ui header">
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
-                                    <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                    <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
                                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                                 </a>
                                 <a th:if="${!#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
-                                    <span class="title" itemprop="name" th:text="${page.pageTitle}">Title of page</span>
+                                    <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
                                     <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                                 </a>
                             </h3>

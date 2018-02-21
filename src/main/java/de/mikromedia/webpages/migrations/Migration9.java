@@ -25,7 +25,7 @@ public class Migration9 extends Migration {
         TopicType section = dm4.getTopicType("de.mikromedia.section");
         Topic sectionViewConfig = section.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
         TopicType sectionTitle = dm4.getTopicType("de.mikromedia.section.title");
-        TopicType sectionContent = dm4.getTopicType("de.mikromedia.section.content");
+        TopicType sectionContent = dm4.getTopicType("de.mikromedia.tile");
         TopicType sectionLayout = dm4.getTopicType("de.mikromedia.section.layout");
         TopicType sectionPlacement = dm4.getTopicType("de.mikromedia.section.placement");
         workspacesService.assignToWorkspace(section, webpagesWorkspace.getId());
@@ -37,14 +37,10 @@ public class Migration9 extends Migration {
         // Section Content
         Topic sectionContentViewConfig = sectionContent.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
         workspacesService.assignToWorkspace(sectionContentViewConfig, webpagesWorkspace.getId());
-        TopicType headline = dm4.getTopicType("de.mikromedia.section.headline");
-        TopicType sectionHtml = dm4.getTopicType("de.mikromedia.section.html");
-        TopicType colorBackground = dm4.getTopicType("de.mikromedia.section.color_bg");
-        TopicType colorFont = dm4.getTopicType("de.mikromedia.section.color_font");
+        TopicType headline = dm4.getTopicType("de.mikromedia.tile.headline");
+        TopicType sectionHtml = dm4.getTopicType("de.mikromedia.tile.html");
         workspacesService.assignToWorkspace(sectionHtml, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(headline, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(colorBackground, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(colorFont, webpagesWorkspace.getId());
 
     }
 

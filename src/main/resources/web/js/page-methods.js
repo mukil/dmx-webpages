@@ -8,6 +8,20 @@ function show_search_options() {
     console.log("### todo: show search options")
 }
 
+function visit_page(url) {
+    console.log("Visit URL", url, "History Enabled", window.history)
+    /** if (window.history) {
+        history.pushState(undefined, undefined, url);
+        window.location.reload()
+    } else { **/
+        window.location.href = url
+    // }
+}
+
+function zero(e) {
+    console.log("registered zero click", e)
+}
+
 function render_page() {
     $('.ui.dropdown').dropdown()
     $('.right.menu .ui.search').search({

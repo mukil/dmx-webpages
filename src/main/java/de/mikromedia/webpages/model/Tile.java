@@ -4,30 +4,31 @@ import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
-import static de.mikromedia.webpages.WebpageService.DESKTOP_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
-import static de.mikromedia.webpages.WebpageService.MOBILE_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
-import static de.mikromedia.webpages.WebpageService.SECTION_BG_COLOR;
-import static de.mikromedia.webpages.WebpageService.SECTION_COLOR;
-import static de.mikromedia.webpages.WebpageService.SECTION_CONTENT;
-import static de.mikromedia.webpages.WebpageService.SECTION_HEADLINE;
-import static de.mikromedia.webpages.WebpageService.SECTION_HTML;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import static de.mikromedia.webpages.WebpageService.TILE_HEADLINE;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
+import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
+import static de.mikromedia.webpages.WebpageService.LINK;
+import static de.mikromedia.webpages.WebpageService.TILE;
+import static de.mikromedia.webpages.WebpageService.TILE_HTML;
 
 /**
  *
  * @author malt
  */
-public class SectionContent {
+public class Tile {
     
     private Topic content;
     private Topic relatedTopic;
 
-    public SectionContent(Topic sectionContent) {
+    public Tile(Topic sectionContent) {
         this.content = sectionContent;
         if (!isSectionContentTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Section Content");
@@ -35,7 +36,7 @@ public class SectionContent {
         this.content.loadChildTopics();
     }
 
-    public SectionContent(long topicId, CoreService dms) {
+    public Tile(long topicId, CoreService dms) {
         this.content = dms.getTopic(topicId);
         if (!isSectionContentTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Section Content");
@@ -54,11 +55,15 @@ public class SectionContent {
     // --- Custom Section Data Accessors
     
     public String getTitle() {
-        return this.content.getChildTopics().getStringOrNull(SECTION_HEADLINE);
+        return this.content.getChildTopics().getStringOrNull(TILE_HEADLINE);
     }
 
     public String getHtml() {
-        return this.content.getChildTopics().getStringOrNull(SECTION_HTML);
+        return this.content.getChildTopics().getStringOrNull(TILE_HTML);
+    }
+
+    public String getLink() {
+        return this.content.getChildTopics().getStringOrNull(LINK);
     }
 
     /**
@@ -74,24 +79,24 @@ public class SectionContent {
         return this.relatedTopic;
     }
 
-    public String getMobileImage() {
-        Topic imageFile = this.content.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getSmallImage() {
+        Topic imageFile = this.content.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
-    public String getDesktopImage() {
-        Topic imageFile = this.content.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
+    public String getLargeImage() {
+        Topic imageFile = this.content.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getBackgroundColor() {
-        return this.content.getChildTopics().getStringOrNull(SECTION_BG_COLOR);
+        return this.content.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
     }
 
     public String getFontColor() {
-        return this.content.getChildTopics().getStringOrNull(SECTION_COLOR);
+        return this.content.getChildTopics().getStringOrNull(FONT_COLOR);
     }
 
     public JSONObject toJSON() {
@@ -110,7 +115,7 @@ public class SectionContent {
 
     private boolean isSectionContentTopic() {
         if (this.content == null) return false;
-        return (this.content.getTypeUri().equals(SECTION_CONTENT));
+        return (this.content.getTypeUri().equals(TILE));
     }
     
 }

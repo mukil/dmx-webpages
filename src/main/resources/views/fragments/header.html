@@ -1,6 +1,6 @@
 
 <!-- Frontpage Header -->
-<header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-bg-color">
+<header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-background">
 
     <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
@@ -14,6 +14,10 @@
         </h2>
     </div>
     <div th:if="${header}" class="ui text container">
+
+        <!-- Inline Header Styles -->
+        <style th:replace="fragments/inline-styles :: header-style (${header})" />
+
         <h1 class="ui inverted header"
             th:utext="${header.title}">
             Site header name
@@ -27,38 +31,35 @@
         <div class="page-buttons">
             <a th:each="button : ${header.buttons}"
                 class="ui button primary" th:classappend="${button.style}"
-                th:href="${button.href}"
+                th:href="${button.link}"
                 th:text="${button.label}">
                 Button label
             </a>
         </div>
 
-        <!--div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div-->
     </div>
 
 </header>
 
 <!-- Simple Page Header -->
-<header th:fragment="page" class="ui inverted vertical masthead center aligned segment header-bg-color">
+<header th:fragment="page" class="ui inverted vertical masthead center aligned segment header-background">
 
     <!-- Include First Navigation -->
     <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
-    <!-- Render standard header if no custom header available  -->
+    <!-- Render standard header if no custom header available -->
     <div th:if="${not header}" class="ui text container">
         <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
             Page name
         </h1>
-
-        <!-- Page Metadata Area
-        <div class="page-meta">
-            <span class="label">Page created:</span>
-            <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-        </div -->
     </div>
 
     <!-- Render custom "Header" (topic), override standard header  -->
     <div th:if="${header}" class="ui text container">
+
+        <!-- Inline Header Styles -->
+        <style th:replace="fragments/inline-styles :: header-style (${header})" />
+
         <h1 class="ui inverted header"
             itemprop="headline" th:utext="${header.title}">
             Page header title
@@ -67,22 +68,15 @@
             th:utext="${header.content}">
             Page header content
         </h2>
-
         <!-- Render Header Buttons -->
         <div class="page-buttons">
             <a th:each="button : ${header.buttons}"
                 class="ui button primary" th:classappend="${button.style}"
-                th:href="${button.href}"
+                th:href="${button.link}"
                 th:text="${button.label}">
                 Button label
             </a>
         </div>
-
-        <!-- Page Metadata Area
-        <div class="page-meta">
-            <span class="label">Page created:</span>
-            <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
-        </div-->
     </div>
 
 </header>

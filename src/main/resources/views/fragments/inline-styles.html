@@ -1,27 +1,44 @@
 
 <!-- Header (Area) Inline Styles -->
-<style th:fragment="header-style (header)" th:inline="text">
-    /*<![CDATA[*/
-    .page #lower-page-nav .ui.menu,
-    .page .ui.segment.header-bg-color,
-    .page .ui.segment.header-bg-color .ui.menu {
-        background-color: [[${header.backgroundColor}]];
-        color: [[${header.fontColor}]];
-    }
-    @media(min-width: 1025px) {
-        .page .ui.segment.header-bg-color {
-            background-image: url('/filerepo/[[${header.desktopImage}]]');
-            background-repeat: no-repeat;
+<div class="inline-styles" th:fragment="header-style (header)">
+    <style th:if="${not #strings.isEmpty(header.largeImage)}" th:inline="text">
+        /*<![CDATA[*/
+        @media(min-width: 1025px) {
+            .page .ui.segment.header-background {
+                background-image: url('/filerepo/[[${header.largeImage}]]');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                background-size: cover;
+            }
         }
-    }
-    @media(max-width: 1024px) {
-        .page .ui.segment.header-bg-color {
-            background-image: url('/filerepo/[[${header.mobileImage}]]');
-            background-repeat: no-repeat;
+        /*]]*/
+    </style>
+    <style th:if="${not #strings.isEmpty(header.smallImage)}" th:inline="text">
+        /*<![CDATA[*/
+        @media(max-width: 1024px) {
+            .page .ui.segment.header-background {
+                background-image: url('/filerepo/[[${header.smallImage}]]');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-position: center center;
+            }
         }
-    }
-/*]]>*/
-</style>
+        /*]]>*/
+    </style>
+    <style th:if="${not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
+           th:inline="text">
+        /*<![CDATA[*/
+        .page #lower-page-nav .ui.menu,
+        .page .ui.segment.header-background,
+        .page .ui.segment.header-background .ui.menu {
+            background-color: [[${header.backgroundColor}]];
+            color: [[${header.fontColor}]];
+        }
+        /*]]>*/
+    </style>
+</div>
 
 <!-- Section (Area) Inline Styles -->
 <div class="inline-styles" th:fragment="section-background (section)">
@@ -39,58 +56,69 @@
         }
         /*]]>*/
     </style>
-    <style th:if="${not #strings.isEmpty(section.desktopImage)}" th:inline="text">
+    <style th:if="${not #strings.isEmpty(section.largeImage)}" th:inline="text">
         /*<![CDATA[*/
          @media(min-width: 1025px) {
             .page .ui.segment.section-bg-[[${section.id}]] {
-                background-image: url('/filerepo/[[${section.desktopImage}]]');
+                background-image: url('/filerepo/[[${section.largeImage}]]');
                 background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                background-size: cover;
             }
         }
         /*]]>*/
     </style>
-    <style th:if="${not #strings.isEmpty(section.mobileImage)}" th:inline="text">
+    <style th:if="${not #strings.isEmpty(section.smallImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(max-width: 1024px) {
             .page .ui.segment.section-bg-[[${section.id}]] {
-                background-image: url('/filerepo/[[${section.mobileImage}]]');
+                background-image: url('/filerepo/[[${section.smallImage}]]');
                 background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                background-size: cover;
             }
         }
         /*]]>*/
     </style>
 </div>
 
-<!-- Section Content Inline Styles -->
-<div class="inline-styles" th:fragment="section-content-background (content)">
+<!-- Tile Inline Styles -->
+<div class="inline-styles" th:fragment="tile-background (content)">
     <style th:if="${not #strings.isEmpty(content.backgroundColor) and not #strings.isEmpty(content.fontColor)}" th:inline="text">
         /*<![CDATA[*/
-        .page .ui.segment .section-content-bg-[[${content.id}]] {
+        .page .ui.segment .tile-background-[[${content.id}]] {
             background-color: [[${content.backgroundColor}]];
             color: [[${content.fontColor}]];
         }
-        .page .ui.container.section-bg .section-content-bg-[[${content.id}]] .ui.header,
-        .page .ui.segment.section-bg .section-content-bg-[[${content.id}]] .ui.header {
+        /** Override H1 - H6 Section Font Color **/
+        .page .ui.container.section-bg .tile-background-[[${content.id}]] .ui.header,
+        .page .ui.segment.section-bg .tile-bg-[[${content.id}]] .ui.header {
             color: [[${content.fontColor}]];
         }
         /*]]>*/
     </style>
-    <style th:if="${not #strings.isEmpty(content.desktopImage)}" th:inline="text">
+    <style th:if="${not #strings.isEmpty(content.largeImage)}" th:inline="text">
         /*<![CDATA[*/
          @media(min-width: 1025px) {
-            .page .ui.segment .section-content-bg-[[${content.id}]] {
-                background-image: url('/filerepo/[[${content.desktopImage}]]');
+            .page .ui.segment .tile-background-[[${content.id}]] {
+                background-image: url('/filerepo/[[${content.largeImage}]]');
                 background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
             }
         }
         /*]]>*/
     </style>
-    <style th:if="${not #strings.isEmpty(content.mobileImage)}" th:inline="text">
+    <style th:if="${not #strings.isEmpty(content.smallImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(max-width: 1024px) {
-            .page .ui.segment .section-content-bg-[[${content.id}]] {
-                background-image: url('/filerepo/[[${content.mobileImage}]]');
+            .page .ui.segment .tile-background-[[${content.id}]] {
+                background-image: url('/filerepo/[[${content.smallImage}]]');
                 background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
             }
         }
         /*]]>*/

@@ -24,9 +24,9 @@ public class Migration7 extends Migration {
         // 0) Assign standard site to public "Webpages" workspace upon installation of plugin
         Topic webpagesWorkspace = dm4.getAccessControl().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         // 1) Assign new association types to "Webpages" workspace too
-        AssociationType desktopHeaderImage = dm4.getAssociationType("de.mikromedia.image.desktop");
+        AssociationType desktopHeaderImage = dm4.getAssociationType("de.mikromedia.image.large");
         workspacesService.assignToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
-        AssociationType mobileHeaderImage = dm4.getAssociationType("de.mikromedia.image.mobile");
+        AssociationType mobileHeaderImage = dm4.getAssociationType("de.mikromedia.image.small");
         workspacesService.assignToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
         // 2) Assign new topic types to "Webpages" workspace
         TopicType header = dm4.getTopicType("de.mikromedia.header");
@@ -35,13 +35,13 @@ public class Migration7 extends Migration {
         workspacesService.assignToWorkspace(header, webpagesWorkspace.getId());
         TopicType headerTitle = dm4.getTopicType("de.mikromedia.header.title");
         workspacesService.assignToWorkspace(headerTitle, webpagesWorkspace.getId());
-        TopicType headerContent = dm4.getTopicType("de.mikromedia.header.content");
+        TopicType headerContent = dm4.getTopicType("de.mikromedia.header.html");
         workspacesService.assignToWorkspace(headerContent, webpagesWorkspace.getId());
-        TopicType headerColorBg = dm4.getTopicType("de.mikromedia.header.color_bg");
+        TopicType headerColorBg = dm4.getTopicType("de.mikromedia.background.color");
         workspacesService.assignToWorkspace(headerColorBg, webpagesWorkspace.getId());
-        TopicType headerColorFont = dm4.getTopicType("de.mikromedia.header.color_font");
+        TopicType headerColorFont = dm4.getTopicType("de.mikromedia.font.color");
         workspacesService.assignToWorkspace(headerColorFont, webpagesWorkspace.getId());
-        TopicType headerScript = dm4.getTopicType("de.mikromedia.header.script");
+        TopicType headerScript = dm4.getTopicType("de.mikromedia.header.js");
         workspacesService.assignToWorkspace(headerScript, webpagesWorkspace.getId());
         TopicType button = dm4.getTopicType("de.mikromedia.button");
         Topic buttonViewConfig = button.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
@@ -49,7 +49,7 @@ public class Migration7 extends Migration {
         workspacesService.assignToWorkspace(button, webpagesWorkspace.getId());
         TopicType buttonTitle = dm4.getTopicType("de.mikromedia.button.title");
         workspacesService.assignToWorkspace(buttonTitle, webpagesWorkspace.getId());
-        TopicType buttonHref = dm4.getTopicType("de.mikromedia.button.href");
+        TopicType buttonHref = dm4.getTopicType("de.mikromedia.link");
         workspacesService.assignToWorkspace(buttonHref, webpagesWorkspace.getId());
         TopicType buttonStyle = dm4.getTopicType("de.mikromedia.button.style");
         workspacesService.assignToWorkspace(buttonStyle, webpagesWorkspace.getId());

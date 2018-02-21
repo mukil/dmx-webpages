@@ -49,7 +49,7 @@ public class Webpage implements JSONEnabled {
         return page.getId();
     }
 
-    public String getPageTitle() {
+    public String getTitle() {
         return page.getSimpleValue().toString();
     }
 
@@ -113,7 +113,7 @@ public class Webpage implements JSONEnabled {
     public JSONObject toJSON() {
         try {
             return new JSONObject()
-                .put("title", getPageTitle())
+                .put("title", getTitle())
                 .put("description", getDescription())
                 .put("main", getMainHTML())
                 .put("modified", getModificationDate())

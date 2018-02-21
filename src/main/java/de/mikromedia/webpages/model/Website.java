@@ -5,8 +5,6 @@ import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
-import static de.mikromedia.webpages.WebpageService.DESKTOP_IMAGE_ASSOC;
-import static de.mikromedia.webpages.WebpageService.MOBILE_IMAGE_ASSOC;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.REDIRECT;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -26,6 +24,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
+import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 
 /**
  *
@@ -54,12 +54,12 @@ public class Website {
     }
 
     public Topic getDesktopHeaderImage() {
-        return this.topic.getRelatedTopic(DESKTOP_IMAGE_ASSOC, ROLE_DEFAULT,
+        return this.topic.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
             ROLE_DEFAULT, DEEPAMEHTA_FILE);
     }
 
     public Topic getMobileHeaderImage() {
-        return this.topic.getRelatedTopic(MOBILE_IMAGE_ASSOC, ROLE_DEFAULT,
+        return this.topic.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
             ROLE_DEFAULT, DEEPAMEHTA_FILE);
     }
 

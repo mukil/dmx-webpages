@@ -1,7 +1,35 @@
 {
     "topic_types": [
         {
-            "value": "Button Label",
+            "value": "Background Color",
+            "uri": "de.mikromedia.background.color",
+            "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
+            "view_config_topics": [
+                {
+                    "type_uri": "dm4.webclient.view_config",
+                    "childs": {
+                        "dm4.webclient.show_in_create_menu": false
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Font Color",
+            "uri": "de.mikromedia.font.color",
+            "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
+            "view_config_topics": [
+                {
+                    "type_uri": "dm4.webclient.view_config",
+                    "childs": {
+                        "dm4.webclient.show_in_create_menu": false
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Button Title",
             "uri": "de.mikromedia.button.title",
             "data_type_uri": "dm4.core.text",
             "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
@@ -15,8 +43,8 @@
             ]
         },
         {
-            "value": "Button Href",
-            "uri": "de.mikromedia.button.href",
+            "value": "Link",
+            "uri": "de.mikromedia.link",
             "data_type_uri": "dm4.core.text",
             "index_mode_uris": ["dm4.core.key"],
             "view_config_topics": [
@@ -62,7 +90,7 @@
                     "assoc_type_uri":           "dm4.core.composition_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.button.href",
+                    "child_type_uri":           "de.mikromedia.link",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
@@ -90,8 +118,8 @@
             ]
         },
         {
-            "value": "Header Content",
-            "uri": "de.mikromedia.header.content",
+            "value": "Header HTML",
+            "uri": "de.mikromedia.header.html",
             "data_type_uri": "dm4.core.html",
             "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"],
             "view_config_topics": [
@@ -104,36 +132,8 @@
             ]
         },
         {
-            "value": "Header Background Color",
-            "uri": "de.mikromedia.header.color_bg",
-            "data_type_uri": "dm4.core.text",
-            "index_mode_uris": ["dm4.core.key"],
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Header Font Color",
-            "uri": "de.mikromedia.header.color_font",
-            "data_type_uri": "dm4.core.text",
-            "index_mode_uris": ["dm4.core.key"],
-            "view_config_topics": [
-                {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Header Script",
-            "uri": "de.mikromedia.header.script",
+            "value": "Header JS",
+            "uri": "de.mikromedia.header.js",
             "data_type_uri": "dm4.core.text",
             "index_mode_uris": ["dm4.core.key"],
             "view_config_topics": [
@@ -157,7 +157,7 @@
                     "assoc_type_uri":           "dm4.core.composition_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.header.content",
+                    "child_type_uri":           "de.mikromedia.header.html",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.composition_def"
@@ -169,19 +169,19 @@
                     "assoc_type_uri":           "dm4.core.aggregation_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.header.color_bg",
+                    "child_type_uri":           "de.mikromedia.background.color",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.header.color_font",
+                    "child_type_uri":           "de.mikromedia.font.color",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
                 },
                 {
-                    "child_type_uri":           "de.mikromedia.header.script",
+                    "child_type_uri":           "de.mikromedia.header.js",
                     "child_cardinality_uri":    "dm4.core.one",
                     "parent_cardinality_uri":   "dm4.core.one",
                     "assoc_type_uri":           "dm4.core.aggregation_def"
@@ -200,9 +200,9 @@
     ],
     "assoc_types": [
         {
-            "value":            "Background Image (Large)",
+            "value":            "Image Large",
             "data_type_uri":    "dm4.core.text",
-            "uri":              "de.mikromedia.image.desktop",
+            "uri":              "de.mikromedia.image.large",
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
@@ -213,9 +213,9 @@
             ]
        },
        {
-            "value":            "Background Image (Small)",
+            "value":            "Image Small",
             "data_type_uri":    "dm4.core.text",
-            "uri":              "de.mikromedia.image.mobile",
+            "uri":              "de.mikromedia.image.small",
             "view_config_topics": [
                 {
                     "type_uri": "dm4.webclient.view_config",
