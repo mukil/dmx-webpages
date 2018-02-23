@@ -4,7 +4,15 @@
 
     <a th:replace="fragments/widgets :: logo-site-link"></a>
 
-    <div th:each="menuItem : ${menuItems}">
+    <div class="ui category search item">
+        <div class="ui transparent inverted icon input">
+            <input class="prompt" type="text" placeholder="Search..." />
+            <i class="search link icon"></i>
+        </div>
+        <div class="results"></div>
+    </div>
+
+    <div th:each="menuItem : ${menuItems}" class="ui vertical inverted menu">
         <!-- The global "standard" website is routed at "/" root resource -->
         <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
             th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
@@ -18,31 +26,21 @@
             itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
             th:href="${menuItem.fullHref}">Menu Item</a>
 
-        <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-            <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-            <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
-            <i class="icon dropdown"></i>
-
+        <div th:if="${menuItem.hasChildItems}" class="item">
+            <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
+            <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}" class="ui header"></span>
             <div class="menu">
                 <div th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active red item' : 'red item'}"
                      th:each="childItem : ${menuItem.childMenuItems}">
 
-                    <a th:if="${#strings.contains(website, 'standard')}" class="ui"
+                    <a th:if="${#strings.contains(website, 'standard')}" class="item"
                        th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
 
-                    <a th:if="${!#strings.contains(website, 'standard')}" class="ui"
+                    <a th:if="${!#strings.contains(website, 'standard')}" class="item"
                        th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="ui category search item">
-        <div class="ui transparent inverted icon input">
-            <input class="prompt" type="text" placeholder="Search..." />
-            <i class="search link icon"></i>
-        </div>
-        <div class="results"></div>
     </div>
 
 </div>
@@ -72,8 +70,8 @@
                 th:href="${menuItem.fullHref}">Menu Item</a>
 
             <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-                <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-                <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
+                <a th:text="${menuItem.label}" th:href="${menuItem.href}"></a>
+                <!--span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span-->
                 <i class="icon dropdown"></i>
 
                 <div class="menu">

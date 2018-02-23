@@ -91,7 +91,13 @@ public class Webpage implements JSONEnabled {
     }
 
     public boolean isDraft() {
-        return page.getChildTopics().getBooleanOrNull(WEBPAGE_IS_DRAFT);
+        boolean isDraft = false;
+        try {
+            isDraft = page.getChildTopics().getBoolean(WEBPAGE_IS_DRAFT);
+        } catch (Exception ex) {
+            return isDraft;
+        }
+        return isDraft;
     }
 
     public String getAuthorNames() {

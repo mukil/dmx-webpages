@@ -29,12 +29,14 @@
 
         <!-- Render Header Buttons -->
         <div class="page-buttons">
-            <a th:each="button : ${header.buttons}"
-                class="ui button primary" th:classappend="${button.style}"
-                th:href="${button.link}"
-                th:text="${button.label}">
-                Button label
-            </a>
+            <div th:each="button : ${header.buttons}">
+                <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
+                    class="ui button primary" th:classappend="${button.style}"
+                    th:href="${button.link}"
+                    th:text="${button.label}">
+                    Button label
+                </a>
+            </div>
         </div>
 
     </div>
@@ -49,7 +51,7 @@
 
     <!-- Render standard header if no custom header available -->
     <div th:if="${not header}" class="ui text container">
-        <h1 class="ui inverted header" itemprop="headline" th:utext="${page.pageTitle}">
+        <h1 class="ui inverted header" itemprop="headline" th:utext="${page.title}">
             Page name
         </h1>
     </div>
@@ -70,12 +72,14 @@
         </h2>
         <!-- Render Header Buttons -->
         <div class="page-buttons">
-            <a th:each="button : ${header.buttons}"
-                class="ui button primary" th:classappend="${button.style}"
-                th:href="${button.link}"
-                th:text="${button.label}">
-                Button label
-            </a>
+            <div th:each="button : ${header.buttons}">
+                <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
+                    class="ui button primary" th:classappend="${button.style}"
+                    th:href="${button.link}"
+                    th:text="${button.label}">
+                    Button label
+                </a>
+            </div>
         </div>
     </div>
 

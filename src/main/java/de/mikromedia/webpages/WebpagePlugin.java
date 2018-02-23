@@ -685,9 +685,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         if (headerTopic != null) {
             Header header = new Header(headerTopic);
             viewData("header", header);
-            log.info("Debugging Small Header: " + header.getSmallImage());
-            log.info("Debugging Large Header: " + header.getLargeImage());
-
         }
     }
 

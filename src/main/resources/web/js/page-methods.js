@@ -24,27 +24,29 @@ function zero(e) {
 
 function render_page() {
     $('.ui.dropdown').dropdown()
-    $('.right.menu .ui.search').search({
-            apiSettings: {
-                url: '/websites/search?q={query}',
-                onRequest: function() {
-                    $('.right.menu .ui.category.search').addClass("loading")
-                    $('.right.menu .ui.category.search .icon.my').show()
-                },
-                onResponse: function() {
-                    $('.right.menu .ui.category.search').removeClass("loading")
-                    $('.right.menu .ui.category.search .icon.my').hide()
-                }
+    var searchConfig = {
+        apiSettings: {
+            url: '/websites/search?q={query}',
+            onRequest: function() {
+                $('.right.menu .ui.category.search').addClass("loading")
+                $('.right.menu .ui.category.search .icon.my').show()
             },
-            fields: {
-                results : 'results',
-                title   : 'name',
-                description: 'zusatz',
-                url     : 'link'
-            },
-            minCharacters : 2,
-            type: 'category'
-        })
+            onResponse: function() {
+                $('.right.menu .ui.category.search').removeClass("loading")
+                $('.right.menu .ui.category.search .icon.my').hide()
+            }
+        },
+        fields: {
+            results : 'results',
+            title   : 'name',
+            description: 'zusatz',
+            url     : 'link'
+        },
+        minCharacters : 2,
+        type: 'category'
+    }
+    $('.right.menu .ui.search').search(searchConfig)
+    $('.sidebar.menu .ui.search').search(searchConfig)
         /**             error : {
                 source      : 'Fehler im Setup des JavaScript-Suchmoduls.',
                 noResults   : 'Wir konnten zu dieser Suchanfrage keine Ergebnisse finden.',

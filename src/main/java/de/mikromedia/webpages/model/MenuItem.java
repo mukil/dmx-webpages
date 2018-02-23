@@ -54,7 +54,7 @@ public class MenuItem implements JSONEnabled {
         return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_NAME);
     }
 
-    public String getHref() {
+    public String getHref() { // TODO: Migrate to "Link"
         return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
     }
 

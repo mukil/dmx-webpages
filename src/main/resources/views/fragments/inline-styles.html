@@ -32,7 +32,9 @@
         /*<![CDATA[*/
         .page #lower-page-nav .ui.menu,
         .page .ui.segment.header-background,
-        .page .ui.segment.header-background .ui.menu {
+        .page .ui.segment.header-background .ui.menu,
+        .page .ui.segment.footer.inverted,
+        .page .ui.segment.footer {
             background-color: [[${header.backgroundColor}]];
             color: [[${header.fontColor}]];
         }
@@ -50,6 +52,8 @@
             /** border-top: 1px solid [[${section.fontColor}]]33; 
             Add some opacity to all upper borders of section **/
         }
+        .page .ui.segment.footer.inverted .ui-header,
+        .page .ui.segment.footer .ui-header,
         .page .ui.container.section-bg-[[${section.id}]] .ui.header,
         .page .ui.segment.section-bg-[[${section.id}]] .ui.header {
             color: [[${section.fontColor}]];
