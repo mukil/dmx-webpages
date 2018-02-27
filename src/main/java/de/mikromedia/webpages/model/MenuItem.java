@@ -63,6 +63,9 @@ public class MenuItem implements JSONEnabled {
         String fullHref = "";
         if (sitePrefix != null) {
             fullHref += "/" + sitePrefix;
+            if (sitePrefix.equals("admin") || sitePrefix.equals("standard")) {
+                fullHref = "";
+            }
         }
         fullHref += "/" + menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
         return fullHref;

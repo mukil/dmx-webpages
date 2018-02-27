@@ -30,15 +30,11 @@
             <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
             <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}" class="ui header"></span>
             <div class="menu">
-                <div th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active red item' : 'red item'}"
-                     th:each="childItem : ${menuItem.childMenuItems}">
-
-                    <a th:if="${#strings.contains(website, 'standard')}" class="item"
-                       th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
-
-                    <a th:if="${!#strings.contains(website, 'standard')}" class="item"
-                       th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
-                </div>
+                <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                     th:each="childItem : ${menuItem.childMenuItems}"
+                     th:href="${childItem.fullHref}"
+                     th:text="${childItem.label}">
+                </a>
             </div>
         </div>
     </div>
@@ -75,15 +71,11 @@
                 <i class="icon dropdown"></i>
 
                 <div class="menu">
-                    <div th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active red item' : 'red item'}"
-                         th:each="childItem : ${menuItem.childMenuItems}">
-
-                        <a th:if="${#strings.contains(website, 'standard')}" class="ui"
-                           th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
-
-                        <a th:if="${!#strings.contains(website, 'standard')}" class="ui"
-                           th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
-                    </div>
+                    <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                         th:each="childItem : ${menuItem.childMenuItems}"
+                         th:href="${childItem.fullHref}"
+                         th:text="${childItem.label}">
+                    </a>
                 </div>
             </div>
         </div>
@@ -133,15 +125,11 @@
                     <i class="icon dropdown"></i>
 
                     <div class="menu">
-                        <div th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active red item' : 'red item'}"
-                             th:each="childItem : ${menuItem.childMenuItems}">
-
-                            <a th:if="${#strings.contains(website, 'standard')}" class="ui"
-                               th:href="'/' + ${childItem.href}" th:text="${childItem.label}"></a>
-
-                            <a th:if="${!#strings.contains(website, 'standard')}" class="ui"
-                               th:href="${childItem.fullHref}" th:text="${childItem.label}"></a>
-                        </div>
+                        <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                             th:each="childItem : ${menuItem.childMenuItems}"
+                             th:href="${childItem.fullHref}"
+                             th:text="${childItem.label}">
+                        </a>
                     </div>
                 </div>
 

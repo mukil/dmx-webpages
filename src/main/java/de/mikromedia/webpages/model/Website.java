@@ -53,6 +53,7 @@ public class Website {
             ROLE_DEFAULT, USERNAME);
     }
 
+    /** ### Why not getHeader? */
     public Topic getDesktopHeaderImage() {
         return this.topic.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
             ROLE_DEFAULT, DEEPAMEHTA_FILE);

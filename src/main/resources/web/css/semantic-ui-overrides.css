@@ -303,9 +303,6 @@ article .text .blockquote {
     .ui.sidebar .inverted.menu .header {
         color: #fff;
     }
-    .ui.sidebar .menu .menu .item {
-        padding-left: .75em;
-    }
     .ui.fixed.menu {
         display: none !important;
     }
