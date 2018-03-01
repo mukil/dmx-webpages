@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Item
+ * # Semantic UI 2.3.0 - Item
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -140,14 +140,14 @@
 .ui.items > .item > .content > .header {
   display: inline-block;
   margin: -0.21425em 0em 0em;
-  font-family: "Cambria", "Georgia", "Times", serif;
+  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.85);
 }
 
 /* Default Header Size */
 .ui.items > .item > .content > .header:not(.ui) {
-  font-size: 1.3125em;
+  font-size: 1.28571429em;
 }
 
 /*--------------
@@ -186,7 +186,7 @@
   max-width: auto;
   font-size: 1em;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /*--------------
@@ -249,7 +249,7 @@
   color: rgba(0, 0, 0, 0.4);
 }
 .ui.items > .item .meta > a:not(.ui):hover {
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /*--------------

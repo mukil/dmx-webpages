@@ -692,9 +692,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         List<RelatedTopic> sections = getRelatedWebpageSections(topic);
         List<Section> above = new ArrayList();
         List<Section> below = new ArrayList();
-        // TODO: Aside Left and Right
+        // ### TODO: Aside Left and Right
         if (sections != null && sections.size() > 0) {
-            for (Topic section : sections) {
+            for (RelatedTopic section : sections) {
                 Section pageSection = new Section(section);
                 Topic placement = pageSection.getPlacement();
                 if (placement != null && placement.getUri().equals(PLACEMENT_ABOVE)) {
@@ -704,8 +704,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 }
             }
             // 1.) set custom Header data
-            if (above.size() > 0) viewData("sectionsAbove", above);
-            if (below.size() > 0) viewData("sectionsBelow", below);
+            if (above.size() > 0) {
+                viewData("sectionsAbove", getSectionsSortedByAssocationNumber(above));
+            }
+            if (below.size() > 0) {
+                viewData("sectionsBelow", getSectionsSortedByAssocationNumber(below));
+            }
         }
     }
 
@@ -720,6 +724,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             viewData("siteCaption", site.getCaption());
             viewData("siteAbout", site.getAboutHTML());
             viewData("siteId", website.getId());
+            viewData("siteLogoPath", site.getLogoPath());
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());
@@ -759,6 +764,24 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 } catch (Exception nfe) {
                     log.warning("Error while accessing modification timestamp of Webpage1: " + t1.getId() + " Webpage2: "
                             + t2.getId() + " nfe: " + nfe.getMessage());
+                    return 0;
+                }
+                return 0;
+            }
+        });
+        return all;
+    }
+
+    private List<Section> getSectionsSortedByAssocationNumber(List<Section> all) {
+        Collections.sort(all, new Comparator<Section>() {
+            public int compare(Section s1, Section s2) {
+                log.info("Sort compares " + s1.getOrdinalNumber() + " and " + s2.getOrdinalNumber());
+                try {
+                    if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return 1;
+                    if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return -1;
+                } catch (Exception nfe) {
+                    log.warning("Error while accessing ordinal number Section: " + s1.getId() + " Section: "
+                            + s2.getId() + " nfe: " + nfe.getMessage());
                     return 0;
                 }
                 return 0;

@@ -47,6 +47,7 @@ public interface WebpageService {
 
     public static final String IMAGE_LARGE = "de.mikromedia.image.large";
     public static final String IMAGE_SMALL = "de.mikromedia.image.small";
+    public static final String LOGO_IMAGE = "de.mikromedia.image.logo";
 
     public static final String SECTION = "de.mikromedia.section";
     public static final String SECTION_TITLE = "de.mikromedia.section.title";

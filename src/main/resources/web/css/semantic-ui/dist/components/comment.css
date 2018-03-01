@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Comment
+ * # Semantic UI 2.3.0 - Comment
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -35,16 +35,16 @@
 
 .ui.comments .comment {
   position: relative;
-  background: #FFFFFF;
-  margin: 1em 0em 0em;
-  padding: 1em 1.5em;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: none;
+  margin: 0.5em 0em 0em;
+  padding: 0.5em 0em 0em;
+  border: none;
+  border-top: none;
   line-height: 1.2;
 }
 .ui.comments .comment:first-child {
-  margin-top: 1em;
-  padding-top: 1em;
+  margin-top: 0em;
+  padding-top: 0em;
 }
 
 /*--------------------
@@ -53,7 +53,7 @@
 
 .ui.comments .comment .comments {
   margin: 0em 0em 0.5em 0.5em;
-  padding: 1em 0em 0em 1em;
+  padding: 1em 0em 1em 1em;
 }
 .ui.comments .comment .comments:before {
   position: absolute;
@@ -63,7 +63,7 @@
 .ui.comments .comment .comments .comment {
   border: none;
   border-top: none;
-  background: #F0F0F0;
+  background: none;
 }
 
 /*--------------
@@ -72,7 +72,7 @@
 
 .ui.comments .comment .avatar {
   display: block;
-  width: 3.5em;
+  width: 2.5em;
   height: auto;
   float: left;
   margin: 0.2em 0em 0em;
@@ -83,7 +83,7 @@
   margin: 0em auto;
   width: 100%;
   height: 100%;
-  border-radius: 500rem;
+  border-radius: 0.25rem;
 }
 
 /*--------------
@@ -96,7 +96,7 @@
 
 /* If there is an avatar move content over */
 .ui.comments .comment > .avatar ~ .content {
-  margin-left: 5em;
+  margin-left: 3.5em;
 }
 
 /*--------------
@@ -105,14 +105,14 @@
 
 .ui.comments .comment .author {
   font-size: 1em;
-  color: #2185D0;
+  color: #3c3c3c;
   font-weight: bold;
 }
 .ui.comments .comment a.author {
   cursor: pointer;
 }
 .ui.comments .comment a.author:hover {
-  color: #1678c2;
+  color: #1e70bf;
 }
 
 /*--------------
@@ -120,9 +120,9 @@
 ---------------*/
 
 .ui.comments .comment .metadata {
-  display: block;
-  margin-left: 0em;
-  color: rgba(0, 0, 0, 0.87);
+  display: inline-block;
+  margin-left: 0.5em;
+  color: rgba(0, 0, 0, 0.4);
   font-size: 0.875em;
 }
 .ui.comments .comment .metadata > * {
@@ -141,7 +141,7 @@
   margin: 0.25em 0em 0.5em;
   font-size: 1em;
   word-wrap: break-word;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   line-height: 1.3;
 }
 
@@ -204,7 +204,7 @@
 ---------------------*/
 
 .ui.threaded.comments .comment .comments {
-  margin: -1.5em 0 -1em 1.75em;
+  margin: -1.5em 0 -1em 1.25em;
   padding: 3em 0em 2em 2.25em;
   -webkit-box-shadow: -1px 0px 0px rgba(34, 36, 38, 0.15);
           box-shadow: -1px 0px 0px rgba(34, 36, 38, 0.15);
@@ -234,45 +234,35 @@
 --------------------*/
 
 .ui.mini.comments {
-  font-size: 0.8125rem;
+  font-size: 0.78571429rem;
 }
 .ui.tiny.comments {
-  font-size: 0.875rem;
+  font-size: 0.85714286rem;
 }
 .ui.small.comments {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 .ui.comments {
   font-size: 1rem;
 }
 .ui.large.comments {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 .ui.big.comments {
-  font-size: 1.3125rem;
+  font-size: 1.28571429rem;
 }
 .ui.huge.comments {
-  font-size: 1.4375rem;
+  font-size: 1.42857143rem;
 }
 .ui.massive.comments {
-  font-size: 1.6875rem;
+  font-size: 1.71428571rem;
 }
 
 
 /*******************************
-           Overrides
+         Theme Overrides
 *******************************/
 
-.ui.comments .comment {
-  border-radius: 0.5em;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.1);
-}
-.ui.comments .comment .comments .comment {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
 
 
 /*******************************

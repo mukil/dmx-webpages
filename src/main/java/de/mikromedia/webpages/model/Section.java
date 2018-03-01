@@ -1,7 +1,9 @@
 package de.mikromedia.webpages.model;
 
+import de.deepamehta.core.Association;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
@@ -28,18 +30,10 @@ import static de.mikromedia.webpages.WebpageService.TILE;
  */
 public class Section {
     
-    private Topic pageSection;
+    private RelatedTopic pageSection;
 
-    public Section(Topic pageSection) {
+    public Section(RelatedTopic pageSection) {
         this.pageSection = pageSection;
-        if (!isSectionTopic()) {
-            throw new IllegalArgumentException("Given topic is not of type WebpageSection");
-        }
-        this.pageSection.loadChildTopics();
-    }
-
-    public Section(long topicId, CoreService dms) {
-        this.pageSection = dms.getTopic(topicId);
         if (!isSectionTopic()) {
             throw new IllegalArgumentException("Given topic is not of type WebpageSection");
         }
@@ -52,6 +46,20 @@ public class Section {
 
     public Topic getTopic() {
         return this.pageSection;
+    }
+
+    public int getOrdinalNumber() {
+        Association assoc = this.pageSection.getRelatingAssociation();
+        SimpleValue assocText = assoc.getSimpleValue();
+        int ordinalNumber = 0;
+        try {
+            ordinalNumber = (assocText == null
+                && assocText.toString().isEmpty()) ? 0
+                : Integer.parseInt(assocText.toString());
+        } catch (NumberFormatException ex) {
+            // log.debug("");
+        }
+        return ordinalNumber;
     }
 
     // --- Custom Section Data Accessors
@@ -96,6 +104,10 @@ public class Section {
                 layoutName = "two-and-n-columns";
             } else if (layout.getUri().equals("de.mikromedia.layout.accordion")) {
                 layoutName = "accordion-styled";
+            } else if (layout.getUri().equals("de.mikromedia.layout.single_tile")) {
+                layoutName = "single-tile";
+            } else if (layout.getUri().equals("de.mikromedia.layout.quote_section")) {
+                layoutName = "quote-tiles";
             }
         }
         return layoutName;
@@ -132,5 +144,5 @@ public class Section {
         if (this.pageSection == null) return false;
         return (this.pageSection.getTypeUri().equals(SECTION));
     }
-    
+
 }

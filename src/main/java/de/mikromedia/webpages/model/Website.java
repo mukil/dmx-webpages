@@ -5,6 +5,7 @@ import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
+import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.REDIRECT;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
+import static de.mikromedia.webpages.WebpageService.LOGO_IMAGE;
 
 /**
  *
@@ -53,15 +55,13 @@ public class Website {
             ROLE_DEFAULT, USERNAME);
     }
 
-    /** ### Why not getHeader? */
-    public Topic getDesktopHeaderImage() {
-        return this.topic.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-            ROLE_DEFAULT, DEEPAMEHTA_FILE);
-    }
-
-    public Topic getMobileHeaderImage() {
-        return this.topic.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-            ROLE_DEFAULT, DEEPAMEHTA_FILE);
+    public String getLogoPath() {
+        Topic imageFile = this.topic.getRelatedTopic(LOGO_IMAGE, ROLE_DEFAULT,
+                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+        if (imageFile != null) {
+            return imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        }
+        return null;
     }
 
     public List<RelatedTopic> getRelatedWebpages() {

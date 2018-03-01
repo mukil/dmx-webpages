@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Form
+ * # Semantic UI 2.3.0 - Form
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -54,9 +54,9 @@
 
 .ui.form .field > label {
   display: block;
-  margin: 0em 0em 0.25rem 0em;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 0.9375em;
+  margin: 0em 0em 0.28571429rem 0em;
+  color: #3c3c3c;
+  font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
 }
@@ -99,18 +99,18 @@
 .ui.form input[type="text"],
 .ui.form input[type="file"],
 .ui.form input[type="url"] {
-  font-family: "Cambria", "Georgia", "Times", serif;
+  font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
   margin: 0em;
   outline: none;
   -webkit-appearance: none;
   tap-highlight-color: rgba(255, 255, 255, 0);
   line-height: 1.21428571em;
-  padding: 0.58035714em 0.875em;
+  padding: 0.67857143em 1em;
   font-size: 1em;
   background: #FFFFFF;
   border: 1px solid rgba(34, 36, 38, 0.15);
-  color: rgba(0, 0, 0, 0.87);
-  border-radius: 0.25rem;
+  color: #3c3c3c;
+  border-radius: 0.28571429rem;
   -webkit-box-shadow: 0em 0em 0em 0em transparent inset;
           box-shadow: 0em 0em 0em 0em transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
@@ -122,12 +122,12 @@
   margin: 0em;
   -webkit-appearance: none;
   tap-highlight-color: rgba(255, 255, 255, 0);
-  padding: 0.6875em 0.875em;
+  padding: 0.78571429em 1em;
   background: #FFFFFF;
   border: 1px solid rgba(34, 36, 38, 0.15);
   outline: none;
-  color: rgba(0, 0, 0, 0.87);
-  border-radius: 0.25rem;
+  color: #3c3c3c;
+  border-radius: 0.28571429rem;
   -webkit-box-shadow: 0em 0em 0em 0em transparent inset;
           box-shadow: 0em 0em 0em 0em transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
@@ -164,11 +164,11 @@
   width: 100%;
   background: #FFFFFF;
   border: 1px solid rgba(34, 36, 38, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 0.28571429rem;
   -webkit-box-shadow: 0em 0em 0em 0em transparent inset;
           box-shadow: 0em 0em 0em 0em transparent inset;
-  padding: 0.62em 0.875em;
-  color: rgba(0, 0, 0, 0.87);
+  padding: 0.62em 1em;
+  color: #3c3c3c;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
   transition: color 0.1s ease, border-color 0.1s ease;
 }
@@ -314,22 +314,22 @@
 
 /* browsers require these rules separate */
 .ui.form ::-webkit-input-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #fbfbfb;
 }
 .ui.form :-ms-input-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #fbfbfb;
 }
 .ui.form ::-moz-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #fbfbfb;
 }
 .ui.form :focus::-webkit-input-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #afafaf;
 }
 .ui.form :focus:-ms-input-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #afafaf;
 }
 .ui.form :focus::-moz-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #afafaf;
 }
 
 /* Error Placeholder */
@@ -370,7 +370,7 @@
 .ui.form input[type="url"]:focus {
   color: rgba(0, 0, 0, 0.95);
   border-color: #85B7D9;
-  border-radius: 0.25rem;
+  border-radius: 0.28571429rem;
   background: #FFFFFF;
   -webkit-box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
           box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
@@ -378,7 +378,7 @@
 .ui.form textarea:focus {
   color: rgba(0, 0, 0, 0.95);
   border-color: #85B7D9;
-  border-radius: 0.25rem;
+  border-radius: 0.28571429rem;
   background: #FFFFFF;
   -webkit-box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
           box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
@@ -681,7 +681,7 @@
 .ui.form .required.field > .checkbox:after {
   margin: -0.2em 0em 0em 0.2em;
   content: '*';
-  color: #8F1414;
+  color: #DB2828;
 }
 .ui.form .required.fields:not(.grouped) > .field > label:after,
 .ui.form .required.fields.grouped > label:after,
@@ -735,7 +735,7 @@
 .ui.inverted.form input[type="url"] {
   background: #FFFFFF;
   border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -754,9 +754,9 @@
   margin-bottom: 0em;
 }
 .ui.form .grouped.fields > label {
-  margin: 0em 0em 0.25rem 0em;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 0.9375em;
+  margin: 0em 0em 0.28571429rem 0em;
+  color: #3c3c3c;
+  font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
 }
@@ -990,9 +990,9 @@
   margin-top: 0em;
   margin-bottom: 0em;
   vertical-align: baseline;
-  font-size: 0.9375em;
+  font-size: 0.92857143em;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   text-transform: none;
 }
 
@@ -1017,7 +1017,7 @@
 /* Label */
 .ui.form .inline.fields .field > :first-child,
 .ui.form .inline.field > :first-child {
-  margin: 0em 0.875em 0em 0em;
+  margin: 0em 0.85714286em 0em 0em;
 }
 .ui.form .inline.fields .field > :only-child,
 .ui.form .inline.field > :only-child {
@@ -1043,28 +1043,28 @@
 ---------------------*/
 
 .ui.mini.form {
-  font-size: 0.8125rem;
+  font-size: 0.78571429rem;
 }
 .ui.tiny.form {
-  font-size: 0.875rem;
+  font-size: 0.85714286rem;
 }
 .ui.small.form {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 .ui.form {
   font-size: 1rem;
 }
 .ui.large.form {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 .ui.big.form {
-  font-size: 1.3125rem;
+  font-size: 1.28571429rem;
 }
 .ui.huge.form {
-  font-size: 1.4375rem;
+  font-size: 1.42857143rem;
 }
 .ui.massive.form {
-  font-size: 1.6875rem;
+  font-size: 1.71428571rem;
 }
 
 

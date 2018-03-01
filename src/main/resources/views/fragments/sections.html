@@ -6,7 +6,9 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
     <div class="ui">
-        <h1 class="ui header aligned center" th:text="${section.title}">
+        <h1 class="ui header aligned center"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
             Ten Six Section Title
         </h1>
     </div>
@@ -106,15 +108,15 @@
      th:class="'ui vertical two-n-columns basic segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
-
     <!-- Tile Elements -->
     <div class="ui">
-        <h1 class="ui header aligned center" th:text="${section.title}">
+        <h1 class="ui header aligned center"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
             Two and N Equal Columns Section title
         </h1>
     </div>
     <div class="ui equal width stackable grid padded">
-
         <div class="row first">
             <div th:if="${iterator.index} == 0" th:class="'column tile tile-background-' + ${content.id}"
                  th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -167,7 +169,9 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
     <div class="ui container">
-        <h1 class="ui header aligned center" th:text="${section.title}">
+        <h1 class="ui header aligned center"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
             Accordion Title
         </h1>
     </div>
@@ -184,5 +188,78 @@
               <p>Tile</p>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Single Tile Section -->
+<div th:fragment="single-tile (section)"
+     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Headline -->
+    <div class="ui container">
+        <h1 class="ui header aligned center"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
+            Tile Title
+        </h1>
+    </div>
+    <!-- Single Tile (Just Render Child at Position: 0) -->
+    <div class="ui container text">
+        <div th:if="${iterator.index} == 0" th:each="content, iterator : ${section.contents}">
+            <!-- Inline Tile Styles -->
+            <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+            <!-- Tiles -->
+            <h2 class="title" th:text="${content.title}">
+              Tile Title
+            </h2>
+            <div class="content" th:utext="${content.html}">
+              <p>Tile Content</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stackable Segment with 2-Quote Columns per Row -->
+<div th:fragment="quote-tiles (section)"
+     th:class="'ui vertical stripe quote segment section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Title -->
+    <div class="ui" th:if="${not #strings.isEmpty(section.title)}">
+        <h1 class="ui header aligned center" th:text="${section.title}">
+            Quote Section Title
+        </h1>
+    </div>
+     <div class="ui equal width stackable internally celled grid">
+
+        <div class="row center aligned">
+            <div th:if="${iterator.index} le 1"
+                 th:class="'column tile tile-background-' + ${content.id}"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Tile Styles -->
+                <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+                <!-- Tiles -->
+                <h3 th:text="${content.title}">Quote 1 &amp; 2</h3>
+                <p th:utext="${content.html}">
+                   Author A
+                </p>
+            </div>
+        </div>
+
+        <div class="row center aligned second">
+             <div th:if="${iterator.index} gt 1 and ${iterator.index} le 3"
+                 th:class="'column tile tile-background-' + ${content.id}"
+                 th:each="content, iterator : ${section.contents}">
+                <!-- Inline Tile Styles -->
+                <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+                <!-- Tiles -->
+                <h3 th:text="${content.title}">Quote 1 &amp; 2</h3>
+                <p th:utext="${content.html}">
+                   Author A
+                </p>
+            </div>
+        </div>
+
     </div>
 </div>

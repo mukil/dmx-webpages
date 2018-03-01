@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Message
+ * # Semantic UI 2.3.0 - Message
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -20,12 +20,12 @@
   background: #F8F8F9;
   padding: 1em 1.5em;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   -webkit-transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease, -webkit-box-shadow 0.1s ease;
-  border-radius: 0.25rem;
+  border-radius: 0.28571429rem;
   -webkit-box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
           box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
@@ -44,14 +44,14 @@
 /* Header */
 .ui.message .header {
   display: block;
-  font-family: "Cambria", "Georgia", "Times", serif;
+  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   font-weight: bold;
   margin: -0.14285714em 0em 0rem 0em;
 }
 
 /* Default font size */
 .ui.message .header:not(.ui) {
-  font-size: 1.125em;
+  font-size: 1.14285714em;
 }
 
 /* Paragraph */
@@ -189,7 +189,7 @@
 
 .ui.attached.message {
   margin-bottom: -1px;
-  border-radius: 0.25rem 0.25rem 0em 0em;
+  border-radius: 0.28571429rem 0.28571429rem 0em 0em;
   -webkit-box-shadow: 0em 0em 0em 1px rgba(34, 36, 38, 0.15) inset;
           box-shadow: 0em 0em 0em 1px rgba(34, 36, 38, 0.15) inset;
   margin-left: -1px;
@@ -201,7 +201,7 @@
 }
 .ui.bottom.attached.message {
   margin-top: -1px;
-  border-radius: 0em 0em 0.25rem 0.25rem;
+  border-radius: 0em 0em 0.28571429rem 0.28571429rem;
   -webkit-box-shadow: 0em 0em 0em 1px rgba(34, 36, 38, 0.15) inset, 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
           box-shadow: 0em 0em 0em 1px rgba(34, 36, 38, 0.15) inset, 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
 }
@@ -468,28 +468,28 @@
 ---------------*/
 
 .ui.mini.message {
-  font-size: 0.8125em;
+  font-size: 0.78571429em;
 }
 .ui.tiny.message {
-  font-size: 0.875em;
+  font-size: 0.85714286em;
 }
 .ui.small.message {
-  font-size: 0.9375em;
+  font-size: 0.92857143em;
 }
 .ui.message {
   font-size: 1em;
 }
 .ui.large.message {
-  font-size: 1.125em;
+  font-size: 1.14285714em;
 }
 .ui.big.message {
-  font-size: 1.3125em;
+  font-size: 1.28571429em;
 }
 .ui.huge.message {
-  font-size: 1.4375em;
+  font-size: 1.42857143em;
 }
 .ui.massive.message {
-  font-size: 1.6875em;
+  font-size: 1.71428571em;
 }
 
 

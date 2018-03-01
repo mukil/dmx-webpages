@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Site
+ * # Semantic UI 2.3.0 - Site
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -18,7 +18,7 @@ body {
   height: 100%;
 }
 html {
-  font-size: 16px;
+  font-size: 14px;
 }
 body {
   margin: 0px;
@@ -26,10 +26,10 @@ body {
   overflow-x: hidden;
   min-width: 320px;
   background: #FFFFFF;
-  font-family: "Cambria", "Georgia", "Times", serif;
-  font-size: 16px;
+  font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+  font-size: 14px;
   line-height: 1.4285em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   font-smoothing: antialiased;
 }
 
@@ -43,7 +43,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Cambria", "Georgia", "Times", serif;
+  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   line-height: 1.28571429em;
   margin: calc(2rem -  0.14285714em ) 0em 1rem;
   font-weight: bold;
@@ -101,14 +101,12 @@ p:last-child {
 --------------------*/
 
 a {
-  color: #2185D0;
-  -webkit-text-decoration: #8F1414;
-          text-decoration: #8F1414;
+  color: #4183C4;
+  text-decoration: none;
 }
 a:hover {
-  color: #0874c5;
-  -webkit-text-decoration: #8F1414;
-          text-decoration: #8F1414;
+  color: #1e70bf;
+  text-decoration: none;
 }
 
 
@@ -126,38 +124,39 @@ a:hover {
 /* Site */
 ::-webkit-selection {
   background-color: #CCE2FF;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 ::-moz-selection {
   background-color: #CCE2FF;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 ::selection {
   background-color: #CCE2FF;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /* Form */
 textarea::-webkit-selection,
 input::-webkit-selection {
   background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 textarea::-moz-selection,
 input::-moz-selection {
   background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 textarea::selection,
 input::selection {
   background-color: rgba(100, 100, 100, 0.4);
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /* Force Simple Scrollbars */
 body ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 10px;
+  height: 10px;
 }
 body ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
@@ -196,13 +195,6 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
         Global Overrides
 *******************************/
 
-/** Fonts **/
-/** Base Sizes **/
-
-/* This is the single variable that controls them all */
-
-/* The size of page text  */
-/** New Colors **/
 
 
 /*******************************

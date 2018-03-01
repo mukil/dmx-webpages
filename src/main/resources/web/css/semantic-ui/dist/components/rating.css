@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - Rating
+ * # Semantic UI 2.3.0 - Rating
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -68,7 +68,7 @@
 .ui.rating .icon.selected,
 .ui.rating .icon.selected.active {
   background: transparent;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /*-------------------
@@ -163,22 +163,22 @@
 *******************************/
 
 .ui.mini.rating {
-  font-size: 0.8125rem;
+  font-size: 0.78571429rem;
 }
 .ui.tiny.rating {
-  font-size: 0.875rem;
+  font-size: 0.85714286rem;
 }
 .ui.small.rating {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 .ui.rating {
   font-size: 1rem;
 }
 .ui.large.rating {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 .ui.huge.rating {
-  font-size: 1.4375rem;
+  font-size: 1.42857143rem;
 }
 .ui.massive.rating {
   font-size: 2rem;

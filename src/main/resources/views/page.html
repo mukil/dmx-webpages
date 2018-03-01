@@ -88,6 +88,14 @@
                         <div th:replace="fragments/sections :: accordion-styled (${section})" />
                     </div>
 
+                    <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
+                        <div th:replace="fragments/sections :: single-tile (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
+                        <div th:replace="fragments/sections :: quote-tiles (${section})" />
+                    </div>
+
                 </div>
 
                 <div class="ui vertical stripe segment main-segment">
@@ -127,6 +135,14 @@
 
                     <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
                         <div th:replace="fragments/sections :: accordion-styled (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
+                        <div th:replace="fragments/sections :: single-tile (${section})" />
+                    </div>
+
+                    <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
+                        <div th:replace="fragments/sections :: quote-tiles (${section})" />
                     </div>
 
                 </div>

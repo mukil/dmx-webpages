@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.2.13 - List
+ * # Semantic UI 2.3.0 - List
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -48,8 +48,8 @@ ol.ui.list li,
   table-layout: fixed;
   list-style-type: none;
   list-style-position: outside;
-  padding: 0.1875em 0em;
-  line-height: 1.125em;
+  padding: 0.21428571em 0em;
+  line-height: 1.14285714em;
 }
 ul.ui.list > li:first-child:after,
 ol.ui.list > li:first-child:after,
@@ -87,7 +87,7 @@ ol.ui.list ol,
 ul.ui.list ul li,
 ol.ui.list ol li,
 .ui.list .list > .item {
-  padding: 0.125em 0em;
+  padding: 0.14285714em 0em;
   line-height: inherit;
 }
 
@@ -97,7 +97,7 @@ ol.ui.list ol li,
   display: table-cell;
   margin: 0em;
   padding-top: 0em;
-  padding-right: 0.25em;
+  padding-right: 0.28571429em;
   vertical-align: top;
   -webkit-transition: color 0.1s ease;
   transition: color 0.1s ease;
@@ -134,7 +134,7 @@ ol.ui.list ol li,
 /* Content */
 .ui.list .list > .item > .content,
 .ui.list > .item > .content {
-  line-height: 1.125em;
+  line-height: 1.14285714em;
 }
 .ui.list .list > .item > .image + .content,
 .ui.list .list > .item > .icon + .content,
@@ -159,9 +159,9 @@ ol.ui.list ol li,
 .ui.list > .item .header {
   display: block;
   margin: 0em;
-  font-family: "Cambria", "Georgia", "Times", serif;
+  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 /* Description */
@@ -181,11 +181,11 @@ ol.ui.list ol li,
 .ui.list .list > a.item,
 .ui.list > a.item {
   cursor: pointer;
-  color: #2185D0;
+  color: #4183C4;
 }
 .ui.list .list > a.item:hover,
 .ui.list > a.item:hover {
-  color: #0874c5;
+  color: #1e70bf;
 }
 
 /* Linked Item Icons */
@@ -198,11 +198,11 @@ ol.ui.list ol li,
 .ui.list .list > .item a.header,
 .ui.list > .item a.header {
   cursor: pointer;
-  color: #2185D0 !important;
+  color: #4183C4 !important;
 }
 .ui.list .list > .item a.header:hover,
 .ui.list > .item a.header:hover {
-  color: #0874c5 !important;
+  color: #1e70bf !important;
 }
 
 /* Floated Content */
@@ -235,8 +235,8 @@ ol.ui.list ol li,
   background-color: transparent;
   list-style-type: none;
   list-style-position: outside;
-  padding: 0.1875em 0em;
-  line-height: 1.125em;
+  padding: 0.21428571em 0em;
+  line-height: 1.14285714em;
 }
 .ui.menu .ui.list .list > .item:before,
 .ui.menu .ui.list > .item:before {
@@ -291,8 +291,8 @@ ol.ui.list ol li,
 /* Padding on all elements */
 .ui.horizontal.list > .item:first-child,
 .ui.horizontal.list > .item:last-child {
-  padding-top: 0.1875em;
-  padding-bottom: 0.1875em;
+  padding-top: 0.21428571em;
+  padding-bottom: 0.21428571em;
 }
 
 /* Horizontal List */
@@ -332,7 +332,7 @@ ol.ui.list ol li,
 
 .ui.list .list > a.item:hover .icon,
 .ui.list > a.item:hover .icon {
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 
 
@@ -366,7 +366,7 @@ ol.ui.list ol li,
 }
 .ui.inverted.list .list > a.item:hover,
 .ui.inverted.list > a.item:hover {
-  color: #0874c5;
+  color: #1e70bf;
 }
 
 /* Linking Content */
@@ -374,7 +374,7 @@ ol.ui.list ol li,
   color: rgba(255, 255, 255, 0.9) !important;
 }
 .ui.inverted.list .item a:not(.ui):hover {
-  color: #0874c5 !important;
+  color: #1e70bf !important;
 }
 
 /*-------------------
@@ -408,16 +408,16 @@ ol.ui.list ol li,
   -webkit-transition: 0.1s color ease;
   transition: 0.1s color ease;
 }
-.ui.link.list a.item:hover,
-.ui.link.list .item a:not(.ui):hover {
+.ui.link.list.list a.item:hover,
+.ui.link.list.list .item a:not(.ui):hover {
   color: rgba(0, 0, 0, 0.8);
 }
-.ui.link.list a.item:active,
-.ui.link.list .item a:not(.ui):active {
+.ui.link.list.list a.item:active,
+.ui.link.list.list .item a:not(.ui):active {
   color: rgba(0, 0, 0, 0.9);
 }
-.ui.link.list .active.item,
-.ui.link.list .active.item a:not(.ui) {
+.ui.link.list.list .active.item,
+.ui.link.list.list .active.item a:not(.ui) {
   color: rgba(0, 0, 0, 0.95);
 }
 
@@ -427,16 +427,16 @@ ol.ui.list ol li,
 .ui.inverted.link.list .item a:not(.ui) {
   color: rgba(255, 255, 255, 0.5);
 }
-.ui.inverted.link.list a.item:hover,
-.ui.inverted.link.list .item a:not(.ui):hover {
+.ui.inverted.link.list.list a.item:hover,
+.ui.inverted.link.list.list .item a:not(.ui):hover {
   color: #ffffff;
 }
-.ui.inverted.link.list a.item:active,
-.ui.inverted.link.list .item a:not(.ui):active {
+.ui.inverted.link.list.list a.item:active,
+.ui.inverted.link.list.list .item a:not(.ui):active {
   color: #ffffff;
 }
-.ui.inverted.link.list a.active.item,
-.ui.inverted.link.list .active.item a:not(.ui) {
+.ui.inverted.link.list.list a.active.item,
+.ui.inverted.link.list.list .active.item a:not(.ui) {
   color: #ffffff;
 }
 
@@ -566,7 +566,7 @@ ul.ui.list li:before,
 ul.ui.list li:before,
 .ui.bulleted.list .list > a.item:before,
 .ui.bulleted.list > a.item:before {
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 ul.ui.list ul,
 .ui.bulleted.list .list {
@@ -588,7 +588,7 @@ ul.ui.horizontal.bulleted.list li:first-child,
 }
 ul.ui.horizontal.bulleted.list li::before,
 .ui.horizontal.bulleted.list > .item::before {
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
 }
 ul.ui.horizontal.bulleted.list li:first-child::before,
 .ui.horizontal.bulleted.list > .item:first-child::before {
@@ -628,7 +628,7 @@ ol.ui.list li:before,
   counter-increment: ordered;
   content: counters(ordered, ".") " ";
   text-align: right;
-  color: rgba(0, 0, 0, 0.87);
+  color: #3c3c3c;
   vertical-align: middle;
   opacity: 0.8;
 }
@@ -713,7 +713,7 @@ ol.ui.horizontal.list li:before,
 .ui.divided.ordered.list .item .list {
   margin-left: 0em;
   margin-right: 0em;
-  padding-bottom: 0.1875em;
+  padding-bottom: 0.21428571em;
 }
 .ui.divided.ordered.list .item .list > .item {
   padding-left: 1em;
@@ -770,8 +770,8 @@ ol.ui.horizontal.list li:before,
 /* Padding on all elements */
 .ui.celled.list > .item:first-child,
 .ui.celled.list > .item:last-child {
-  padding-top: 0.1875em;
-  padding-bottom: 0.1875em;
+  padding-top: 0.21428571em;
+  padding-bottom: 0.21428571em;
 }
 
 /* Sub Menu */
@@ -793,7 +793,7 @@ ol.ui.horizontal.list li:before,
 .ui.celled.bulleted.list .item .list {
   margin-left: -1.25rem;
   margin-right: -1.25rem;
-  padding-bottom: 0.1875em;
+  padding-bottom: 0.21428571em;
 }
 
 /* Celled Ordered */
@@ -807,7 +807,7 @@ ol.ui.horizontal.list li:before,
 .ui.celled.ordered.list .item .list {
   margin-left: 0em;
   margin-right: 0em;
-  padding-bottom: 0.1875em;
+  padding-bottom: 0.21428571em;
 }
 .ui.celled.ordered.list .list > .item {
   padding-left: 1em;
@@ -847,10 +847,10 @@ ol.ui.horizontal.list li:before,
 --------------------*/
 
 .ui.relaxed.list:not(.horizontal) > .item:not(:first-child) {
-  padding-top: 0.375em;
+  padding-top: 0.42857143em;
 }
 .ui.relaxed.list:not(.horizontal) > .item:not(:last-child) {
-  padding-bottom: 0.375em;
+  padding-bottom: 0.42857143em;
 }
 .ui.horizontal.relaxed.list .list > .item:not(:first-child),
 .ui.horizontal.relaxed.list > .item:not(:first-child) {
@@ -863,10 +863,10 @@ ol.ui.horizontal.list li:before,
 
 /* Very Relaxed */
 .ui[class*="very relaxed"].list:not(.horizontal) > .item:not(:first-child) {
-  padding-top: 0.75em;
+  padding-top: 0.85714286em;
 }
 .ui[class*="very relaxed"].list:not(.horizontal) > .item:not(:last-child) {
-  padding-bottom: 0.75em;
+  padding-bottom: 0.85714286em;
 }
 .ui.horizontal[class*="very relaxed"].list .list > .item:not(:first-child),
 .ui.horizontal[class*="very relaxed"].list > .item:not(:first-child) {
@@ -882,40 +882,40 @@ ol.ui.horizontal.list li:before,
 --------------------*/
 
 .ui.mini.list {
-  font-size: 0.8125em;
+  font-size: 0.78571429em;
 }
 .ui.tiny.list {
-  font-size: 0.875em;
+  font-size: 0.85714286em;
 }
 .ui.small.list {
-  font-size: 0.9375em;
+  font-size: 0.92857143em;
 }
 .ui.list {
   font-size: 1em;
 }
 .ui.large.list {
-  font-size: 1.125em;
+  font-size: 1.14285714em;
 }
 .ui.big.list {
-  font-size: 1.3125em;
+  font-size: 1.28571429em;
 }
 .ui.huge.list {
-  font-size: 1.4375em;
+  font-size: 1.42857143em;
 }
 .ui.massive.list {
-  font-size: 1.6875em;
+  font-size: 1.71428571em;
 }
 .ui.mini.horizontal.list .list > .item,
 .ui.mini.horizontal.list > .item {
-  font-size: 0.8125rem;
+  font-size: 0.78571429rem;
 }
 .ui.tiny.horizontal.list .list > .item,
 .ui.tiny.horizontal.list > .item {
-  font-size: 0.875rem;
+  font-size: 0.85714286rem;
 }
 .ui.small.horizontal.list .list > .item,
 .ui.small.horizontal.list > .item {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 .ui.horizontal.list .list > .item,
 .ui.horizontal.list > .item {
@@ -923,19 +923,19 @@ ol.ui.horizontal.list li:before,
 }
 .ui.large.horizontal.list .list > .item,
 .ui.large.horizontal.list > .item {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 .ui.big.horizontal.list .list > .item,
 .ui.big.horizontal.list > .item {
-  font-size: 1.3125rem;
+  font-size: 1.28571429rem;
 }
 .ui.huge.horizontal.list .list > .item,
 .ui.huge.horizontal.list > .item {
-  font-size: 1.4375rem;
+  font-size: 1.42857143rem;
 }
 .ui.massive.horizontal.list .list > .item,
 .ui.massive.horizontal.list > .item {
-  font-size: 1.6875rem;
+  font-size: 1.71428571rem;
 }
 
 
