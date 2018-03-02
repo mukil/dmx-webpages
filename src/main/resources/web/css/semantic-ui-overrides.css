@@ -100,19 +100,15 @@ article .text {
 #header-page-nav .item .logo,
 #lower-page-nav .item .logo {
     height: auto;
-    width: 3em
+    width: 4em
 }
 
-#lower-page-nav .item .logo {
-    margin: -.2em 0em;
+#header-page-nav .ui.inverted.menu .header.item {
+    margin-top: -0.1em;
 }
 
-#header-page-nav .item .logo {
-    margin: -.1em 0em;
-}
-
-#header-page-nav .header.item {
-    margin-top: 0.1em;
+#header-page-nav .ui.inverted.menu .item:not(.dropdown) {
+    margin-top: -1px;
 }
 
 /** --- Header Styles --- **/
@@ -281,6 +277,17 @@ article .text blockquote {
     padding-left: 1em;
     border-left: 4px solid rgba(255,255,255,0.7);
 }
+
+.ui.menu .item {
+    line-height: 1.4285em;
+}
+
+/** #header-page-nav  ui.menu .item {
+    min-height: 46px;
+}
+#header-page-nav .ui.menu .item:not(.dropdown) {
+    padding-top: 2px;
+} **/
 
 @media only screen and (max-width: 1024px) {
     .body .ui.segment h1.ui.header {
