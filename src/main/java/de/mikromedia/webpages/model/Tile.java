@@ -67,7 +67,7 @@ public class Tile {
     }
 
     /**
-     * If some DM standard topic is directly associated with a "Section Content" topic
+     * If some DM standard topic is directly associated with a "Tile" topic
      * that topic should be given priority in the templates and become the actual section content.
      * @return  Topic   A standard topic replacing the (title, html) section content.
      **/

@@ -17,7 +17,8 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
     }
 
     function browse_website() {
-        window.document.location.assign("/browse/" + dm4c.selected_object.id)
+        var prefix = dm4c.selected_object.childs["de.mikromedia.site.prefix"].value
+        open_in_new_tab('/' + prefix)
     }
 
     function webpage_is_draft() {
@@ -64,26 +65,22 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
     function browse_webpage() {
         var url = "/"
         if (connected_websites && connected_websites.length > 0) {
-            if (connected_websites[0].uri === "de.mikromedia.standard_site") {
+            var websiteOne = connected_websites[0]
+            if (websiteOne.uri === "de.mikromedia.standard_site") {
                 url += dm4c.selected_object.childs["de.mikromedia.page.web_alias"].value
-                console.log("Browse Webpage of Website related to Standard Site", url)
-            } else {
-                var usernames = get_related_username(connected_websites[0].id)
-                url += usernames[0].value + "/" + dm4c.selected_object.childs["de.mikromedia.page.web_alias"].value
-                console.log("Browse Webpage of Website of Username", url)
+            } else { // user site
+                var prefix = get_website_prefix(websiteOne)
+                url += prefix + "/" + dm4c.selected_object.childs["de.mikromedia.page.web_alias"].value
             }
-            // ### fetch url prefix of webpage related website
-            window.document.location.assign(url)
+            open_in_new_tab(url)
         } else {
             console.warn("Webpage is not connected to a website, cannot construct its URL for browsing")
         }
     }
 
-    function get_related_username(id) {
-        return dm4c.restc.get_topic_related_topics(id, {
-            "assoc_type": "dm4.core.association",
-            "others_topic_type_uri": "dm4.accesscontrol.username"
-        }, false)
+    function open_in_new_tab(url) {
+        var win = window.open(url, '_blank')
+        win.focus()
     }
 
     function get_related_website(webpageId) {
@@ -91,6 +88,11 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
             "assoc_type": "dm4.core.association",
             "others_topic_type_uri": "de.mikromedia.site"
         }, false)
+    }
+
+    function get_website_prefix(topic) {
+        var website =  dm4c.restc.get_topic_by_id(topic.id, true, false)
+        return website.childs["de.mikromedia.site.prefix"].value
     }
 
     dm4c.add_listener('topic_commands', function (topic) {

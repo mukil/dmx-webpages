@@ -92,12 +92,13 @@
                 <div class="ui basic vertical stripe segment main-segment posts container">
 
                     <div class="ui container">
-                        <h1 class="ui header">Posts</h1>
+                        <h1 class="ui header">Pages</h1>
                     </div>
 
                     <div class="ui text">
 
-                        <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'" itemtype="http://schema.org/WebPage" itemscope="">
+                        <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'"
+                                 itemtype="http://schema.org/WebPage" itemscope="">
                             <h3 class="ui header">
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
@@ -115,12 +116,6 @@
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
                             <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
                             <meta itemprop="author" th:content="${page.authorNames}" />
-                            <a th:if="${#strings.contains(website, 'standard')}"
-                                itemprop="url" th:href="'/' + ${page.webAlias}"
-                                class="ui large right floated button">Read More</a>
-                            <a th:if="${!#strings.contains(website, 'standard')}"
-                                itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}"
-                                class="ui large right floated button">Read More</a>
                             <div class="ui divider"></div>
                         </article>
                         

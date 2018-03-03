@@ -731,7 +731,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             viewData("location", href);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
-            viewData("webpages", getWebpagesSortedByTimestamp(webpages, true)); // false=creationDate */
+            viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */
         } else {
             log.warning("Preparing webpage template failed because a given website could not be found");
         }
