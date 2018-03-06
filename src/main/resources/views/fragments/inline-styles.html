@@ -8,8 +8,8 @@
                 background-image: url('/filerepo/[[${header.largeImage}]]');
                 background-repeat: no-repeat;
                 background-position: center center;
-                background-attachment: fixed;
-                background-size: cover;
+                background-attachment: [[${header.largeImageAttachment}]];
+                background-size: [[${header.largeImageSize}]];
             }
         }
         /*]]*/
@@ -20,9 +20,9 @@
             .page .ui.segment.header-background {
                 background-image: url('/filerepo/[[${header.smallImage}]]');
                 background-repeat: no-repeat;
-                background-size: cover;
-                background-attachment: fixed;
                 background-position: center center;
+                background-attachment: [[${header.smallImageAttachment}]];
+                background-size: [[${header.smallImageSize}]];
             }
         }
         /*]]>*/

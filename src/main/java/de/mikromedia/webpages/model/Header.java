@@ -1,5 +1,6 @@
 package de.mikromedia.webpages.model;
 
+import de.deepamehta.core.Association;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.CoreService;
@@ -18,12 +19,21 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
 import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
+import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 
 public class Header {
-    
+
     private Topic pageHeader;
+    private RelatedTopic imageLarge;
+    private RelatedTopic imageSmall;
+
+    private final String DEFAULT_ATTACHMENT = "fixed";
+    private final String DEFAULT_SIZE = "contain";
+
+    private Logger log = Logger.getLogger(getClass().getName());
 
     public Header(Topic pageHeader) {
         this.pageHeader = pageHeader;
@@ -70,15 +80,59 @@ public class Header {
     }
 
     public String getSmallImage() {
-        Topic imageFile = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
+        if (this.imageSmall != null)
+            return this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
+        this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        log.info("Small Header Image Loaded...");
+        return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
+    }
+
+    public String getSmallImageSize() {
+        String val = null;
+        if (imageSmall == null) getSmallImage();
+        if (imageSmall != null) {
+            Association imageConfig = imageSmall.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+        }
+        return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
+    }
+
+    public String getSmallImageAttachment() {
+        String val = null;
+        if (imageSmall != null) {
+            Association imageConfig = imageSmall.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+        }
+        return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
 
     public String getLargeImage() {
-        Topic imageFile = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
+        if (this.imageLarge != null)
+            return this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
+        this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        log.info("Large Header Image Loaded...");
+        return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
+    }
+
+    public String getLargeImageSize() {
+        String val = null;
+        if (imageLarge == null) getLargeImage();
+        if (imageLarge != null) {
+            Association imageConfig = imageLarge.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+        }
+        return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
+    }
+
+    public String getLargeImageAttachment() {
+        String val = null;
+        if (imageLarge != null) {
+            Association imageConfig = imageLarge.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+        }
+        return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
 
     public String getBackgroundColor() {

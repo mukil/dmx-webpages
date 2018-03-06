@@ -390,23 +390,23 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     /**
      * Lists all currently published webpages for the usernames website.
-     * @param username
+     * @param sitePrefix
      * @return All webpage topics associated with the website for the given username not marked as \"Drafts\".
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
     @Override
-    public List<Webpage> getPublishedWebpages(@PathParam("username") String username) {
-        log.info("Listing all published webpages for \"" + username + "\"");
-        Topic website = getOrCreateWebsiteTopic(username);
+    public List<Webpage> getPublishedWebpages(@PathParam("username") String sitePrefix) {
+        Topic website = getOrCreateWebsiteTopic(sitePrefix);
         if (website != null) {
             Website site = new Website(website, dm4);
             if (site.isWebsiteTopic()) {
+                log.info("Loading website related and published webpages for \"" + sitePrefix + "\"");
                 return site.getRelatedWebpagesPublished();
             }
         } else {
-            log.warning("No website available under username/prefix \"/" + username + "\" - Returning empty list");
+            log.warning("No website available with prefix \"/" + sitePrefix + "\" - Returning empty list");
         }
         return new ArrayList<Webpage>();
     }
@@ -418,9 +418,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
      */
     @Override
     public List<Webpage> getPublishedWebpages(Topic websiteTopic) {
-        log.info("Listing all published webpages for \"" + websiteTopic.getSimpleValue()+ "\" website");
         Website site = new Website(websiteTopic, dm4);
         if (site.isWebsiteTopic()) {
+            log.info("Loading website related and published webpages for \"" + site.getSitePrefix() + "\"");
             return site.getRelatedWebpagesPublished();
         }
         return new ArrayList<Webpage>();
