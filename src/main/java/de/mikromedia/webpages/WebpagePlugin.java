@@ -277,10 +277,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         List<Topic> pages = searchWebpageContents(query);
         List<Topic> sites = searchWebsites(query);
         for (Topic page : pages) {
-            response.putPageResult(new SearchResult(page));
+            try {
+                response.putPageResult(new SearchResult(page));
+            } catch (AccessControlException aex) {
+                // log.info("User has no read permission on search result");
+            }
         }
         for (Topic site : sites) {
-            response.putWebsiteResult(new SearchResult(site));
+            try {
+                response.putWebsiteResult(new SearchResult(site));
+            } catch (AccessControlException aex) {
+                // log.info("User has no read permission on search result");
+            }
         }
         log.info("Query matched " + pages.size() + " pages, " + sites.size() + " sites");
         return response;

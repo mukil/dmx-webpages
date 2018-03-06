@@ -1,4 +1,52 @@
 
+<!-- ### Note Card -->
+<!--div class="ui three stackable cards"></div-->
+<!-- a class="ui card" href="http://www.dog.com"> ... </a-->
+<div class="ui fluid card" th:fragment="note-card(topic)">
+    <div class="content">
+        <div class="header">Cute Dog</div>
+        <div class="meta">
+            <span>2 days ago</span>
+            <a>Animals</a>
+        </div>
+    </div>
+    <div class="description">
+        <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+        <p>Many people also have their own barometers for what makes a cute dog.</p>
+    </div>
+    <div class="extra content">
+        <span class="left floated like">
+            <i class="like icon"></i>
+            Like
+        </span>
+        <span class="right floated author">
+            <img class="ui avatar image" src="/images/avatar/small/matt.jpg"> Malt
+        </span>
+    </div>
+</div>
+
+<!-- ### News Image Item -->
+<div class="ui divided items" th:fragment="news-item (topic)">
+    <div class="item">
+        <div class="image">
+            <img src="/images/wireframe/image.png">
+        </div>
+        <div class="content">
+            <a class="header">12 Years a Slave</a>
+            <div class="meta">
+                <span class="cinema">Union Square 14</span>
+            </div>
+            <div class="description">
+                <p></p>
+            </div>
+            <div class="extra">
+                <div class="ui label">IMAX</div>
+                <div class="ui label"><i class="globe icon"></i> Additional Languages</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Clickable Image Item -->
 <div class="item" th:fragment="image-item (topic)">
     <a class="ui tiny image">
