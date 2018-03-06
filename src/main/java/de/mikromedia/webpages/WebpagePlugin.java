@@ -78,6 +78,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
 
     private static final String FRONTPAGE_TEMPLATE_NAME = "frontpage";
+    private static final String SIMPLE_PAGE_TEMPLATE_NAME = "page";
 
     /** A name of a Viewable registered by another plugin to be served at "/". **/
     String frontPageTemplateName = null;
@@ -187,23 +188,26 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
-            preparePageHeader(website);
-            preparePageSections(website);
+            preparePageHeader(website); // also allowed with frontpages
+            preparePageSections(website); // alsow allowed with frontpages
             dm4.fireEvent(FRONTPAGE_REQUESTED, website, pageAlias);
             return getWebsiteTemplate(website);
         }
         // 3) if not, use standard website for page preparation
         website = getStandardWebsite();
         if (website != null) {
+            log.info("Preparing STANDARD FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, webAlias);
         }
         // 4) is webpage of standard site
-        Webpage webpage = getWebsitesWebpage(website, pageAlias, STANDARD_WEBSITE_PREFIX);
+        Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, STANDARD_WEBSITE_PREFIX);
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
-            Viewable webpageTemplate = getWebpageTemplate(webpage);
-            return webpageTemplate;
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
+            prepareWebsiteViewData(website, pageAlias);
+            preparePageViewData(webpage);
+            return getWebpageTemplate(webpage);
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) is redirect of admin
@@ -226,17 +230,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     public Viewable getWebsitePage(@PathParam("site") String sitePrefix, @PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
         String location = "/" + sitePrefix + "/" + webAlias;
-        log.info("Requesting Website Page " + location);
         // 1) Fetch some website topic
         Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
         if (usersWebsite != null) {
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, sitePrefix);
             prepareWebsiteViewData(usersWebsite, location);
         }
         // 2) check related webpages
-        Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias, sitePrefix);
+        Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias);
         if (webpage != null) {
             dm4.fireEvent(WEBPAGE_REQUESTED, webpage, sitePrefix);
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
+            preparePageViewData(webpage);
             return getWebpageTemplate(webpage);
         }
         log.info("=> /" + pageAlias + " webpage for \"" +sitePrefix+ "\"s website not found.");
@@ -395,14 +400,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{username}")
+    @Path("/{sitePrefix}")
     @Override
-    public List<Webpage> getPublishedWebpages(@PathParam("username") String sitePrefix) {
+    public List<Webpage> getPublishedWebpages(@PathParam("sitePrefix") String sitePrefix) {
         Topic website = getOrCreateWebsiteTopic(sitePrefix);
         if (website != null) {
             Website site = new Website(website, dm4);
             if (site.isWebsiteTopic()) {
-                log.info("Loading website related and published webpages for \"" + sitePrefix + "\"");
+                log.info("Loading JSON data on website \"" + sitePrefix + "\" and its published webpages");
                 return site.getRelatedWebpagesPublished();
             }
         } else {
@@ -523,9 +528,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                         .put(WEBSITE_NAME, "My collection of webpages")
                         .putRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
                         .put(WEBSITE_PREFIX, username.getSimpleValue().toString())
-                        .put(WEBSITE_FOOTER, "<p class=\"attribution\">Published with the "
+                        .put(WEBSITE_FOOTER, "<p class=\"attribution\">Published with "
                             + "<a href=\"http://github.com/mukil/dm4-webpages\" title=\"Source Coude: dm4-webpages\">"
-                            + "dm4-webpages</a> module.</p>")
+                            + "webpages</a>, an application of the <a href=\"https://dmx.systems\""
+                            + " title=\"Visit DMX Systems Webpage\">dmx context engine</a>.</p>")
                     ));
                     Topic usersWorkspace = dm4.getAccessControl().getPrivateWorkspace(
                         username.getSimpleValue().toString());
@@ -581,17 +587,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     /**
      * @param website
      * @param webAlias
-     * @param sitePrefix
-     * @return A processed thymeleaf template if a webpage is related to that website, <code>null</code> otherwise.
+     *
+     * @return A webpage if it is related to that website, <code>null</code> otherwise.
      */
-    private Webpage getWebsitesWebpage(Topic website, String webAlias, String sitePrefix) {
+    private Webpage getWebsitesWebpage(Topic website, String webAlias) {
         Website site = new Website(website, dm4);
         if (site.isWebsiteTopic()) {
             Topic webpageAliasTopic = site.getWebpageByAlias(webAlias);
             if (webpageAliasTopic != null) {
-                String location = "/" + sitePrefix + "/" + webAlias;
-                prepareGenericViewData("page", sitePrefix);
-                prepareWebsiteViewData(website, location);
                 return new Webpage(webpageAliasTopic);
             }
         }
@@ -653,13 +656,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 log.fine("401 => /" + page.getWebAlias() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
-                viewData("customPageCss", page.getStylesheet());
-                viewData("dateCreated", df.format(page.getCreationDate()));
-                viewData("dateModified", df.format(page.getModificationDate()));
-                viewData("page", page);
-                preparePageHeader(page.getTopic());
-                preparePageSections(page.getTopic());
-                return view("page");
+                return view(SIMPLE_PAGE_TEMPLATE_NAME);
             }
         } catch (RuntimeException re) {
             throw new RuntimeException("Page Template for Webpage Topic (ID: "
@@ -737,6 +734,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         }
     }
 
+    private void preparePageViewData(Webpage webpage) {
+        viewData("customPageCss", webpage.getStylesheet());
+        viewData("dateCreated", df.format(webpage.getCreationDate()));
+        viewData("dateModified", df.format(webpage.getModificationDate()));
+        viewData("page", webpage);
+        preparePageHeader(webpage.getTopic());
+        preparePageSections(webpage.getTopic());
+    }
+
     private boolean isFrontpageAliasRegistered(String frontpageAlias) {
         return (frontpageTemplateAliases.get(frontpageAlias) != null);
     }
@@ -775,7 +781,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     private List<Section> getSectionsSortedByAssocationNumber(List<Section> all) {
         Collections.sort(all, new Comparator<Section>() {
             public int compare(Section s1, Section s2) {
-                log.info("Sort compares " + s1.getOrdinalNumber() + " and " + s2.getOrdinalNumber());
                 try {
                     if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return 1;
                     if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return -1;

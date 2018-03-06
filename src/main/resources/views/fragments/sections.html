@@ -181,8 +181,9 @@
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <div class="title" th:text="${content.title}">
-              Section Title
+            <div class="title">
+                <i class="dropdown icon arrow circle down"></i>
+                <span th:text="${content.title}">Section Title</span>
             </div>
             <div class="content" th:utext="${content.html}">
               <p>Tile</p>

@@ -135,7 +135,7 @@ public class Website {
             Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
             String webpageAlias = webpageTopic.getChildTopics().getString(WEBPAGE_ALIAS);
             if (webpageAlias.equals(webAlias)) {
-                log.fine("Loaded webpage with web alias \"" + webAlias + "\" Title: " + webpageTopic.getSimpleValue());
+                log.fine("Loaded webpage by web alias \"" + webAlias + "\" Title: " + webpageTopic.getSimpleValue());
                 return webpageTopic.getChildTopics().getTopic(WEBPAGE_ALIAS);
             }
         }

@@ -88,6 +88,10 @@ article .text {
     left: -1em;
 }
 
+.footer .site-link h1 {
+    margin-bottom: 1em;
+}
+
 .footer .caption {
     margin-bottom: 2em;
 }
@@ -177,7 +181,7 @@ header.inverted .page-meta .label {
 
 .ui.styled.accordion .accordion .content,
 .ui.styled.accordion .content {
-    padding: 1.5em;
+    padding: 1em;
 }
 
 /** Section Layout Stylings --*/

@@ -84,7 +84,6 @@ public class Header {
             return this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
         this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        log.info("Small Header Image Loaded...");
         return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
@@ -112,7 +111,6 @@ public class Header {
             return this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
         this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
-        log.info("Large Header Image Loaded...");
         return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
