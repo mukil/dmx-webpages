@@ -710,10 +710,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             }
             // 1.) set custom Header data
             if (above.size() > 0) {
-                viewData("sectionsAbove", getSectionsSortedByAssocationNumber(above));
+                viewData("sectionsAbove", getSectionsSorted(above));
             }
             if (below.size() > 0) {
-                viewData("sectionsBelow", getSectionsSortedByAssocationNumber(below));
+                viewData("sectionsBelow", getSectionsSorted(below));
             }
         }
     }
@@ -786,12 +786,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return all;
     }
 
-    private List<Section> getSectionsSortedByAssocationNumber(List<Section> all) {
+    private List<Section> getSectionsSorted(List<Section> all) {
         Collections.sort(all, new Comparator<Section>() {
             public int compare(Section s1, Section s2) {
                 try {
-                    if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return 1;
-                    if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return -1;
+                    if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return 1;
+                    if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return -1;
                 } catch (Exception nfe) {
                     log.warning("Error while accessing ordinal number Section: " + s1.getId() + " Section: "
                             + s2.getId() + " nfe: " + nfe.getMessage());

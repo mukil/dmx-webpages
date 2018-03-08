@@ -4,7 +4,6 @@ import de.deepamehta.core.Association;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -23,13 +22,11 @@ import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 import static de.mikromedia.webpages.WebpageService.TILE;
+import java.util.Collections;
+import java.util.Comparator;
 
-/**
- *
- * @author malt
- */
 public class Section {
-    
+
     private RelatedTopic pageSection;
 
     public Section(RelatedTopic pageSection) {
@@ -53,8 +50,7 @@ public class Section {
         SimpleValue assocText = assoc.getSimpleValue();
         int ordinalNumber = 0;
         try {
-            ordinalNumber = (assocText == null
-                && assocText.toString().isEmpty()) ? 0
+            ordinalNumber = (assocText == null || assocText.toString().isEmpty()) ? 0
                 : Integer.parseInt(assocText.toString());
         } catch (NumberFormatException ex) {
             // log.debug("");
@@ -69,13 +65,13 @@ public class Section {
     }
 
     public List<Tile> getContents() {
-        List<Tile> sectionContents = new ArrayList();
+        List<Tile> tiles = new ArrayList();
         List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopics(TILE);
         for (RelatedTopic content : contents) {
             Tile sectionContent = new Tile(content);
-            sectionContents.add(sectionContent);
+            tiles.add(sectionContent);
         }
-        return sectionContents;
+        return getTilesSorted(tiles);
     }
 
     public String getSmallImage() {
@@ -123,6 +119,21 @@ public class Section {
 
     public String getFontColor() {
         return this.pageSection.getChildTopics().getStringOrNull(FONT_COLOR);
+    }
+
+    private List<Tile> getTilesSorted(List<Tile> all) {
+        Collections.sort(all, new Comparator<Tile>() {
+            public int compare(Tile s1, Tile s2) {
+                try {
+                    if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return 1;
+                    if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return -1;
+                } catch (Exception nfe) {
+                    return 0;
+                }
+                return 0;
+            }
+        });
+        return all;
     }
 
     public JSONObject toJSON() {

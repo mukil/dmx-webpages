@@ -1,7 +1,9 @@
 package de.mikromedia.webpages.model;
 
+import de.deepamehta.core.Association;
+import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.CoreService;
+import de.deepamehta.core.model.SimpleValue;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
@@ -19,25 +21,13 @@ import static de.mikromedia.webpages.WebpageService.LINK;
 import static de.mikromedia.webpages.WebpageService.TILE;
 import static de.mikromedia.webpages.WebpageService.TILE_HTML;
 
-/**
- *
- * @author malt
- */
 public class Tile {
     
-    private Topic content;
+    private RelatedTopic content;
     private Topic relatedTopic;
 
-    public Tile(Topic sectionContent) {
+    public Tile(RelatedTopic sectionContent) {
         this.content = sectionContent;
-        if (!isSectionContentTopic()) {
-            throw new IllegalArgumentException("Given topic is not of type Section Content");
-        }
-        this.content.loadChildTopics();
-    }
-
-    public Tile(long topicId, CoreService dms) {
-        this.content = dms.getTopic(topicId);
         if (!isSectionContentTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Section Content");
         }
@@ -50,6 +40,19 @@ public class Tile {
 
     public Topic getTopic() {
         return this.content;
+    }
+
+    public int getOrdinalNumber() {
+        Association assoc = this.content.getRelatingAssociation();
+        SimpleValue assocText = assoc.getSimpleValue();
+        int ordinalNumber = 0;
+        try {
+            ordinalNumber = (assocText == null || assocText.toString().isEmpty()) ? 0
+                : Integer.parseInt(assocText.toString());
+        } catch (NumberFormatException ex) {
+            // log.debug("");
+        }
+        return ordinalNumber;
     }
 
     // --- Custom Section Data Accessors

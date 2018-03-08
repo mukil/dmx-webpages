@@ -41,6 +41,10 @@ Note: The permission who can see your published webpage depends on the so called
 
 
 ## Changelog
+**0.7.1** - Mar 08, 2018
+
+* Fixes Single Tile section layout
+* Added sorting for Tiles within Sections
 
 **0.7** -- Mar 07, 2018
 

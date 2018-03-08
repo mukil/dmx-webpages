@@ -205,15 +205,15 @@
             Tile Title
         </h1>
     </div>
-    <!-- Single Tile (Just Render Child at Position: 0) -->
+    <!-- Single Tile Container Boxes -->
     <div class="ui container text">
-        <div th:if="${iterator.index} == 0" th:each="content, iterator : ${section.contents}">
+        <div th:each="content, iterator : ${section.contents}" class="tile-row">
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <h2 class="title" th:text="${content.title}">
+            <h3 class="title" th:text="${content.title}">
               Tile Title
-            </h2>
+            </h3>
             <div class="content" th:utext="${content.html}">
               <p>Tile Content</p>
             </div>

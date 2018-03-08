@@ -27,10 +27,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import static de.mikromedia.webpages.WebpageService.LOGO_IMAGE;
 
-/**
- *
- * @author Malte Reißig
- */
 public class Website {
     
     private Logger log = Logger.getLogger(getClass().getName());
