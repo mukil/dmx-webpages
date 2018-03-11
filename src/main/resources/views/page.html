@@ -22,9 +22,9 @@
         <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
         <!--link media="all" href="/de.mikromedia.webpages/jquery/jquery-ui-1.12.1-kiezatlas.min.css"></link-->
 
-        <script src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
-        <script src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
-        <script src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+        <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
+        <script defer="true"  src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
         <script>
             $(document).ready(function () {
                 // fix menu when passed
