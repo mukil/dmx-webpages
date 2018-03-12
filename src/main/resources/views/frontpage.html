@@ -16,24 +16,7 @@
 
         <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js"></script>
-        <script>
-            $(document).ready(function () {
-                // fix menu when passed
-                $('.masthead').visibility({
-                    once: false,
-                    onBottomPassed: function () {
-                        $('.fixed.menu').transition('fade in');
-                    },
-                    onBottomPassedReverse: function () {
-                        $('.fixed.menu').transition('fade out');
-                    }
-                })
-                // pro-actively create sidebar and attach to menu open
-                $('.ui.sidebar').sidebar('attach events', '.toc.item')
-                render_page()
-            })
-        </script>
+        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
     </head>

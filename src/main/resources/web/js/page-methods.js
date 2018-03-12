@@ -1,9 +1,4 @@
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 function show_search_options() {
     console.log("### todo: show search options")
 }
@@ -23,7 +18,21 @@ function zero(e) {
 }
 
 function render_page() {
+    // fix menu when passed
+    $('.masthead').visibility({
+        once: false,
+        onBottomPassed: function () {
+            $('.fixed.menu').transition('fade in');
+        },
+        onBottomPassedReverse: function () {
+            $('.fixed.menu').transition('fade out');
+        }
+    })
+    // pro-actively create sidebar and attach to menu open
+    $('.ui.sidebar').sidebar('attach events', '.toc.item')
+    // pro-actively activate any dropdown menu items
     $('.ui.dropdown').dropdown()
+    // configure search input fields
     var searchConfig = {
         apiSettings: {
             url: '/websites/search?q={query}',
@@ -52,7 +61,10 @@ function render_page() {
                 noResults   : 'Wir konnten zu dieser Suchanfrage keine Ergebnisse finden.',
                 serverError : 'Bei der Verarbeitung dieser Suchanfarge ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
             }, **/
+    // pro-actively activate add table styles to all pages
     $('table').addClass('ui celled table')
+    // pro-actively activate accordion interactions on any page
+    $('.ui.accordion').accordion();
 }
 
 function register_input_handler() {

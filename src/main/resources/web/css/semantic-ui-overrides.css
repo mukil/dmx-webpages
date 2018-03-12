@@ -126,6 +126,14 @@ header .page-buttons {
     margin-top: 1.7em;
 }
 
+header .page-buttons div {
+    display: inline-block;
+}
+
+header .header-background .ui.container {
+    padding-bottom: 4em;
+}
+
 header .ui.primary.button {
     font-size: 1em;
 }
