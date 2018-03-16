@@ -72,7 +72,7 @@
 
                 </div>
 
-                <div class="ui basic vertical stripe segment main-segment posts container">
+                <div class="ui basic vertical stripe segment main-segment posts text container">
 
                     <div class="ui container">
                         <h1 class="ui header">Pages</h1>
@@ -86,12 +86,12 @@
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                                 <a th:if="${!#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                             </h3>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>

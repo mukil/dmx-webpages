@@ -88,6 +88,7 @@ public interface WebpageService {
     public static final String WEBPAGES_WS_URI = "de.mikromedia.webpages_ws";
     public static final String WEBPAGES_WS_NAME = "Webpages";
     public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
+    public static final String FAVICON_NAME = "favicon.ico";
 
     /** Standard Distribution URIs (DM4) **/
     public static final String ROLE_DEFAULT = "dm4.core.default";

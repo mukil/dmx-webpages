@@ -6,7 +6,7 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
     <div class="ui">
-        <h1 class="ui header aligned center"
+        <h1 class="ui header container text"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Ten Six Section Title
@@ -48,7 +48,7 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
     <div class="ui">
-        <h1 class="ui header aligned center" th:text="${section.title}">
+        <h1 class="ui header container text" th:text="${section.title}">
             Equal Columns Section Title
         </h1>
     </div>
@@ -110,7 +110,7 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
     <div class="ui">
-        <h1 class="ui header aligned center"
+        <h1 class="ui header container text container"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Two and N Equal Columns Section title
@@ -162,21 +162,21 @@
     </div>
 </div>
 
-<!-- Dummy Accordion Section -->
+<!-- Accordion Section -->
 <div th:fragment="accordion-styled (section)"
      th:class="'ui basic spaced container accordion-section segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
     <div class="ui container">
-        <h1 class="ui header aligned center"
+        <h1 class="ui header container text"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Accordion Title
         </h1>
     </div>
     <!-- Tile Elements -->
-    <div class="ui styled fluid accordion">
+    <div class="ui styled fluid accordion container text">
         <div th:each="content, iterator : ${section.contents}">
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
@@ -199,7 +199,7 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
     <div class="ui container">
-        <h1 class="ui header aligned center"
+        <h1 class="ui header container text"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Tile Title
@@ -228,13 +228,13 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
     <div class="ui" th:if="${not #strings.isEmpty(section.title)}">
-        <h1 class="ui header aligned center" th:text="${section.title}">
+        <h1 class="ui header container text" th:text="${section.title}">
             Quote Section Title
         </h1>
     </div>
      <div class="ui equal width stackable internally celled grid">
 
-        <div class="row center aligned">
+        <div class="row aligned">
             <div th:if="${iterator.index} le 1"
                  th:class="'column tile tile-background-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">
@@ -248,7 +248,7 @@
             </div>
         </div>
 
-        <div class="row center aligned second">
+        <div class="row aligned second">
              <div th:if="${iterator.index} gt 1 and ${iterator.index} le 3"
                  th:class="'column tile tile-background-' + ${content.id}"
                  th:each="content, iterator : ${section.contents}">

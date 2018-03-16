@@ -11,8 +11,12 @@ button {
     display: none;
 }
 
-h3.header .value{
-    color: #343434;
+.ui.transparent.inverted.input>input,
+.ui.menu .item {
+    font-weight: bold;
+}
+
+h3.header .value {
     margin-left: 0.5em;
     font-weight: normal;
     font-style: italic;
@@ -130,7 +134,8 @@ header .page-buttons div {
     display: inline-block;
 }
 
-header .header-background .ui.container {
+header.header-background .ui.container
+header.header-background .ui.container {
     padding-bottom: 4em;
 }
 
@@ -149,14 +154,24 @@ header.inverted .page-meta .label {
     color: #585858;
 }
 
+/** -- Frontpage Body Segment Style -- **/
+
+.posts article {
+    padding-top: 1em;
+}
+
+.posts article .ui.header a {
+    color: #b7d9cb;
+}
+
 /** --- Segments Stylings --- **/
 
 .body .ui.spaced.segment {
-    padding-bottom: 6em;
+    padding-bottom: 10em;
 }
 
 .body .ui.spaced.segment.accordion-section {
-    padding-bottom: 3em;
+    padding-bottom: 0em;
 }
 
 .body .ui.accordion-section {
@@ -187,9 +202,9 @@ header.inverted .page-meta .label {
     padding-bottom: 6em;
 }
 
-.ui.styled.accordion .accordion .content,
+.ui.styled.accordion .title,
 .ui.styled.accordion .content {
-    padding: 1em;
+    font-size: 16px;
 }
 
 @media only screen and (max-width: 767px) {

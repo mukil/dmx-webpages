@@ -31,9 +31,9 @@
 /* Default Styling */
 .ui.accordion .title:not(.ui) {
   padding: 0.5em 0em;
-  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+  font-family: "Roboto Slab" "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   font-size: 1em;
-  color: #3c3c3c;
+  color: #2b293f;
 }
 
 /* Content */
@@ -125,7 +125,7 @@
 }
 .ui.styled.accordion,
 .ui.styled.accordion .accordion {
-  border-radius: 0.28571429rem;
+  border-radius: 0.25rem;
   background: #FFFFFF;
   -webkit-box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15);
           box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15);
@@ -162,12 +162,12 @@
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #3c3c3c;
+  color: #2b293f;
 }
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #3c3c3c;
+  color: #2b293f;
 }
 
 /* Active */

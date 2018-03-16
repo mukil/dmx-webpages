@@ -140,14 +140,14 @@
 .ui.items > .item > .content > .header {
   display: inline-block;
   margin: -0.21425em 0em 0em;
-  font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+  font-family: "Roboto Slab" "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.85);
 }
 
 /* Default Header Size */
 .ui.items > .item > .content > .header:not(.ui) {
-  font-size: 1.28571429em;
+  font-size: 1.3125em;
 }
 
 /*--------------
@@ -186,7 +186,7 @@
   max-width: auto;
   font-size: 1em;
   line-height: 1.4285em;
-  color: #3c3c3c;
+  color: #2b293f;
 }
 
 /*--------------
@@ -241,7 +241,7 @@
   color: rgba(0, 0, 0, 0.85);
 }
 .ui.items > .item > .content > a.header:hover {
-  color: #1e70bf;
+  color: #1d1a3e;
 }
 
 /* Meta */
@@ -249,7 +249,7 @@
   color: rgba(0, 0, 0, 0.4);
 }
 .ui.items > .item .meta > a:not(.ui):hover {
-  color: #3c3c3c;
+  color: #2b293f;
 }
 
 /*--------------
@@ -452,7 +452,7 @@
 }
 .ui.items a.item:hover .content .header,
 .ui.link.items > .item:hover .content .header {
-  color: #1e70bf;
+  color: #1d1a3e;
 }
 
 /*--------------
