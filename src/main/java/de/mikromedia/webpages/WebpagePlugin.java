@@ -10,6 +10,8 @@ import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.TopicType;
+import de.deepamehta.core.ViewConfiguration;
 import de.deepamehta.core.model.AssociationModel;
 import de.deepamehta.core.model.RoleModel;
 import de.deepamehta.core.model.SimpleValue;
@@ -275,7 +277,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     public SearchResultList searchWebsites(@QueryParam("q") String query, @QueryParam("t") String typeName) throws JSONException {
         SearchResultList response = new SearchResultList();
         List<Topic> pages = searchWebpageContents(query);
-        List<Topic> sites = searchWebsites(query);
+        List<Topic> sites = searchWebsiteFields(query);
         for (Topic page : pages) {
             try {
                 response.putPageResult(new SearchResult(page));
@@ -290,50 +292,83 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 // log.info("User has no read permission on search result");
             }
         }
-        log.info("Query matched " + pages.size() + " pages, " + sites.size() + " sites");
+        log.info("Query \""+query+"\" matched " + pages.size() + " pages, " + sites.size() + " sites");
         return response;
     }
 
     private List<Topic> searchWebpageContents(String query) {
         List<Topic> results = new ArrayList<Topic>();
-        for (Topic headline : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.page.headline")) {
-            Topic webpage = getParentPage(headline);
+        for (Topic headline : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_TITLE)) {
+            Topic webpage = getRelatedWebpage(headline);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.page.main")) {
-            Topic webpage = getParentPage(content);
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_CONTENT)) {
+            Topic webpage = getRelatedWebpage(content);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", SECTION_TITLE)) {
+            Topic section = getParentSection(content);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
+            Topic tile = getParentTile(content);
+            Topic section = getParentSection(tile);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
+            Topic tile = getParentTile(content);
+            Topic section = getParentSection(tile);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
         return results;
     }
 
-    private List<Topic> searchWebsites(String query) {
+    private List<Topic> searchWebsiteFields(String query) {
         List<Topic> results = new ArrayList<Topic>();
         for (Topic siteName : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_NAME)) {
-            Topic website = getParentSite(siteName);
+            Topic website = getRelatedwebsite(siteName);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteCaption : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_CAPTION)) {
-            Topic website = getParentSite(siteCaption);
+            Topic website = getRelatedwebsite(siteCaption);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteFooter : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_FOOTER)) {
-            Topic website = getParentSite(siteFooter);
+            Topic website = getRelatedwebsite(siteFooter);
             if (!results.contains(website)) results.add(website);
         }
         return results;
     }
 
-    private Topic getParentPage(Topic child) {
-        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBPAGE);
+    private Topic getParentTile(Topic child) {
+        return child.getRelatedTopic(AGGREGATION, null, null, TILE);
     }
 
-    private Topic getParentSite(Topic child) {
-        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
+    private Topic getParentSection(Topic child) {
+        if (child == null) return null;
+        return child.getRelatedTopic(AGGREGATION, null, null, SECTION);
+    }
+
+    private Topic getRelatedWebpage(Topic child) {
+        if (child == null) return null;
+        return child.getRelatedTopic(null, null, null, WEBPAGE);
+    }
+
+    private Topic getRelatedwebsite(Topic child) {
+        return child.getRelatedTopic(null, null, null, WEBSITE);
     }
 
     public Topic getRelatedHeader(Topic topic) {
@@ -467,6 +502,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             website = prefix.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
         }
         return website;
+    }
+
+    public String getTypeIconPath(String typeUri) {
+        TopicType webpage = dm4.getTopicType(typeUri);
+        ViewConfiguration viewConfig = webpage.getViewConfig();
+        Topic icon = viewConfig.getConfigTopic("dm4.webclient.icon");
+        return (icon != null) ? icon.getSimpleValue().toString() : "";
     }
 
     // --- Private Utility Methods

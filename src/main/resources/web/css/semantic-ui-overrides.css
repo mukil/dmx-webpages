@@ -164,6 +164,10 @@ header.inverted .page-meta .label {
     color: #b7d9cb;
 }
 
+.posts article .ui.header a:hover {
+    color: #2b293f;
+}
+
 /** --- Segments Stylings --- **/
 
 .body .ui.spaced.segment {
