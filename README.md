@@ -41,6 +41,14 @@ Note: The permission who can see your published webpage depends on the so called
 
 
 ## Changelog
+
+**0.7.2** - Upcoming
+
+* Include tile child values and section titles in fulltext search results.
+* Preparations of displaying topic type icons on pages
+* Optimized loading of javascript resources & page script initialization
+* Adjustment of header button, section header and "Pages" section style
+
 **0.7.1** - Mar 08, 2018
 
 * Fixes Single Tile section layout
