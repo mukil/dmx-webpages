@@ -159,8 +159,12 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
+
+        <script th:if="${institution}"
+                th:replace="fragments/schema-org :: organization (${institution})"/>
 
     </body>
 

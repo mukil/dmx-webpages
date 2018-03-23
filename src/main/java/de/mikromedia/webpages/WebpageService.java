@@ -102,6 +102,7 @@ public interface WebpageService {
     public static final String TIME_CREATED = "dm4.time.created";
     public static final String TIME_MODIFIED = "dm4.time.modified";
     public static final String USERNAME = "dm4.accesscontrol.username";
+    public static final String INSTITUTION = "dm4.contacts.institution";
 
     /**
      * Fetches an existing or creates a new website topic (if non exists and the requesting user equals given username).

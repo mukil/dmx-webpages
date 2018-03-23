@@ -6,6 +6,7 @@ import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
+import static de.mikromedia.webpages.WebpageService.INSTITUTION;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.REDIRECT;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -26,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import static de.mikromedia.webpages.WebpageService.LOGO_IMAGE;
+import de.mikromedia.webpages.mapping.InstitutionOrganization;
 
 public class Website {
     
@@ -61,6 +63,16 @@ public class Website {
     public List<RelatedTopic> getRelatedWebpages() {
         return this.topic.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT,
             ROLE_DEFAULT, WEBPAGE);
+    }
+
+    public String getInstitutionLD() {
+        Topic inst = this.topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
+            ROLE_DEFAULT, INSTITUTION);
+        if (inst != null) {
+            InstitutionOrganization institution = new InstitutionOrganization(inst);
+            return institution.toJSONLD();
+        }
+        return null;
     }
 
     public List<Webpage> getRelatedWebpagesPublished() {

@@ -775,6 +775,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());
+            String linkedData = site.getInstitutionLD();
+            log.info("Linked Data Institution: " + linkedData);
+            viewData("institution", linkedData);
             viewData("location", href);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
