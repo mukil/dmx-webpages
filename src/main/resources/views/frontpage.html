@@ -149,7 +149,7 @@
 
                     <div class="footer" th:include="fragments/footer :: footer-new"></div>
 
-                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                    <div class="metadata debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                         <meta itemprop="name" th:content="${siteName}"/>
                         <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
                         <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
@@ -163,8 +163,9 @@
             </div>
         </div>
 
-        <script th:if="${institution}"
-                th:replace="fragments/schema-org :: organization (${institution})"/>
+        <div th:if="${institution}" class="metadata">
+            <script th:replace="fragments/schema-org :: organization (${institution})" />
+        </div>
 
     </body>
 
