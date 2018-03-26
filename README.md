@@ -44,8 +44,12 @@ Note: The permission who can see your published webpage depends on the so called
 
 **0.7.2** - Upcoming
 
+* Hard-coded hyperlink style for dmx-berlin release
+* Enabled font-smoothing, esp. for bold bright serif texts on dark backgrounds
+* Added very basic json-ld mapping for an Institution to be publisher of the frontpage
 * Include tile child values and section titles in fulltext search results.
 * Preparations of displaying topic type icons on pages
+* Style fix for unlegible text in footer area
 * Optimized loading of javascript resources & page script initialization
 * Adjustment of header button, section header and "Pages" section style
 
@@ -55,7 +59,6 @@ Note: The permission who can see your published webpage depends on the so called
 * Added sorting for Tiles within Sections
 
 **0.7** -- Mar 07, 2018
-
 
 Features:
 
