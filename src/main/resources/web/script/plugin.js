@@ -118,6 +118,11 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
                 handler: add_webpage,
                 context: ['context-menu', 'detail-panel-show']
             })
+            commands.push({
+                label: 'Add Section',
+                handler: add_webpage_section,
+                context: ['context-menu', 'detail-panel-show']
+            })
         } else if (topic.type_uri === 'de.mikromedia.page') {
             connected_websites = get_related_website(topic.id)
             if (connected_websites && connected_websites.length > 0) {

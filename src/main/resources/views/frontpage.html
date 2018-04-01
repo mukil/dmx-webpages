@@ -72,7 +72,7 @@
 
                 </div>
 
-                <div class="ui basic vertical stripe segment main-segment posts container">
+                <div class="ui basic vertical stripe segment main-segment posts text container">
 
                     <div class="ui container">
                         <h1 class="ui header">Pages</h1>
@@ -86,12 +86,12 @@
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                                 <a th:if="${!#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                             </h3>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
@@ -149,7 +149,7 @@
 
                     <div class="footer" th:include="fragments/footer :: footer-new"></div>
 
-                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                    <div class="metadata debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                         <meta itemprop="name" th:content="${siteName}"/>
                         <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
                         <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
@@ -159,7 +159,12 @@
                     </div>
 
                 </div>
+
             </div>
+        </div>
+
+        <div th:if="${institution}" class="metadata">
+            <script th:replace="fragments/schema-org :: organization (${institution})" />
         </div>
 
     </body>

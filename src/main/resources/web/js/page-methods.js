@@ -64,7 +64,8 @@ function render_page() {
     // pro-actively activate add table styles to all pages
     $('table').addClass('ui celled table')
     // pro-actively activate accordion interactions on any page
-    $('.ui.accordion').accordion();
+    $('.ui.accordion').accordion()
+    $('#text-search').focus()
 }
 
 function register_input_handler() {
@@ -84,8 +85,3 @@ function do_fulltext_search() {
     // 
     console.log("Let's fulltext search for \"" + userQuery + "\" across webpages of site", siteId)
 }
-
-function page_init() {
-    register_input_handler()
-}
-

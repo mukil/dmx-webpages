@@ -1,6 +1,13 @@
 
 /** Comapny Homepage Semantic UI Overrides **/
 
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
 select,
 input[type="button"],
 button {
@@ -11,8 +18,12 @@ button {
     display: none;
 }
 
-h3.header .value{
-    color: #343434;
+.ui.transparent.inverted.input>input,
+.ui.menu .item {
+    font-weight: bold;
+}
+
+h3.header .value {
     margin-left: 0.5em;
     font-weight: normal;
     font-style: italic;
@@ -77,6 +88,14 @@ article .text {
     -webkit-box-shadow: -1px -.5px 0px .5px #d4d4d5;
 }
 
+.page .ui.segment.footer.inverted a {
+    color: rgba(255,255,255,.5);
+}
+
+.page .ui.segment.footer.inverted a:hover {
+    color: rgba(255,255,255,1);
+}
+
 .footer.segment {
     padding: 5em 0em;
 }
@@ -124,13 +143,15 @@ header {
 header .page-meta,
 header .page-buttons {
     margin-top: 1.7em;
+    margin-bottom: 4em;
 }
 
 header .page-buttons div {
     display: inline-block;
 }
 
-header .header-background .ui.container {
+header.header-background .ui.container
+header.header-background .ui.container {
     padding-bottom: 4em;
 }
 
@@ -149,14 +170,44 @@ header.inverted .page-meta .label {
     color: #585858;
 }
 
+/** -- Frontpage Body Segment Style -- **/
+
+.posts article {
+    padding-top: 1em;
+}
+
+.posts article .ui.header a {
+    color: #b7d9cb;
+}
+
+.posts article .ui.header a:hover {
+    color: #2b293f;
+}
+
+.page .segment .text a {
+    text-decoration: underline;
+}
+
+.page.front .segment .text a {
+    text-decoration: none;
+}
+
+.page.front .segment .content a:hover {
+    text-decoration: underline;
+}
+
+.page .segment .text a.button {
+    text-decoration: none;
+}
+
 /** --- Segments Stylings --- **/
 
 .body .ui.spaced.segment {
-    padding-bottom: 6em;
+    padding-bottom: 10em;
 }
 
 .body .ui.spaced.segment.accordion-section {
-    padding-bottom: 3em;
+    padding-bottom: 0em;
 }
 
 .body .ui.accordion-section {
@@ -182,14 +233,18 @@ header.inverted .page-meta .label {
     margin-bottom: 1em;
 }
 
+.page .ui.segment .header .caption p {
+    margin-bottom: 0px;
+}
+
 .body .ui.vertical.posts.stripe  {
     padding: 0em;
     padding-bottom: 6em;
 }
 
-.ui.styled.accordion .accordion .content,
+.ui.styled.accordion .title,
 .ui.styled.accordion .content {
-    padding: 1em;
+    font-size: 16px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -257,6 +312,15 @@ header.inverted .page-meta .label {
 
 article figure {
     margin: 0em;
+}
+
+.ui.table {
+    background: transparent;
+    border-radius: 0px;
+}
+
+.ui.table tr:hover {
+    background-color: #ffffff55;
 }
 
 article .ui.table td,
