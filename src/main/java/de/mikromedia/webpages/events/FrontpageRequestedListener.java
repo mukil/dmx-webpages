@@ -2,6 +2,7 @@ package de.mikromedia.webpages.events;
 
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.service.EventListener;
+import org.thymeleaf.context.AbstractContext;
 
 /**
  *
@@ -9,6 +10,6 @@ import de.deepamehta.core.service.EventListener;
  */
 public interface FrontpageRequestedListener extends EventListener {
     
-    void frontpageRequested(Topic website, String webAlias);
+    void frontpageRequested(AbstractContext context, Topic website, String webAlias);
 
 }
