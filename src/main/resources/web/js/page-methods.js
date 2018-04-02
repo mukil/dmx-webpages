@@ -13,10 +13,6 @@ function visit_page(url) {
     // }
 }
 
-function zero(e) {
-    console.log("registered zero click", e)
-}
-
 function render_page() {
     // fix menu when passed
     $('.masthead').visibility({

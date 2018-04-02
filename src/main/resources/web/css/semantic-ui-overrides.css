@@ -103,8 +103,6 @@ article .text {
 .footer .site-link .logo {
     max-width: 250px;
     height: auto;
-    position: relative;
-    left: -1em;
 }
 
 .footer .site-link h1 {
@@ -347,7 +345,7 @@ article figure img {
 
 article .text pre.code-block {
     font-family: "Courier", "Courier New";
-    font-size: .9em;
+    font-size: .8em;
     color: rgb(0, 40, 86);
     background-color: #efefef;
     padding: .5em 1em;

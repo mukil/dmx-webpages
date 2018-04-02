@@ -154,7 +154,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             dm4.fireEvent(FRONTPAGE_REQUESTED, context(), website, location);
             log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
-            preparePageHeader(website);
             preparePageSections(website);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
@@ -164,7 +163,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             log.info("Preparing STANDARD FRONTPAGE view data for website ("
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
-            preparePageHeader(website);
             preparePageSections(website);
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
@@ -183,47 +181,46 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     @Produces(MediaType.TEXT_HTML)
     @Path("/{pageWebAlias}")
     public Viewable getWebpage(@PathParam("pageWebAlias") String webAlias) {
+        Topic website;
         String pageAlias = webAlias.trim();
         // 1) check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
         if (registeredPage != null) {
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), pageAlias);
+            website = getStandardWebsite();
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website);
             return registeredPage;
         }
         log.info("Requesting Webpage /" + pageAlias);
         // 2) check if webAlias matches to a special website prefix
-        Topic website = getWebsiteByPrefix(pageAlias);
+        website = getWebsiteByPrefix(pageAlias);
         if (website != null) {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
-            preparePageHeader(website); // also allowed with frontpages
-            preparePageSections(website); // alsow allowed with frontpages
+            preparePageSections(website);
             dm4.fireEvent(FRONTPAGE_REQUESTED, context(), website, pageAlias);
             return getWebsiteTemplate(website);
         }
-        // 3) if not, use standard website for page preparation
+        // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
         website = getStandardWebsite();
-        if (website != null) {
-            dm4.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
-            log.info("Preparing STANDARD FRONTPAGE view data in dm4-webpages plugin...");
-            prepareWebsiteViewData(website, webAlias);
-        }
-        // 4) is webpage of standard site
+        dm4.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
+        log.info("Preparing STANDARD FRONTPAGE view data in dm4-webpages plugin...");
+        prepareWebsiteViewData(website, webAlias);
+        // 4) check for existing pageAlias and fetch and return that webpage
         Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
-            // prepareWebsiteViewData(website, pageAlias);
             preparePageViewData(webpage);
             return getWebpageTemplate(webpage);
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
-        // 5) is redirect of admin
+        // 5) Check for redirects related to "standard" webpage
         handleWebsiteRedirects(website, pageAlias);
         log.fine("=> /" + pageAlias + " redirect for standard website not found.");
-        // 6) Resource is neither a custom webAlias page, nor a published or drafted \"Webpage\" or \"Redirect\"
+        // 6) Requested resource is neither a "Website", nor a "Custom Root Resource", nor
+        //    a published or drafted \"Webpage\" nor a \"Redirect\"
         dm4.fireEvent(PAGE_NOT_FOUND, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
         return getWebsiteNotFoundPage(website);
     }
@@ -737,14 +734,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         viewData("hostUrl", DM4_HOST_URL);
     }
 
-    private void preparePageHeader(Topic topic) {
-        Topic headerTopic = getRelatedHeader(topic);
-        if (headerTopic != null) {
-            Header header = new Header(headerTopic);
-            viewData("header", header);
-        }
-    }
-
     private void preparePageSections(Topic topic) {
         List<RelatedTopic> sections = getRelatedWebpageSections(topic);
         List<Section> above = new ArrayList();
@@ -785,13 +774,20 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());
+            // ### Think of revising this "LD String" to become a sensible chain of statements
             String linkedData = site.getInstitutionLD();
-            log.info("Linked Data Institution: " + linkedData);
             viewData("institution", linkedData);
             viewData("location", href);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
             viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */
+            // Site related "Headers" are used for providing a consistent look of webpages related to one "Website" 
+            // (fallback if no page Specific "Headers" are configured)
+            Topic headerTopic = getRelatedHeader(website);
+            if (headerTopic != null) {
+                Header header = new Header(headerTopic);
+                viewData("_header", header);
+            }
         } else {
             log.warning("Preparing webpage template failed because a given website could not be found");
         }
@@ -802,7 +798,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         viewData("dateCreated", df.format(webpage.getCreationDate()));
         viewData("dateModified", df.format(webpage.getModificationDate()));
         viewData("page", webpage);
-        preparePageHeader(webpage.getTopic());
+        Topic headerTopic = getRelatedHeader(webpage.getTopic());
+        if (headerTopic != null) {
+            Header header = new Header(headerTopic);
+            viewData("header", header);
+        }
         preparePageSections(webpage.getTopic());
     }
 
