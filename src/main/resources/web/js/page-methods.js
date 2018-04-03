@@ -31,7 +31,7 @@ function render_page() {
     // configure search input fields
     var searchConfig = {
         apiSettings: {
-            url: '/websites/search?q={query}',
+            url: '/webpages/search?q={query}',
             onRequest: function() {
                 $('.right.menu .ui.category.search').addClass("loading")
                 $('.right.menu .ui.category.search .icon.my').show()

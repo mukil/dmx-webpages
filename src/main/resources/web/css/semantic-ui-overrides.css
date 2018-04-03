@@ -372,6 +372,10 @@ article .text blockquote {
     border-left: 4px solid rgba(255,255,255,0.7);
 }
 
+.ui.sidebar .inverted.menu .header {
+    color: #fff;
+}
+
 .ui.menu .item {
     line-height: 1.4285em;
 }
@@ -399,9 +403,6 @@ article .text blockquote {
     }
     .ui.vertical.stripe.main-segment.posts.container div.text {
         margin-left: 1em;
-    }
-    .ui.sidebar .inverted.menu .header {
-        color: #fff;
     }
     .ui.fixed.menu {
         display: none !important;

@@ -63,9 +63,30 @@ import org.thymeleaf.context.AbstractContext;
 /**
  * Collaborative, multi-site standard HTML web pages with DeepaMehta 4.
  *
- * ### FIXME: Usernames might not be compatible URIComponents.
- * @author Malte Rei&szlig;ig
- * @version 0.4.5-SNAPSHOT - compatible with DeepaMehta 4.8.6+
+ * Once the webpages module is installed web developers hook into this thymeleaf
+ * processing by using context() in event listeners fired for one of
+ * the following contexts:
+ * 
+ * - /                          root
+ * - /{pluginName}              plugin
+ * - /{sitePrefix}              site
+ * - /{sitePrefix}/{webAlias}   page
+ * - 404                        page not found
+ * 
+ * Additionally your plugin can take over dm4-webpages thymeleaf template fragments with OGNL expression language.
+ * The templates can be:
+ * 
+ * - "/views/fragments/navigation.html"
+ * - "/views/fragments/footer.html"
+ * - "/views/fragments/widgets.html"
+ * - "/views/fragments/tracker.html"
+ * 
+ * The REST API  for search is located under "/webpages".
+ * 
+ * @author Malte Rei&szlig;ig <a href="mailto:malte@mikromedia.de">malte@mikromedia.de></a>
+ * @version 0.7.2-SNAPSHOT - Source code compatible with DeepaMehta 4.9.1+
+ * 
+ * Last modified: 03.04.2018
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -266,7 +287,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/website/{username}")
+    @Path("/webpages/{username}")
     @Override
     public Topic getWebsiteByUsername(@PathParam("username") String username) {
         Topic website = null;
@@ -280,7 +301,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/websites/search")
+    @Path("/webpages/search")
     public SearchResultList searchWebsites(@QueryParam("q") String query, @QueryParam("t") String typeName) throws JSONException {
         SearchResultList response = new SearchResultList();
         List<Topic> pages = searchWebpageContents(query);
@@ -417,7 +438,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/website")
+    @Path("/webpages")
     public Topic getWebsite() {
         Topic website = null;
         String username = accesscontrol.getUsername();
@@ -428,7 +449,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     @GET
-    @Path("/browse/{websiteId}")
+    @Path("/webpages/browse/{websiteId}")
     @Produces(MediaType.TEXT_PLAIN)
     public String doRedirectToWebsite(@PathParam("websiteId") long websiteId)
             throws WebApplicationException, URISyntaxException {
