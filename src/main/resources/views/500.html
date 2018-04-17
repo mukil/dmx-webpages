@@ -72,25 +72,15 @@
 
             </div>
 
-            <div class="ui inverted vertical footer segment">
+            <div th:replace="fragments/footer :: footer-new"></div>
 
-                <div class="ui container">
-
-                    <div class="site-link" th:include="fragments/widgets :: footer-site-link"></div>
-                    
-                    <div class="footer" th:include="fragments/footer :: footer-new"></div>
-
-                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
-                        <meta itemprop="name" th:content="${siteName}"/>
-                        <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                        <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
-                        <link itemprop="url" th:href="${hostUrl} + ${website}"/>
-                        <meta itemprop="description" th:content="${footerText}"></meta>
-                        <meta id="siteId" th:content="${siteId}"></meta>
-                    </div>
-
-                </div>
-
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
+                <link itemprop="url" th:href="${hostUrl} + ${website}"/>
+                <meta itemprop="description" th:content="${footerText}"></meta>
+                <meta id="siteId" th:content="${siteId}"></meta>
             </div>
             
         </div>

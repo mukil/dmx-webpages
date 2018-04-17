@@ -1,7 +1,6 @@
 package de.mikromedia.webpages;
 
 import de.mikromedia.webpages.events.WebpageRequestedListener;
-import de.mikromedia.webpages.events.FrontpageRequestedListener;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.Inject;
 
@@ -112,19 +111,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     HashMap<String, String[]> frontpageTemplateAliases = new HashMap<String, String[]>();
 
     /**
-     * Custom event fired up on HTTP request to a website's frontpage.
+     * Custom event fired up on HTTP request to a website's frontpage or custom root resource
      */
-    static DeepaMehtaEvent FRONTPAGE_REQUESTED = new DeepaMehtaEvent(FrontpageRequestedListener.class) {
-        @Override
-        public void dispatch(EventListener listener, Object... params) {
-            ((FrontpageRequestedListener) listener).frontpageRequested((AbstractContext) params[0], (Topic) params[1], (String) params[2]);
-        }
-    };
-
     static DeepaMehtaEvent CUSTOM_ROOT_RESOURCE_REQUESTED = new DeepaMehtaEvent(CustomRootResourceRequestedListener.class) {
         @Override
         public void dispatch(EventListener listener, Object... params) {
-            ((CustomRootResourceRequestedListener) listener).frontpageRequested((AbstractContext) params[0], (Topic) params[1]);
+            ((CustomRootResourceRequestedListener) listener).frontpageRequested((AbstractContext) params[0],
+                    (Topic) params[1], (String) params[2]);
         }
     };
 
@@ -172,7 +165,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
             website = getStandardWebsite();
-            dm4.fireEvent(FRONTPAGE_REQUESTED, context(), website, location);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
             log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
             preparePageSections(website);
@@ -180,7 +173,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             website = getWebsiteFrontpage(null);
             // private workspace via our getRelatedTopics()-call
-            dm4.fireEvent(FRONTPAGE_REQUESTED, context(), website, location);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
             log.info("Preparing STANDARD FRONTPAGE view data for website ("
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
@@ -209,7 +202,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         if (registeredPage != null) {
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
             website = getStandardWebsite();
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
             return registeredPage;
         }
         log.info("Requesting Webpage /" + pageAlias);
@@ -220,7 +213,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
             preparePageSections(website);
-            dm4.fireEvent(FRONTPAGE_REQUESTED, context(), website, pageAlias);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
             return getWebsiteTemplate(website);
         }
         // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation

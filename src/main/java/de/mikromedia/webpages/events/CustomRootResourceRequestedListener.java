@@ -9,7 +9,7 @@ import org.thymeleaf.context.AbstractContext;
  * @author malte
  */
 public interface CustomRootResourceRequestedListener extends EventListener {
-    
-    void frontpageRequested(AbstractContext context, Topic website);
+
+    void frontpageRequested(AbstractContext context, Topic website, String name);
 
 }
