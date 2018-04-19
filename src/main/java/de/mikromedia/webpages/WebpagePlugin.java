@@ -197,6 +197,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     public Viewable getWebpage(@PathParam("pageWebAlias") String webAlias) {
         Topic website;
         String pageAlias = webAlias.trim();
+        if (pageAlias.equals("favicon.ico")) return null;
         // 1) check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
         if (registeredPage != null) {
