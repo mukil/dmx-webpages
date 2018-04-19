@@ -204,6 +204,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
             website = getStandardWebsite();
             dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
+            prepareGenericViewData("undefined", STANDARD_WEBSITE_PREFIX);
+            prepareWebsiteViewData(website, pageAlias);
             return registeredPage;
         }
         log.info("Requesting Webpage /" + pageAlias);

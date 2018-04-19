@@ -19,7 +19,7 @@
 
         <meta th:replace="fragments/tracker" />
     </head>
-    <body class="webpages page front">
+    <body class="webpages page ui front">
 
         <!-- Following Menu -->
         <div class="ui large top fixed hidden menu inverted">
@@ -27,9 +27,7 @@
         </div>
 
         <!-- Sidebar Menu -->
-        <div class="ui vertical inverted sidebar menu">
-            <nav id="sidebar-nav" class="ui container" th:include="fragments/navigation :: vertical-nav"></nav>
-        </div>
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
