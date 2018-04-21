@@ -6,13 +6,12 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
+
         <!-- Site Properties -->
         <title th:text="'Welcome - ' + ${siteName}">Welcome</title>
-        
-        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css" rel="stylesheet" />
+
+        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" href="/de.mikromedia.webpages/css/semantic-ui-overrides.css" rel="stylesheet" />
-        <!--link media="all" th:href="${customSiteCss}" rel="stylesheet" /-->
 
         <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
@@ -20,7 +19,7 @@
 
         <meta th:replace="fragments/tracker" />
     </head>
-    <body class="page front">
+    <body class="webpages page front">
 
         <!-- Following Menu -->
         <div class="ui large top fixed hidden menu inverted">
@@ -141,25 +140,21 @@
 
             </div>
 
-            <div class="ui inverted vertical footer segment">
+            <div th:replace="fragments/footer :: footer-new"></div>
 
-                <div class="ui container">
-
-                    <div class="site-link" th:include="fragments/widgets :: footer-site-link"></div>
-
-                    <div class="footer" th:include="fragments/footer :: footer-new"></div>
-
-                    <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
-                        <meta itemprop="name" th:content="${siteName}"/>
-                        <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
-                        <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
-                        <link itemprop="url" th:href="${hostUrl} + ${website}"/>
-                        <meta itemprop="description" th:content="${footerText}"></meta>
-                        <meta id="siteId" th:content="${siteId}"></meta>
-                    </div>
-
-                </div>
+            <div class="metadata debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
+                <link itemprop="url" th:href="${hostUrl} + ${website}"/>
+                <meta itemprop="description" th:content="${footerText}"></meta>
+                <meta id="siteId" th:content="${siteId}"></meta>
             </div>
+
+        </div>
+
+        <div th:if="${institution}" class="metadata">
+            <script th:replace="fragments/schema-org :: organization (${institution})" />
         </div>
 
     </body>

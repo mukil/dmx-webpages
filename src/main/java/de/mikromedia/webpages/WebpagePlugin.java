@@ -1,7 +1,6 @@
 package de.mikromedia.webpages;
 
 import de.mikromedia.webpages.events.WebpageRequestedListener;
-import de.mikromedia.webpages.events.FrontpageRequestedListener;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.Inject;
 
@@ -10,6 +9,8 @@ import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.TopicType;
+import de.deepamehta.core.ViewConfiguration;
 import de.deepamehta.core.model.AssociationModel;
 import de.deepamehta.core.model.RoleModel;
 import de.deepamehta.core.model.SimpleValue;
@@ -53,15 +54,38 @@ import javax.ws.rs.QueryParam;
 import org.codehaus.jettison.json.JSONException;
 import org.osgi.framework.Bundle;
 import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
+import de.mikromedia.webpages.events.ResourceNotFoundListener;
 import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
+import org.thymeleaf.context.AbstractContext;
 
 /**
  * Collaborative, multi-site standard HTML web pages with DeepaMehta 4.
  *
- * ### FIXME: Usernames might not be compatible URIComponents.
- * @author Malte Rei&szlig;ig
- * @version 0.4.5-SNAPSHOT - compatible with DeepaMehta 4.8.6+
+ * Once the webpages module is installed web developers hook into this thymeleaf
+ * processing by using context() in event listeners fired for one of
+ * the following contexts:
+ * 
+ * - /                          root
+ * - /{pluginName}              plugin
+ * - /{sitePrefix}              site
+ * - /{sitePrefix}/{webAlias}   page
+ * - 404                        page not found
+ * 
+ * Additionally your plugin can take over dm4-webpages thymeleaf template fragments with OGNL expression language.
+ * The templates can be:
+ * 
+ * - "/views/fragments/navigation.html"
+ * - "/views/fragments/footer.html"
+ * - "/views/fragments/widgets.html"
+ * - "/views/fragments/tracker.html"
+ * 
+ * The REST API  for search is located under "/webpages".
+ * 
+ * @author Malte Rei&szlig;ig <a href="mailto:malte@mikromedia.de">malte@mikromedia.de></a>
+ * @version 0.7.2-SNAPSHOT - Source code compatible with DeepaMehta 4.9.1+
+ * 
+ * Last modified: 03.04.2018
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -87,33 +111,33 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     HashMap<String, String[]> frontpageTemplateAliases = new HashMap<String, String[]>();
 
     /**
-     * Custom event fired up on HTTP request to a website's frontpage.
-     *
-     * @return Topic	The website topic.
+     * Custom event fired up on HTTP request to a website's frontpage or custom root resource
      */
-    static DeepaMehtaEvent FRONTPAGE_REQUESTED = new DeepaMehtaEvent(FrontpageRequestedListener.class) {
-        @Override
-        public void dispatch(EventListener listener, Object... params) {
-            ((FrontpageRequestedListener) listener).frontpageRequested((Topic) params[0], (String) params[1]);
-        }
-    };
-
     static DeepaMehtaEvent CUSTOM_ROOT_RESOURCE_REQUESTED = new DeepaMehtaEvent(CustomRootResourceRequestedListener.class) {
         @Override
         public void dispatch(EventListener listener, Object... params) {
-            ((CustomRootResourceRequestedListener) listener).frontpageRequested((Topic) params[0]);
+            ((CustomRootResourceRequestedListener) listener).frontpageRequested((AbstractContext) params[0],
+                    (Topic) params[1], (String) params[2]);
         }
     };
 
     /**
-     * Custom event fired up on HTTP request to a website's frontpage.
-     *
-     * @return Topic	The webpage topic.
+     * Custom event fired up on HTTP request to a valid webAlias of a website.
      */
     static DeepaMehtaEvent WEBPAGE_REQUESTED = new DeepaMehtaEvent(WebpageRequestedListener.class) {
         @Override
         public void dispatch(EventListener listener, Object... params) {
-            ((WebpageRequestedListener) listener).webpageRequested((Webpage) params[0], (String) params[1]);
+            ((WebpageRequestedListener) listener).webpageRequested((AbstractContext) params[0], (String) params[1], (String) params[2]);
+        }
+    };
+
+    /**
+     * Custom event fired up on HTTP request with no associated webalias.
+     */
+    static DeepaMehtaEvent PAGE_NOT_FOUND = new DeepaMehtaEvent(ResourceNotFoundListener.class) {
+        @Override
+        public void dispatch(EventListener listener, Object... params) {
+            ((ResourceNotFoundListener) listener).resourceNotFound((AbstractContext) params[0], (String) params[1], (String) params[2]);
         }
     };
 
@@ -141,20 +165,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
             website = getStandardWebsite();
-            dm4.fireEvent(FRONTPAGE_REQUESTED, website, location);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
             log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
-            preparePageHeader(website);
             preparePageSections(website);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             website = getWebsiteFrontpage(null);
             // private workspace via our getRelatedTopics()-call
-            dm4.fireEvent(FRONTPAGE_REQUESTED, website, location);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
             log.info("Preparing STANDARD FRONTPAGE view data for website ("
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
-            preparePageHeader(website);
             preparePageSections(website);
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
@@ -173,47 +195,48 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     @Produces(MediaType.TEXT_HTML)
     @Path("/{pageWebAlias}")
     public Viewable getWebpage(@PathParam("pageWebAlias") String webAlias) {
+        Topic website;
         String pageAlias = webAlias.trim();
+        if (pageAlias.equals("favicon.ico")) return null;
         // 1) check if for the given "/webAlias" a template was registered by other plugins
         Viewable registeredPage = getCustomRootResourcePage(pageAlias);
         if (registeredPage != null) {
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, pageAlias);
+            website = getStandardWebsite();
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
             return registeredPage;
         }
         log.info("Requesting Webpage /" + pageAlias);
         // 2) check if webAlias matches to a special website prefix
-        Topic website = getWebsiteByPrefix(pageAlias);
+        website = getWebsiteByPrefix(pageAlias);
         if (website != null) {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
-            preparePageHeader(website); // also allowed with frontpages
-            preparePageSections(website); // alsow allowed with frontpages
-            dm4.fireEvent(FRONTPAGE_REQUESTED, website, pageAlias);
+            preparePageSections(website);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
             return getWebsiteTemplate(website);
         }
-        // 3) if not, use standard website for page preparation
+        // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
         website = getStandardWebsite();
-        if (website != null) {
-            log.info("Preparing STANDARD FRONTPAGE view data in dm4-webpages plugin...");
-            prepareWebsiteViewData(website, webAlias);
-        }
-        // 4) is webpage of standard site
+        dm4.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
+        log.info("Preparing STANDARD FRONTPAGE view data in dm4-webpages plugin...");
+        prepareWebsiteViewData(website, webAlias);
+        // 4) check for existing pageAlias and fetch and return that webpage
         Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
-            dm4.fireEvent(WEBPAGE_REQUESTED, webpage, STANDARD_WEBSITE_PREFIX);
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
-            prepareWebsiteViewData(website, pageAlias);
             preparePageViewData(webpage);
             return getWebpageTemplate(webpage);
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
-        // 5) is redirect of admin
+        // 5) Check for redirects related to "standard" webpage
         handleWebsiteRedirects(website, pageAlias);
         log.fine("=> /" + pageAlias + " redirect for standard website not found.");
-        // 6) Resource is neither a custom webAlias page, nor a published or drafted \"Webpage\" or \"Redirect\"
+        // 6) Requested resource is neither a "Website", nor a "Custom Root Resource", nor
+        //    a published or drafted \"Webpage\" nor a \"Redirect\"
+        dm4.fireEvent(PAGE_NOT_FOUND, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
         return getWebsiteNotFoundPage(website);
     }
 
@@ -239,7 +262,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         // 2) check related webpages
         Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias);
         if (webpage != null) {
-            dm4.fireEvent(WEBPAGE_REQUESTED, webpage, sitePrefix);
+            dm4.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, sitePrefix);
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             preparePageViewData(webpage);
             return getWebpageTemplate(webpage);
@@ -250,6 +273,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         // 4) Log that web alias is neither a published nor an un-published \"Page\" and not a \"Redirect\"
         log.info("=> /" + pageAlias + " webpage redirect for \"" +sitePrefix+ "\"s website not found.");
         // 5) Return 404 page with users website footer
+        dm4.fireEvent(PAGE_NOT_FOUND, context(), pageAlias, sitePrefix);
         return getWebsiteNotFoundPage(usersWebsite);
     }
 
@@ -257,7 +281,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/website/{username}")
+    @Path("/webpages/{username}")
     @Override
     public Topic getWebsiteByUsername(@PathParam("username") String username) {
         Topic website = null;
@@ -271,11 +295,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/websites/search")
+    @Path("/webpages/search")
     public SearchResultList searchWebsites(@QueryParam("q") String query, @QueryParam("t") String typeName) throws JSONException {
         SearchResultList response = new SearchResultList();
         List<Topic> pages = searchWebpageContents(query);
-        List<Topic> sites = searchWebsites(query);
+        List<Topic> sites = searchWebsiteFields(query);
         for (Topic page : pages) {
             try {
                 response.putPageResult(new SearchResult(page));
@@ -290,50 +314,83 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 // log.info("User has no read permission on search result");
             }
         }
-        log.info("Query matched " + pages.size() + " pages, " + sites.size() + " sites");
+        log.info("Query \""+query+"\" matched " + pages.size() + " pages, " + sites.size() + " sites");
         return response;
     }
 
     private List<Topic> searchWebpageContents(String query) {
         List<Topic> results = new ArrayList<Topic>();
-        for (Topic headline : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.page.headline")) {
-            Topic webpage = getParentPage(headline);
+        for (Topic headline : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_TITLE)) {
+            Topic webpage = getRelatedWebpage(headline);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", "de.mikromedia.page.main")) {
-            Topic webpage = getParentPage(content);
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_CONTENT)) {
+            Topic webpage = getRelatedWebpage(content);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", SECTION_TITLE)) {
+            Topic section = getParentSection(content);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
+            Topic tile = getParentTile(content);
+            Topic section = getParentSection(tile);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                results.add(webpage);
+            }
+        }
+        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
+            Topic tile = getParentTile(content);
+            Topic section = getParentSection(tile);
+            Topic webpage = getRelatedWebpage(section);
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
         return results;
     }
 
-    private List<Topic> searchWebsites(String query) {
+    private List<Topic> searchWebsiteFields(String query) {
         List<Topic> results = new ArrayList<Topic>();
         for (Topic siteName : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_NAME)) {
-            Topic website = getParentSite(siteName);
+            Topic website = getRelatedwebsite(siteName);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteCaption : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_CAPTION)) {
-            Topic website = getParentSite(siteCaption);
+            Topic website = getRelatedwebsite(siteCaption);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteFooter : dm4.searchTopics("*" + query.trim() + "*", WEBSITE_FOOTER)) {
-            Topic website = getParentSite(siteFooter);
+            Topic website = getRelatedwebsite(siteFooter);
             if (!results.contains(website)) results.add(website);
         }
         return results;
     }
 
-    private Topic getParentPage(Topic child) {
-        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBPAGE);
+    private Topic getParentTile(Topic child) {
+        return child.getRelatedTopic(AGGREGATION, null, null, TILE);
     }
 
-    private Topic getParentSite(Topic child) {
-        return child.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
+    private Topic getParentSection(Topic child) {
+        if (child == null) return null;
+        return child.getRelatedTopic(AGGREGATION, null, null, SECTION);
+    }
+
+    private Topic getRelatedWebpage(Topic child) {
+        if (child == null) return null;
+        return child.getRelatedTopic(null, null, null, WEBPAGE);
+    }
+
+    private Topic getRelatedwebsite(Topic child) {
+        return child.getRelatedTopic(null, null, null, WEBSITE);
     }
 
     public Topic getRelatedHeader(Topic topic) {
@@ -375,7 +432,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/website")
+    @Path("/webpages")
     public Topic getWebsite() {
         Topic website = null;
         String username = accesscontrol.getUsername();
@@ -386,7 +443,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     @GET
-    @Path("/browse/{websiteId}")
+    @Path("/webpages/browse/{websiteId}")
     @Produces(MediaType.TEXT_PLAIN)
     public String doRedirectToWebsite(@PathParam("websiteId") long websiteId)
             throws WebApplicationException, URISyntaxException {
@@ -467,6 +524,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             website = prefix.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
         }
         return website;
+    }
+
+    public String getTypeIconPath(String typeUri) {
+        TopicType webpage = dm4.getTopicType(typeUri);
+        ViewConfiguration viewConfig = webpage.getViewConfig();
+        Topic icon = viewConfig.getConfigTopic("dm4.webclient.icon");
+        return (icon != null) ? icon.getSimpleValue().toString() : "";
     }
 
     // --- Private Utility Methods
@@ -685,14 +749,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         viewData("hostUrl", DM4_HOST_URL);
     }
 
-    private void preparePageHeader(Topic topic) {
-        Topic headerTopic = getRelatedHeader(topic);
-        if (headerTopic != null) {
-            Header header = new Header(headerTopic);
-            viewData("header", header);
-        }
-    }
-
     private void preparePageSections(Topic topic) {
         List<RelatedTopic> sections = getRelatedWebpageSections(topic);
         List<Section> above = new ArrayList();
@@ -733,10 +789,20 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());
+            // ### Think of revising this "LD String" to become a sensible chain of statements
+            String linkedData = site.getInstitutionLD();
+            viewData("institution", linkedData);
             viewData("location", href);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
             viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */
+            // Site related "Headers" are used for providing a consistent look of webpages related to one "Website" 
+            // (fallback if no page Specific "Headers" are configured)
+            Topic headerTopic = getRelatedHeader(website);
+            if (headerTopic != null) {
+                Header header = new Header(headerTopic);
+                viewData("_header", header);
+            }
         } else {
             log.warning("Preparing webpage template failed because a given website could not be found");
         }
@@ -747,7 +813,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         viewData("dateCreated", df.format(webpage.getCreationDate()));
         viewData("dateModified", df.format(webpage.getModificationDate()));
         viewData("page", webpage);
-        preparePageHeader(webpage.getTopic());
+        Topic headerTopic = getRelatedHeader(webpage.getTopic());
+        if (headerTopic != null) {
+            Header header = new Header(headerTopic);
+            viewData("header", header);
+        }
         preparePageSections(webpage.getTopic());
     }
 

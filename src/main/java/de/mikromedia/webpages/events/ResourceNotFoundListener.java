@@ -7,8 +7,8 @@ import org.thymeleaf.context.AbstractContext;
  *
  * @author malte
  */
-public interface WebpageRequestedListener extends EventListener {
+public interface ResourceNotFoundListener extends EventListener {
     
-    void webpageRequested(AbstractContext context, String webAlias, String sitePrefix);
+    void resourceNotFound(AbstractContext context, String webAlias, String sitePrefix);
 
 }

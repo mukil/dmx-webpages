@@ -13,22 +13,15 @@
     </div>
 
     <div th:each="menuItem : ${menuItems}" class="ui vertical inverted menu">
-        <!-- The global "standard" website is routed at "/" root resource -->
-        <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
-            th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
-            th:data="${location} + '.'+ '/' + ${menuItem.href}"
-            itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-            th:href="'/' + ${menuItem.href}">Menu Item</a>
 
-        <!-- All other user websites are routed below their respective "/website-prefix/" -->
-        <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+        <a th:if="${!menuItem.hasChildItems}"
             th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
             itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
             th:href="${menuItem.fullHref}">Menu Item</a>
 
         <div th:if="${menuItem.hasChildItems}" class="item">
             <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-            <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}" class="ui header"></span>
+            <span th:text="${menuItem.label}" class="ui header"></span> <!-- Compare + Adjust Menu Below -->
             <div class="menu">
                 <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
                      th:each="childItem : ${menuItem.childMenuItems}"
@@ -52,22 +45,14 @@
         </a>
 
         <div th:each="menuItem : ${menuItems}" class="menu-items">
-            <!-- The global "standard" website is routed at "/" root resource -->
-            <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
-                th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
-                th:data="${location} + '.'+ '/' + ${menuItem.href}"
-                itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-                th:href="'/' + ${menuItem.href}">Menu Item</a>
 
-            <!-- All other user websites are routed below their respective "/website-prefix/" -->
-            <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+            <a th:if="${!menuItem.hasChildItems}"
                 th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
                 itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                 th:href="${menuItem.fullHref}">Menu Item</a>
 
             <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-                <a th:text="${menuItem.label}" th:href="${menuItem.href}"></a>
-                <!--span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span-->
+                <a th:text="${menuItem.label}" th:href="${menuItem.fullHref}"></a>
                 <i class="icon dropdown"></i>
 
                 <div class="menu">
@@ -83,7 +68,7 @@
         <div class="right menu">
             <div class="ui right aligned category search item">
                 <div class="ui transparent inverted icon input">
-                    <input class="prompt" type="text" placeholder="Search..." />
+                    <input class="prompt" type="text" id="text-search" placeholder="Search..." />
                     <i class="search link icon"></i>
                 </div>
                 <div class="results"></div>
@@ -106,22 +91,14 @@
 
             <div th:each="menuItem : ${menuItems}" class="menu-items">
 
-                <!-- The global "standard" website is routed at "/" root resource -->
-                <a th:if="${#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
-                    th:class="${#strings.endsWith(location, '/' + menuItem.href) ? 'active item' : 'item'}"
-                    th:data="${location} + '.'+ '/' + ${menuItem.href}"
-                    itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-                    th:href="'/' + ${menuItem.href}">Menu Item</a>
-
-                <!-- All other user websites are routed below their respective "/website-prefix/" -->
-                <a th:if="${!#strings.contains(website, 'standard') and !menuItem.hasChildItems}"
+                <a th:if="${!menuItem.hasChildItems}"
                     th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                     th:href="${menuItem.fullHref}">Menu Item</a>
 
                 <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-                    <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-                    <span th:text="${menuItem.label}" th:data="${menuItem.fullHref}"></span>
+                    <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a--><!-- Compare + Adjust Menu Above -->
+                    <span th:text="${menuItem.label}"></span>
                     <i class="icon dropdown"></i>
 
                     <div class="menu">

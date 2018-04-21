@@ -5,9 +5,11 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
     function show_personal_website() {
         var topic = undefined
         if (dm4c.selected_object.childs.hasOwnProperty("dm4.accesscontrol.username")) {
-            topic = dm4c.restc.request("GET", "/website/" + dm4c.selected_object.childs["dm4.accesscontrol.username"].value)
+            // fetches website topic of user selected on map
+            topic = dm4c.restc.request("GET", "/webpages/" + dm4c.selected_object.childs["dm4.accesscontrol.username"].value)
         } else {
-            topic = dm4c.restc.request("GET", "/website")
+            // fetches website topic of currently logged in user
+            topic = dm4c.restc.request("GET", "/webpages")
         }
         dm4c.do_reveal_topic(topic.id, "show")
     }
@@ -111,6 +113,16 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
             commands.push({
                 label: 'Browse',
                 handler: browse_website,
+                context: ['context-menu', 'detail-panel-show']
+            })
+            commands.push({
+                label: 'Add Header',
+                handler: add_webpage_header,
+                context: ['context-menu', 'detail-panel-show']
+            })
+            commands.push({
+                label: 'Add Section',
+                handler: add_webpage_section,
                 context: ['context-menu', 'detail-panel-show']
             })
             commands.push({

@@ -30,14 +30,21 @@
     <style th:if="${not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
            th:inline="text">
         /*<![CDATA[*/
+        .page .sidebar .ui.inverted.menu,
+        .page .sidebar .ui.menu,
+        .page .vertical.inverted.sidebar.menu,
+        .page .vertical.sidebar.menu,
         .page #lower-page-nav .ui.menu,
         .page .ui.segment.header-background,
-        .page .ui.segment.header-background .ui.menu,
-        .page .ui.segment.footer.inverted,
-        .page .ui.segment.footer {
+        .page .ui.segment.header-background .ui.menu {
             background-color: [[${header.backgroundColor}]];
             color: [[${header.fontColor}]];
         }
+        .page .ui.segment.footer.inverted ,
+        .page .ui.segment.footer {
+            background-color: [[${header.backgroundColor}]];
+        }
+
         /*]]>*/
     </style>
 </div>

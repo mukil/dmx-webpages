@@ -1,6 +1,13 @@
 
 /** Comapny Homepage Semantic UI Overrides **/
 
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
 select,
 input[type="button"],
 button {
@@ -81,6 +88,14 @@ article .text {
     -webkit-box-shadow: -1px -.5px 0px .5px #d4d4d5;
 }
 
+.page .ui.segment.footer.inverted a {
+    color: rgba(255,255,255,.5);
+}
+
+.page .ui.segment.footer.inverted a:hover {
+    color: rgba(255,255,255,1);
+}
+
 .footer.segment {
     padding: 5em 0em;
 }
@@ -88,8 +103,6 @@ article .text {
 .footer .site-link .logo {
     max-width: 250px;
     height: auto;
-    position: relative;
-    left: -1em;
 }
 
 .footer .site-link h1 {
@@ -128,6 +141,7 @@ header {
 header .page-meta,
 header .page-buttons {
     margin-top: 1.7em;
+    margin-bottom: 4em;
 }
 
 header .page-buttons div {
@@ -164,6 +178,26 @@ header.inverted .page-meta .label {
     color: #b7d9cb;
 }
 
+.posts article .ui.header a:hover {
+    color: #2b293f;
+}
+
+.page .segment .text a {
+    text-decoration: underline;
+}
+
+.page.front .segment .text a {
+    text-decoration: none;
+}
+
+.page.front .segment .content a:hover {
+    text-decoration: underline;
+}
+
+.page .segment .text a.button {
+    text-decoration: none;
+}
+
 /** --- Segments Stylings --- **/
 
 .body .ui.spaced.segment {
@@ -195,6 +229,10 @@ header.inverted .page-meta .label {
 
 .body .ui.segment.posts h1.ui.header {
     margin-bottom: 1em;
+}
+
+.page .ui.segment .header .caption p {
+    margin-bottom: 0px;
 }
 
 .body .ui.vertical.posts.stripe  {
@@ -274,6 +312,15 @@ article figure {
     margin: 0em;
 }
 
+.ui.table {
+    background: transparent;
+    border-radius: 0px;
+}
+
+.ui.table tr:hover {
+    background-color: #ffffff55;
+}
+
 article .ui.table td,
 article table td {
     padding: .2125em .725em;
@@ -298,7 +345,7 @@ article figure img {
 
 article .text pre.code-block {
     font-family: "Courier", "Courier New";
-    font-size: .9em;
+    font-size: .8em;
     color: rgb(0, 40, 86);
     background-color: #efefef;
     padding: .5em 1em;
@@ -323,6 +370,10 @@ article .text blockquote {
     font-size: 1.2em;
     padding-left: 1em;
     border-left: 4px solid rgba(255,255,255,0.7);
+}
+
+.ui.sidebar .inverted.menu .header {
+    color: #fff;
 }
 
 .ui.menu .item {
@@ -352,9 +403,6 @@ article .text blockquote {
     }
     .ui.vertical.stripe.main-segment.posts.container div.text {
         margin-left: 1em;
-    }
-    .ui.sidebar .inverted.menu .header {
-        color: #fff;
     }
     .ui.fixed.menu {
         display: none !important;

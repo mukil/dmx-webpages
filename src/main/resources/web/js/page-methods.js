@@ -13,10 +13,6 @@ function visit_page(url) {
     // }
 }
 
-function zero(e) {
-    console.log("registered zero click", e)
-}
-
 function render_page() {
     // fix menu when passed
     $('.masthead').visibility({
@@ -35,7 +31,7 @@ function render_page() {
     // configure search input fields
     var searchConfig = {
         apiSettings: {
-            url: '/websites/search?q={query}',
+            url: '/webpages/search?q={query}',
             onRequest: function() {
                 $('.right.menu .ui.category.search').addClass("loading")
                 $('.right.menu .ui.category.search .icon.my').show()
@@ -64,7 +60,8 @@ function render_page() {
     // pro-actively activate add table styles to all pages
     $('table').addClass('ui celled table')
     // pro-actively activate accordion interactions on any page
-    $('.ui.accordion').accordion();
+    $('.ui.accordion').accordion()
+    $('#text-search').focus()
 }
 
 function register_input_handler() {
@@ -84,8 +81,3 @@ function do_fulltext_search() {
     // 
     console.log("Let's fulltext search for \"" + userQuery + "\" across webpages of site", siteId)
 }
-
-function page_init() {
-    register_input_handler()
-}
-
