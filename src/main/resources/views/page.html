@@ -21,21 +21,19 @@
 
         <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
         <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
-        <script defer="true"  src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
     </head>
-    <body class="webpages page">
+    <body class="webpages page ui detail">
 
         <!-- Following Menu -->
-        <div class="ui large top fixed hidden menu inverted">
+        <div class="ui top fixed hidden menu inverted">
             <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
         </div>
 
         <!-- Sidebar Menu -->
-        <div class="ui vertical inverted sidebar menu">
-            <nav id="sidebar-nav" class="ui container" th:include="fragments/navigation :: vertical-nav"></nav>
-        </div>
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
