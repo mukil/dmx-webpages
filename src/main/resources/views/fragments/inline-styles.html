@@ -1,7 +1,7 @@
 
 <!-- Header (Area) Inline Styles -->
 <div class="inline-styles" th:fragment="header-style (header)">
-    <style th:if="${not #strings.isEmpty(header.largeImage)}" th:inline="text">
+    <style th:if="${header and not #strings.isEmpty(header.largeImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(min-width: 1025px) {
             .page .ui.segment.header-background {
@@ -14,7 +14,7 @@
         }
         /*]]*/
     </style>
-    <style th:if="${not #strings.isEmpty(header.smallImage)}" th:inline="text">
+    <style th:if="${header and not #strings.isEmpty(header.smallImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(max-width: 1024px) {
             .page .ui.segment.header-background {
@@ -27,7 +27,7 @@
         }
         /*]]>*/
     </style>
-    <style th:if="${not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
+    <style th:if="${header and not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
            th:inline="text">
         /*<![CDATA[*/
         .page .sidebar .ui.inverted.menu,
