@@ -123,10 +123,10 @@ public class Section {
 
     private List<Tile> getTilesSorted(List<Tile> all) {
         Collections.sort(all, new Comparator<Tile>() {
-            public int compare(Tile s1, Tile s2) {
+            public int compare(Tile t1, Tile t2) {
                 try {
-                    if ( s1.getOrdinalNumber() > s2.getOrdinalNumber() ) return 1;
-                    if ( s1.getOrdinalNumber() < s2.getOrdinalNumber() ) return -1;
+                    if ( t1.getOrdinalNumber() > t2.getOrdinalNumber() ) return 1;
+                    if ( t1.getOrdinalNumber() < t2.getOrdinalNumber() ) return -1;
                 } catch (Exception nfe) {
                     return 0;
                 }
