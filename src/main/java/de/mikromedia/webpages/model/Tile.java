@@ -75,11 +75,39 @@ public class Tile {
      * @return  Topic   A standard topic replacing the (title, html) section content.
      **/
     public Topic getRelatedTopic() {
-        if (this.relatedTopic != null) {
+        if (this.relatedTopic == null) {
             this.relatedTopic = this.content.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
                 ROLE_DEFAULT, null);
         }
         return this.relatedTopic;
+    }
+
+    public String getRelatedTopicTypeUri() {
+        if (this.relatedTopic != null) {
+            return this.relatedTopic.getTypeUri();
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFilePath() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.path");
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFileSize() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dm4.files.size"), true);
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFileMediaType() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.media_type");
+        }
+        return null;
     }
 
     public String getSmallImage() {
@@ -120,5 +148,14 @@ public class Tile {
         if (this.content == null) return false;
         return (this.content.getTypeUri().equals(TILE));
     }
-    
+
+    // https://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+    private String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
 }

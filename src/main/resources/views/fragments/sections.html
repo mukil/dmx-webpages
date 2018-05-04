@@ -195,8 +195,10 @@
 <!-- Single Tile Section -->
 <div th:fragment="single-tile (section)"
      th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id}">
+
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
+
     <!-- Section Headline -->
     <div class="ui container">
         <h1 class="ui header container text"
@@ -205,20 +207,40 @@
             Tile Title
         </h1>
     </div>
+
     <!-- Single Tile Container Boxes -->
     <div class="ui container text">
         <div th:each="content, iterator : ${section.contents}" class="tile-row">
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
-            <!-- Tiles -->
-            <h3 class="title" th:text="${content.title}">
-              Tile Title
-            </h3>
-            <div class="content" th:utext="${content.html}">
-              <p>Tile Content</p>
+
+            <!-- Related Topic Rendering -->
+            <div th:if="${content.relatedTopic}">
+                <div th:if="${#strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}">
+                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon"
+                       th:title="'Show File, Size: ' + ${content.relatedTopicFileSize} + ' Media Type: ' + ${content.relatedTopicFileMediaType}">
+                        <i class="icon file alternate outline"></i>
+                        <span th:text="${content.relatedTopic.simpleValue}">Filename</span>
+                    </a>
+                </div>
+                <!-- Other Type Specific Rendering -->
+                <div th:if="${not #strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}" 
+                    class="content" th:utext="${content.relatedTopic.simpleValue}">
+                  <p>Topic Title</p>
+                </div>
+            </div>
+            <div th:if="${not content.relatedTopic}">
+                <!-- Tiles -->
+                <h3 class="title" th:text="${content.title}">
+                  Tile Title
+                </h3>
+                <div class="content" th:utext="${content.html}">
+                  <p>Tile Content</p>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- Stackable Segment with 2-Quote Columns per Row -->
