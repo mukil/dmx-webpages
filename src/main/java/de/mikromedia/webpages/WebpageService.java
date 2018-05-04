@@ -137,6 +137,13 @@ public interface WebpageService {
      */
     List<MenuItem> getActiveMenuItems(Topic site);
 
+    /**
+     * Fetches all menut items related to the given website.
+     * @param sitePrefix
+     * @return All \"active\" menu items associated with the website for the given username..
+     */
+    List<MenuItem> getWebsiteMenuItems(String sitePrefix);
+
     List<Webpage> getWebpagesSortedByTimestamp(List<Webpage> all, final boolean lastModified);
     
     /**

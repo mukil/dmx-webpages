@@ -510,6 +510,21 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     /**
+     * Returns all topics of type <code>de.mikromedia.menu.item</code> related to the given `Website` topic.
+     * @param sitePrefix
+     * @return All topics of type menu item associated with the given website.
+     */
+    @Override
+    public List<MenuItem> getWebsiteMenuItems(String sitePrefix) {
+        Topic website = getWebsiteByPrefix(sitePrefix);
+        if (website != null) {
+            Website site = new Website(website, dm4);
+            return site.getActiveMenuItems();
+        }
+        return null;
+    }
+
+    /**
      * Fetches the global standard website.
      * @return A topic representing the global standard website which is unrelated to any username.
      * Its pages are accessible under the root resource.

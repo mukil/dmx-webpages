@@ -44,7 +44,7 @@ Note: The permission who can see your published webpage depends on the so called
 
 **0.7.2** - Upcoming
 
-* Hard-coded hyperlink style for dmx-berlin release
+* Iprovements and fixes for third-party plugin integration
 * Enabled font-smoothing, esp. for bold bright serif texts on dark backgrounds
 * Added very basic json-ld mapping for an Institution to be publisher of the frontpage
 * Include tile child values and section titles in fulltext search results.
