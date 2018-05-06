@@ -2,8 +2,15 @@
 /**
  * Website style by Malte Reißig (malte -at- mikromedia.de).
  * Written exclusively for Quid Pro Quo (TM).
- * Last modified: June 2017
+ * Last modified: May 2018
  **/
+
+@import url('https://fonts.googleapis.com/css?family=Cinzel|Lato:300,300i,700,700i');
+
+
+/** -- New Semantic UI Custom Styled 2.3 Release -- **/
+@import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+
 
 html, body {
     margin: 0em;
@@ -11,8 +18,16 @@ html, body {
 
 html, body, input, text {
     color: #232323;
-    font-family: FreeSans, Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    font-family: 'Lato Light', Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
     font-size: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel';
+}
+
+.ui.menu .item {
+    font-family: 'Lato Bold';
 }
 
 h3 {
