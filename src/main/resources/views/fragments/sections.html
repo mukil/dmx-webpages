@@ -216,6 +216,7 @@
 
             <!-- Related Topic Rendering -->
             <div th:if="${content.relatedTopic}">
+                <!-- File Topic Rendering as Show File Link -->
                 <div th:if="${#strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}">
                     <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon"
                        th:title="'Show File, Size: ' + ${content.relatedTopicFileSize} + ' Media Type: ' + ${content.relatedTopicFileMediaType}">
@@ -226,9 +227,11 @@
                 <!-- Other Type Specific Rendering -->
                 <div th:if="${not #strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}" 
                     class="content" th:utext="${content.relatedTopic.simpleValue}">
-                  <p>Topic Title</p>
+                    <p>Topic Title</p>
                 </div>
             </div>
+
+            <!-- Standard Tile Content Rendering -->
             <div th:if="${not content.relatedTopic}">
                 <!-- Tiles -->
                 <h3 class="title" th:text="${content.title}">
@@ -238,6 +241,7 @@
                   <p>Tile Content</p>
                 </div>
             </div>
+
         </div>
     </div>
 
