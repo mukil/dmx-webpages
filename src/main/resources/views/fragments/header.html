@@ -3,9 +3,7 @@
 <!-- FRONTPAGE -->
 <header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-background">
 
-    <div class="navigation">
-        <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
-    </div>
+    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
     <div th:if="${not _header}" class="ui text container">
         <h1 class="ui inverted header" th:utext="${siteName}">
@@ -50,10 +48,7 @@
 <header th:fragment="page" class="ui inverted vertical masthead center aligned segment header-background">
 
     <!-- Include First Navigation -->
-    <!--nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav-->
-    <div class="navigation">
-        <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
-    </div>
+    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
     <!-- Render parts of the website header if no custom page header is available -->
     <div th:if="${not header}" class="ui text container">

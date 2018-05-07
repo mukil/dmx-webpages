@@ -5,29 +5,24 @@
  * Last modified: May 2018
  **/
 
-@import url('https://fonts.googleapis.com/css?family=Cinzel|Lato:300,300i,700,700i');
-
-
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
-@import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/css/semantic-ui/qpq-dist/semantic.min.css');
 
-
-html, body {
-    margin: 0em;
-}
-
+/**
 html, body, input, text {
     color: #232323;
-    font-family: 'Lato Light', Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
+    font-family: 'Lato', Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
     font-size: 2em;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cinzel';
+    font-weight: normal;
 }
 
 .ui.menu .item {
-    font-family: 'Lato Bold';
+    font-family: 'Lato';
+    font-weight: bold;
+}
+
+html, body {
+    margin: 0em;
 }
 
 h3 {
@@ -113,7 +108,6 @@ input:focus {
     padding: .5em;
 }
 
-/** Layouts **/
 
 @media (max-width: 1800px) {
     .section {
@@ -135,5 +129,4 @@ input:focus {
         font-size: .5em;
     }
 }
-
-
+ **/
