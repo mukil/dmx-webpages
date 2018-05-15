@@ -8,6 +8,23 @@
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
 @import url('/de.mikromedia.webpages/css/semantic-ui/qpq-dist/semantic.min.css');
 
+.quote.segment h1,
+.quote.segment .column.tile h2,
+.quote.segment .column.tile h3 {
+    font-family: "Libre Baskerville";
+}
+
+.quote.segment h1,
+.quote.segment .column.tile h2,
+.quote.segment .column.tile h3,
+.quote.segment .column.tile p {
+    text-align: center;
+}
+
+.ui.vertical.stripe {
+    padding: 4em 0em;
+}
+
 /**
 html, body, input, text {
     color: #232323;

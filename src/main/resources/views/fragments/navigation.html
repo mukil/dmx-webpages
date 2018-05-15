@@ -15,7 +15,7 @@
     <div th:each="menuItem : ${menuItems}" class="ui vertical inverted menu">
 
         <a th:if="${!menuItem.hasChildItems}"
-            th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
+            th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
             itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
             th:href="${menuItem.fullHref}">Menu Item</a>
 
@@ -47,7 +47,7 @@
         <div th:each="menuItem : ${menuItems}" class="menu-items">
 
             <a th:if="${!menuItem.hasChildItems}"
-                th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
+                th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
                 itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                 th:href="${menuItem.fullHref}">Menu Item</a>
 
@@ -92,7 +92,7 @@
             <div th:each="menuItem : ${menuItems}" class="menu-items">
 
                 <a th:if="${!menuItem.hasChildItems}"
-                    th:class="${#strings.equalsIgnoreCase(location, '/' + website + '/' + menuItem.href) ? 'active item' : 'item'}"
+                    th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                     th:href="${menuItem.fullHref}">Menu Item</a>
 

@@ -258,35 +258,60 @@
             Quote Section Title
         </h1>
     </div>
-     <div class="ui equal width stackable internally celled grid">
-
-        <div class="row aligned">
-            <div th:if="${iterator.index} le 1"
-                 th:class="'column tile tile-background-' + ${content.id}"
-                 th:each="content, iterator : ${section.contents}">
-                <!-- Inline Tile Styles -->
-                <div th:replace="fragments/inline-styles :: tile-background (${content})" />
-                <!-- Tiles -->
-                <h3 th:text="${content.title}">Quote 1 &amp; 2</h3>
-                <p th:utext="${content.html}">
-                   Author A
-                </p>
-            </div>
+    <div class="ui equal width stackable grid container">
+        <div th:class="'column tile tile-background-' + ${content.id}"
+             th:each="content, iterator : ${section.contents}">
+            <!-- Inline Tile Styles -->
+            <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+            <!-- Tiles -->
+            <h2 th:text="${content.title}">Quote 1 &amp; 2</h2>
+            <p th:utext="${content.html}">
+               Author A
+            </p>
         </div>
+    </div>
+</div>
 
-        <div class="row aligned second">
-             <div th:if="${iterator.index} gt 1 and ${iterator.index} le 3"
-                 th:class="'column tile tile-background-' + ${content.id}"
-                 th:each="content, iterator : ${section.contents}">
-                <!-- Inline Tile Styles -->
-                <div th:replace="fragments/inline-styles :: tile-background (${content})" />
-                <!-- Tiles -->
-                <h3 th:text="${content.title}">Quote 1 &amp; 2</h3>
-                <p th:utext="${content.html}">
-                   Author A
-                </p>
-            </div>
+<!-- Map Widget -->
+<div th:fragment="map-widget (section)"
+     th:class="'ui vertical stripe map segment section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Title -->
+    <div class="ui map-head" th:if="${not #strings.isEmpty(section.title)}">
+        <h1 class="ui header container text" th:text="${section.title}">
+            Map Section Title
+        </h1>
+    </div>
+    <div class="ui map-body">
+        <div th:class="'column tile tile-background-' + ${content.id}"
+             th:each="content, iterator : ${section.contents}">
+            <!-- Inline Tile Styles -->
+            <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+            <!-- Tiles -->
+            <!-- Testing -->
         </div>
+    </div>
+</div>
 
+<!-- Contact Form -->
+<div th:fragment="contact-form (section)"
+     th:class="'ui vertical stripe contact-form segment section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Title -->
+    <div class="ui contact-head" th:if="${not #strings.isEmpty(section.title)}">
+        <h1 class="ui header container text" th:text="${section.title}">
+            Map Section Title
+        </h1>
+    </div>
+    <div class="ui contact-body">
+        <div th:class="'column tile tile-background-' + ${content.id}"
+             th:each="content, iterator : ${section.contents}">
+            <!-- Inline Tile Styles -->
+            <div th:replace="fragments/inline-styles :: tile-background (${content})" />
+            <!-- Tiles -->
+            <!-- Testing -->
+        </div>
     </div>
 </div>

@@ -104,6 +104,10 @@ public class Section {
                 layoutName = "single-tile";
             } else if (layout.getUri().equals("de.mikromedia.layout.quote_section")) {
                 layoutName = "quote-tiles";
+            } else if (layout.getUri().equals("de.mikromedia.layout.map_widget")) {
+                layoutName = "map-widget";
+            } else if (layout.getUri().equals("de.mikromedia.layout.contact_form")) {
+                layoutName = "contact-form";
             }
         }
         return layoutName;
