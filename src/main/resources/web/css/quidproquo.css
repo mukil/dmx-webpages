@@ -25,6 +25,27 @@
     padding: 4em 0em;
 }
 
+.quote h2 {
+    font-weight: 400;
+    font-family: "Libre Baskerville";
+}
+
+.ui.segment.two-columns-equal .ui.column.tile p,
+.quote p {
+    font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
+}
+
+.body .ui.segment h1.ui.header,
+.ui.segment.two-columns-equal .grid .column.tile {
+    text-align: center;
+    font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
+}
+
+.ui.vertical.segment.stripe {
+    border-bottom: 0px solid transparent;
+    padding: 4em 0em;
+}
+
 /**
 html, body, input, text {
     color: #232323;

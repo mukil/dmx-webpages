@@ -1,7 +1,7 @@
 
 
 <!-- FRONTPAGE -->
-<header th:fragment="front" class="ui inverted vertical masthead center aligned segment header-background">
+<header th:fragment="front" class="ui vertical masthead center aligned segment header-background">
 
     <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
 
@@ -29,7 +29,7 @@
         </h2>
 
         <!-- Render Header Buttons -->
-        <div class="page-buttons">
+        <div class="page-buttons" th:if="${_header.buttons}">
             <div th:each="button : ${_header.buttons}">
                 <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
                     class="ui button primary" th:classappend="${button.style}"
@@ -74,7 +74,7 @@
             Page header content
         </h2>
         <!-- Render Header Buttons -->
-        <div class="page-buttons">
+        <div class="page-buttons" th:if="${header.buttons}">
             <div th:each="button : ${header.buttons}">
                 <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
                     class="ui button primary" th:classappend="${button.style}"

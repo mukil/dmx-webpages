@@ -71,10 +71,12 @@ public class Header {
 
     public List<Button> getButtons() {
         List<Button> headerButtons = new ArrayList();
-        List<RelatedTopic> buttons = this.pageHeader.getChildTopics().getTopics(BUTTON);
-        for (RelatedTopic topic : buttons) {
-            Button button = new Button(topic);
-            headerButtons.add(button);
+        List<RelatedTopic> buttons = this.pageHeader.getChildTopics().getTopicsOrNull(BUTTON);
+        if (buttons != null) {
+            for (RelatedTopic topic : buttons) {
+                Button button = new Button(topic);
+                headerButtons.add(button);
+            }
         }
         return headerButtons;
     }

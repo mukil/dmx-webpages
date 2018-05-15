@@ -25,7 +25,7 @@
 
         <meta th:replace="fragments/tracker" />
     </head>
-    <body class="webpages page ui detail">
+    <body th:class="'webpages page ui detail ' + ${page.webAlias}">
 
         <!-- Following Menu -->
         <div class="ui top fixed hidden menu inverted">

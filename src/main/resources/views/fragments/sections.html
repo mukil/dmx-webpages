@@ -75,7 +75,14 @@
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui equal width grid padded">
+    <div class="ui">
+        <h1 class="ui header container text container"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
+            Two and N Equal Columns Section title
+        </h1>
+    </div>
+    <div class="ui equal width stackable grid padded">
         <div th:if="${iterator.index} == 0" th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -258,7 +265,7 @@
             Quote Section Title
         </h1>
     </div>
-    <div class="ui equal width stackable grid container">
+    <div class="ui equal width stackable grid quote">
         <div th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}">
             <!-- Inline Tile Styles -->
