@@ -1,0 +1,56 @@
+
+<!-- Content Form Full Segment -->
+<div th:fragment="contact-form-full (section)"
+     th:class="'ui vertical basic spaced segment contact-form-full section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Contact Form Title -->
+    <div class="ui">
+        <h1 class="ui header container text"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
+            Ten Six Section Title
+        </h1>
+    </div>
+    <!-- Contact Form Content -->
+    <div class="ui container form" th:if='${not contactFormUsed}'>
+        <form class="ui form" method="GET" action="/webpages/contact-form-submission">
+            <div class="field">
+                <!--label>Your Name</label-->
+                <input type="text" name="name" placeholder="Your name"/>
+            </div>
+            <div class="field">
+                <!--label>Contact information</label-->
+                <input type="text" name="contact" placeholder="Contact information"/>
+            </div>
+            <div class="field">
+                <!--label>Message</label-->
+                <textarea rows="4" name="message" placeholder="Your message"></textarea>
+            </div>
+            <div class="field">
+                <input class="ui button" type="submit" value="Send message" />
+                <input class="ui button" name="website" type="hidden" th:value="${website}" />
+                <input class="ui button" name="webalias" type="hidden" th:value="${webalias}" />
+            </div>
+        </form>
+    </div>
+    <div class="ui container text" th:if="${contactFormUsed}">
+        <h3>Thank you for getting in touch, we will get back to you as soon as possible.</h3>
+    </div>
+</div>
+
+<!-- Content Form Small Segment -->
+<div th:fragment="contact-form-small" class="ui column contact-form-small">
+    <!-- Contact Form Title -->
+    <h1 class="ui header container text">
+        Contact Us
+    </h1>
+        <!-- Contact Form Content -->
+    <div class="ui container text">
+        <form method="POST" action="/webpages/contact-form-submission">
+            <input type="text" name="name" placeholder="Your name"/>
+            <input type="text" name="message" placeholder="Your message"/>
+            <input type="submit" value="Send message" />
+        </form>
+    </div>
+</div>

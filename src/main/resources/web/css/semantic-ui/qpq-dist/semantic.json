@@ -41,7 +41,8 @@
     "api",
     "table",
     "card",
-    "item"
+    "item",
+    "form"
   ],
   "permission": false,
   "autoInstall": false,

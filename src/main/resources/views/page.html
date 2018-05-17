@@ -75,6 +75,14 @@
                             <div th:replace="fragments/sections :: quote-tiles (${section})" />
                         </div>
 
+                        <div th:if="${#strings.equals(section.layoutName, 'contact-form')}">
+                            <div th:replace="fragments/contact-form :: contact-form-full (${section})" />
+                        </div>
+
+                        <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
+                            <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
+                        </div>
+
                     </div>
 
                     <div class="ui vertical stripe segment main-segment">
@@ -112,6 +120,14 @@
 
                         <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
                             <div th:replace="fragments/sections :: quote-tiles (${section})" />
+                        </div>
+
+                        <div th:if="${#strings.equals(section.layoutName, 'contact-form')}">
+                            <div th:replace="fragments/contact-form :: contact-form-full (${section})" />
+                        </div>
+
+                        <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
+                            <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
                         </div>
 
                     </div>

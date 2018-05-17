@@ -57,6 +57,8 @@ import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
 import de.mikromedia.webpages.events.ResourceNotFoundListener;
 import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
 import org.thymeleaf.context.AbstractContext;
 
 /**
@@ -162,7 +164,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         // 1) Check if a custom frontpage was registered by another plugin
         if (frontPageTemplateName != null) {
             // Set generic template data "authenticated" and "username"
-            prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX);
+            prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX, location);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
             website = getStandardWebsite();
             dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
@@ -180,7 +182,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             preparePageSections(website);
             // check if their is a redirect setup for this web alias
             handleWebsiteRedirects(website, "/"); // potentially throws WebAppException triggering a Redirect
-            return getWebsiteTemplate(website);
+            return getWebsiteTemplate(website, location);
         }
     }
 
@@ -204,7 +206,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
             website = getStandardWebsite();
             dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
-            prepareGenericViewData("undefined", STANDARD_WEBSITE_PREFIX);
+            prepareGenericViewData("undefined", STANDARD_WEBSITE_PREFIX, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
             return registeredPage;
         }
@@ -213,11 +215,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         website = getWebsiteByPrefix(pageAlias);
         if (website != null) {
             log.info("Preparing USER FRONTPAGE view data in dm4-webpages plugin...");
-            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias);
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias, null);
             prepareWebsiteViewData(website, pageAlias);
             preparePageSections(website);
             dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
-            return getWebsiteTemplate(website);
+            return getWebsiteTemplate(website, pageAlias);
         }
         // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
         website = getStandardWebsite();
@@ -228,7 +230,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
             log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
-            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX, pageAlias);
             preparePageViewData(webpage);
             return getWebpageTemplate(webpage);
         }
@@ -239,7 +241,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         // 6) Requested resource is neither a "Website", nor a "Custom Root Resource", nor
         //    a published or drafted \"Webpage\" nor a \"Redirect\"
         dm4.fireEvent(PAGE_NOT_FOUND, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
-        return getWebsiteNotFoundPage(website);
+        return getWebsiteNotFoundPage(website, pageAlias);
     }
 
     /**
@@ -258,7 +260,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         // 1) Fetch some website topic
         Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
         if (usersWebsite != null) {
-            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, sitePrefix);
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, sitePrefix, pageAlias);
             prepareWebsiteViewData(usersWebsite, location);
         }
         // 2) check related webpages
@@ -276,7 +278,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         log.info("=> /" + pageAlias + " webpage redirect for \"" +sitePrefix+ "\"s website not found.");
         // 5) Return 404 page with users website footer
         dm4.fireEvent(PAGE_NOT_FOUND, context(), pageAlias, sitePrefix);
-        return getWebsiteNotFoundPage(usersWebsite);
+        return getWebsiteNotFoundPage(usersWebsite, pageAlias);
     }
 
     /** --------------------------------------------------------------------------------- REST API Resources ----- **/
@@ -318,6 +320,29 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         }
         log.info("Query \""+query+"\" matched " + pages.size() + " pages, " + sites.size() + " sites");
         return response;
+    }
+
+    @GET
+    @Path("/webpages/contact-form-submission")
+    @Produces(MediaType.TEXT_HTML)
+    public Viewable processContactFormSubmission(@QueryParam("name") String name, @QueryParam("message") String message,
+            @QueryParam("contact") String contact, @QueryParam("website") String website, @QueryParam("webalias") String webalias) throws URISyntaxException {
+        log.info("Sender: " + name + " Message: " + message);
+        log.info("Request From: /" + website + "/" + webalias);
+        viewData("contactFormUsed", true);
+        if (website == null) {
+            return getIndexWebpage();
+        } else if (website.equals("standard") && webalias == null) {
+            return getIndexWebpage();
+        } else if (website.equals("standard") && webalias != null) {
+            return getWebpage(webalias);
+        } else if (!website.equals("standard") && webalias == null) {
+            return getWebpage(website);
+        } else if (!website.equals("standard") && webalias != null) {
+            return getWebsitePage(website, webalias);
+        } else {
+            return getIndexWebpage();
+        }
     }
 
     private List<Topic> searchWebpageContents(String query) {
@@ -690,12 +715,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return null;
     }
 
-    private Viewable getWebsiteTemplate(Topic website) {
+    private Viewable getWebsiteTemplate(Topic website, String location) {
         // website is null if the request does not have the necessary permissions to access it
         if (website != null) {
             return view(FRONTPAGE_TEMPLATE_NAME);
         } else {
-            return getWebsiteNotFoundPage(website); // which loads standard topic if website is null
+            return getWebsiteNotFoundPage(website, location); // which loads standard topic if website is null
         }
     }
 
@@ -703,22 +728,22 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         Topic website = null;
         if (username == null) {
             website = getStandardWebsite();
-            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX);
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX, null);
         } else {
             website = getOrCreateWebsiteTopic(username);
-            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, username);
+            prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, username, null);
         }
         return website;
     }
 
-    private Viewable getWebsiteNotFoundPage(Topic standardWebsite) {
+    private Viewable getWebsiteNotFoundPage(Topic standardWebsite, String location) {
         // 1) If no page was returned by now we use the value placed in "Footer" of the standard / admins website in our 404 page
         // ### Fixme: Can we respond with HTTP Status 404 and a template, too? Serving robots and humans?
         Topic website = standardWebsite;
         if (website == null) {
             website = getStandardWebsite();
         }
-        prepareGenericViewData("404", STANDARD_WEBSITE_PREFIX);
+        prepareGenericViewData("404", STANDARD_WEBSITE_PREFIX, location);
         prepareWebsiteViewData(website, "404");
         return view("404");
     }
@@ -728,7 +753,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             String[] templateValue = frontpageTemplateAliases.get(pageAlias);
             String templateName = templateValue[0];
             log.info("Loading template \"views/" + templateName + ".html\" for \"" + pageAlias + "\"");
-            prepareGenericViewData(templateName, pageAlias);
+            prepareGenericViewData(templateName, pageAlias, null);
             Topic standardSite = getStandardWebsite();
             prepareWebsiteViewData(standardSite, pageAlias);
             viewData("website", pageAlias); // Fixme: used as url prefix? Otherwise drop.
@@ -757,11 +782,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
      * Prepares some session data used across all our Thymeleaf page templates.
      * @param websiteTopic
      */
-    private void prepareGenericViewData(String filename, String websitePrefix) {
+    private void prepareGenericViewData(String filename, String websitePrefix, String webAlias) {
         String username = accesscontrol.getUsername();
         viewData("authenticated", (username != null));
         viewData("username", username);
         viewData("website", websitePrefix);
+        viewData("webalias", webAlias);
         viewData("template", filename);
         viewData("hostUrl", DM4_HOST_URL);
     }

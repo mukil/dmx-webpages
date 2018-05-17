@@ -46,6 +46,23 @@
     padding: 4em 0em;
 }
 
+.page .segment .leaflet-control-container a {
+    text-decoration: none;
+}
+
+.page .segment .leaflet-control-attribution {
+    font-size: 1.2em;
+}
+
+.page .segment .text .leaflet-control-attribution a:hover {
+    text-decoration: underline;
+}
+
+#map {
+    border-top: 1px solid #6f634f;
+    border-bottom: 1px solid #6f634f;
+}
+
 /**
 html, body, input, text {
     color: #232323;
