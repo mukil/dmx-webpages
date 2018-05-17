@@ -57,8 +57,6 @@ import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
 import de.mikromedia.webpages.events.ResourceNotFoundListener;
 import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
 import org.thymeleaf.context.AbstractContext;
 
 /**

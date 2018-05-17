@@ -51,7 +51,11 @@ Note: The permission who can see your published webpage depends on the so called
 * Preparations of displaying topic type icons on pages
 * Style fix for unlegible text in footer area
 * Optimized loading of javascript resources & page script initialization
-* Adjustment of header button, section header and "Pages" section style
+* Adjustment of header button, section header and _Pages_ section style
+* Added contact-form and mapbox-widget as _Section Layouts_
+* Added tile-content wrapper for additional custom-styles
+* _File_ topic rendering precedes _Tile Content_ rendering in _Sections_
+* Changes in HTML markup for article tag on pages
 
 **0.7.1** - Mar 08, 2018
 
