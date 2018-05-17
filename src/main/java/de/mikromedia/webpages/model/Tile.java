@@ -70,14 +70,14 @@ public class Tile {
     }
 
     /**
-     * If some DM standard topic is directly associated with a "Tile" topic
+     * If one DM file topic is directly associated with a "Tile" topic
      * that topic should be given priority in the templates and become the actual section content.
      * @return  Topic   A standard topic replacing the (title, html) section content.
      **/
     public Topic getRelatedTopic() {
         if (this.relatedTopic == null) {
             this.relatedTopic = this.content.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, null);
+                ROLE_DEFAULT, "dm4.files.file");
         }
         return this.relatedTopic;
     }
