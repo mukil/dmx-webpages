@@ -30,6 +30,29 @@
     font-family: "Libre Baskerville";
 }
 
+.quote .tile-content {
+    max-width: 650px;
+    margin: auto;
+}
+
+.services .segment.two-columns-equal .grid .tile .tc {
+    max-width: 500px;
+    margin: auto;
+    text-align: left;
+}
+
+.ui.segment.single-tile .tc li,
+.ui.segment.two-columns-equal .grid .tile .tc li {
+    margin-bottom: 1em;
+}
+
+.imprint .segment.two-columns-equal .grid .tile .tc {
+    max-width: 400px;
+    margin: auto;
+    text-align: left;
+}
+
+.ui.segment.single-tile .tc,
 .ui.segment.two-columns-equal .ui.column.tile p,
 .quote p {
     font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
