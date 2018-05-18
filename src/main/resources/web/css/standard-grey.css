@@ -5,5 +5,7 @@
  **/
 
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
-@import url('/de.kiezatlas.website/css/semantic-ui/2.3/dist/semantic.min.css');
+/** @import url('/de.kiezatlas.website/css/semantic-ui/2.3/dist/semantic.min.css'); **/
+@import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+
 
