@@ -15,6 +15,14 @@ body {
     margin-bottom: 2em;
 }
 
+.cooper {
+    color: #e2ab40;
+}
+
+.copper-bright {
+    color: #f3bc15;
+}
+
 .footer.segment a {
     color: #40b0e2;
     text-decoration: none;
