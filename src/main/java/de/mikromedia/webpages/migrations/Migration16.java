@@ -14,13 +14,12 @@ import java.util.logging.Logger;
  * Assigns all standard topics to new confidential "Workspace" Workspace.
  * @author malted
  */
-public class Migration15 extends Migration {
+public class Migration16 extends Migration {
 
     @Inject WorkspacesService workspacesService;
     @Inject AccessControlService accessControlService;
 
     private Logger log = Logger.getLogger(getClass().getName());
-    private String workspaceName = "Infowork";
     private String workspaceUri = "de.mikromedia.information_work";
     private Topic confidentialWorkspace = null;
 
@@ -28,23 +27,23 @@ public class Migration15 extends Migration {
     public void run () {
 
         // 0) Create custom workspace for all our types and the standard site topics
-        confidentialWorkspace = workspacesService.createWorkspace(workspaceName, workspaceUri, SharingMode.CONFIDENTIAL);
+        confidentialWorkspace = workspacesService.getWorkspace(workspaceUri);
         accessControlService.setWorkspaceOwner(confidentialWorkspace, AccessControlService.ADMIN_USERNAME);
-        log.info("> Created new confidential workspace \"" + confidentialWorkspace.getSimpleValue() + "\" for revision of information before publication");
-        List<Topic> insts = dm4.getTopicsByType("dm4.contacts.institution");
-        log.info("> Moving " + insts.size() + " Institition topics into new confidential workspace");
-        for (Topic inst : insts) {
-            moveWithChilds(inst);
+        log.info("> Re-using confidential workspace \"" + confidentialWorkspace.getSimpleValue() + "\" for revision of information before publication");
+        List<Topic> notes = dm4.getTopicsByType("dm4.notes.note");
+        log.info("> Moving " + notes.size() + " Note topics into new confidential workspace");
+        for (Topic note : notes) {
+            moveWithChilds(note);
         }
-        List<Topic> persons = dm4.getTopicsByType("dm4.contacts.person");
-        log.info("> Moving " + persons.size() + " Person topics into new confidential workspace");
-        for (Topic person : persons) {
-            moveWithChilds(person);
+        List<Topic> files = dm4.getTopicsByType("dm4.files.file");
+        log.info("> Moving " + files.size() + " File topics into new confidential workspace");
+        for (Topic file : files) {
+            moveWithChilds(file);
         }
-        List<Topic> bookmarks = dm4.getTopicsByType("dm4.webbrowser.web_resource");
-        log.info("> Moving " + bookmarks.size() + " Web Resource topics into new confidential workspace");
-        for (Topic bookmark : bookmarks) {
-            moveWithChilds(bookmark);
+        List<Topic> folders = dm4.getTopicsByType("dm4.files.folder");
+        log.info("> Moving " + folders.size() + " Folder topics into new confidential workspace");
+        for (Topic folder : folders) {
+            moveWithChilds(folder);
         }
 
     }
