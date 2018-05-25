@@ -358,29 +358,31 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             }
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", SECTION_TITLE)) {
-            Topic section = getParentSection(content);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(content);
+            addRelatedWebpagesToResults(sections, results);
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
             Topic tile = getParentTile(content);
-            Topic section = getParentSection(tile);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(tile);
+            addRelatedWebpagesToResults(sections, results);
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
             Topic tile = getParentTile(content);
-            Topic section = getParentSection(tile);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(tile);
+            addRelatedWebpagesToResults(sections, results);
         }
         return results;
+    }
+
+    private void addRelatedWebpagesToResults(List<RelatedTopic> sections, List<Topic> results) {
+        if (sections != null) {
+            for (Topic section : sections) {
+                Topic webpage = getRelatedWebpage(section);
+                if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                    results.add(webpage);
+                }
+            }
+        }
     }
 
     private List<Topic> searchWebsiteFields(String query) {
@@ -404,9 +406,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return child.getRelatedTopic(AGGREGATION, null, null, TILE);
     }
 
-    private Topic getParentSection(Topic child) {
+    private List<RelatedTopic> getParentSections(Topic child) {
         if (child == null) return null;
-        return child.getRelatedTopic(AGGREGATION, null, null, SECTION);
+        return child.getRelatedTopics(AGGREGATION, null, null, SECTION);
     }
 
     private Topic getRelatedWebpage(Topic child) {
