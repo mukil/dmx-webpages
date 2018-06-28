@@ -38,14 +38,15 @@
     <body class="webpages page not-found">
 
         <!-- Following Menu -->
-        <div class="ui large top fixed hidden menu inverted">
-            <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+        <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+
+        <!-- Top Navigation Menu -->
+        <div class="navigation">
+            <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
         </div>
 
-        <!-- Sidebar Menu -->
-        <div class="ui vertical inverted sidebar menu">
-            <nav id="sidebar-nav" class="ui container" th:include="fragments/navigation :: vertical-nav"></nav>
-        </div>
+        <!-- Suidebar Menu -->
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">

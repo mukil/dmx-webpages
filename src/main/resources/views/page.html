@@ -28,13 +28,13 @@
     <body class="webpages page ui detail">
 
         <!-- Following Menu -->
-        <div class="ui top fixed hidden menu inverted">
-            <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+        <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+
+        <div class="navigation">
+            <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
         </div>
 
-        <!-- Sidebar Menu -->
-        <div th:replace="fragments/navigation :: vertical-nav"></div>
-
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
         <!-- Page Contents -->
         <div class="pusher">
 
