@@ -111,6 +111,15 @@
     font-weight: 700;
 }
 
+.ui.segment.footer.inverted a {
+    text-decoration: none;
+}
+
+.ui.segment.footer .site-link .logo {
+    max-width: 125px;
+    margin-bottom: 2em;
+}
+
 /**
 html, body, input, text {
     color: #232323;
