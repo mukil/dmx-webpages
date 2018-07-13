@@ -1,0 +1,25 @@
+/*******************************
+         Theme Overrides
+*******************************/
+
+/* Widescreen Monitor */
+
+@media only screen and (min-width: 1600px) {
+  .ui.container {
+    width: 1440px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .ui.grid.container {
+    width: calc( 1127px  +  2rem ) !important;
+  }
+
+  .ui.relaxed.grid.container {
+    width: calc( 1127px  +  3rem ) !important;
+  }
+
+  .ui.very.relaxed.grid.container {
+    width: calc( 1127px  +  5rem ) !important;
+  }
+}
