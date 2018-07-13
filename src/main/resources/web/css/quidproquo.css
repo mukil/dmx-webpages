@@ -81,9 +81,34 @@
     text-decoration: underline;
 }
 
+/** Frontpage Page Link Styles ***/
+
+.not-found header h3,
+.posts article .ui.header a {
+    color: #e2c9a2;
+    font-weight: 700;
+}
+
+.posts article .ui.header a:hover {
+    color: #1d160f;
+}
+
 #map {
     border-top: 1px solid #6f634f;
     border-bottom: 1px solid #6f634f;
+}
+
+.ui.text.container .metadata {
+    opacity: 0;
+}
+
+.ui.text.container .metadata:hover {
+    opacity: .4;
+}
+
+.footer h4.ui.header {
+    color: #e2c9a2 !important;
+    font-weight: 700;
 }
 
 /**
