@@ -15,7 +15,7 @@
     <div th:each="menuItem : ${menuItems}" class="ui vertical inverted menu">
 
         <a th:if="${!menuItem.hasChildItems}"
-            th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
+            th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
             itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
             th:href="${menuItem.fullHref}">Menu Item</a>
 
@@ -23,7 +23,7 @@
             <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
             <span th:text="${menuItem.label}" class="ui header"></span> <!-- Compare + Adjust Menu Below -->
             <div class="menu">
-                <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
                      th:each="childItem : ${menuItem.childMenuItems}"
                      th:href="${childItem.fullHref}"
                      th:text="${childItem.label}">
@@ -47,7 +47,7 @@
         <div th:each="menuItem : ${menuItems}" class="menu-items">
 
             <a th:if="${!menuItem.hasChildItems}"
-                th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
+                th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
                 itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                 th:href="${menuItem.fullHref}">Menu Item</a>
 
@@ -56,7 +56,7 @@
                 <i class="icon dropdown"></i>
 
                 <div class="menu">
-                    <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                    <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
                          th:each="childItem : ${menuItem.childMenuItems}"
                          th:href="${childItem.fullHref}"
                          th:text="${childItem.label}">
@@ -80,7 +80,7 @@
 
 <!-- Low Scrolling Position Semantic Top Menu -->
 <div th:fragment="lower-page-nav">
-    <div class="ui large top fixed menu inverted">
+    <div class="ui large top fixed hidden menu inverted">
         <div class="ui container">
 
             <a th:replace="fragments/widgets :: logo-site-link"></a>
@@ -92,7 +92,7 @@
             <div th:each="menuItem : ${menuItems}" class="menu-items">
 
                 <a th:if="${!menuItem.hasChildItems}"
-                    th:class="${#strings.endsWith(location, menuItem.href) ? 'active item' : 'item'}"
+                    th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
                     th:href="${menuItem.fullHref}">Menu Item</a>
 
@@ -102,7 +102,7 @@
                     <i class="icon dropdown"></i>
 
                     <div class="menu">
-                        <a th:class="${#strings.endsWith(location, '/' + childItem.href) ? 'active item' : 'item'}"
+                        <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
                              th:each="childItem : ${menuItem.childMenuItems}"
                              th:href="${childItem.fullHref}"
                              th:text="${childItem.label}">

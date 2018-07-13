@@ -27,17 +27,16 @@
     </head>
     <body th:class="'webpages page ui detail ' + ${page.webAlias}">
 
-        <!-- Following Menu -->
-        <div class="ui top fixed hidden menu inverted">
-            <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
-        </div>
+        <!-- Following (low-hanging) Menu -->
+        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></div>
 
-        <!-- Sidebar Menu -->
+        <!-- Sidebar Menu (small screens) -->
         <div th:replace="fragments/navigation :: vertical-nav"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
 
+            <!-- Header incl. Main Top Menu -->
             <header th:replace="fragments/header :: page"></header>
 
             <div class="body">

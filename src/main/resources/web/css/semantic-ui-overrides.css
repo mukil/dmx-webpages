@@ -120,8 +120,8 @@ article .text {
 
 #header-page-nav .item .logo,
 #lower-page-nav .item .logo {
-    height: auto;
-    width: 4em
+    width: auto;
+    height: 34px;
 }
 
 #header-page-nav .ui.inverted.menu .header.item {
@@ -172,14 +172,6 @@ header.inverted .page-meta .label {
 
 .posts article {
     padding-top: 1em;
-}
-
-.posts article .ui.header a {
-    color: #b7d9cb;
-}
-
-.posts article .ui.header a:hover {
-    color: #2b293f;
 }
 
 .page .segment .text a {

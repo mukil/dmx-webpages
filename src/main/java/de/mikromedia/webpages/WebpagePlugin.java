@@ -821,7 +821,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
      * Prepares the most basic data used across all our Thymeleaf page templates.
      * @param website
      */
-    private void prepareWebsiteViewData(Topic website, String href) {
+    private void prepareWebsiteViewData(Topic website, String pageAlias) {
         if (website != null) {
             Website site = new Website(website, dm4);
             viewData("siteName", site.getName());
@@ -835,7 +835,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             // ### Think of revising this "LD String" to become a sensible chain of statements
             String linkedData = site.getInstitutionLD();
             viewData("institution", linkedData);
-            viewData("location", href);
+            viewData("location", pageAlias);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
             viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */
