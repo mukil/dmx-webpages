@@ -8,3 +8,37 @@
 
 /** @import url('/de.kiezatlas.website/css/semantic-ui/2.3/dist/semantic.min.css'); **/
 @import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+
+
+.ui.menu .menu-items a,
+.ui.footer.segment .site-link a,
+.ui.footer.segment .footer-links a {
+    text-decoration: none;
+}
+
+.page.front .segment .ui.text a {
+    text-decoration: underline;
+}
+
+.ui.footer.segment .ui.header {
+    color: #fff;
+}
+
+.page.front .segment.posts article .ui.header a {
+    color: #b7d9cb;
+    text-decoration: none;
+}
+
+.page.front .segment.posts article .ui.header a:hover {
+    color: #2b293f;
+}
+
+.ui.segment.footer .site-link .logo {
+    max-width: 125px;
+    margin-bottom: 2em;
+    left: -.5em;
+}
+
+.footer.segment .site-link .caption {
+    display: none;
+}

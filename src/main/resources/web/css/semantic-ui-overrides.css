@@ -237,6 +237,11 @@ header.inverted .page-meta .label {
     font-size: 16px;
 }
 
+.ui.segment.ten-six-columns .container.grid,
+.ui.segment.two-columns-equal .container.grid {
+    margin: auto !important;
+}
+
 @media only screen and (max-width: 767px) {
     .ui.grid>.stackable.stackable.row>.column,
     .ui.stackable.grid>.column.grid>.column,
@@ -265,11 +270,24 @@ header.inverted .page-meta .label {
     padding-bottom: 3em;
 }
 
+.ui.segment.two-columns-equal .grid .column {
+    padding-bottom: 2em;
+}
+
 /** ### **/
 .ui.vertical.segment.two-n-columns .grid .column,
-.ui.segment.n-columns .grid .column,
-.ui.segment.two-columns-equal .grid .column {
+.ui.segment.n-columns .grid .column {
     padding: 2em;
+}
+
+.ui.segment.single-tile .tile-row h1,
+.ui.segment.single-tile .tile-row h2,
+.ui.segment.single-tile .tile-row h3 {
+    margin-top: 2em;
+}
+
+.ui.segment.single-tile .tile-row {
+    margin-top: 4em;
 }
 
 /** ### **/

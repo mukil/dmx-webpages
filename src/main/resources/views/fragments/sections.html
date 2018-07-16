@@ -12,7 +12,7 @@
             Ten Six Section Title
         </h1>
     </div>
-    <div class="ui stackable grid basic segment">
+    <div class="ui stackable grid basic container text segment">
         <div class="ui row">
             <div th:if="${iterator.index} == 0" th:class="'ten wide column tile tile-background-' + ${content.id}"
                  th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -82,7 +82,7 @@
             Two and N Equal Columns Section title
         </h1>
     </div>
-    <div class="ui equal width stackable grid padded">
+    <div class="ui equal width stackable container text grid padded">
         <div th:if="${iterator.index} == 0" th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
