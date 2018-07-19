@@ -42,15 +42,25 @@
 <!-- Content Form Small Segment -->
 <div th:fragment="contact-form-small" class="ui column contact-form-small">
     <!-- Contact Form Title -->
-    <h1 class="ui header container text">
-        Contact Us
-    </h1>
-        <!-- Contact Form Content -->
-    <div class="ui container text">
-        <form method="POST" action="/webpages/contact-form-submission">
+    <h4 class="ui header"><i class="icon mail"></i>Mail us</h4>
+    <!-- Contact Form Content -->
+    <form class="ui form" method="GET" action="/webpages/contact-form-submission">
+        <div class="field">
+            <!--label>Your Name</label-->
             <input type="text" name="name" placeholder="Your name"/>
-            <input type="text" name="message" placeholder="Your message"/>
-            <input type="submit" value="Send message" />
-        </form>
-    </div>
+        </div>
+        <div class="field">
+            <!--label>Contact information</label-->
+            <input type="text" name="contact" placeholder="Contact information"/>
+        </div>
+        <div class="field">
+            <!--label>Message</label-->
+            <textarea rows="5" name="message" placeholder="Your message"></textarea>
+        </div>
+        <div class="field">
+            <input class="ui button" type="submit" value="Send message" />
+            <input class="ui button" name="website" type="hidden" th:value="${website}" />
+            <input class="ui button" name="webalias" type="hidden" th:value="${webalias}" />
+        </div>
+    </form>
 </div>

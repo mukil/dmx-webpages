@@ -1,5 +1,5 @@
 
-<div th:fragment="logo-site-link">
+<div th:fragment="logo-site-link" class="logo-site-link">
     <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/"
         class="item sitename header">
@@ -16,7 +16,7 @@
     </a>
 </div>
 
-<div th:fragment="footer-site-link">
+<div th:fragment="footer-site-link" class="footer-site-link">
     <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
@@ -33,7 +33,7 @@
     <h3 class="caption" th:unless="${#strings.isEmpty(siteCaption)}" th:text="${siteCaption}"></h3>
 </div>
 
-<div th:fragment="editor-link">
+<div th:fragment="editor-link" class="editor-link">
     <div th:if="${authenticated}" class="main">
         <!-- ### Create Edit Button into the Webclient. Therefore we need to find a Topicmap (ID) in which this topic is currently contained and visible. -->
         Hi <span th:unless="${#strings.isEmpty(username)}" class="username" th:text="${username}"></span>,  
