@@ -24,11 +24,14 @@ public class SearchResult implements JSONEnabled {
             result.put("name", topic.getSimpleValue());
             if (topic.getTypeUri().equals(WebpageService.WEBPAGE)) {
                 Topic site = getPageSite(topic);
-                String href = getSiteLocation(site) + "/" + getPageAlias(topic);
+                String href = getSitePrefix(site) + "/" + getPageAlias(topic);
                 result.put("site", (site == null) ? "undefined" : site.toJSON().toString());
+                if (site != null && !site.getUri().equals("de.mikromedia.standard_site")) {
+                    result.put("zusatz", "in <em>" + site.getSimpleValue().toString() + "</em>");
+                }
                 result.put("link", href);
             } else if (topic.getTypeUri().equals(WebpageService.WEBSITE)) {
-                result.put("link", getSiteLocation(topic));
+                result.put("link", getSitePrefix(topic));
             }
         } catch (Exception ex) {
             throw new RuntimeException("Constructing a SearchResult failed", ex);
@@ -55,9 +58,10 @@ public class SearchResult implements JSONEnabled {
                 ROLE_DEFAULT, WEBSITE);
     }
 
-    private String getSiteLocation(Topic website) {
+    private String getSitePrefix(Topic website) {
         String sitePrefix = website.getChildTopics().getStringOrNull(WEBSITE_PREFIX);
-        return (sitePrefix == null) ? "/" :  "/" + sitePrefix;
+        if (sitePrefix != null && sitePrefix.equals("standard")) return "";
+        return (sitePrefix == null) ? "" :  "/" + sitePrefix;
     }
 
     @Override
