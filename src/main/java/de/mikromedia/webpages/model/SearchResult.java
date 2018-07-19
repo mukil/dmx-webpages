@@ -23,12 +23,14 @@ public class SearchResult implements JSONEnabled {
         try {
             result.put("name", topic.getSimpleValue());
             if (topic.getTypeUri().equals(WebpageService.WEBPAGE)) {
-                String href = getSiteLocation(getPageSite(topic)) + "/" + getPageAlias(topic);
+                Topic site = getPageSite(topic);
+                String href = getSiteLocation(site) + "/" + getPageAlias(topic);
+                result.put("site", (site == null) ? "undefined" : site.toJSON().toString());
                 result.put("link", href);
             } else if (topic.getTypeUri().equals(WebpageService.WEBSITE)) {
                 result.put("link", getSiteLocation(topic));
             }
-        } catch (JSONException ex) {
+        } catch (Exception ex) {
             throw new RuntimeException("Constructing a SearchResult failed", ex);
         }
     }

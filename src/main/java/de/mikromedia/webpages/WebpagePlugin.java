@@ -305,8 +305,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         for (Topic page : pages) {
             try {
                 response.putPageResult(new SearchResult(page));
-            } catch (AccessControlException aex) {
-                // log.info("User has no read permission on search result");
+            } catch (Exception aex) {
+                log.warning("Error constructing a search result from query, matching page topic ("
+                        + page.getSimpleValue().toString()
+                        + "), caused by: " + aex.getCause().getMessage());
             }
         }
         for (Topic site : sites) {
@@ -362,14 +364,18 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             addRelatedWebpagesToResults(sections, results);
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
-            Topic tile = getParentTile(content);
-            List<RelatedTopic> sections = getParentSections(tile);
-            addRelatedWebpagesToResults(sections, results);
+            List<RelatedTopic> tiles = getParentTiles(content);
+            for (RelatedTopic tile : tiles) {
+                List<RelatedTopic> sections = getParentSections(tile);
+                addRelatedWebpagesToResults(sections, results);
+            }
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
-            Topic tile = getParentTile(content);
-            List<RelatedTopic> sections = getParentSections(tile);
-            addRelatedWebpagesToResults(sections, results);
+            List<RelatedTopic> tiles = getParentTiles(content);
+            for (RelatedTopic tile : tiles) {
+                List<RelatedTopic> sections = getParentSections(tile);
+                addRelatedWebpagesToResults(sections, results);
+            }
         }
         return results;
     }
@@ -402,8 +408,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return results;
     }
 
-    private Topic getParentTile(Topic child) {
-        return child.getRelatedTopic(AGGREGATION, null, null, TILE);
+    private List<RelatedTopic> getParentTiles(Topic child) {
+        return child.getRelatedTopics(AGGREGATION, null, null, TILE);
     }
 
     private List<RelatedTopic> getParentSections(Topic child) {
