@@ -18,6 +18,7 @@ function render_page() {
     $('.masthead').visibility({
         once: false,
         onBottomPassed: function () {
+            $('.fixed.menu').show();
             $('.fixed.menu').transition('fade in');
         },
         onBottomPassedReverse: function () {

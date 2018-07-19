@@ -21,6 +21,24 @@
     text-align: center;
 }
 
+#header-page-nav .menu-items {
+    position: relative;
+    top: 41px;
+}
+
+#header-page-nav .item .logo {
+    height: 75px !important;
+}
+
+#header-page-nav .ui.menu .right.menu .item:before,
+#header-page-nav .ui.inverted.menu .logo-site-link .item:before {
+    background: none;
+}
+
+#lower-page-nav .fixed.menu {
+    display: none;
+}
+
 .ui.vertical.stripe {
     padding: 4em 0em;
 }
@@ -73,12 +91,29 @@
     text-decoration: none;
 }
 
-.page .segment .leaflet-control-attribution {
+.page #map .leaflet-control-attribution {
     font-size: 1.2em;
 }
 
 .page .segment .text .leaflet-control-attribution a:hover {
     text-decoration: underline;
+}
+
+#map {
+    border-top: 1px solid #6f634f;
+    border-bottom: 1px solid #6f634f;
+}
+
+#small-map {
+    margin-top: 3em;
+}
+
+#small-map a {
+    color: #6f634f;
+}
+
+#small-map h3 {
+    font-size: 1.2em;
 }
 
 /** Frontpage Page Link Styles ***/
@@ -93,17 +128,16 @@
     color: #1d160f;
 }
 
-#map {
-    border-top: 1px solid #6f634f;
-    border-bottom: 1px solid #6f634f;
-}
-
 .ui.text.container .metadata {
     opacity: 0;
 }
 
 .ui.text.container .metadata:hover {
     opacity: .4;
+}
+
+.footer .column p {
+    color: #e2c9a2 !important;
 }
 
 .footer h4.ui.header {
@@ -118,6 +152,10 @@
 .ui.segment.footer .site-link .logo {
     max-width: 125px;
     margin-bottom: 2em;
+}
+
+.ui.segment.footer .site-link .logo {
+    display: none;
 }
 
 /**

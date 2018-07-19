@@ -59,6 +59,53 @@
     
 </div>
 
+<!-- New Custom Footer -->
+<div th:fragment="qpq-footer"  class="ui vertical inverted footer segment">
+
+        <div class="ui container">
+
+            <div class="site-link" th:include="fragments/widgets :: footer-site-link"></div>
+
+            <div class="footer-links">
+
+                <div class="ui stackable divided equal height stackable grid">
+
+                    <div class="ten wide column your-data">
+                        <h4 class="ui header"><i class="icon phone"></i>Call us</h4>
+                        <p>
+                            Phone: +49 (0) 30 28 39 12 90<br/>
+                            Cell: +49 (0) 177 482 74 77<br/>
+                        </p>
+                    </div>
+
+                    <div class="six wide column about">
+                        <h4 class="ui header"><i class="icon flag"></i>Headoffice</h4>
+                        <p>
+                            Martin Ruffert / QPQ<br/>
+                            Kastanienallee 12<br/>
+                            10435 Berlin, Germany<br/>
+                        </p>
+                    </div>
+
+                    <div class="ten wide column contact">
+                        <div th:replace="fragments/contact-form :: contact-form-small"></div>
+                    </div>
+
+                    <div class="six wide column mapbox">
+                        <div th:replace="fragments/mapbox-widget :: mapbox-widget-small"></div>
+                    </div>
+
+                </div>
+
+                <p th:utext="${footerText}">Configure Website Footer Text (HTML)</p>
+
+            </div>
+
+        </div>
+
+</div>
+
+
 <!-- Standard Webpage Links Sitemap like Footer -->
 <div th:fragment="footer-links (publisher)" class="footer-links">
 
