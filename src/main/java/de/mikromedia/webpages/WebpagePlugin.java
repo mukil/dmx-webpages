@@ -57,8 +57,6 @@ import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
 import de.mikromedia.webpages.events.ResourceNotFoundListener;
 import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
 import org.thymeleaf.context.AbstractContext;
 
 /**
@@ -360,29 +358,31 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             }
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", SECTION_TITLE)) {
-            Topic section = getParentSection(content);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(content);
+            addRelatedWebpagesToResults(sections, results);
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
             Topic tile = getParentTile(content);
-            Topic section = getParentSection(tile);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(tile);
+            addRelatedWebpagesToResults(sections, results);
         }
         for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
             Topic tile = getParentTile(content);
-            Topic section = getParentSection(tile);
-            Topic webpage = getRelatedWebpage(section);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
-                results.add(webpage);
-            }
+            List<RelatedTopic> sections = getParentSections(tile);
+            addRelatedWebpagesToResults(sections, results);
         }
         return results;
+    }
+
+    private void addRelatedWebpagesToResults(List<RelatedTopic> sections, List<Topic> results) {
+        if (sections != null) {
+            for (Topic section : sections) {
+                Topic webpage = getRelatedWebpage(section);
+                if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                    results.add(webpage);
+                }
+            }
+        }
     }
 
     private List<Topic> searchWebsiteFields(String query) {
@@ -406,9 +406,9 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         return child.getRelatedTopic(AGGREGATION, null, null, TILE);
     }
 
-    private Topic getParentSection(Topic child) {
+    private List<RelatedTopic> getParentSections(Topic child) {
         if (child == null) return null;
-        return child.getRelatedTopic(AGGREGATION, null, null, SECTION);
+        return child.getRelatedTopics(AGGREGATION, null, null, SECTION);
     }
 
     private Topic getRelatedWebpage(Topic child) {
@@ -821,7 +821,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
      * Prepares the most basic data used across all our Thymeleaf page templates.
      * @param website
      */
-    private void prepareWebsiteViewData(Topic website, String href) {
+    private void prepareWebsiteViewData(Topic website, String pageAlias) {
         if (website != null) {
             Website site = new Website(website, dm4);
             viewData("siteName", site.getName());
@@ -835,7 +835,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             // ### Think of revising this "LD String" to become a sensible chain of statements
             String linkedData = site.getInstitutionLD();
             viewData("institution", linkedData);
-            viewData("location", href);
+            viewData("location", pageAlias);
             List<Webpage> webpages = getPublishedWebpages(website);
             // sort webpages on websites frontpage by modification time
             viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */

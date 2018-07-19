@@ -120,8 +120,8 @@ article .text {
 
 #header-page-nav .item .logo,
 #lower-page-nav .item .logo {
-    height: auto;
-    width: 4em
+    width: auto;
+    height: 34px;
 }
 
 #header-page-nav .ui.inverted.menu .header.item {
@@ -172,14 +172,6 @@ header.inverted .page-meta .label {
 
 .posts article {
     padding-top: 1em;
-}
-
-.posts article .ui.header a {
-    color: #b7d9cb;
-}
-
-.posts article .ui.header a:hover {
-    color: #2b293f;
 }
 
 .page .segment .text a {
@@ -245,6 +237,11 @@ header.inverted .page-meta .label {
     font-size: 16px;
 }
 
+.ui.segment.ten-six-columns .container.grid,
+.ui.segment.two-columns-equal .container.grid {
+    margin: auto !important;
+}
+
 @media only screen and (max-width: 767px) {
     .ui.grid>.stackable.stackable.row>.column,
     .ui.stackable.grid>.column.grid>.column,
@@ -273,11 +270,28 @@ header.inverted .page-meta .label {
     padding-bottom: 3em;
 }
 
+.ui.segment.two-columns-equal .grid .column {
+    padding-bottom: 2em;
+}
+
+.ui.equal.grid.quote .tile-content {
+    padding: 2em;
+}
+
 /** ### **/
 .ui.vertical.segment.two-n-columns .grid .column,
-.ui.segment.n-columns .grid .column,
-.ui.segment.two-columns-equal .grid .column {
+.ui.segment.n-columns .grid .column {
     padding: 2em;
+}
+
+.ui.segment.single-tile .tile-row h1,
+.ui.segment.single-tile .tile-row h2,
+.ui.segment.single-tile .tile-row h3 {
+    margin-top: 2em;
+}
+
+.ui.segment.single-tile .tile-row {
+    margin-top: 4em;
 }
 
 /** ### **/
@@ -419,7 +433,7 @@ article .text blockquote {
         min-height: 350px;
     }
     .masthead h1.ui.header {
-        font-size: 3em;
+        font-size: 2em;
         margin-top: 1.5em;
     }
     .masthead h2 {

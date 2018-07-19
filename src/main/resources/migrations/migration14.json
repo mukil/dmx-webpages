@@ -9,6 +9,11 @@
             "type_uri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.contact_form",
             "value": "Contact Form"
+        },
+        {
+            "type_uri": "de.mikromedia.site.stylesheet",
+            "uri" : "de.mikromedia.journal_style",
+            "value": "/de.mikromedia.webpages/css/mikromedia.css"
         }
     ]
 }

@@ -1,0 +1,34 @@
+
+/** 
+ * The filename of this styleshee is due to support for legacy installations
+ * (and the layzness to write a simple migration...)
+ **/
+
+/** -- New Semantic UI Custom Styled 2.3 Release -- **/
+@import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+
+body {
+    color: #383838;
+}
+
+.footer .site-link img {
+    margin-bottom: 2em;
+}
+
+.footer.segment a {
+    color: #40b0e2;
+    text-decoration: none;
+}
+
+.footer.segment a:hover {
+    text-decoration: underline;
+}
+
+.footer.segment .site-link a:hover {
+    text-decoration: none;
+}
+
+.footer.segment p,
+.footer.segment h4.ui.header {
+    color: #a9a9a9;
+}

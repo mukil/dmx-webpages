@@ -1,0 +1,11 @@
+
+/*-------------------
+   Button Variables
+--------------------*/
+
+
+@textShadow: 0px 1px 0px rgba(255, 255, 255, 0.9);
+
+@invertedTextShadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+
+@hoverBackgroundColor: #E0E0E0;

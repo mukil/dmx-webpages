@@ -1,5 +1,5 @@
 {
-  "base": "semantic/",
+  "base": "semantic-ui/",
   "paths": {
     "source": {
       "config": "src/theme.config",
@@ -24,13 +24,14 @@
     "reset",
     "image",
     "menu",
-    "divider",
     "dropdown",
     "segment",
     "search",
     "input",
-    "form",
     "button",
+    "loader",
+    "checkbox",
+    "state",
     "list",
     "icon",
     "sidebar",
@@ -38,10 +39,13 @@
     "visibility",
     "accordion",
     "api",
-    "table"
+    "table",
+    "card",
+    "item",
+    "form"
   ],
   "permission": false,
   "autoInstall": false,
   "rtl": false,
-  "version": "2.2.13"
+  "version": "2.3.1"
 }

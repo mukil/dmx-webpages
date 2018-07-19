@@ -1,0 +1,28 @@
+
+
+@backgroundColor: @primaryColor;
+
+/* Hovered */
+@hoverBackgroundColor: @secondaryColor;
+@hoverColor: @white;
+
+/* Focused */
+@focusBackgroundColor: @hoverBackgroundColor;
+@focusColor: @hoverColor;
+
+/* Disabled */
+@disabledBackgroundImage: none;
+@disabledBoxShadow: none;
+
+/* Pressed Down */
+@downBackgroundColor: #BABBBC;
+@downColor: @pressedTextColor;
+
+/* Active */
+@activeBackgroundColor: #C0C1C2;
+@activeColor: @selectedTextColor;
+
+/* Active + Hovered */
+@activeHoverBackgroundColor: @activeBackgroundColor;
+@activeHoverColor: @activeColor;
+
