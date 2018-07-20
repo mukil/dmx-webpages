@@ -44,23 +44,24 @@
             <i class="sidebar icon"></i>
         </a>
 
-        <div th:each="menuItem : ${menuItems}" class="menu-items">
+        <div class="menu-items menu">
+            <div th:each="menuItem : ${menuItems}">
+                <a th:if="${!menuItem.hasChildItems}"
+                    th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
+                    itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+                    th:href="${menuItem.fullHref}">Menu Item</a>
 
-            <a th:if="${!menuItem.hasChildItems}"
-                th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
-                itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-                th:href="${menuItem.fullHref}">Menu Item</a>
+                <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
+                    <a th:text="${menuItem.label}" th:href="${menuItem.fullHref}"></a>
+                    <i class="icon dropdown"></i>
 
-            <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-                <a th:text="${menuItem.label}" th:href="${menuItem.fullHref}"></a>
-                <i class="icon dropdown"></i>
-
-                <div class="menu">
-                    <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
-                         th:each="childItem : ${menuItem.childMenuItems}"
-                         th:href="${childItem.fullHref}"
-                         th:text="${childItem.label}">
-                    </a>
+                    <div class="menu">
+                        <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
+                             th:each="childItem : ${menuItem.childMenuItems}"
+                             th:href="${childItem.fullHref}"
+                             th:text="${childItem.label}">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,8 +90,7 @@
                 <i class="sidebar icon"></i>
             </a>
 
-            <div th:each="menuItem : ${menuItems}" class="menu-items">
-
+            <div th:each="menuItem : ${menuItems}">
                 <a th:if="${!menuItem.hasChildItems}"
                     th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
                     itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
@@ -109,7 +109,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
 
             <div class="right menu">

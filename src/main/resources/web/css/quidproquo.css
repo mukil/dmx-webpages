@@ -21,9 +21,8 @@
     text-align: center;
 }
 
-#header-page-nav .menu-items {
-    position: relative;
-    top: 41px;
+#header-page-nav .menu-items.menu {
+    margin: auto;
 }
 
 #header-page-nav .item .logo {
