@@ -48,6 +48,8 @@ function render_page() {
             description: 'zusatz',
             url     : 'link'
         },
+        serverError: "There was an issue querying the server",
+        noResults: "Query yielded no results",
         minCharacters : 2,
         type: 'category'
     }
