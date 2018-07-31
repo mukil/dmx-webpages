@@ -45,6 +45,7 @@
         </a>
 
         <div class="menu-items menu">
+
             <div th:each="menuItem : ${menuItems}">
                 <a th:if="${!menuItem.hasChildItems}"
                     th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
@@ -64,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="right menu">
@@ -82,31 +84,32 @@
 <!-- Low Scrolling Position Semantic Top Menu -->
 <div th:fragment="lower-page-nav">
     <div class="ui large top fixed hidden menu inverted">
+
         <div class="ui container">
-
             <a th:replace="fragments/widgets :: logo-site-link"></a>
-
             <a class="toc item">
                 <i class="sidebar icon"></i>
             </a>
 
-            <div th:each="menuItem : ${menuItems}">
-                <a th:if="${!menuItem.hasChildItems}"
-                    th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
-                    itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-                    th:href="${menuItem.fullHref}">Menu Item</a>
+            <div class="ui menu menu-items">
+                <div th:each="menuItem : ${menuItems}">
+                    <a th:if="${!menuItem.hasChildItems}"
+                        th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
+                        itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+                        th:href="${menuItem.fullHref}">Menu Item</a>
 
-                <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
-                    <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a--><!-- Compare + Adjust Menu Above -->
-                    <span th:text="${menuItem.label}"></span>
-                    <i class="icon dropdown"></i>
+                    <div th:if="${menuItem.hasChildItems}" class="ui simple dropdown item">
+                        <!--a th:text="${menuItem.label}" th:href="${menuItem.href}"></a--><!-- Compare + Adjust Menu Above -->
+                        <span th:text="${menuItem.label}"></span>
+                        <i class="icon dropdown"></i>
 
-                    <div class="menu">
-                        <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
-                             th:each="childItem : ${menuItem.childMenuItems}"
-                             th:href="${childItem.fullHref}"
-                             th:text="${childItem.label}">
-                        </a>
+                        <div class="menu">
+                            <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
+                                 th:each="childItem : ${menuItem.childMenuItems}"
+                                 th:href="${childItem.fullHref}"
+                                 th:text="${childItem.label}">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

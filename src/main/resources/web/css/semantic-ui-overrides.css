@@ -18,11 +18,6 @@ button {
     display: none;
 }
 
-.ui.transparent.inverted.input>input,
-.ui.menu .item {
-    font-weight: bold;
-}
-
 h3.header .value {
     margin-left: 0.5em;
     font-weight: normal;
@@ -300,18 +295,6 @@ header.inverted .page-meta .label {
     padding-right: 3em;
 }
 
-.ui.segment.tile p {
-    font-size: 1.25em
-}
-
-.ui.segment.tile {
-    font-size: 2em;
-}
-
-.body .ui.segment h2.ui.header {
-    font-size: 1.5em;
-}
-
 .ui.segment .tile.clickable {
     cursor: pointer;
 }
@@ -386,6 +369,10 @@ article .text blockquote {
     border-left: 4px solid rgba(255,255,255,0.7);
 }
 
+.ui.vertical.menu.sidebar {
+    z-index: 2001;
+}
+
 .ui.sidebar .inverted.menu .header {
     color: #fff;
 }
@@ -417,9 +404,6 @@ article .text blockquote {
     }
     .ui.vertical.stripe.main-segment.posts.container div.text {
         margin-left: 1em;
-    }
-    .ui.fixed.menu {
-        display: none !important;
     }
     #header-page-nav .menu-items .item,
     #lower-page-nav .menu-items .item {

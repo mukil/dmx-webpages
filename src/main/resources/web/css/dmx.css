@@ -1,6 +1,6 @@
 
 /** 
- * The filename of this stylesheet is due to support for legacy installations
+ * The filename of this styleshee is due to support for legacy installations
  * (and the layzness to write a simple migration...)
  **/
 
@@ -22,10 +22,29 @@ ui.menu .search.item .results a:hover,
     text-decoration: underline;
 }
 
+/** Semantic UI Overrides **/
+
 .ui.segment a[target="_blank"]::after {
     content: "\29C9";
     padding-left: 2px;
     /** content: "\2750"; **/
+}
+
+.ui.segment .ui.text.container table,
+.ui.segment .ui.text.container p,
+.ui.segment .ui.text.container ul,
+.ui.segment.tile table,
+.ui.segment.tile ul,
+.ui.segment.tile p {
+    font-size: 1.25rem
+}
+
+.ui.segment.tile {
+    font-size: 2rem;
+}
+
+.body .ui.segment h2.ui.header {
+    font-size: 1.5rem;
 }
 
 .ui.footer.segment .ui.header {
@@ -33,11 +52,20 @@ ui.menu .search.item .results a:hover,
 }
 
 .page.front .segment.posts article .ui.header a {
+    color: #b7d9cb;
     text-decoration: none;
+}
+
+.page.front .segment.posts article .ui.header a:hover {
+    color: #2b293f;
 }
 
 .ui.segment.footer .site-link .logo {
     max-width: 125px;
     margin-bottom: 2em;
     left: -.5em;
+}
+
+.footer.segment .site-link .caption {
+    display: none;
 }
