@@ -23,10 +23,22 @@
 
 #header-page-nav .menu-items.menu {
     margin: auto;
+    margin-top: 40px;
+}
+
+#header-page-nav .right.menu .category.search.item {
+    position: relative;
+    top: 20px;
 }
 
 #header-page-nav .item .logo {
     height: 75px !important;
+}
+
+#header-page-nav .menu .toc.item {
+    position: relative;
+    top: 42px;
+    height: 54px;
 }
 
 #header-page-nav .ui.menu .right.menu .item:before,
@@ -34,9 +46,30 @@
     background: none;
 }
 
-#lower-page-nav .fixed.menu {
-    display: none;
+#lower-page-nav div.menu .item,
+#lower-page-nav div.menu {
+    height: 56px;
 }
+
+#lower-page-nav div.menu {
+    margin: auto;
+}
+
+.ui.vertical.inverted.menu .menu .item,
+.ui.inverted.menu .item {
+    color: #e2c9a2;
+    font-weight: normal;
+    background: none;
+}
+
+.ui.inverted.menu a.item.active:hover,
+.ui.vertical.inverted.menu .menu a.item:hover,
+.ui.inverted.menu a.item:hover,
+.ui.inverted.menu .item.active {
+    color: #fff;
+    background: none;
+}
+
 
 .ui.vertical.stripe {
     padding: 4em 0em;
@@ -113,6 +146,23 @@
 
 #small-map h3 {
     font-size: 1.2em;
+}
+
+.ui.segment .ui.text.container table,
+.ui.segment .ui.text.container p,
+.ui.segment .ui.text.container ul,
+.ui.segment.tile table,
+.ui.segment.tile ul,
+.ui.segment.tile p {
+    font-size: 1.5rem
+}
+
+.ui.segment.tile {
+    font-size: 2.5rem;
+}
+
+.body .ui.segment h2.ui.header {
+    font-size: 2rem;
 }
 
 /** Frontpage Page Link Styles ***/
