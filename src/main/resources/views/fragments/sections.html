@@ -247,9 +247,9 @@
             <!-- Standard Tile Content Rendering -->
             <div th:if="${not content.relatedTopic}" class="tile-content tc">
                 <!-- Tiles -->
-                <h3 class="title" th:text="${content.title}">
+                <h2 class="title" th:text="${content.title}">
                   Tile Title
-                </h3>
+                </h2>
                 <div class="content" th:utext="${content.html}">
                   <p>Tile Content</p>
                 </div>
