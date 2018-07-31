@@ -27,7 +27,26 @@
         }
         /*]]>*/
     </style>
-    <style th:if="${header and not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
+    <style th:if="${header and not #strings.isEmpty(header.largeImage) and not #strings.isEmpty(header.smallImage)}"
+           th:inline="text">
+        /*<![CDATA[*/
+        .page .sidebar .ui.inverted.menu,
+        .page .sidebar .ui.menu,
+        .page .vertical.inverted.sidebar.menu,
+        .page .vertical.sidebar.menu,
+        .page #lower-page-nav .ui.menu,
+        .page .ui.segment.header-background,
+        .page .ui.segment.header-background .ui.menu {
+            background-color: [[${header.backgroundColor}]];
+            color: [[${header.fontColor}]];
+        }
+        .page .ui.segment.masthead .ui.header,
+        .page .ui.segment.masthead {
+            color: [[${header.fontColor}]];
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${header and #strings.isEmpty(header.largeImage) and #strings.isEmpty(header.smallImage) and not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
            th:inline="text">
         /*<![CDATA[*/
         .page .sidebar .ui.inverted.menu,
