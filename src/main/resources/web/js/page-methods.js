@@ -22,7 +22,7 @@ function render_page() {
             $('.fixed.menu').transition('fade in');
         },
         onBottomPassedReverse: function () {
-            $('.fixed.menu').transition('fade out');
+            $('.fixed.menu').transition('hide');
         }
     })
     // pro-actively create sidebar and attach to menu open

@@ -347,30 +347,32 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     private List<Topic> searchWebpageContents(String query) {
         List<Topic> results = new ArrayList<Topic>();
-        for (Topic headline : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_TITLE)) {
+        String luceneQuery = preparePhraseOrTermLuceneQuery(query);
+        log.info("> webpagesSearch: \"" + luceneQuery + "\"");
+        for (Topic headline : dm4.searchTopics(luceneQuery, WEBPAGE_TITLE)) {
             Topic webpage = getRelatedWebpage(headline);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", WEBPAGE_CONTENT)) {
+        for (Topic content : dm4.searchTopics(luceneQuery, WEBPAGE_CONTENT)) {
             Topic webpage = getRelatedWebpage(content);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", SECTION_TITLE)) {
+        for (Topic content : dm4.searchTopics(luceneQuery, SECTION_TITLE)) {
             List<RelatedTopic> sections = getParentSections(content);
             addRelatedWebpagesToResults(sections, results);
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HEADLINE)) {
+        for (Topic content : dm4.searchTopics(luceneQuery, TILE_HEADLINE)) {
             List<RelatedTopic> tiles = getParentTiles(content);
             for (RelatedTopic tile : tiles) {
                 List<RelatedTopic> sections = getParentSections(tile);
                 addRelatedWebpagesToResults(sections, results);
             }
         }
-        for (Topic content : dm4.searchTopics("*" + query.trim() + "*", TILE_HTML)) {
+        for (Topic content : dm4.searchTopics(luceneQuery, TILE_HTML)) {
             List<RelatedTopic> tiles = getParentTiles(content);
             for (RelatedTopic tile : tiles) {
                 List<RelatedTopic> sections = getParentSections(tile);
@@ -378,6 +380,32 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             }
         }
         return results;
+    }
+
+    /** Copy from dm4-kiezatlas-website module **/
+    private String preparePhraseOrTermLuceneQuery(String userQuery) {
+        StringBuilder queryPhrase = new StringBuilder();
+        if (userQuery.contains(" ")) {
+            queryPhrase.append("\"" + userQuery + "\"");
+            queryPhrase.append(" OR ");
+            queryPhrase.append("" + userQuery.replaceAll(" ", "?") + "*");
+            queryPhrase.append(" OR ");
+            String[] words = userQuery.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                String word = words[i];
+                queryPhrase.append("*" + word + "*");
+                if (i < words.length -1) {
+                    queryPhrase.append(" AND ");
+                } else {
+                    queryPhrase.append(" ");
+                }
+            }
+        } else {
+            queryPhrase.append("*" + userQuery + "*");
+            queryPhrase.append(" OR ");
+            queryPhrase.append(userQuery + "~0.5"); // 0.5 default fuzzy value
+        }
+        return queryPhrase.toString();
     }
 
     private void addRelatedWebpagesToResults(List<RelatedTopic> sections, List<Topic> results) {
@@ -409,7 +437,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
     }
 
     private List<RelatedTopic> getParentTiles(Topic child) {
-        return child.getRelatedTopics(AGGREGATION, null, null, TILE);
+        return child.getRelatedTopics(COMPOSITION, null, null, TILE);
     }
 
     private List<RelatedTopic> getParentSections(Topic child) {
