@@ -4,6 +4,7 @@ import de.deepamehta.core.Association;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
+import de.deepamehta.core.util.JavaUtils;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -62,6 +63,12 @@ public class Section {
     
     public String getTitle() {
         return this.pageSection.getChildTopics().getStringOrNull(SECTION_TITLE);
+    }
+
+    public String getAnchorId() {
+        String title = getTitle();
+        if (title == null) return "" + getId();
+        return JavaUtils.encodeURIComponent(title).toLowerCase();
     }
 
     public List<Tile> getContents() {
