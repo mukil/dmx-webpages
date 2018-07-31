@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
+import static de.mikromedia.webpages.WebpageService.BUTTON_TITLE;
 import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
 import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
@@ -74,8 +75,11 @@ public class Header {
         List<RelatedTopic> buttons = this.pageHeader.getChildTopics().getTopicsOrNull(BUTTON);
         if (buttons != null) {
             for (RelatedTopic topic : buttons) {
-                Button button = new Button(topic);
-                headerButtons.add(button);
+                Topic buttonTitle = topic.getChildTopics().getTopicOrNull(BUTTON_TITLE);
+                if (buttonTitle != null && !buttonTitle.getSimpleValue().toString().isEmpty()) {
+                    Button button = new Button(topic);
+                    headerButtons.add(button);
+                }
             }
         }
         return headerButtons;
