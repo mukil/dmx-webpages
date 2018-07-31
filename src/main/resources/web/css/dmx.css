@@ -17,13 +17,17 @@
     text-decoration: none;
 }
 
+/** .red {
+    color: #ff1958;
+}
+
+.light-red {
+    color: #ffa4bd;
+} **/
+
 #header-page-nav img.logo {
     height: 35px;
     width: auto;
-}
-
-#lower-page-nav {
-    display: none;
 }
 
 #lower-page-nav img.logo {
@@ -51,7 +55,11 @@ ui.menu .search.item .results a:hover,
     /** content: "\2750"; **/
 }
 
-.ui.segment .ui.text.container,
+.two-columns-equal .tc p img {
+    width: 100%;
+    height: auto;
+}
+
 .ui.segment .ui.text.container table,
 .ui.segment .ui.text.container p,
 .ui.segment .ui.text.container ul,
@@ -65,12 +73,16 @@ ui.menu .search.item .results a:hover,
     font-size: 2rem;
 }
 
-.body .ui.segment h1.ui.header {
+.ui.segment h1.ui.header {
     font-size: 2.5rem;
-    margin: 1em 0em;
+    margin: 1em 0em 0em 0em;
 }
 
-header.masthead h1.ui.header {
+.ui.segment h2.ui.header {
+    font-size: 1.5rem;
+}
+
+header.ui.segment.masthead h1.ui.header {
     font-size: 4em;
     margin-top: 5.5em;
     font-weight: 700;
@@ -87,10 +99,6 @@ header.ui.masthead .ui.header {
     text-align: left;
 }
 
-.body .ui.segment h2.ui.header {
-    font-size: 1.5rem;
-}
-
 .ui.footer.segment .ui.header {
     color: #fff;
 }
@@ -104,30 +112,53 @@ header.ui.masthead .ui.header {
     color: #2b293f;
 }
 
-article .blockquote {
-    color: #666;
-    padding-left: 2em;
-    padding-right: 3em;
+.blockquote {
+    color: #8c8c8c;
+    padding-left: 1em;
+    padding-right: 2em;
+    border-left: 3px solid #d7d7d7;
 }
 
-article .tile-content figure {
+.tile-content figure {
     margin: 0em;
     margin-top: 1.5em;
 }
 
-article .text caption,
-article .tile-content figure figcaption {
+.text caption,
+.tile-content figure figcaption {
     font-size: 1em;
-    color: #666;
+    color: #d7d7d7;
     padding: 0.7em;
+}
+
+.ui.vertical.stripe.main-segment {
+    padding: 4em 0em 4em 0em;
+}
+
+.ui.vertical.stripe.bottom-segment {
+    padding: 0em 0em 2em 0em;
+}
+
+.metadata {
+    color: transparent;
+}
+
+.metadata:hover {
+    color: #8c8c8c;
 }
 
 .ui.segment.footer .site-link .logo {
     max-width: 125px;
     margin-bottom: 2em;
     left: -.5em;
+    display: none;
 }
 
 .footer.segment .site-link .caption {
     display: none;
 }
+
+.ui.inverted.footer.segment {
+    background-color: #2b293f;
+}
+

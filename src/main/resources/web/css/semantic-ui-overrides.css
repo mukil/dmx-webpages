@@ -258,13 +258,8 @@ header.inverted .page-meta .label {
 }
 
 .ui.segment.single-tile .tile-row h1,
-.ui.segment.single-tile .tile-row h2,
-.ui.segment.single-tile .tile-row h3 {
+.ui.segment.single-tile .tile-row h2 {
     margin-top: 2em;
-}
-
-.ui.segment.single-tile .tile-row {
-    margin-top: 4em;
 }
 
 /** ### **/
@@ -365,7 +360,7 @@ article .text blockquote {
 @media only screen and (max-width: 1024px) {
     .body .ui.segment h1.ui.header {
         font-size: 2rem;
-        margin: 1em 0em;
+        margin: 1em 0em 0em 0em;
     }
     .body .ui.segment h2.ui.header {
         font-size: 1.5em;

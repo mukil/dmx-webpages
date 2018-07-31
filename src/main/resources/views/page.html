@@ -136,7 +136,7 @@
 
                     </div>
 
-                    <div class="ui vertical stripe segment main-segment">
+                    <div class="ui vertical stripe segment bottom-segment">
                         <div class="ui main text styled container">
                             <div class="metadata">
                                 <div th:unless="${#strings.isEmpty(page.authorNames)}">
@@ -144,7 +144,7 @@
                                         <!-- meta itemprop="name" content="" /-->
                                     Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
                                 </div>
-                                <span class="label">Last modified at</span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                                <span class="label">Last modified: </span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
                             </div>
                         </div>
                     </div>
