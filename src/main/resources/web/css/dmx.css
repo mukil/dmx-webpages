@@ -17,6 +17,28 @@
     text-decoration: none;
 }
 
+#header-page-nav img.logo {
+    height: 35px;
+    width: auto;
+}
+
+#lower-page-nav {
+    display: none;
+}
+
+#lower-page-nav img.logo {
+    height: 32px;
+    width: auto;
+}
+
+.ui.menu .input > input,
+.ui.vertical.inverted.menu .menu .item,
+.ui.menu .item,
+.ui.inverted.menu .item {
+    font-weight: 700;
+    line-height: 1.5em;
+}
+
 ui.menu .search.item .results a:hover,
 .page.front .segment .ui.text a {
     text-decoration: underline;
@@ -25,11 +47,11 @@ ui.menu .search.item .results a:hover,
 /** Semantic UI Overrides **/
 
 .ui.segment a[target="_blank"]::after {
-    content: "\29C9";
-    padding-left: 2px;
+    content: "  \29C9";
     /** content: "\2750"; **/
 }
 
+.ui.segment .ui.text.container,
 .ui.segment .ui.text.container table,
 .ui.segment .ui.text.container p,
 .ui.segment .ui.text.container ul,
@@ -41,6 +63,28 @@ ui.menu .search.item .results a:hover,
 
 .ui.segment.tile {
     font-size: 2rem;
+}
+
+.body .ui.segment h1.ui.header {
+    font-size: 2.5rem;
+    margin: 1em 0em;
+}
+
+header.masthead h1.ui.header {
+    font-size: 4em;
+    margin-top: 5.5em;
+    font-weight: 700;
+}
+
+header .page-buttons {
+    margin-top: 2.5em;
+    margin-bottom: 2em;
+}
+
+header.ui.masthead .page-buttons,
+header.ui.masthead .headline,
+header.ui.masthead .ui.header {
+    text-align: left;
 }
 
 .body .ui.segment h2.ui.header {
@@ -58,6 +102,24 @@ ui.menu .search.item .results a:hover,
 
 .page.front .segment.posts article .ui.header a:hover {
     color: #2b293f;
+}
+
+article .blockquote {
+    color: #666;
+    padding-left: 2em;
+    padding-right: 3em;
+}
+
+article .tile-content figure {
+    margin: 0em;
+    margin-top: 1.5em;
+}
+
+article .text caption,
+article .tile-content figure figcaption {
+    font-size: 1em;
+    color: #666;
+    padding: 0.7em;
 }
 
 .ui.segment.footer .site-link .logo {

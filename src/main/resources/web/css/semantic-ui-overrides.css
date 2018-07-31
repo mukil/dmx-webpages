@@ -14,10 +14,6 @@ button {
     cursor: pointer;
 }
 
-.hidden.menu {
-    display: none;
-}
-
 h3.header .value {
     margin-left: 0.5em;
     font-weight: normal;
@@ -36,13 +32,6 @@ h3.header .value {
 
 .masthead .ui.menu .ui.button {
     margin-left: 0.5em;
-}
-
-.masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
 }
 
 .masthead h2 {
@@ -111,12 +100,6 @@ article .text {
 #lower-page-nav .toc.item,
 #header-page-nav .toc.item {
     display: none;
-}
-
-#header-page-nav .item .logo,
-#lower-page-nav .item .logo {
-    width: auto;
-    height: 34px;
 }
 
 #header-page-nav .ui.inverted.menu .header.item {
@@ -207,11 +190,6 @@ header.inverted .page-meta .label {
 
 .ui.stackable.grid.basic.segment {
     padding: 0em;
-}
-
-.body .ui.segment h1.ui.header {
-    font-size: 3rem;
-    margin: 1em 0em;
 }
 
 .body .ui.segment.posts h1.ui.header {
@@ -375,10 +353,6 @@ article .text blockquote {
 
 .ui.sidebar .inverted.menu .header {
     color: #fff;
-}
-
-.ui.menu .item {
-    line-height: 1.4285em;
 }
 
 /** #header-page-nav  ui.menu .item {

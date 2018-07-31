@@ -22,9 +22,18 @@ ui.menu .search.item .results a:hover,
     text-decoration: underline;
 }
 
+#header-page-nav .item .logo,
+#lower-page-nav .item .logo {
+    width: auto;
+    height: 32px;
+}
+
+.ui.menu .item {
+    line-height: 1.4285em;
+}
+
 .ui.segment a[target="_blank"]::after {
-    content: "\29C9";
-    padding-left: 2px;
+    content: "  \29C9";
     /** content: "\2750"; **/
 }
 
