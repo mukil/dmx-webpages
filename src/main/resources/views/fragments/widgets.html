@@ -16,6 +16,14 @@
     </a>
 </div>
 
+<div th:fragment="logo-dmx-link" class="logo-dmx-link">
+    <a title="Visit the frontpage of this website" alt="Link to the frontpage of this website" href="/"
+        class="item sitename header">
+        <img class="logo" th:title="${siteName} + ' Frontpage'"
+             src="/de.mikromedia.webpages/images/DMX_weblogo_big-700.png" />
+    </a>
+</div>
+
 <div th:fragment="footer-site-link" class="footer-site-link">
     <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/">

@@ -12,9 +12,16 @@
 
 .ui.menu .search.item .results a,
 .ui.menu .menu-items a,
-.ui.footer.segment .site-link a,
-.ui.footer.segment .footer-links a {
+.ui.footer.segment .site-link a {
     text-decoration: none;
+}
+
+.ui.vertical.menu.sidebar .item > img.logo {
+    width: 66%;
+    height: auto;
+    margin: auto;
+    padding-top: 3em;
+    padding-bottom: 3em;
 }
 
 /** .red {
@@ -43,7 +50,21 @@
     line-height: 1.5em;
 }
 
-ui.menu .search.item .results a:hover,
+.sidebar.ui.vertical.inverted.menu .menu .item {
+    font-size: 1.75em;
+    padding-left: 1.15em;
+}
+
+.ui.transparent.icon.input > input {
+    padding-left: .5em !important;
+}
+
+.ui.sidebar .ui.category.search .results {
+    font-size: 1.25em;
+    width: 100%;
+}
+
+.ui.menu .search.item .results a:hover,
 .page.front .segment .ui.text a {
     text-decoration: underline;
 }
@@ -84,6 +105,8 @@ ui.menu .search.item .results a:hover,
 
 .footer.segment .footer-links .submenu {
     display: inline-block;
+    top: -11px;
+    position: relative;
 }
 
 .footer.segment .footer-links .logo {
@@ -91,7 +114,6 @@ ui.menu .search.item .results a:hover,
     height: auto;
     position: relative;
     left: -5px;
-    top: 7px;
 }
 
 .page.front .footer.segment .ui.text a.logo {

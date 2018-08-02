@@ -1,35 +1,38 @@
 
 <!-- Mobile Semantic Sidebar Menu -->
-<div th:fragment="vertical-nav" class="ui vertical left menu inverted sidebar">
+<div th:fragment="vertical-nav" class="ui vertical left very wide menu inverted sidebar">
 
-    <a th:replace="fragments/widgets :: logo-site-link"></a>
+    <a th:replace="fragments/widgets :: logo-dmx-link"></a>
 
     <div class="ui category search item">
-        <div class="ui transparent inverted icon input">
+        <div class="ui transparent inverted massive icon input">
             <input class="prompt" type="text" placeholder="Search..." />
             <i class="search link icon"></i>
         </div>
         <div class="results"></div>
     </div>
 
-    <div th:each="menuItem : ${menuItems}" class="ui vertical inverted menu">
+    <div class="ui vertical fluid inverted menu">
 
-        <a th:if="${!menuItem.hasChildItems}"
-            th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
-            itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
-            th:href="${menuItem.fullHref}">Menu Item</a>
+        <div th:each="menuItem : ${menuItems}">
+            <a th:if="${!menuItem.hasChildItems}"
+                th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
+                itemprop="url" th:title="'Open Page ' + ${menuItem.label}" th:text="${menuItem.label}"
+                th:href="${menuItem.fullHref}">Menu Item</a>
 
-        <div th:if="${menuItem.hasChildItems}" class="item">
-            <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-            <span th:text="${menuItem.label}" class="ui header"></span> <!-- Compare + Adjust Menu Below -->
-            <div class="menu">
-                <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
-                     th:each="childItem : ${menuItem.childMenuItems}"
-                     th:href="${childItem.fullHref}"
-                     th:text="${childItem.label}">
-                </a>
+            <div th:if="${menuItem.hasChildItems}" class="item">
+                <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
+                <span th:text="${menuItem.label}" class="ui header"></span> <!-- Compare + Adjust Menu Below -->
+                <div class="menu">
+                    <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
+                         th:each="childItem : ${menuItem.childMenuItems}"
+                         th:href="${childItem.fullHref}"
+                         th:text="${childItem.label}">
+                    </a>
+                </div>
             </div>
         </div>
+
     </div>
 
 </div>
