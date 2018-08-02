@@ -97,6 +97,10 @@ article .text {
     margin-bottom: 2em;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 #lower-page-nav .toc.item,
 #header-page-nav .toc.item {
     display: none;

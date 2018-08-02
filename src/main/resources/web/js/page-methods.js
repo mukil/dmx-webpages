@@ -18,11 +18,11 @@ function render_page() {
     $('.masthead').visibility({
         once: false,
         onBottomPassed: function () {
-            $('.fixed.menu').show();
-            $('.fixed.menu').transition('fade in');
+            $('.fixed.menu').transition('fade visible')
+            $('.fixed.menu').removeClass('hidden')
         },
         onBottomPassedReverse: function () {
-            $('.fixed.menu').transition('hide');
+            $('.fixed.menu').transition('fade hidden')
         }
     })
     // pro-actively create sidebar and attach to menu open
@@ -64,7 +64,8 @@ function render_page() {
     $('table').addClass('ui celled table')
     // pro-actively activate accordion interactions on any page
     $('.ui.accordion').accordion()
-    $('#text-search').focus()
+    // only works if standard top menu is on screen
+    // $('#text-search').focus() // ### This makes the page scroll down in some browsers
 }
 
 function register_input_handler() {
