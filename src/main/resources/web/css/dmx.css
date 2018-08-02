@@ -69,6 +69,43 @@ ui.menu .search.item .results a:hover,
     font-size: 1.25rem
 }
 
+.ui.footer.segment.striped {
+    border-top: 1px solid rgba(34,36,38,.15);
+}
+
+.ui.footer.segment .ui.container.text {
+    position: relative;
+}
+
+.footer.segment .footer-links .submenu,
+.ui.footer.segment .ui.container.text p {
+    font-size: 1rem;
+}
+
+.footer.segment .footer-links .submenu {
+    display: inline-block;
+}
+
+.footer.segment .footer-links .logo {
+    width: 75px;
+    height: auto;
+    position: relative;
+    left: -5px;
+    top: 7px;
+}
+
+.page.front .footer.segment .ui.text a.logo {
+    text-decoration: none;
+}
+
+.footer.segment .footer-links {
+    display: inline-block;
+}
+
+.footer.segment .footer-links a {
+    margin-right: 2em;
+}
+
 .ui.segment.tile {
     font-size: 2rem;
 }
@@ -147,17 +184,6 @@ header.ui.masthead .ui.header {
     color: #8c8c8c;
 }
 
-.ui.segment.footer .site-link .logo {
-    max-width: 125px;
-    margin-bottom: 2em;
-    left: -.5em;
-    display: none;
-}
-
-.footer.segment .site-link .caption {
-    display: none;
-}
-
 .ui.inverted.footer.segment {
     background-color: #2b293f;
 }
@@ -171,6 +197,23 @@ header.ui.masthead .ui.header {
     margin-top: 0em;
 }
 
+.body .ui.segment.main-segment.posts h1.ui.header {
+    margin-bottom: 0.25em;
+}
+
 .people .ui.segment.main-segment h3 {
     margin-top: 4em;
+}
+
+body.page .ui.spaced.single-tile.segment.section-bg-58311 {
+    padding-bottom: 1em;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.segment.main-segment.posts {
+        padding: 4em 1em 4em 1em;
+    }
+    .footer.segment .footer-links a {
+       margin-right: 1em;
+    }
 }

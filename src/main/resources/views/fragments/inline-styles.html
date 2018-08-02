@@ -69,13 +69,16 @@
 <div class="inline-styles" th:fragment="section-background (section)">
     <style th:if="${not #strings.isEmpty(section.backgroundColor) and not #strings.equals(section.fontColor)}" th:inline="text">
         /*<![CDATA[*/
-        .page .ui.segment.section-bg-[[${section.id}]] {
+        .page .ui.segment.section-bg-[[${section.id}]],
+        .page .ui.accordion-section .styled.accordion .title,
+        .page .ui.accordion-section .styled.accordion .content {
             background-color: [[${section.backgroundColor}]];
             color: [[${section.fontColor}]];
             /** border-top: 1px solid [[${section.fontColor}]]33; 
             Add some opacity to all upper borders of section **/
         }
         .page .ui.container.section-bg-[[${section.id}]] .ui.header,
+        .page .ui.accordion-section .styled.accordion .title,
         .page .ui.segment.section-bg-[[${section.id}]] .ui.header {
             color: [[${section.fontColor}]];
         }

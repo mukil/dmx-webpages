@@ -106,6 +106,31 @@
 </div>
 
 
+<!-- Another Custom Footer -->
+<div th:fragment="dmx-footer">
+
+    <div class="ui vertical striped spaced footer segment">
+
+        <div class="ui container text">
+            <div class="footer-links">
+                <a href="/" class="logo" title="Visit frontpage">
+                    <img width="100" height="auto" src="/de.mikromedia.webpages/images/DMX_logotype_black.png" />
+                </a>
+                <div class="submenu">
+                    <a href="/imprint">Imprint</a>
+                    <a href="/privacy-notice">Privacy Policy</a>
+                </div>
+            </div>
+
+            <br/>
+            <p class="footer-text ui container text" th:utext="${footerText}">Configure Website Footer Text (HTML)</p>
+
+        </div>
+    </div>
+
+</div>
+
+
 <!-- Standard Webpage Links Sitemap like Footer -->
 <div th:fragment="footer-links (publisher)" class="footer-links">
 

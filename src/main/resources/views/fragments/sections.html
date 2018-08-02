@@ -6,8 +6,8 @@
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Ten Six Section Title
@@ -45,12 +45,12 @@
 <!-- Stackable Segment with Border, N-Columns Equal Padded Width Columns -->
 <div th:fragment="n-equal-padded (section)"
      th:id="${section.anchorId}"
-     th:class="'ui vertical segment n-columns section-bg-' + ${section.id}">
+     th:class="'ui segment n-columns section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
-    <div class="ui">
-        <h1 class="ui header container text" th:text="${section.title}">
+    <div class="ui container text">
+        <h1 class="ui header" th:text="${section.title}">
             Equal Columns Section Title
         </h1>
     </div>
@@ -74,12 +74,12 @@
 <!-- Unstackable Basic 2 Column Grid - No Title - Equal Width Padded -->
 <div th:fragment="2-columns-equal (section)"
      th:id="${section.anchorId}"
-     th:class="'ui vertical basic segment two-columns-equal no-padding section-bg-' + ${section.id}">
+     th:class="'ui basic segment two-columns-equal no-padding section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text container"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Two and N Equal Columns Section title
@@ -116,12 +116,12 @@
 <!-- Stackable No Border Segment, 2 and N-Column Equal Width Columns Padded -->
 <div th:fragment="2-and-n-equal-padded (section)"
      th:id="${section.anchorId}"
-     th:class="'ui vertical two-n-columns basic segment section-bg-' + ${section.id}">
+     th:class="'ui two-n-columns basic segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text container"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Two and N Equal Columns Section title
@@ -176,12 +176,12 @@
 <!-- Accordion Section -->
 <div th:fragment="accordion-styled (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic spaced container accordion-section segment section-bg-' + ${section.id}">
+     th:class="'ui basic spaced accordion-section segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
-    <div class="ui container">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Accordion Title
@@ -213,8 +213,8 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
 
     <!-- Section Headline -->
-    <div class="ui container">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Tile Title
@@ -247,7 +247,7 @@
             <!-- Standard Tile Content Rendering -->
             <div th:if="${not content.relatedTopic}" class="tile-content tc">
                 <!-- Tiles -->
-                <h2 class="title" th:text="${content.title}">
+                <h2 th:if="${not #strings.isEmpty(content.title)}" class="title" th:text="${content.title}">
                   Tile Title
                 </h2>
                 <div class="content" th:utext="${content.html}">
@@ -263,12 +263,12 @@
 <!-- Stackable Segment with 2-Quote Columns per Row -->
 <div th:fragment="quote-tiles (section)"
      th:id="${section.anchorId}"
-     th:class="'ui vertical stripe quote segment section-bg-' + ${section.id}">
+     th:class="'ui stripe quote segment section-bg-' + ${section.id}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
-    <div class="ui" th:if="${not #strings.isEmpty(section.title)}">
-        <h1 class="ui header container text" th:text="${section.title}">
+    <div class="ui container text" th:if="${not #strings.isEmpty(section.title)}">
+        <h1 class="ui header" th:text="${section.title}">
             Quote Section Title
         </h1>
     </div>
