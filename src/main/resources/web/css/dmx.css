@@ -32,11 +32,7 @@
     color: #ffa4bd;
 } **/
 
-#header-page-nav img.logo {
-    height: 35px;
-    width: auto;
-}
-
+#header-page-nav img.logo,
 #lower-page-nav img.logo {
     height: 32px;
     width: auto;
