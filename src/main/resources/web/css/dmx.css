@@ -91,7 +91,8 @@
 }
 
 .ui.footer.segment.striped {
-    border-top: 1px solid rgba(34,36,38,.15);
+    padding-top: 1em;
+    padding-bototm: 1em;
 }
 
 .ui.footer.segment .ui.container.text {
@@ -114,9 +115,6 @@
     height: auto;
     position: relative;
     left: -5px;
-}
-
-.page.front .footer.segment .ui.text a.logo {
     text-decoration: none;
 }
 

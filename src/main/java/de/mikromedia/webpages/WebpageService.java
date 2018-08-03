@@ -90,6 +90,9 @@ public interface WebpageService {
     public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
     public static final String FAVICON_NAME = "favicon.ico";
 
+    public static final String DEFAULT_ATTACHMENT = "fixed";
+    public static final String DEFAULT_SIZE = "contain";
+
     /** Standard Distribution URIs (DM4) **/
     public static final String ROLE_DEFAULT = "dm4.core.default";
     public static final String ROLE_CHILD = "dm4.core.child";

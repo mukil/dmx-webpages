@@ -93,7 +93,9 @@
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <h2 class="ui header" th:text="${content.title}">Tile Title A</h2>
+            <h2 class="ui header"
+                th:if="${not #strings.isEmpty(content.title)}"
+                th:text="${content.title}">Tile Title A</h2>
             <div th:utext="${content.html}" class="tile-content tc">
                Tile A
             </div>
@@ -105,7 +107,9 @@
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <h2 class="ui header" th:text="${content.title}">'Tile Title B</h2>
+            <h2 class="ui header"
+                th:if="${not #strings.isEmpty(content.title)}"
+                th:text="${content.title}">'Tile Title B</h2>
             <div th:utext="${content.html}" class="tile-content tc">
                Tile B
             </div>

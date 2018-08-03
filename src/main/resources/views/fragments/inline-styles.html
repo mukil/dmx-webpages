@@ -91,8 +91,8 @@
                 background-image: url('/filerepo/[[${section.largeImage}]]');
                 background-repeat: no-repeat;
                 background-position: center center;
-                background-attachment: fixed;
-                background-size: cover;
+                background-attachment: [[${section.largeImageAttachment}]];
+                background-size: [[${section.largeImageSize}]];
             }
         }
         /*]]>*/
@@ -104,8 +104,8 @@
                 background-image: url('/filerepo/[[${section.smallImage}]]');
                 background-repeat: no-repeat;
                 background-position: center center;
-                background-attachment: fixed;
-                background-size: cover;
+                background-attachment: [[${section.smallImageAttachment}]];
+                background-size: [[${section.smallImageSize}]];
             }
         }
         /*]]>*/
