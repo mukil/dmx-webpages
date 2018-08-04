@@ -93,8 +93,7 @@
             <a class="toc item">
                 <i class="sidebar icon"></i>
             </a>
-
-            <div class="ui menu menu-items">
+            <div class="ui inverted menu menu-items">
                 <div th:each="menuItem : ${menuItems}">
                     <a th:if="${!menuItem.hasChildItems}"
                         th:class="${#strings.endsWith(menuItem.href, location) ? 'active item' : 'item'}"
