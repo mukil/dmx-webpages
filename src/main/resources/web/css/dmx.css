@@ -219,8 +219,13 @@ header.ui.masthead .ui.header {
     margin-top: 0em;
 }
 
+.webpages.front .ui.segment.main-segment {
+    padding-top: 5em;
+}
+
 .body .ui.segment.main-segment.posts h1.ui.header {
     margin-bottom: 0.25em;
+    margin-top: 0em;
 }
 
 .people .ui.segment.main-segment h3 {
@@ -247,9 +252,14 @@ body.page .ui.spaced.single-tile.segment.section-bg-58311 {
         padding: 1em 2em;
     }
     .ui.segment.main-segment {
-        padding: 1em 2em !important;
+        padding: 1em 1.8em !important;
+        padding-bottom: 3em;
     }
     header .ui.container {
         padding: 1em 1em;
+    }
+    .ui.text.container .tile-content .content img {
+        max-width: 100%;
+        height: auto;
     }
 }
