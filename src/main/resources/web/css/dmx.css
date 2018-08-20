@@ -191,6 +191,10 @@ header.ui.masthead .ui.header {
     padding: 0.7em;
 }
 
+.tile-content figure figcaption a {
+    color: #d7d7d7;
+}
+
 .ui.vertical.stripe.main-segment {
     padding: 4em 0em 4em 0em;
 }
