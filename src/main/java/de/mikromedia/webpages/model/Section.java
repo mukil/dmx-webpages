@@ -19,8 +19,12 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
+import static de.mikromedia.webpages.WebpageService.DEFAULT_ATTACHMENT;
+import static de.mikromedia.webpages.WebpageService.DEFAULT_SIZE;
 import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
+import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
+import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 import static de.mikromedia.webpages.WebpageService.TILE;
 import java.util.Collections;
@@ -87,10 +91,56 @@ public class Section {
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
+    public String getSmallImageAttachment() {
+        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
+                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+        String val = null;
+        if (imageSmall != null) {
+            Association imageConfig = imageSmall.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+        }
+        return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
+    }
+
+    public String getSmallImageSize() {
+        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
+                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+        String val = null;
+        if (imageSmall == null) getSmallImage();
+        if (imageSmall != null) {
+            Association imageConfig = imageSmall.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+        }
+        return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
+    }
+
     public String getLargeImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
                 ROLE_DEFAULT, DEEPAMEHTA_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+    }
+
+    public String getLargeImageAttachment() {
+        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
+                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+        String val = null;
+        if (imageLarge != null) {
+            Association imageConfig = imageLarge.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+        }
+        return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
+    }
+
+    public String getLargeImageSize() {
+        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
+                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+        String val = null;
+        if (imageLarge == null) getSmallImage();
+        if (imageLarge != null) {
+            Association imageConfig = imageLarge.getRelatingAssociation();
+            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+        }
+        return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
 
     public String getLayoutName() {

@@ -12,12 +12,60 @@
 
 .ui.menu .search.item .results a,
 .ui.menu .menu-items a,
-.ui.footer.segment .site-link a,
-.ui.footer.segment .footer-links a {
+.ui.footer.segment .site-link a {
     text-decoration: none;
 }
 
-ui.menu .search.item .results a:hover,
+.ui.vertical.menu.sidebar .item > img.logo {
+    width: 66%;
+    height: auto;
+    margin: auto;
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+/** .red {
+    color: #ff1958;
+}
+
+.light-red {
+    color: #ffa4bd;
+} **/
+
+#header-page-nav img.logo {
+    height: 36px;
+    width: auto;
+}
+
+#lower-page-nav img.logo {
+    height: 32px;
+    width: auto;
+}
+
+.ui.menu .input > input,
+.ui.vertical.inverted.menu .menu .item,
+.ui.menu .item,
+.ui.inverted.menu .item {
+    font-weight: 700;
+    line-height: 1.5em;
+}
+
+.sidebar.ui.vertical.inverted.menu .menu .item {
+    font-size: 1.5em;
+    padding-left: 1.15em;
+}
+
+.ui.transparent.icon.input > input {
+    padding-left: .33em !important;
+    font-size: .9em;
+}
+
+.ui.sidebar .ui.category.search .results {
+    font-size: 1em;
+    width: 100%;
+}
+
+.ui.menu .search.item .results a:hover,
 .page.front .segment .ui.text a {
     text-decoration: underline;
 }
@@ -25,9 +73,13 @@ ui.menu .search.item .results a:hover,
 /** Semantic UI Overrides **/
 
 .ui.segment a[target="_blank"]::after {
-    content: "\29C9";
-    padding-left: 2px;
+    content: "  \29C9";
     /** content: "\2750"; **/
+}
+
+.two-columns-equal .tc p img {
+    width: 100%;
+    height: auto;
 }
 
 .ui.segment .ui.text.container table,
@@ -39,12 +91,72 @@ ui.menu .search.item .results a:hover,
     font-size: 1.25rem
 }
 
+.ui.footer.segment.striped {
+    padding-top: 1em;
+    padding-bototm: 1em;
+}
+
+.ui.footer.segment .ui.container.text {
+    position: relative;
+}
+
+.footer.segment .footer-links .submenu,
+.ui.footer.segment .ui.container.text p {
+    font-size: 1rem;
+}
+
+.footer.segment .footer-links .submenu {
+    display: inline-block;
+    top: -11px;
+    position: relative;
+}
+
+.page .footer.segment .text a.logo {
+    text-decoration: none;
+}
+
+.footer.segment .footer-links .logo img {
+    height: auto;
+    position: relative;
+    left: -5px;
+}
+
+.footer.segment .footer-links {
+    display: inline-block;
+}
+
+.footer.segment .footer-links a {
+    margin-right: 2em;
+}
+
 .ui.segment.tile {
     font-size: 2rem;
 }
 
-.body .ui.segment h2.ui.header {
+.ui.segment h1.ui.header {
+    font-size: 2.5rem;
+    margin: 1em 0em 0em 0em;
+}
+
+.ui.segment h2.ui.header {
     font-size: 1.5rem;
+}
+
+header.ui.segment.masthead h1.ui.header {
+    font-size: 4em;
+    margin-top: 5.5em;
+    font-weight: 700;
+}
+
+header .page-buttons {
+    margin-top: 2.5em;
+    margin-bottom: 2em;
+}
+
+header.ui.masthead .page-buttons,
+header.ui.masthead .headline,
+header.ui.masthead .ui.header {
+    text-align: left;
 }
 
 .ui.footer.segment .ui.header {
@@ -60,12 +172,129 @@ ui.menu .search.item .results a:hover,
     color: #2b293f;
 }
 
-.ui.segment.footer .site-link .logo {
-    max-width: 125px;
-    margin-bottom: 2em;
-    left: -.5em;
+.blockquote {
+    color: #8c8c8c;
+    padding-left: 1em;
+    padding-right: 2em;
+    border-left: 3px solid #d7d7d7;
 }
 
-.footer.segment .site-link .caption {
-    display: none;
+.tile-content figure {
+    margin: 0em;
+    margin-top: 1.5em;
+}
+
+.text caption,
+.tile-content figure figcaption {
+    font-size: 1em;
+    color: #d7d7d7;
+    padding: 0.7em;
+}
+
+.ui.vertical.stripe.main-segment {
+    padding: 4em 0em 4em 0em;
+}
+
+.ui.vertical.stripe.bottom-segment {
+    padding: 0em 0em 2em 0em;
+}
+
+.metadata {
+    color: transparent;
+}
+
+.metadata:hover {
+    color: #8c8c8c;
+}
+
+.ui.inverted.footer.segment {
+    background-color: #2b293f;
+}
+
+.case-studies .ui.segment.single-tile .tc .content {
+    margin-top: 2em;
+}
+
+.case-studies .ui.segment.single-tile .tile-row h1,
+.case-studies .ui.segment.single-tile .tile-row h2 {
+    margin-top: 0em;
+}
+
+.webpages.front .ui.segment.main-segment {
+    padding-top: 5em;
+}
+
+.body .ui.segment.main-segment.posts h1.ui.header {
+    margin-bottom: 0.25em;
+    margin-top: 0em;
+}
+
+.people .ui.segment.main-segment h3 {
+    margin-top: 4em;
+}
+
+body.page .ui.spaced.single-tile.segment.section-bg-58311 {
+    padding-bottom: 1em;
+}
+
+@media only screen and (max-width: 990px) {
+    .ui.vertical.stripe.main-segment,
+    .ui.footer.segment.striped,
+    .page .ui.segment {
+        padding: 1em 2em;
+    }
+    .ui.segment.main-segment {
+        padding: 1em 1.8em !important;
+        padding-bottom: 3em;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .footer.segment .footer-links a {
+       margin-right: 1em;
+    }
+    .body .ui.segment.main-segment.posts h1.ui.header {
+        margin: 0em;
+    }
+    .posts article {
+        padding-top: 0em;
+    }
+    .ui.vertical.stripe.main-segment,
+    .ui.footer.segment.striped,
+    .page .ui.segment {
+        padding: 1em 2em;
+    }
+    .ui.segment.main-segment {
+        padding: 1em 1.8em !important;
+        padding-bottom: 3em;
+    }
+    header nav.ui.container {
+        padding: 0em !important;
+        margin-left: 0em !important;
+        margin-right: 0em !important;
+    }
+    .page .ui.segment.masthead .ui.header {
+        padding: 0em 0em .6em .2em;
+    }
+    .ui.text.container .tile-content .content img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #header-page-nav .ui.inverted.menu .item:not(.dropdown) {
+        max-width: 175px;
+    }
+    #header-page-nav.ui.icontainer {
+        padding: 0em !important;
+        margin-left: 0em !important;
+        margin-right: 0em !important;
+    }
+}
+
+@media only screen and (max-width: 440px) {
+    .footer.segment .footer-links .submenu {
+        top: 5px;
+    }
 }

@@ -9,7 +9,7 @@
         <h1 class="ui header" th:utext="${siteName}">
             Site name
         </h1>
-        <h2 th:if="${not header}" class="caption"
+        <h2 th:if="${not header}" class="headline"
             th:unless="${#strings.isEmpty(siteCaption)}" itemprop="headline" th:utext="${siteCaption}">
             Do whatever you want when you want to.
         </h2>
@@ -19,24 +19,25 @@
         <!-- Inline Header Styles -->
         <style th:replace="fragments/inline-styles :: header-style (${_header})" />
 
-        <h1 class="ui header"
+        <h1 th:if="${not #strings.isEmpty(_header.title)}" class="ui header"
             th:utext="${_header.title}">
             Site header name
         </h1>
-        <h2 class="caption" itemprop="headline"
+        <h2 th:if="${not #strings.isEmpty(_header.content)}" class="headline" itemprop="headline"
             th:utext="${_header.content}">
             Do whatever you want when you want to.
         </h2>
 
-        <!-- Render Header Buttons -->
-        <div class="page-buttons" th:if="${_header.buttons}">
-            <div th:each="button : ${_header.buttons}">
-                <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
-                    class="ui button primary" th:classappend="${button.style}"
-                    th:href="${button.link}"
-                    th:text="${button.label}">
-                    Button label
-                </a>
+        <div th:if="${not #lists.isEmpty(_header.buttons)}">
+            <div class="page-buttons">
+                <div th:each="button : ${_header.buttons}">
+                    <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
+                        class="ui button" th:classappend="${button.style}"
+                        th:href="${button.link}"
+                        th:text="${button.label}">
+                        Button label
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -65,25 +66,32 @@
         <!-- Inline Header Styles -->
         <style th:replace="fragments/inline-styles :: header-style (${header})" />
 
-        <h1 class="ui header"
-            itemprop="headline" th:utext="${header.title}">
-            Page header title
-        </h1>
-        <h2 class="caption" itemprop="headline"
-            th:utext="${header.content}">
-            Page header content
-        </h2>
-        <!-- Render Header Buttons -->
-        <div class="page-buttons" th:if="${header.buttons}">
-            <div th:each="button : ${header.buttons}">
-                <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
-                    class="ui button primary" th:classappend="${button.style}"
-                    th:href="${button.link}"
-                    th:text="${button.label}">
-                    Button label
-                </a>
+        <div th:if="${not #strings.isEmpty(header.title)}">
+            <h1 class="ui header" itemprop="headline" th:utext="${header.title}">
+                Page header title
+            </h1>
+        </div>
+
+        <div th:if="${not #strings.isEmpty(header.content)}">
+            <h2 th:if="${header.content}" class="headline" itemprop="headline"
+                th:utext="${header.content}">
+                Page header content
+            </h2>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(header.buttons)}">
+            <div th:if="${header.buttons}" class="page-buttons">
+                <div th:each="button : ${header.buttons}">
+                    <a th:if="${not #strings.isEmpty(button.label) and not #strings.isEmpty(button.link)}"
+                        class="ui button" th:classappend="${button.style}"
+                        th:href="${button.link}"
+                        th:text="${button.label}">
+                        Button label
+                    </a>
+                </div>
             </div>
         </div>
+
     </div>
 
 </header>

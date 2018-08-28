@@ -11,6 +11,12 @@ body {
     color: #383838;
 }
 
+#header-page-nav .item .logo,
+#lower-page-nav .item .logo {
+    width: auto;
+    height: 32px;
+}
+
 .footer .site-link img {
     margin-bottom: 2em;
 }

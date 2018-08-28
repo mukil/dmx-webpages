@@ -27,7 +27,26 @@
         }
         /*]]>*/
     </style>
-    <style th:if="${header and not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
+    <style th:if="${header and not #strings.isEmpty(header.largeImage) and not #strings.isEmpty(header.smallImage)}"
+           th:inline="text">
+        /*<![CDATA[*/
+        .page .sidebar .ui.inverted.menu,
+        .page .sidebar .ui.menu,
+        .page .vertical.inverted.sidebar.menu,
+        .page .vertical.sidebar.menu,
+        .page #lower-page-nav .ui.menu,
+        .page .ui.segment.header-background,
+        .page .ui.segment.header-background .ui.menu {
+            background-color: [[${header.backgroundColor}]];
+            color: [[${header.fontColor}]];
+        }
+        .page .ui.segment.masthead .ui.header,
+        .page .ui.segment.masthead {
+            color: [[${header.fontColor}]];
+        }
+        /*]]>*/
+    </style>
+    <style th:if="${header and #strings.isEmpty(header.largeImage) and #strings.isEmpty(header.smallImage) and not #strings.isEmpty(header.backgroundColor) and not #strings.equals(header.fontColor)}"
            th:inline="text">
         /*<![CDATA[*/
         .page .sidebar .ui.inverted.menu,
@@ -50,13 +69,16 @@
 <div class="inline-styles" th:fragment="section-background (section)">
     <style th:if="${not #strings.isEmpty(section.backgroundColor) and not #strings.equals(section.fontColor)}" th:inline="text">
         /*<![CDATA[*/
-        .page .ui.segment.section-bg-[[${section.id}]] {
+        .page .ui.segment.section-bg-[[${section.id}]],
+        .page .ui.accordion-section .styled.accordion .title,
+        .page .ui.accordion-section .styled.accordion .content {
             background-color: [[${section.backgroundColor}]];
             color: [[${section.fontColor}]];
             /** border-top: 1px solid [[${section.fontColor}]]33; 
             Add some opacity to all upper borders of section **/
         }
         .page .ui.container.section-bg-[[${section.id}]] .ui.header,
+        .page .ui.accordion-section .styled.accordion .title,
         .page .ui.segment.section-bg-[[${section.id}]] .ui.header {
             color: [[${section.fontColor}]];
         }
@@ -69,8 +91,8 @@
                 background-image: url('/filerepo/[[${section.largeImage}]]');
                 background-repeat: no-repeat;
                 background-position: center center;
-                background-attachment: fixed;
-                background-size: cover;
+                background-attachment: [[${section.largeImageAttachment}]];
+                background-size: [[${section.largeImageSize}]];
             }
         }
         /*]]>*/
@@ -82,8 +104,8 @@
                 background-image: url('/filerepo/[[${section.smallImage}]]');
                 background-repeat: no-repeat;
                 background-position: center center;
-                background-attachment: fixed;
-                background-size: cover;
+                background-attachment: [[${section.smallImageAttachment}]];
+                background-size: [[${section.smallImageSize}]];
             }
         }
         /*]]>*/

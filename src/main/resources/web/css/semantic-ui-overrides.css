@@ -14,10 +14,6 @@ button {
     cursor: pointer;
 }
 
-.hidden.menu {
-    display: none;
-}
-
 h3.header .value {
     margin-left: 0.5em;
     font-weight: normal;
@@ -36,13 +32,6 @@ h3.header .value {
 
 .masthead .ui.menu .ui.button {
     margin-left: 0.5em;
-}
-
-.masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
 }
 
 .masthead h2 {
@@ -108,15 +97,13 @@ article .text {
     margin-bottom: 2em;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 #lower-page-nav .toc.item,
 #header-page-nav .toc.item {
     display: none;
-}
-
-#header-page-nav .item .logo,
-#lower-page-nav .item .logo {
-    width: auto;
-    height: 34px;
 }
 
 #header-page-nav .ui.inverted.menu .header.item {
@@ -141,6 +128,11 @@ header .page-buttons {
 
 header .page-buttons div {
     display: inline-block;
+}
+
+.ui.container .container {
+    margin-left: 0em !important;
+    margin-right: 0em !important;
 }
 
 header.header-background .ui.container
@@ -191,10 +183,6 @@ header.inverted .page-meta .label {
     padding-bottom: 10em;
 }
 
-.body .ui.spaced.segment.accordion-section {
-    padding-bottom: 0em;
-}
-
 .body .ui.accordion-section {
     padding-top: 1em;
     padding-bottom: 3em;
@@ -207,11 +195,6 @@ header.inverted .page-meta .label {
 
 .ui.stackable.grid.basic.segment {
     padding: 0em;
-}
-
-.body .ui.segment h1.ui.header {
-    font-size: 3rem;
-    margin: 1em 0em;
 }
 
 .body .ui.segment.posts h1.ui.header {
@@ -227,9 +210,8 @@ header.inverted .page-meta .label {
     padding-bottom: 6em;
 }
 
-.ui.styled.accordion .title,
-.ui.styled.accordion .content {
-    font-size: 16px;
+.ui.styled.accordion {
+    margin-top: 2em;
 }
 
 .ui.segment.ten-six-columns .container.grid,
@@ -237,27 +219,11 @@ header.inverted .page-meta .label {
     margin: auto !important;
 }
 
-@media only screen and (max-width: 767px) {
-    .ui.grid>.stackable.stackable.row>.column,
-    .ui.stackable.grid>.column.grid>.column,
-    .ui.stackable.grid>.column.row>.column,
-    .ui.stackable.grid>.column:not(.row),
-    .ui.stackable.grid>.row>.column,
-    .ui.stackable.grid>.row>.wide.column,
-    .ui.stackable.grid>.wide.column {
-        padding: 2.5rem !important;
-    }
-    .page .ui.text.container {
-        padding: 1.5rem !important;
-    }
-    .footer .ui.container {
-        padding: 2.5rem !important;
-        margin-left: 0em !important;
-        margin-right: 0em !important;
-    }
-}
-
 /** Section Layout Stylings --*/
+
+.ui.vertical.segment {
+    padding: 1em;
+}
 
 /** ### **/
 .ui.vertical.segment.two-n-columns,
@@ -267,6 +233,8 @@ header.inverted .page-meta .label {
 
 .ui.segment.two-columns-equal .grid .column {
     padding-bottom: 2em;
+    padding-left: 0em;
+    padding-right: 2em;
 }
 
 .ui.equal.grid.quote .tile-content {
@@ -280,13 +248,12 @@ header.inverted .page-meta .label {
 }
 
 .ui.segment.single-tile .tile-row h1,
-.ui.segment.single-tile .tile-row h2,
-.ui.segment.single-tile .tile-row h3 {
-    margin-top: 2em;
+.ui.segment.single-tile .tile-row h2 {
+    margin-top: 1em;
 }
 
-.ui.segment.single-tile .tile-row {
-    margin-top: 4em;
+.ui.segment.single-tile .tile-row .content {
+    margin-top: 2em;
 }
 
 /** ### **/
@@ -299,9 +266,9 @@ header.inverted .page-meta .label {
     cursor: pointer;
 }
 
-.ui.segment .tile.clickable:hover {
+/** .ui.segment .tile.clickable:hover {
     box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2)
-}
+} **/
 
 /** --- Article Styles --- **/
 
@@ -369,16 +336,18 @@ article .text blockquote {
     border-left: 4px solid rgba(255,255,255,0.7);
 }
 
+.ui.segment.main-segment {
+    padding: 0em;
+    padding-bottom: 5em;
+    padding-top: 5em;
+}
+
 .ui.vertical.menu.sidebar {
     z-index: 2001;
 }
 
 .ui.sidebar .inverted.menu .header {
     color: #fff;
-}
-
-.ui.menu .item {
-    line-height: 1.4285em;
 }
 
 /** #header-page-nav  ui.menu .item {
@@ -391,10 +360,21 @@ article .text blockquote {
 @media only screen and (max-width: 1024px) {
     .body .ui.segment h1.ui.header {
         font-size: 2rem;
-        margin: 1em 0em;
+        margin: 1em 0em 0em 0em;
     }
     .body .ui.segment h2.ui.header {
-        font-size: 1.5em;
+        font-size: 1.5rem;
+    }
+    .body .ui.spaced.segment {
+        padding-bottom: 5em;
+    }
+    #header-page-nav .menu-items .item,
+    #lower-page-nav .menu-items .item {
+        display: none;
+    }
+    #lower-page-nav .toc.item,
+    #header-page-nav .menu .toc.item {
+        display: block;
     }
 }
 
@@ -404,14 +384,6 @@ article .text blockquote {
     }
     .ui.vertical.stripe.main-segment.posts.container div.text {
         margin-left: 1em;
-    }
-    #header-page-nav .menu-items .item,
-    #lower-page-nav .menu-items .item {
-        display: none;
-    }
-    #lower-page-nav .toc.item,
-    #header-page-nav .menu .toc.item {
-        display: block;
     }
     .masthead.segment {
         min-height: 350px;
