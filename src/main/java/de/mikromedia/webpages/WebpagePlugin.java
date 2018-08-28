@@ -1005,6 +1005,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                     DeepaMehtaUtils.associationAutoTyping(am, TILE,
                         DEEPAMEHTA_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
                 }
+            } else if (topic1.getTypeUri().equals(SECTION) || topic2.getTypeUri().equals(SECTION)) {
+                if (topic1.getTypeUri().equals(DEEPAMEHTA_FILE) || topic2.getTypeUri().equals(DEEPAMEHTA_FILE) ) {
+                    DeepaMehtaUtils.associationAutoTyping(am, SECTION,
+                        DEEPAMEHTA_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, dm4);
+                }
             }
         }
     }
