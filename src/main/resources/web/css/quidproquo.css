@@ -8,31 +8,74 @@
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
 @import url('/de.mikromedia.webpages/css/semantic-ui/qpq-dist/semantic.min.css');
 
-.quote.segment h1,
-.quote.segment .column.tile h2,
-.quote.segment .column.tile h3 {
-    font-family: "Libre Baskerville";
+
+.page .masthead.segment {
+    min-height: inherit;
 }
 
-.quote.segment h1,
-.quote.segment .column.tile h2,
-.quote.segment .column.tile h3,
-.quote.segment .column.tile p {
-    text-align: center;
+.page .masthead.segment .text.container {
+    display: none;
 }
 
 #header-page-nav .menu-items.menu {
     margin: auto;
-    margin-top: 40px;
+    margin-top: 52px;
+}
+
+/** Special page layouts ***/
+
+.webpages .contact-form-full .ui.form {
+    margin-top: 2em;
+}
+
+.webpages .ui.segment {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0px;
+    border: 0px solid transparent;
+}
+
+body.webpages.references .ui.vertical.segment.main-segment {
+    padding: 0em;
+}
+
+.webpages.imprint .ui.segment h1.ui.header,
+.webpages.services .ui.segment h1.ui.header,
+.webpages.front .ui.segment h1.ui.header,
+.webpages.get-started .ui.segment h1.ui.header,
+.webpages.references .ui.segment h1.ui.header {
+    font-weight: 700;
+    text-align: center;
+    font-size: 2em;
+}
+
+.webpages.front.page .ui.posts.segment h1.ui.header {
+    text-align: left;
+}
+
+.webpages.imprint .ui.single-tile.spaced.segment,
+.webpages.services .ui.single-tile.spaced.segment,
+.webpages.front .ui.single-tile.spaced.segment,
+.webpages.get-started .ui.single-tile.spaced.segment,
+.webpages.references .ui.single-tile.spaced.segment {
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 2em;
+}
+
+body.webpages.front .single-tile  .ui.text.container {
+    max-width: 1050px !important;
 }
 
 #header-page-nav .right.menu .category.search.item {
     position: relative;
-    top: 20px;
+    top: 30px;
+    display: none;
 }
 
 #header-page-nav .item .logo {
-    height: 65px !important;
+    height: 75px !important;
+    width: auto;
 }
 
 #header-page-nav .menu .toc.item {
@@ -56,6 +99,10 @@
 #lower-page-nav div.menu .item,
 #lower-page-nav div.menu {
     height: 56px;
+}
+
+#lower-page-nav .category.search.item {
+    display: none;
 }
 
 #lower-page-nav div.menu {
@@ -82,15 +129,26 @@
     padding: 4em 0em;
 }
 
-.quote h2 {
-    font-weight: 400;
-    font-family: "Libre Baskerville";
-}
 
 .quote .tile-content {
-    max-width: 650px;
+    max-width: 950px;
     margin: auto;
 }
+
+.quote.segment h1,
+.quote.segment .column.tile h2 {
+    font-family: "Libre Baskerville";
+    font-size: 2.25em;
+    font-weight: 400;
+    text-align: justify;
+}
+
+.quote.segment .column.tile h3 {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
 
 .services .segment.two-columns-equal .grid .tile .tc {
     max-width: 500px;
@@ -104,9 +162,9 @@
 }
 
 .imprint .segment.two-columns-equal .grid .tile .tc {
-    max-width: 400px;
     margin: auto;
     text-align: left;
+    padding: 0em 0em 0em 0.75em;
 }
 
 .ui.segment.single-tile .tc,
@@ -115,9 +173,26 @@
     font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
 }
 
-.body .ui.segment h1.ui.header,
-.ui.segment.two-columns-equal .grid .column.tile {
-    text-align: center;
+.ui.vertical.menu img.logo {
+    padding: 3em;
+}
+
+.sidebar .ui.massive.input {
+    font-size: 1.2em;
+    padding-left: .4em;
+}
+
+.ui.vertical.inverted.menu .menu .item {
+    font-size: 1.2em;
+}
+
+.body .ui.segment.posts h1.ui.header {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.body .ui.segment.posts h1.ui.header,
+.body .ui.segment .grid .column.tile {
     font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
 }
 
@@ -192,6 +267,10 @@
     opacity: .4;
 }
 
+.ui.vertical.segment.footer {
+    padding-top: 3em;
+}
+
 .footer .column p {
     color: #e2c9a2 !important;
 }
@@ -212,4 +291,33 @@
 
 .ui.segment.footer .site-link .logo {
     display: none;
+}
+
+.webpages .ui.segment {
+    padding: 4em 0em 1em 0em;
+}
+
+@media (max-width: 1024px) {
+    .webpages .body .ui.segment h1.ui.header {
+        margin: 0em 0em 1em 0em;
+    }
+    .webpages .body .ui.segment .grid .column.tile {
+        padding: 0em 1em 0em 1em!important;
+    }
+}
+
+@media (max-width: 690px) {
+    .ui.vertical.main-segment.stripe {
+        padding: 4em 1em;
+    }
+    .webpages .ui.segment .grid .tile .tc p {
+        padding: 0em 0em 0em 1em;
+    }
+    .webpages .ui.segment .grid .tile .tc ul p {
+        padding: 0em;
+    }
+    .webpages .ui.segment .grid .tile .tc ul {
+        margin-top: 0em;
+        padding-right: 1em;
+    }
 }

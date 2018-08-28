@@ -17,8 +17,8 @@
     </parent>
 
     <properties>
-	<!--dm4.deploy.dir>/Users/malt/source/deepamehta/bundle-deploy</dm4.deploy.dir-->
-        <!--dm4.deploy.dir>/Users/malt/source/dmx/deepamehta/bundle-deploy</dm4.deploy.dir-->
+	<!--dm4.deploy.dir>/Users/malt/Documents/dmxug/website/deepamehta-4.9/bundle-deploy</dm4.deploy.dir-->
+        <dm4.deploy.dir>/Users/malt/source/devqpq/bundle-deploy</dm4.deploy.dir>
 	<!--dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir-->
     </properties>
 
