@@ -79,9 +79,32 @@ body.webpages.front .single-tile  .ui.text.container {
 }
 
 #header-page-nav .menu .toc.item {
-    position: relative;
-    top: 42px;
+    position: absolute;
+    top: 10px;
     height: 54px;
+    right: 0px;
+    font-size: 1.5em;
+}
+
+#lower-page-nav .ui.large.top.fixed.menu {
+    height: 75px;
+}
+
+#lower-page-nav .menu .toc.item {
+    position: absolute;
+    top: 2px;
+    right: 0px;
+    font-size: 1.5em;
+}
+
+#lower-page-nav .ui.menu .item img.logo {
+    height: 41px;
+    width: auto;
+    position: relative;
+}
+
+#lower-page-nav .ui.menu .item.sitename {
+    height: 100%;
 }
 
 #header-page-nav .ui.menu .right.menu .item:before,
@@ -94,11 +117,6 @@ body.webpages.front .single-tile  .ui.text.container {
     margin-bottom: 0em;
     font-size: 4em;
     font-weight: normal;
-}
-
-#lower-page-nav div.menu .item,
-#lower-page-nav div.menu {
-    height: 56px;
 }
 
 #lower-page-nav .category.search.item {
