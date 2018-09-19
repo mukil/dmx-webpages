@@ -24,6 +24,7 @@
 
 /** Special page layouts ***/
 
+.webpages .ui.vertical.segment.contact-form-full,
 .webpages .contact-form-full .ui.form {
     margin-top: 2em;
 }
@@ -35,8 +36,17 @@
     border: 0px solid transparent;
 }
 
-body.webpages.references .ui.vertical.segment.main-segment {
+.webpages.detail .ui.vertical.segment.main-segment {
+    max-width: 1098px;
+    margin: auto;
+}
+
+.webpages.references .ui.vertical.segment.main-segment {
     padding: 0em;
+}
+
+.webpages.front .ui.segment.main-segment.posts {
+    max-width: 1129px !important;
 }
 
 .webpages.imprint .ui.segment h1.ui.header,
@@ -51,6 +61,7 @@ body.webpages.references .ui.vertical.segment.main-segment {
 
 .webpages.front.page .ui.posts.segment h1.ui.header {
     text-align: left;
+    margin-bottom: 0.1em;
 }
 
 .webpages.imprint .ui.single-tile.spaced.segment,
@@ -155,9 +166,9 @@ body.webpages.front .single-tile  .ui.text.container {
 .quote.segment h1,
 .quote.segment .column.tile h2 {
     font-family: "Libre Baskerville";
-    font-size: 2.25em;
+    font-size: 2em;
     font-weight: 400;
-    text-align: justify;
+    text-align: left;
 }
 
 .quote.segment .column.tile h3 {
@@ -295,6 +306,19 @@ body.webpages.front .single-tile  .ui.text.container {
 .footer h4.ui.header {
     color: #e2c9a2 !important;
     font-weight: 700;
+}
+
+.ui.form input::selection,
+.ui.form textarea::selection,
+.ui.form input::-moz-placeholder,
+.ui.form input:-moz-placeholder,
+.ui.form input:-ms-input-placeholder,
+.ui.form input::-webkit-input-placeholder {
+    color: #161927 !important;
+}
+
+.ui.segment.footer.inverted {
+    background-color: #161927;
 }
 
 .ui.segment.footer.inverted a {
