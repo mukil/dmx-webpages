@@ -6,14 +6,14 @@
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Contact Form Title -->
     <div class="ui">
-        <h1 class="ui header container text"
+        <h1 class="ui header container"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Ten Six Section Title
         </h1>
     </div>
     <!-- Contact Form Content -->
-    <div class="ui container form" th:if='${not contactFormUsed}'>
+    <div class="ui container form text" th:if='${not contactFormUsed}'>
         <form class="ui form" method="GET" action="/webpages/contact-form-submission">
             <div class="field">
                 <!--label>Your Name</label-->

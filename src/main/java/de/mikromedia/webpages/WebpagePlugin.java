@@ -20,8 +20,10 @@ import de.deepamehta.core.service.accesscontrol.AccessControlException;
 import de.deepamehta.core.service.event.PreCreateAssociationListener;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.core.util.DeepaMehtaUtils;
+import static de.deepamehta.core.util.JavaUtils.stripHTML;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
+import de.mikromedia.sendgrid.SendgridService;
 import de.mikromedia.webpages.model.MenuItem;
 import de.mikromedia.webpages.model.SearchResult;
 import de.mikromedia.webpages.model.SearchResultList;
@@ -96,6 +98,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @Inject AccessControlService accesscontrol;
     @Inject WorkspacesService workspaces;
+    @Inject SendgridService sendgrid;
 
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
     private TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -324,11 +327,19 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
 
     @GET
     @Path("/webpages/contact-form-submission")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
     public Viewable processContactFormSubmission(@QueryParam("name") String name, @QueryParam("message") String message,
             @QueryParam("contact") String contact, @QueryParam("website") String website, @QueryParam("webalias") String webalias) throws URISyntaxException {
         log.info("Sender: " + name + " Message: " + message);
         log.info("Request From: /" + website + "/" + webalias);
+        // Send Mail
+        String emailBody = "Nachricht von " + stripHTML(name) + "<br/><br/>"
+                + stripHTML(message) + "<br/><br/>"
+                + "Kontakt: " + stripHTML(contact).trim() + "<br/><br/>"
+                + "Sincerely<br/>Your QPQ-Website";
+        sendgrid.doEmailSystemMailbox("Kontaktformular QPQ-Website", emailBody);
+        // Page Redirect
         viewData("contactFormUsed", true);
         if (website == null) {
             return getIndexWebpage();

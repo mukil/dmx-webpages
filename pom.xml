@@ -17,8 +17,8 @@
     </parent>
 
     <properties>
-	<!--dm4.deploy.dir>/Users/malt/source/deepamehta/bundle-deploy</dm4.deploy.dir-->
-        <!--dm4.deploy.dir>/Users/malt/source/dmx/deepamehta/bundle-deploy</dm4.deploy.dir-->
+	<!--dm4.deploy.dir>/Users/malt/Documents/dmxug/website/deepamehta-4.9/bundle-deploy</dm4.deploy.dir-->
+        <dm4.deploy.dir>/Users/malt/source/devqpq/bundle-deploy</dm4.deploy.dir>
 	<!--dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir-->
     </properties>
 
@@ -27,6 +27,11 @@
             <groupId>de.deepamehta</groupId>
             <artifactId>dm49-thymeleaf</artifactId>
             <version>0.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>de.mikromedia</groupId>
+            <artifactId>dm49-sendgrid</artifactId>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>de.deepamehta</groupId>

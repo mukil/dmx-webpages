@@ -13,7 +13,7 @@
             Ten Six Section Title
         </h1>
     </div>
-    <div class="ui stackable grid basic container text segment">
+    <div class="ui stackable grid basic container segment">
         <div class="ui row">
             <div th:if="${iterator.index} == 0" th:class="'ten wide column tile tile-background-' + ${content.id}"
                  th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -55,7 +55,7 @@
         </h1>
     </div>
     <!-- Tile Elements -->
-    <div class="ui equal width stackable grid padded">
+    <div class="ui equal width stackable grid container">
         <div th:class="'column tile tile-background-' + ${content.id}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
              th:each="content, iterator : ${section.contents}"
@@ -85,7 +85,7 @@
             Two and N Equal Columns Section title
         </h1>
     </div>
-    <div class="ui equal width stackable container text grid padded">
+    <div class="ui equal width stackable container grid">
         <div th:if="${iterator.index} == 0" th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -226,7 +226,7 @@
     </div>
 
     <!-- Single Tile Container Boxes -->
-    <div class="ui container text">
+    <div class="ui container">
         <div th:each="content, iterator : ${section.contents}" class="tile-row">
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
