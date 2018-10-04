@@ -71,11 +71,11 @@
 
                 </div>
 
-                <div class="ui basic stripe segment main-segment posts container">
+                <!--div class="ui basic stripe segment main-segment posts container text">
 
-                    <!--div class="ui container">
-                        <h1 class="ui header">Pages</h1>
-                    </div-->
+                    <div class="ui container">
+                        <h1 class="ui header">Articles</h1>
+                    </div>
 
                     <div class="ui text">
 
@@ -85,16 +85,16 @@
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
+                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                                 </a>
                                 <a th:if="${!#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
+                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
                                 </a>
                             </h1>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
-                            <!--span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span-->
+                            <span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span>
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
                             <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
                             <meta itemprop="author" th:content="${page.authorNames}" />
@@ -103,7 +103,7 @@
                         
                     </div>
 
-                </div>
+                </div-->
 
                 <div class="sections-below">
 
@@ -143,7 +143,7 @@
 
             </div>
 
-            <div th:replace="fragments/footer :: qpq-footer"></div>
+            <div th:replace="fragments/footer :: footer-new"></div>
 
             <div class="metadata debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

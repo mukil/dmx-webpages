@@ -4,14 +4,14 @@
 
         <div class="ui container">
 
-            <div class="site-link" th:include="fragments/widgets :: footer-site-link"></div>
+            <!--div class="site-link" th:include="fragments/widgets :: footer-site-link"></div-->
 
             <div class="footer-links">
 
                 <div class="ui stackable divided equal height stackable grid">
 
                     <div class="three wide column menu">
-                        <h4 class="ui header">Menu</h4>
+                        <h3 class="ui header">Menu</h3>
                         <div class="ui link list menu-items" th:if="${!#lists.isEmpty(menuItems)}">
                             <div th:each="menuItem : ${menuItems}">
                                 <a th:href="${menuItem.href}" th:class="'item'" th:id="${menuItem.id}" th:text="${menuItem.label}">Menu Item</a>
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="three wide column recent">
-                        <h4 class="ui header">Recent Pages</h4>
+                        <h3 class="ui header">Recent Pages</h3>
                         <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
                             <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
                                 <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <div class="three wide column your-data">
+                    <!-- div class="three wide column your-data">
                         <h4 class="ui header">Your Data</h4>
                         <div th:if="!${authenticated}" class="ui link list webpages">
                             <div><a href="/sign-up/login" class="item">Login</a></div>
@@ -43,10 +43,10 @@
                             <div><a href="/sign-up/edit" class="item">Edit</a></div>
                             <div><a href="/sign-up/login" class="item">Logout</a></div>
                         </div>
-                    </div>
+                    </div-->
 
-                    <div class="seven wide column about">
-                        <h4 class="ui header">About</h4>
+                    <div class="ten wide column about">
+                        <h3 class="ui header">About</h3>
                         <p th:utext="${siteAbout}">Configure Website About Info (HTML)</p>
                         <p th:utext="${footerText}">Configure Website Footer Text (HTML)</p>
                     </div>
