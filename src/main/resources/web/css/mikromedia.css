@@ -74,6 +74,34 @@ header .ui.text.container h1.ui.header {
     font-weight: normal;
 }
 
+.webpages article .single-tile h1,
+.webpages article .single-tile h2,
+.webpages article .single-tile h3 {
+    font-weight: lighter;
+}
+
+article .text h1.ui.header,
+.single-tile .content h1.ui.header,
+article .text h2,
+.single-tile .content h2 {
+    font-size: 2.2rem;
+}
+
+.segment.n-columns .ui.header {
+    margin-bottom: 1.5em;
+}
+
+article .text h3,
+.single-tile .content h3 {
+    font-size: 1.75rem;
+    font-weight: lighter;
+}
+
+.webpages article i,
+.webpages article em {
+    font-style: normal;
+}
+
 header.ui.masthead {
     min-height: 500px;
 }
@@ -141,4 +169,32 @@ header.ui.masthead {
 
 body.webpages {
     min-width: auto;
+}
+
+.webpages article .text .blockquote,
+.webpages article .text blockquote {
+    margin-left: 0px;
+    font-style: normal;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid rgba(167, 167, 167, 1);
+    margin-bottom: 1em;
+}
+
+/** Specific N-Tiles Heading and Content Tile Styles **/
+
+.webpages .ui.segment.n-columns .tile .ui.header {
+    background-color: #38384D;
+    color: #fff;
+    padding: .5em;
+    margin-right: 4em;
+}
+
+.webpages .ui.segment.n-columns .tile {
+    min-height: 200px;
+    padding: 0em !important;
+}
+
+.webpages .ui.segment.n-columns {
+    padding-bottom: 5em;
 }

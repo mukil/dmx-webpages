@@ -199,10 +199,7 @@ header.inverted .page-meta .label {
     margin-bottom: 3em;
 }
 
-.ui.grid > .row > .column {
-    padding: 1em 3em 2.5em 3em;
-}
-
+.ui.grid > .row > .column,
 .ui.stackable.grid.basic.segment {
     padding: 0em;
 }
@@ -259,8 +256,9 @@ header.inverted .page-meta .label {
     margin-top: 1em;
 }
 
+.ui.segment.single-tile .ui.header,
 .ui.segment.single-tile .tile-row .content {
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 /** ### **/
@@ -331,12 +329,14 @@ article .text pre.code-block {
     border-top: 0px solid transparent;
 }
 
+article .text .blockquote,
 article .text blockquote {
     margin-left: 0px;
     font-style: italic;
     font-size: 1.2em;
     padding-left: 1em;
-    border-left: 4px solid rgba(255,255,255,0.7);
+    border-left: 4px solid rgba(167, 167, 167, 1);
+    margin-bottom: 1em;
 }
 
 .ui.segment.main-segment {
@@ -361,7 +361,6 @@ article .text blockquote {
 @media only screen and (max-width: 1024px) {
     .body .ui.segment h1.ui.header {
         font-size: 2rem;
-        margin: 0em;
     }
     .body .ui.segment h2.ui.header {
         font-size: 1.5rem;
@@ -376,6 +375,17 @@ article .text blockquote {
     #lower-page-nav .toc.item,
     #header-page-nav .menu .toc.item {
         display: block;
+    }
+    .webpages .ui.segment.n-columns {
+        padding: 0em;
+        padding-top: 2.5em;
+    }
+    .webpages .ui.segment.n-columns h1.ui.header {
+        padding-left: .5em;
+    }
+    .webpages .ui.segment.n-columns .tile {
+        min-height: 200px;
+        padding: 0em !important;
     }
 }
 
