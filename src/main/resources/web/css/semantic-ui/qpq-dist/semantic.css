@@ -1,5 +1,5 @@
  /*
- * # Semantic UI - 2.3.1
+ * # Semantic UI - 2.4
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
  *
@@ -10,7 +10,7 @@
  */
 @import url('https://fonts.googleapis.com/css?family=Cinzel|Lato|Libre+Baskerville:300,300i,400i,700,700i');
 /*!
- * # Semantic UI 2.3.1 - Reset
+ * # Semantic UI 2.4 - Reset
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -541,7 +541,7 @@ template {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Site
+ * # Semantic UI 2.4 - Site
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -713,7 +713,7 @@ input::selection {
         Site Global Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Container
+ * # Semantic UI 2.4 - Container
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -896,7 +896,7 @@ input::selection {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Grid
+ * # Semantic UI 2.4 - Grid
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -3205,7 +3205,7 @@ input::selection {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Header
+ * # Semantic UI 2.4 - Header
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -3225,7 +3225,7 @@ input::selection {
   margin: calc(2rem -  0.14285714em ) 0em 1rem;
   padding: 0em 0em;
   font-family: "Cinzel", "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
-  font-weight: 300;
+  font-weight: bold;
   line-height: 1.28571429em;
   text-transform: none;
   color: rgba(0, 0, 0, 0.87);
@@ -3363,11 +3363,11 @@ h5.ui.header {
 /* Sub Header */
 
 h1.ui.header .sub.header {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 
 h2.ui.header .sub.header {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 
 h3.ui.header .sub.header {
@@ -3379,7 +3379,7 @@ h4.ui.header .sub.header {
 }
 
 h5.ui.header .sub.header {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 
 /*--------------
@@ -3410,11 +3410,11 @@ h5.ui.header .sub.header {
 /* Sub Header */
 
 .ui.huge.header .sub.header {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 
 .ui.large.header .sub.header {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 
 .ui.header .sub.header {
@@ -3426,7 +3426,7 @@ h5.ui.header .sub.header {
 }
 
 .ui.tiny.header .sub.header {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 
 /*--------------
@@ -3435,23 +3435,23 @@ h5.ui.header .sub.header {
 
 .ui.sub.header {
   padding: 0em;
-  margin-bottom: 0.125rem;
+  margin-bottom: 0.14285714rem;
   font-weight: bold;
-  font-size: 0.875em;
+  font-size: 0.85714286em;
   text-transform: uppercase;
   color: '';
 }
 
 .ui.small.sub.header {
-  font-size: 0.8125em;
+  font-size: 0.78571429em;
 }
 
 .ui.sub.header {
-  font-size: 0.875em;
+  font-size: 0.85714286em;
 }
 
 .ui.large.sub.header {
-  font-size: 0.9375em;
+  font-size: 0.92857143em;
 }
 
 .ui.huge.sub.header {
@@ -3567,15 +3567,15 @@ h5.ui.header .sub.header {
 /*--- Red ---*/
 
 .ui.red.header {
-  color: #ce0000 !important;
+  color: #DB2828 !important;
 }
 
 a.ui.red.header:hover {
-  color: #b50000 !important;
+  color: #d01919 !important;
 }
 
 .ui.red.dividing.header {
-  border-bottom: 2px solid #ce0000;
+  border-bottom: 2px solid #DB2828;
 }
 
 /* Inverted */
@@ -3663,15 +3663,15 @@ a.ui.inverted.yellow.header:hover {
 /*--- Green ---*/
 
 .ui.green.header {
-  color: #9cc300 !important;
+  color: #21BA45 !important;
 }
 
 a.ui.green.header:hover {
-  color: #88aa00 !important;
+  color: #16ab39 !important;
 }
 
 .ui.green.dividing.header {
-  border-bottom: 2px solid #9cc300;
+  border-bottom: 2px solid #21BA45;
 }
 
 /* Inverted */
@@ -3909,12 +3909,12 @@ a.ui.inverted.grey.header:hover {
 --------------------*/
 
 .ui.dividing.header {
-  padding-bottom: 0.1875rem;
+  padding-bottom: 0.21428571rem;
   border-bottom: 1px solid rgba(34, 36, 38, 0.15);
 }
 
 .ui.dividing.header .sub.header {
-  padding-bottom: 0.1875rem;
+  padding-bottom: 0.21428571rem;
 }
 
 .ui.dividing.header .icon {
@@ -3931,19 +3931,19 @@ a.ui.inverted.grey.header:hover {
 
 .ui.block.header {
   background: #F3F4F5;
-  padding: 0.8125rem 1rem;
+  padding: 0.78571429rem 1rem;
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid #D4D4D5;
-  border-radius: 0.25rem;
+  border-radius: 0.28571429rem;
 }
 
 .ui.tiny.block.header {
-  font-size: 0.875rem;
+  font-size: 0.85714286rem;
 }
 
 .ui.small.block.header {
-  font-size: 0.9375rem;
+  font-size: 0.92857143rem;
 }
 
 .ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
@@ -3951,11 +3951,11 @@ a.ui.inverted.grey.header:hover {
 }
 
 .ui.large.block.header {
-  font-size: 1.125rem;
+  font-size: 1.14285714rem;
 }
 
 .ui.huge.block.header {
-  font-size: 1.4375rem;
+  font-size: 1.42857143rem;
 }
 
 /*-------------------
@@ -3964,7 +3964,7 @@ a.ui.inverted.grey.header:hover {
 
 .ui.attached.header {
   background: #FFFFFF;
-  padding: 0.8125rem 1rem;
+  padding: 0.78571429rem 1rem;
   margin-left: -1px;
   margin-right: -1px;
   -webkit-box-shadow: none;
@@ -3985,23 +3985,23 @@ a.ui.inverted.grey.header:hover {
 
 .ui.top.attached.header {
   margin-bottom: 0em;
-  border-radius: 0.25rem 0.25rem 0em 0em;
+  border-radius: 0.28571429rem 0.28571429rem 0em 0em;
 }
 
 .ui.bottom.attached.header {
   margin-top: 0em;
   border-top: none;
-  border-radius: 0em 0em 0.25rem 0.25rem;
+  border-radius: 0em 0em 0.28571429rem 0.28571429rem;
 }
 
 /* Attached Sizes */
 
 .ui.tiny.attached.header {
-  font-size: 0.875em;
+  font-size: 0.85714286em;
 }
 
 .ui.small.attached.header {
-  font-size: 0.9375em;
+  font-size: 0.92857143em;
 }
 
 .ui.attached.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
@@ -4009,11 +4009,11 @@ a.ui.inverted.grey.header:hover {
 }
 
 .ui.large.attached.header {
-  font-size: 1.125em;
+  font-size: 1.14285714em;
 }
 
 .ui.huge.attached.header {
-  font-size: 1.4375em;
+  font-size: 1.42857143em;
 }
 
 /*-------------------
@@ -4025,10 +4025,14 @@ a.ui.inverted.grey.header:hover {
 }
 
 /*******************************
+         Theme Overrides
+*******************************/
+
+/*******************************
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Image
+ * # Semantic UI 2.4 - Image
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -6645,7 +6649,7 @@ Floated Menu / Item
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Dropdown
+ * # Semantic UI 2.4 - Dropdown
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -8292,7 +8296,7 @@ select.ui.dropdown {
         User Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Segment
+ * # Semantic UI 2.4 - Segment
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -9192,7 +9196,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Search
+ * # Semantic UI 2.4 - Search
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -9650,7 +9654,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Input
+ * # Semantic UI 2.4 - Input
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -10222,7 +10226,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Button
+ * # Semantic UI 2.4 - Button
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -14407,7 +14411,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Loader
+ * # Semantic UI 2.4 - Loader
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -14785,7 +14789,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Checkbox
+ * # Semantic UI 2.4 - Checkbox
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -15460,7 +15464,7 @@ select.ui.dropdown {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - List
+ * # Semantic UI 2.4 - List
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -16537,7 +16541,7 @@ ol.ui.horizontal.list li:before,
     User Variable Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Icon
+ * # Semantic UI 2.4 - Icon
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -22244,7 +22248,7 @@ i.icon.youtube.play:before {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Sidebar
+ * # Semantic UI 2.4 - Sidebar
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -22929,7 +22933,7 @@ body.pushable > .pusher {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Transition
+ * # Semantic UI 2.4 - Transition
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -25278,7 +25282,7 @@ body.pushable > .pusher {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Accordion
+ * # Semantic UI 2.4 - Accordion
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -25541,7 +25545,7 @@ body.pushable > .pusher {
         User Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Table
+ * # Semantic UI 2.4 - Table
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -26836,7 +26840,7 @@ body.pushable > .pusher {
          Site Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Item
+ * # Semantic UI 2.4 - Item
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -27943,7 +27947,7 @@ a.ui.card:hover,
     User Variable Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Item
+ * # Semantic UI 2.4 - Item
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -28464,7 +28468,7 @@ a.ui.card:hover,
     User Variable Overrides
 *******************************/
 /*!
- * # Semantic UI 2.3.1 - Form
+ * # Semantic UI 2.4 - Form
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -29642,3 +29646,168 @@ a.ui.card:hover,
 /*******************************
          Site Overrides
 *******************************/
+/*!
+ * # Semantic UI 2.4 - Video
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+/*******************************
+            Types
+*******************************/
+
+.ui.embed {
+  position: relative;
+  max-width: 100%;
+  height: 0px;
+  overflow: hidden;
+  background: #DCDDDE;
+  padding-bottom: 56.25%;
+}
+
+/*-----------------
+  Embedded Content
+------------------*/
+
+.ui.embed iframe,
+.ui.embed embed,
+.ui.embed object {
+  position: absolute;
+  border: none;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  margin: 0em;
+  padding: 0em;
+}
+
+/*-----------------
+      Embed
+------------------*/
+
+.ui.embed > .embed {
+  display: none;
+}
+
+/*--------------
+   Placeholder
+---------------*/
+
+.ui.embed > .placeholder {
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  left: 0px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+}
+
+/*--------------
+      Icon
+---------------*/
+
+.ui.embed > .icon {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.ui.embed > .icon:after {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  content: '';
+  background: -webkit-radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  background: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  opacity: 0.5;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+
+.ui.embed > .icon:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  color: #FFFFFF;
+  font-size: 6rem;
+  text-shadow: 0px 2px 10px rgba(34, 36, 38, 0.2);
+  -webkit-transition: opacity 0.5s ease, color 0.5s ease;
+  transition: opacity 0.5s ease, color 0.5s ease;
+  z-index: 10;
+}
+
+/*******************************
+            States
+*******************************/
+
+/*--------------
+     Hover
+---------------*/
+
+.ui.embed .icon:hover:after {
+  background: -webkit-radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  background: radial-gradient(transparent 45%, rgba(0, 0, 0, 0.3));
+  opacity: 1;
+}
+
+.ui.embed .icon:hover:before {
+  color: #FFFFFF;
+}
+
+/*--------------
+     Active
+---------------*/
+
+.ui.active.embed > .icon,
+.ui.active.embed > .placeholder {
+  display: none;
+}
+
+.ui.active.embed > .embed {
+  display: block;
+}
+
+/*******************************
+        Video Overrides
+*******************************/
+
+/*******************************
+         Site Overrides
+*******************************/
+
+/*******************************
+          Variations
+*******************************/
+
+.ui.square.embed {
+  padding-bottom: 100%;
+}
+
+.ui[class*="4:3"].embed {
+  padding-bottom: 75%;
+}
+
+.ui[class*="16:9"].embed {
+  padding-bottom: 56.25%;
+}
+
+.ui[class*="21:9"].embed {
+  padding-bottom: 42.85714286%;
+}

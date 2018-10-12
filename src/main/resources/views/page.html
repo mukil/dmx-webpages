@@ -82,6 +82,10 @@
                             <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
                                 <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
                             </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'embed')}">
+                                <div th:replace="fragments/sections :: embed-section (${section})" />
+                            </div>
                         </div>
 
                     </div>
@@ -132,6 +136,10 @@
                             <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
                                 <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
                             </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'embed')}">
+                                <div th:replace="fragments/sections :: embed-section (${section})" />
+                            </div>
                         </div>
 
                     </div>
@@ -153,7 +161,7 @@
 
             </div>
 
-            <div th:replace="fragments/footer :: footer-new"></div>
+            <div th:replace="fragments/footer :: qpq-footer"></div>
 
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

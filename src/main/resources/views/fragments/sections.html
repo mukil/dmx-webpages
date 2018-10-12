@@ -235,7 +235,7 @@
             <div th:if="${content.relatedTopic}" class="tile-content tc">
                 <!-- File Topic Rendering as Show File Link -->
                 <div th:if="${#strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}">
-                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon"
+                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon basic"
                        th:title="'Show File, Size: ' + ${content.relatedTopicFileSize} + ' Media Type: ' + ${content.relatedTopicFileMediaType}">
                         <i class="icon file alternate outline"></i>
                         <span th:text="${content.relatedTopic.simpleValue}">Filename</span>
@@ -288,6 +288,20 @@
                    Author A
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Embed Section -->
+<div th:fragment="embed-section (section)"
+     th:id="${section.anchorId}"
+     th:class="'ui stripe embed segment section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Title -->
+    <div th:if="${not #strings.isEmpty(section.title)}">
+        <div class="ui embed"
+             th:attr="data-source=vimeo,data-id=${section.title}">
         </div>
     </div>
 </div>

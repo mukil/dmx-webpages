@@ -329,6 +329,10 @@ article .text pre.code-block {
     border-top: 0px solid transparent;
 }
 
+article .ui.embed {
+    height: 100%;
+}
+
 article .text .blockquote,
 article .text blockquote {
     margin-left: 0px;

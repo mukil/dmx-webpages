@@ -1,0 +1,25 @@
+{
+    "topics": [
+        {
+            "type_uri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.embed",
+            "value": "Embed"
+        }
+    ],
+    "topic_types": [
+        {
+            "value": "Section CSS Classes",
+            "uri": "de.mikromedia.section.css_class",
+            "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
+            "view_config_topics": [
+                {
+                    "type_uri": "dm4.webclient.view_config",
+                    "childs": {
+                        "dm4.webclient.show_in_create_menu": false
+                    }
+                }
+            ]
+        }
+    ]
+}

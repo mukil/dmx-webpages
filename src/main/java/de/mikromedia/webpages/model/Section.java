@@ -165,6 +165,8 @@ public class Section {
                 layoutName = "map-widget";
             } else if (layout.getUri().equals("de.mikromedia.layout.contact_form")) {
                 layoutName = "contact-form";
+            } else if (layout.getUri().equals("de.mikromedia.layout.embed")) {
+                layoutName = "embed";
             }
         }
         return layoutName;
