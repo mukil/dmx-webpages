@@ -55,6 +55,7 @@ public interface WebpageService {
     public static final String SECTION_TITLE = "de.mikromedia.section.title";
     public static final String SECTION_LAYOUT = "de.mikromedia.section.layout";
     public static final String SECTION_PLACEMENT = "de.mikromedia.section.placement";
+    public static final String SECTION_CSS_CLASS = "de.mikromedia.section.css_class";
 
     public static final String TILE = "de.mikromedia.tile";
     public static final String TILE_HEADLINE = "de.mikromedia.tile.headline";

@@ -2,7 +2,7 @@
 <!-- Stackable Basic Colored (Padding) Segment -->
 <div th:fragment="ten-six-grid (section)"
      th:id="${section.anchorId}"
-     th:class="'ui vertical basic spaced segment ten-six-columns section-bg-' + ${section.id}">
+     th:class="'ui vertical basic spaced segment ten-six-columns section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
@@ -45,7 +45,7 @@
 <!-- Stackable Segment with Border, N-Columns Equal Padded Width Columns -->
 <div th:fragment="n-equal-padded (section)"
      th:id="${section.anchorId}"
-     th:class="'ui segment n-columns section-bg-' + ${section.id}">
+     th:class="'ui segment n-columns section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
@@ -74,7 +74,7 @@
 <!-- Unstackable Basic 2 Column Grid - No Title - Equal Width Padded -->
 <div th:fragment="2-columns-equal (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic segment two-columns-equal no-padding section-bg-' + ${section.id}">
+     th:class="'ui basic segment two-columns-equal no-padding section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
@@ -120,7 +120,7 @@
 <!-- Stackable No Border Segment, 2 and N-Column Equal Width Columns Padded -->
 <div th:fragment="2-and-n-equal-padded (section)"
      th:id="${section.anchorId}"
-     th:class="'ui two-n-columns basic segment section-bg-' + ${section.id}">
+     th:class="'ui two-n-columns basic segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
@@ -180,7 +180,7 @@
 <!-- Accordion Section -->
 <div th:fragment="accordion-styled (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic spaced accordion-section segment section-bg-' + ${section.id}">
+     th:class="'ui basic spaced accordion-section segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
@@ -211,7 +211,7 @@
 <!-- Single Tile Section -->
 <div th:fragment="single-tile (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id}">
+     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
 
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
@@ -267,7 +267,7 @@
 <!-- Stackable Segment with 2-Quote Columns per Row -->
 <div th:fragment="quote-tiles (section)"
      th:id="${section.anchorId}"
-     th:class="'ui stripe quote segment section-bg-' + ${section.id}">
+     th:class="'ui stripe quote segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
@@ -295,7 +295,7 @@
 <!-- Embed Section -->
 <div th:fragment="embed-section (section)"
      th:id="${section.anchorId}"
-     th:class="'ui stripe embed segment section-bg-' + ${section.id}">
+     th:class="'ui stripe embed segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
@@ -303,5 +303,26 @@
         <div class="ui embed"
              th:attr="data-source=vimeo,data-id=${section.title}">
         </div>
+    </div>
+</div>
+
+<!-- Native Video Embed -->
+<div th:fragment="native-video-section (section)"
+     th:id="${section.anchorId}"
+     th:class="'ui stripe native-embed segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <div th:if="${section.relatedTopic}">
+        <!--embed th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               th:type="${section.relatedTopicFileMediaType}" autoplay="false"
+               class="" accesskey="" width="100%" height="auto" bgcolor="#ffffff" /-->
+        <video controls="controls" muted="true" name="media" preload="none"
+               poster="/filerepo//Images/Porsche-Video-Referenzposter-1916.jpg">
+            <source th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               th:type="${section.relatedTopicFileMediaType}" />
+            Sorry, your browser doesn't support embedded videos,
+            but don't worry, you can <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}">download it</a>
+            and watch it with your favorite video player!
+         </video>
     </div>
 </div>

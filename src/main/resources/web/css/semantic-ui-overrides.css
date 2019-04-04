@@ -271,6 +271,17 @@ header.inverted .page-meta .label {
     cursor: pointer;
 }
 
+.webpages .native-embed video {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    margin: auto;
+}
+
+.webpages .ui.segment.native-embed {
+    padding-top: 0em;
+}
+
 /** --- Article Styles --- **/
 
 article figure {
@@ -388,8 +399,11 @@ article .text blockquote {
         padding-left: .5em;
     }
     .webpages .ui.segment.n-columns .tile {
-        min-height: 200px;
+        min-height: 100px;
         padding: 0em !important;
+    }
+    .webpages .ui.segment .grid .tile .ul {
+        margin-bottom: 0px;
     }
 }
 

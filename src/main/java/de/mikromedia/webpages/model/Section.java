@@ -5,6 +5,7 @@ import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.util.JavaUtils;
+import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -26,6 +27,7 @@ import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
+import static de.mikromedia.webpages.WebpageService.SECTION_CSS_CLASS;
 import static de.mikromedia.webpages.WebpageService.TILE;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,6 +35,7 @@ import java.util.Comparator;
 public class Section {
 
     private RelatedTopic pageSection;
+    private RelatedTopic relatedTopic;
 
     public Section(RelatedTopic pageSection) {
         this.pageSection = pageSection;
@@ -64,7 +67,7 @@ public class Section {
     }
 
     // --- Custom Section Data Accessors
-    
+
     public String getTitle() {
         return this.pageSection.getChildTopics().getStringOrNull(SECTION_TITLE);
     }
@@ -83,6 +86,11 @@ public class Section {
             tiles.add(sectionContent);
         }
         return getTilesSorted(tiles);
+    }
+
+    public String getCustomClassName() {
+        String value = this.pageSection.getChildTopics().getStringOrNull(SECTION_CSS_CLASS);
+        return (value != null) ? value : "";
     }
 
     public String getSmallImage() {
@@ -143,6 +151,47 @@ public class Section {
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
 
+    /**
+     * If one DM file topic is directly associated with a "Tile" topic
+     * that topic should be given priority in the templates and become the actual section content.
+     * @return  Topic   A standard topic replacing the (title, html) section content.
+     **/
+    public Topic getRelatedTopic() {
+        if (this.relatedTopic == null) {
+            this.relatedTopic = this.pageSection.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
+                ROLE_DEFAULT, "dm4.files.file");
+        }
+        return this.relatedTopic;
+    }
+
+    public String getRelatedTopicTypeUri() {
+        if (this.relatedTopic != null) {
+            return this.relatedTopic.getTypeUri();
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFilePath() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.path");
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFileSize() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dm4.files.size"), true);
+        }
+        return null;
+    }
+
+    public String getRelatedTopicFileMediaType() {
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.media_type");
+        }
+        return null;
+    }
+
     public String getLayoutName() {
         String layoutName = null;
         Topic layout = this.pageSection.getChildTopics().getTopicOrNull(SECTION_LAYOUT);
@@ -167,6 +216,8 @@ public class Section {
                 layoutName = "contact-form";
             } else if (layout.getUri().equals("de.mikromedia.layout.embed")) {
                 layoutName = "embed";
+            } else if (layout.getUri().equals("de.mikromedia.layout.native_embed")) {
+                layoutName = "native-video";
             }
         }
         return layoutName;
@@ -217,6 +268,15 @@ public class Section {
     private boolean isSectionTopic() {
         if (this.pageSection == null) return false;
         return (this.pageSection.getTypeUri().equals(SECTION));
+    }
+
+    // https://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+    private String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
     }
 
 }

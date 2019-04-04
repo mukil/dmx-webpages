@@ -5,6 +5,7 @@ import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.service.Inject;
 
 import com.sun.jersey.api.view.Viewable;
+import com.sun.jersey.spi.container.ContainerResponse;
 import de.deepamehta.accesscontrol.AccessControlService;
 
 import de.deepamehta.core.Association;
@@ -18,6 +19,7 @@ import de.deepamehta.core.service.DeepaMehtaEvent;
 import de.deepamehta.core.service.EventListener;
 import de.deepamehta.core.service.accesscontrol.AccessControlException;
 import de.deepamehta.core.service.event.PreCreateAssociationListener;
+import de.deepamehta.core.service.event.ServiceResponseFilterListener;
 import de.deepamehta.core.storage.spi.DeepaMehtaTransaction;
 import de.deepamehta.core.util.DeepaMehtaUtils;
 import static de.deepamehta.core.util.JavaUtils.stripHTML;
@@ -59,6 +61,8 @@ import de.mikromedia.webpages.events.CustomRootResourceRequestedListener;
 import de.mikromedia.webpages.events.ResourceNotFoundListener;
 import de.mikromedia.webpages.model.Header;
 import de.mikromedia.webpages.model.Section;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 import org.thymeleaf.context.AbstractContext;
 
 /**
@@ -92,13 +96,16 @@ import org.thymeleaf.context.AbstractContext;
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, PreCreateAssociationListener {
+public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFilterListener,
+                                                                WebpageService,
+                                                                PreCreateAssociationListener {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
     @Inject AccessControlService accesscontrol;
     @Inject WorkspacesService workspaces;
     @Inject SendgridService sendgrid;
+    @Context UriInfo uriInfo;
 
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
     private TimeZone tz = TimeZone.getTimeZone("UTC");
@@ -120,7 +127,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         @Override
         public void dispatch(EventListener listener, Object... params) {
             ((CustomRootResourceRequestedListener) listener).frontpageRequested((AbstractContext) params[0],
-                    (Topic) params[1], (String) params[2]);
+                    (Topic) params[1], (String) params[2], (UriInfo) params[3]);
         }
     };
 
@@ -168,15 +175,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             prepareGenericViewData(frontPageTemplateName, STANDARD_WEBSITE_PREFIX, location);
             // expose published "webpages" and "menu items" of the standard website to third party frontpages
             website = getStandardWebsite();
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
-            log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin...");
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location, uriInfo);
+            log.info("Preparing 3rd PARTY FRONTPAGE view data in dm4-webpages plugin..., queryParameters: " + uriInfo.getQueryParameters());
             prepareWebsiteViewData(website, location);
             preparePageSections(website);
             return view(frontPageTemplateName);
         } else { // 2) check if there is a redirect or page realted to the standard site and set to "/"
             website = getWebsiteFrontpage(null);
             // private workspace via our getRelatedTopics()-call
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location, uriInfo);
             log.info("Preparing STANDARD FRONTPAGE view data for website ("
                     + website.toString() + ") in dm4-webpages plugin...");
             prepareWebsiteViewData(website, location);
@@ -206,7 +213,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
         if (registeredPage != null) {
             log.info("Preparing CUSTOM ROOT RESOURCE Page in dm4-webpages plugin...");
             website = getStandardWebsite();
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias, uriInfo);
             prepareGenericViewData("undefined", STANDARD_WEBSITE_PREFIX, pageAlias);
             prepareWebsiteViewData(website, pageAlias);
             return registeredPage;
@@ -219,7 +226,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
             prepareGenericViewData(FRONTPAGE_TEMPLATE_NAME, pageAlias, null);
             prepareWebsiteViewData(website, pageAlias);
             preparePageSections(website);
-            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias);
+            dm4.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias, uriInfo);
             return getWebsiteTemplate(website, pageAlias);
         }
         // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
@@ -1023,6 +1030,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements WebpageService, Pr
                 }
             }
         }
+    }
+
+    @Override
+    public void serviceResponseFilter(ContainerResponse cr) {
+        cr.getHttpHeaders().add("X-XSS-Protection", 1);
     }
 
 }

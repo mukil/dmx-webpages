@@ -67,6 +67,10 @@
                         <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
                             <div th:replace="fragments/sections :: quote-tiles (${section})" />
                         </div>
+
+                        <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                            <div th:replace="fragments/sections :: native-video-section (${section})" />
+                        </div>
                     </div>
 
                 </div>
@@ -136,6 +140,10 @@
 
                         <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
                             <div th:replace="fragments/sections :: quote-tiles (${section})" />
+                        </div>
+
+                        <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                            <div th:replace="fragments/sections :: native-video-section (${section})" />
                         </div>
                     </div>
 

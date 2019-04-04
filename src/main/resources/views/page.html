@@ -86,6 +86,10 @@
                             <div th:if="${#strings.equals(section.layoutName, 'embed')}">
                                 <div th:replace="fragments/sections :: embed-section (${section})" />
                             </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                                <div th:replace="fragments/sections :: native-video-section (${section})" />
+                            </div>
                         </div>
 
                     </div>
@@ -139,6 +143,10 @@
 
                             <div th:if="${#strings.equals(section.layoutName, 'embed')}">
                                 <div th:replace="fragments/sections :: embed-section (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                                <div th:replace="fragments/sections :: native-video-section (${section})" />
                             </div>
                         </div>
 
