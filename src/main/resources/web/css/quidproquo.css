@@ -64,6 +64,7 @@
     margin-bottom: 0.1em;
 }
 
+.webpages.services .ui.two-columns-equal.first.segment,
 .webpages.imprint .ui.single-tile.spaced.segment,
 .webpages.services .ui.single-tile.spaced.segment,
 .webpages.front .ui.single-tile.spaced.segment,
@@ -72,6 +73,14 @@
     text-align: center;
     padding-top: 4em;
     padding-bottom: 2em;
+}
+
+.services .segment.two-columns-equal.first .grid .tile .tc {
+    margin-top: 1em;
+}
+
+.webpages.services .ui.two-columns-equal.segment .ui.header{
+    margin-top: 1em;
 }
 
 body.webpages.front .single-tile  .ui.text.container {
@@ -210,6 +219,10 @@ body.webpages.front .single-tile  .ui.text.container {
     padding-left: .4em;
 }
 
+.sidebar .ui.transparent.icon.input > input {
+    padding-left: .5em !important;
+}
+
 .ui.vertical.inverted.menu .menu .item {
     font-size: 1.2em;
 }
@@ -255,6 +268,12 @@ body.webpages.front .single-tile  .ui.text.container {
 }
 
 #small-map h3 {
+    font-size: 1.2em;
+}
+
+#map .map-route-info a,
+#small-map .map-route-info a {
+    font-face: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
     font-size: 1.2em;
 }
 
@@ -308,6 +327,11 @@ body.webpages.front .single-tile  .ui.text.container {
     font-weight: 700;
 }
 
+.footer-links a {
+    color: #fff;
+    line-height: 1.5em;
+}
+
 .ui.form input::selection,
 .ui.form textarea::selection,
 .ui.form input::-moz-placeholder,
@@ -345,6 +369,9 @@ body.webpages.front .single-tile  .ui.text.container {
     .webpages .body .ui.segment .grid .column.tile {
         padding: 0em 1em 0em 1em!important;
     }
+    .webpages .body .ui.segment .grid .column.tile ul {
+        margin-bottom: 0em;
+    }
 }
 
 @media (max-width: 690px) {
@@ -353,6 +380,9 @@ body.webpages.front .single-tile  .ui.text.container {
     }
     .webpages .ui.segment .grid .tile .tc p {
         padding: 0em 0em 0em 1em;
+    }
+    .webpages.imprint .ui.segment .grid .tile .tc p {
+        padding: 0em;
     }
     .webpages .ui.segment .grid .tile .tc ul p {
         padding: 0em;

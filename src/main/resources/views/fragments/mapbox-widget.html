@@ -17,11 +17,27 @@
     </div>
     <!-- Map Widget Content -->
     <div id="map" class="ui container">
-        Loading  ...
+        Loading ...
     </div>
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJlODg3M2M5YzFhY2Y2NWMzMmE0Nzk1YWNjMWYwN2U0ZCJ9.b_4gukx7cUR4-spxHbj_Kw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/maltwisney/cjoig31o38p9i2st8or447ejx',
+      center: [13.410415, 52.539394],
+      zoom: 17.2
+    });
+    var popup = new mapboxgl.Popup({className: 'map-route-info'}).setHTML('<a target="_blank" href="https://www.google.de/maps/dir//Kastanienallee+12,+10435+Berlin/@52.5391948,13.4078253,17z/data=!4m17!1m7!3m6!1s0x47a851fee78ac779:0x65fb8eee5964136b!2sKastanienallee+12,+10435+Berlin!3b1!8m2!3d52.5391916!4d13.410014!4m8!1m0!1m5!1m1!1s0x47a851fee78ac779:0x65fb8eee5964136b!2m2!1d13.410014!2d52.5391916!3e0">Open Google Directions</a>')
+    var marker = new mapboxgl.Marker().setLngLat([13.410415, 52.539394]).addTo(map);
+    marker.setPopup(popup)
+    </script>
+
     <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
     <!-- Leaflet Dependencies -->
-    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <!--link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
     <script>
         function init_map(e) {
             var map = L.map('map').setView([52.539394, 13.410415], 18);
@@ -34,7 +50,7 @@
             marker.bindPopup('<h3>Martin Rufert, QPQ<br/>Kastanienallee 12, 10435 Berlin</h3>').openPopup();
         }
     </script>
-    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script-->
 </div>
 
 <!-- Mapbox Small Sized Widget -->
@@ -45,22 +61,21 @@
     </style>
     <!-- Map Widget Content -->
     <div id="small-map">
-        Loading  ...
     </div>
     <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
-    <!-- Leaflet Dependencies -->
-    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
     <script>
-        function init_map(e) {
-            var map = L.map('small-map').setView([52.539394, 13.410415], 18);
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 23, id: 'mapbox.streets', minZoom: 13,
-                accessToken: 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJjamg5M3ozdGQwOHFxMzBvMzI2ZXkxaXRzIn0.Uv3Kq1NhqzKcok3GGPbXfg'
-            }).addTo(map);
-            var marker = L.marker([52.539394, 13.410415]).addTo(map);
-            marker.bindPopup('<a href="https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/en?ld=47.152&amp;seqnr=1;&amp;ident=3i.015826152.1531987705&amp;">Route with Public Transport</a>')
-        }
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJlODg3M2M5YzFhY2Y2NWMzMmE0Nzk1YWNjMWYwN2U0ZCJ9.b_4gukx7cUR4-spxHbj_Kw';
+    const map = new mapboxgl.Map({
+      container: 'small-map',
+      style: 'mapbox://styles/maltwisney/cjoig31o38p9i2st8or447ejx',
+      center: [13.410415, 52.539394],
+      zoom: 17.2
+    });
+    var popup = new mapboxgl.Popup({className: 'map-route-info'}).setHTML('<a target="_blank" href="https://www.google.de/maps/dir//Kastanienallee+12,+10435+Berlin/@52.5391948,13.4078253,17z/data=!4m17!1m7!3m6!1s0x47a851fee78ac779:0x65fb8eee5964136b!2sKastanienallee+12,+10435+Berlin!3b1!8m2!3d52.5391916!4d13.410014!4m8!1m0!1m5!1m1!1s0x47a851fee78ac779:0x65fb8eee5964136b!2m2!1d13.410014!2d52.5391916!3e0">Open Google Directions</a>')
+    var marker = new mapboxgl.Marker().setLngLat([13.410415, 52.539394]).addTo(map);
+    marker.setPopup(popup)
     </script>
-    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+
 </div>
