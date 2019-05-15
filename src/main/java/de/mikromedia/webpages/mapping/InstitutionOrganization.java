@@ -21,7 +21,7 @@ public class InstitutionOrganization {
     }
 
     private List<RelatedTopic> getEntries(String typeUri) {
-        return this.institution.getChildTopics().getTopics(typeUri);
+        return this.institution.getChildTopics().getTopicsOrNull(typeUri);
     }
 
     private String getEmailAddress() {

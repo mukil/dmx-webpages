@@ -1,0 +1,66 @@
+
+<!-- Content Form Full Sized Segment -->
+<div th:fragment="mapbox-widget-full (section)"
+     th:class="'ui vertical basic spaced segment mapbox-widget-full section-bg-' + ${section.id}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <style>
+        #map { height: 400px; width: 100%; }
+    </style>
+    <!-- Map Widget Title -->
+    <div class="ui container">
+        <h1 class="ui header"
+            th:if="${not #strings.isEmpty(section.title)}"
+            th:text="${section.title}">
+            Map Section Title
+        </h1>
+    </div>
+    <!-- Map Widget Content -->
+    <div id="map" class="ui container">
+        Loading  ...
+    </div>
+    <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
+    <!-- Leaflet Dependencies -->
+    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <script>
+        function init_map(e) {
+            var map = L.map('map').setView([52.539394, 13.410415], 18);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 23, id: 'mapbox.streets', minZoom: 13,
+                accessToken: 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJjamg5M3ozdGQwOHFxMzBvMzI2ZXkxaXRzIn0.Uv3Kq1NhqzKcok3GGPbXfg'
+            }).addTo(map);
+            var marker = L.marker([52.539394, 13.410415]).addTo(map);
+            marker.bindPopup('<h3>Martin Rufert, QPQ<br/>Kastanienallee 12, 10435 Berlin</h3>').openPopup();
+        }
+    </script>
+    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+</div>
+
+<!-- Mapbox Small Sized Widget -->
+<div th:fragment="mapbox-widget-small" class="mapbox-widget-small">
+    <!-- Inline Section Styles -->
+    <style>
+        #small-map { height: 250px; width: 100%; }
+    </style>
+    <!-- Map Widget Content -->
+    <div id="small-map">
+        Loading  ...
+    </div>
+    <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
+    <!-- Leaflet Dependencies -->
+    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <script>
+        function init_map(e) {
+            var map = L.map('small-map').setView([52.539394, 13.410415], 18);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 23, id: 'mapbox.streets', minZoom: 13,
+                accessToken: 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJjamg5M3ozdGQwOHFxMzBvMzI2ZXkxaXRzIn0.Uv3Kq1NhqzKcok3GGPbXfg'
+            }).addTo(map);
+            var marker = L.marker([52.539394, 13.410415]).addTo(map);
+            marker.bindPopup('<a href="https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/en?ld=47.152&amp;seqnr=1;&amp;ident=3i.015826152.1531987705&amp;">Route with Public Transport</a>')
+        }
+    </script>
+    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+</div>

@@ -25,108 +25,156 @@
 
         <meta th:replace="fragments/tracker" />
     </head>
-    <body class="webpages page ui detail">
+    <body th:class="'webpages page ui detail ' + ${page.webAlias}">
 
-        <!-- Following Menu -->
-        <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
+        <!-- Following (low-hanging) Menu -->
+        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
 
+        <!-- Top Navigation Menu -->
         <div class="navigation">
             <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
         </div>
 
+        <!-- Sidebar Menu (small screens) -->
         <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
+
         <!-- Page Contents -->
         <div class="pusher">
 
+            <!-- Header incl. Main Top Menu -->
             <header th:replace="fragments/header :: page"></header>
 
             <div class="body">
 
-                <!-- Webpage Sections Above Standard HTML Content -->
-                <div class="sections-above" th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
 
-                    <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
-                        <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
-                    </div>
+                    <div class="sections-above">
 
-                    <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
-                        <div th:replace="fragments/sections :: n-equal-padded (${section})" />
-                    </div>
+                        <!-- Webpage Sections Above Standard HTML Content -->
+                        <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                            <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
+                                <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
+                            </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
-                        <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
-                    </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
+                                <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+                            </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
-                        <div th:replace="fragments/sections :: ten-six-grid (${section})" />
-                    </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
+                                <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+                            </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
-                        <div th:replace="fragments/sections :: accordion-styled (${section})" />
-                    </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
+                                <div th:replace="fragments/sections :: ten-six-grid (${section})" />
+                            </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
-                        <div th:replace="fragments/sections :: single-tile (${section})" />
-                    </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
+                                <div th:replace="fragments/sections :: accordion-styled (${section})" />
+                            </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
-                        <div th:replace="fragments/sections :: quote-tiles (${section})" />
-                    </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
+                                <div th:replace="fragments/sections :: single-tile (${section})" />
+                            </div>
 
-                </div>
+                            <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
+                                <div th:replace="fragments/sections :: quote-tiles (${section})" />
+                            </div>
 
-                <div class="ui vertical stripe segment main-segment">
-                    <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-                        <div class="ui main text styled container">
-                            <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
-                            <div class="metadata">
-                                <div th:unless="${#strings.isEmpty(page.authorNames)}">
-                                    <!-- Todo: meta itemprop="author" itemtype="http://schema.org/Person" /-->
-                                        <!-- meta itemprop="name" content="" /-->
-                                    Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
-                                </div>
-                                <span class="label">Last modified at</span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                            <div th:if="${#strings.equals(section.layoutName, 'contact-form')}">
+                                <div th:replace="fragments/contact-form :: contact-form-full (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
+                                <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'embed')}">
+                                <div th:replace="fragments/sections :: embed-section (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                                <div th:replace="fragments/sections :: native-video-section (${section})" />
                             </div>
                         </div>
-                    </article>
-                </div>
 
-                <!-- Webpage Sections Below Standard HTML Content -->
-                <div class="sections-below" th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-
-                    <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
-                        <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
                     </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
-                        <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+                    <div class="ui vertical stripe segment main-segment">
+                        <div class="ui main text styled container">
+                            <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
+                        </div>
                     </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
-                        <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+                    <div class="sections-below">
+
+                        <!-- Webpage Sections Below Standard HTML Content -->
+                        <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
+
+                            <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
+                                <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
+                                <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
+                                <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
+                                <div th:replace="fragments/sections :: ten-six-grid (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
+                                <div th:replace="fragments/sections :: accordion-styled (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
+                                <div th:replace="fragments/sections :: single-tile (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
+                                <div th:replace="fragments/sections :: quote-tiles (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'contact-form')}">
+                                <div th:replace="fragments/contact-form :: contact-form-full (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
+                                <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'embed')}">
+                                <div th:replace="fragments/sections :: embed-section (${section})" />
+                            </div>
+
+                            <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+                                <div th:replace="fragments/sections :: native-video-section (${section})" />
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
-                        <div th:replace="fragments/sections :: ten-six-grid (${section})" />
-                    </div>
+                    <!-- ### TODO: meta itemprop="author" itemtype="http://schema.org/Person" /-->
+                    <!-- meta itemprop="name" content="" /-->
+                    <!--div class="ui vertical stripe segment bottom-segment">
+                        <div class="ui main text styled container">
+                            <div class="metadata">
+                                <div th:unless="${#strings.isEmpty(page.authorNames)}">
+                                    Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                                </div>
+                                <span class="label">Last modified: </span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                            </div>
+                        </div>
+                    </div-->
 
-                    <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
-                        <div th:replace="fragments/sections :: accordion-styled (${section})" />
-                    </div>
-
-                    <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
-                        <div th:replace="fragments/sections :: single-tile (${section})" />
-                    </div>
-
-                    <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
-                        <div th:replace="fragments/sections :: quote-tiles (${section})" />
-                    </div>
-
-                </div>
+                </article>
 
             </div>
 
-            <div th:replace="fragments/footer :: footer-new"></div>
+            <div th:replace="fragments/footer :: ${footer_key}"></div>
 
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

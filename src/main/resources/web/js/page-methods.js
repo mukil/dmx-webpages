@@ -18,16 +18,18 @@ function render_page() {
     $('.masthead').visibility({
         once: false,
         onBottomPassed: function () {
-            $('.fixed.menu').transition('fade in');
+            $('.fixed.menu').transition('fade visible')
+            $('.fixed.menu').removeClass('hidden')
         },
         onBottomPassedReverse: function () {
-            $('.fixed.menu').transition('fade out');
+            $('.fixed.menu').transition('fade hidden')
         }
     })
     // pro-actively create sidebar and attach to menu open
     $('.ui.sidebar').sidebar('attach events', '.toc.item')
     // pro-actively activate any dropdown menu items
     $('.ui.dropdown').dropdown()
+    $('.ui.embed').embed()
     // configure search input fields
     var searchConfig = {
         apiSettings: {
@@ -47,6 +49,8 @@ function render_page() {
             description: 'zusatz',
             url     : 'link'
         },
+        serverError: "There was an issue querying the server",
+        noResults: "Query yielded no results",
         minCharacters : 2,
         type: 'category'
     }
@@ -61,7 +65,8 @@ function render_page() {
     $('table').addClass('ui celled table')
     // pro-actively activate accordion interactions on any page
     $('.ui.accordion').accordion()
-    $('#text-search').focus()
+    // only works if standard top menu is on screen
+    // $('#text-search').focus() // ### This makes the page scroll down in some browsers
 }
 
 function register_input_handler() {

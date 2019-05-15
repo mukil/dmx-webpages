@@ -1,0 +1,210 @@
+
+/** 
+ * The filename of this styleshee is due to support for legacy installations
+ * (and the layzness to write a simple migration...)
+ **/
+
+/** -- New Semantic UI Custom Styled 2.3 Release -- **/
+@import url('/de.mikromedia.webpages/css/semantic-ui/mikro-dist/semantic.min.css');
+
+body {
+    color: #383838;
+}
+
+#header-page-nav .item .logo,
+#lower-page-nav .item .logo {
+    width: auto;
+    height: 32px;
+}
+
+.ui.inverted.footer.segment {
+    background-color: #38384D;
+}
+
+.ui.segment.footer .site-link img {
+    margin-bottom: 2em;
+}
+
+.webpages .footer h3.ui.header {
+    font-style: italic;
+    color: #efefef;
+}
+
+.webpages nav .ui.menu .active.item,
+.webpages .ui.menu.top .active.item {
+    font-weight: normal;
+}
+
+.webpages .body .ui.spaced.segment {
+    padding-bottom: 1em;
+}
+
+.ui.segment .tile.clickable:hover {
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2)
+}
+
+.webpages nav .ui.inverted.menu .item:not(.dropdown),
+.webpages .ui.menu.top .item {
+    height: 55px;;
+}
+
+.webpages.page .ui.text.container {
+    text-align: left;
+}
+
+.webpages .ui.vertical.masthead.segment {
+    padding-top: 4em;
+}
+
+.webpages .body .ui.spaced.segment:last-child {
+    padding-bottom: 3em;
+}
+
+.webpages h2.ui.header,
+.webpages article h2 {
+    font-weight: normal;
+}
+
+header .ui.text.container {
+    margin-top: 8em;
+}
+
+header .ui.text.container h1.ui.header {
+    font-size: 3.5em;
+    font-weight: normal;
+}
+
+.webpages article .single-tile h1,
+.webpages article .single-tile h2,
+.webpages article .single-tile h3 {
+    font-weight: lighter;
+}
+
+article .text h1.ui.header,
+.single-tile .content h1.ui.header,
+article .text h2,
+.single-tile .content h2 {
+    font-size: 2.2rem;
+}
+
+.segment.n-columns .ui.header {
+    margin-bottom: 1.5em;
+}
+
+article .text h3,
+.single-tile .content h3 {
+    font-size: 1.75rem;
+    font-weight: lighter;
+}
+
+.webpages article i,
+.webpages article em {
+    font-style: normal;
+}
+
+header.ui.masthead {
+    min-height: 500px;
+}
+
+.webages .main-segment.posts.ui.segment h1.ui.header {
+    margin-bottom: 0.1em !important;
+}
+
+.webpages .ui.footer.segment .ui.header,
+.webpages .ui.transparent.inverted.input > input {
+    font-weight: normal;
+}
+
+.webpages.page .ui.segment.footer.inverted a {
+    color: #40b0e2;
+    text-decoration: none;
+}
+
+.webpages .sidebar .fluid.inverted.menu {
+    margin-top: 1em;
+}
+
+.webpages .ui.segment a[target="_blank"]::after {
+    content: "  \29C9";
+    /** content: "\2750"; **/
+}
+
+.webpages a {
+    color: #1b749c;
+}
+
+.webpages a:hover {
+    color: #40b0e2;
+}
+
+.webpages.page .ui.segment .tile a,
+.webpages.page .ui.segment.footer.inverted a:hover {
+    text-decoration: underline;
+}
+
+.footer.segment .container {
+    margin-top: 2em;
+}
+
+.footer.segment a:hover {
+    text-decoration: underline;
+}
+
+.footer.segment .site-link a:hover {
+    text-decoration: none;
+}
+
+.footer.segment p,
+.footer.segment h4.ui.header {
+    color: #a9a9a9;
+}
+
+.ui.inverted.menu .item,
+.ui.inverted.menu .item > a:not(.ui) {
+    text-decoration: none;
+    font-style: italic;
+}
+
+.ui.inverted.menu .item.sitename {
+    font-style: normal;
+}
+
+.webpages .ui.sidebar.menu .item {
+    font-size: 1.3rem !important;
+}
+
+.webpages .ui.sidebar.menu .item .ui.header {
+    font-weight: normal;
+}
+
+body.webpages {
+    min-width: auto;
+}
+
+.webpages article .text .blockquote,
+.webpages article .text blockquote {
+    margin-left: 0px;
+    font-style: normal;
+    font-size: 1em;
+    padding-left: 1em;
+    border-left: 4px solid rgba(167, 167, 167, 1);
+    margin-bottom: 1em;
+}
+
+/** Specific N-Tiles Heading and Content Tile Styles **/
+
+.webpages .ui.segment.n-columns .tile .ui.header {
+    background-color: #38384D;
+    color: #fff;
+    padding: .5em;
+    margin-right: 4em;
+}
+
+.webpages .ui.segment.n-columns .tile {
+    min-height: 200px;
+    padding: 0em !important;
+}
+
+.webpages .ui.segment.n-columns {
+    padding-bottom: 5em;
+}
