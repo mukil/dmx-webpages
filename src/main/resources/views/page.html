@@ -28,10 +28,10 @@
     <body th:class="'webpages page ui detail ' + ${page.webAlias}">
 
         <!-- Sidebar Menu (small screens) -->
-        <div th:replace="fragments/navigation :: vertical-nav"></div>
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Following (low-hanging) Menu -->
-        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></div>
+        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
@@ -169,7 +169,7 @@
 
             </div>
 
-            <div th:replace="fragments/footer :: qpq-footer"></div>
+            <div th:replace="fragments/footer :: ${footer_key}"></div>
 
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

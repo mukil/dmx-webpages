@@ -21,17 +21,17 @@
     <body class="webpages page not-found">
 
         <!-- Following Menu -->
-        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></div>
+        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
 
         <!-- Sidebar Menu (small screens) -->
-        <div th:replace="fragments/navigation :: vertical-nav"></div>
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
 
             <header class="ui inverted vertical masthead center aligned segment">
 
-                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
+                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
 
                 <div class="ui text container">
                     <h1 class="ui inverted header" itemprop="headline">401</h1>
@@ -50,7 +50,7 @@
 
             </div>
 
-            <div th:replace="fragments/footer :: qpq-footer"></div>
+            <div th:replace="fragments/footer :: ${footer_key}"></div>
 
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

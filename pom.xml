@@ -28,11 +28,11 @@
             <artifactId>dm49-thymeleaf</artifactId>
             <version>0.6.2</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>de.mikromedia</groupId>
             <artifactId>dm49-sendgrid</artifactId>
             <version>1.1</version>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>de.deepamehta</groupId>
             <artifactId>deepamehta-accesscontrol</artifactId>

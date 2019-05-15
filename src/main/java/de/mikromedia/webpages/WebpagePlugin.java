@@ -25,7 +25,6 @@ import de.deepamehta.core.util.DeepaMehtaUtils;
 import static de.deepamehta.core.util.JavaUtils.stripHTML;
 import de.deepamehta.thymeleaf.ThymeleafPlugin;
 import de.deepamehta.workspaces.WorkspacesService;
-import de.mikromedia.sendgrid.SendgridService;
 import de.mikromedia.webpages.model.MenuItem;
 import de.mikromedia.webpages.model.SearchResult;
 import de.mikromedia.webpages.model.SearchResultList;
@@ -104,7 +103,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     @Inject AccessControlService accesscontrol;
     @Inject WorkspacesService workspaces;
-    @Inject SendgridService sendgrid;
+    // @Inject SendgridService sendgrid;
     @Context UriInfo uriInfo;
 
     private final String DM4_HOST_URL = System.getProperty("dm4.host.url");
@@ -345,7 +344,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
                 + stripHTML(message) + "<br/><br/>"
                 + "Kontakt: " + stripHTML(contact).trim() + "<br/><br/>"
                 + "Sincerely<br/>Your QPQ-Website";
-        sendgrid.doEmailSystemMailbox("Kontaktformular QPQ-Website", emailBody);
+        // ### sendgrid.doEmailSystemMailbox("Kontaktformular QPQ-Website", emailBody);
         // Page Redirect
         viewData("contactFormUsed", true);
         if (website == null) {
@@ -836,12 +835,41 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
      */
     private void prepareGenericViewData(String filename, String websitePrefix, String webAlias) {
         String username = accesscontrol.getUsername();
+        String footerName = getFooterFragmentName(websitePrefix);
+        log.info("=> Website Footer ID => \"" + footerName + "\"");
         viewData("authenticated", (username != null));
+        viewData("is_publisher", hasWritePermissionOnWebsite(websitePrefix, username));
         viewData("username", username);
         viewData("website", websitePrefix);
         viewData("webalias", webAlias);
         viewData("template", filename);
+        viewData("footer_key", footerName);
         viewData("hostUrl", DM4_HOST_URL);
+    }
+
+    private String getFooterFragmentName(String websitePrefix) {
+        Topic website = getWebsiteByPrefix(websitePrefix);
+        Topic footerFragment = website.getChildTopics().getTopicOrNull("de.mikromedia.site.footer_fragment_name");
+        return (footerFragment != null) ? footerFragment.getUri().substring(21) : "footer-new"; // stripping "de.mikromedia.footer." from topic URI as name
+    }
+
+    private boolean hasWritePermissionOnWebsite(String websitePrefix, String username) {
+        Topic website = getWebsiteByPrefix(websitePrefix);
+        Topic websiteWorkspace = workspaces.getAssignedWorkspace(website.getId());
+        accesscontrol.isMember(username, websiteWorkspace.getId());
+        String wsSharingMode = websiteWorkspace.getChildTopics().getString("dm4.workspaces.sharing_mode");
+        // Username has WRITE access to that website topic through its membership
+        if (wsSharingMode.equals("Public") || wsSharingMode.equals("Collaborative") || wsSharingMode.equals("Common")) {
+            return true;
+        }
+        // Is user site
+        if (website != null) {
+            Topic userSite = getWebsiteByUsername(username);
+            if (userSite.getId() == website.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void preparePageSections(Topic topic) {
