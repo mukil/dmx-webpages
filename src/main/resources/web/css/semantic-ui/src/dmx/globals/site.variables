@@ -1,0 +1,122 @@
+/*******************************
+         Site Settings
+*******************************/
+
+/*-------------------
+       Fonts
+--------------------*/
+
+@fontName          : "Roboto Slab";
+@fontSmoothing     : antialiased;
+
+@headerFont        : "Roboto Slab", "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+@pageFont          : "Roboto Slab", -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;  
+
+@googleFontName    : @fontName;
+@importGoogleFonts : true;
+@googleFontSizes   : '400,700,400italic,700italic';
+@googleSubset      : 'latin';
+
+@googleProtocol    : 'https://';
+@googleFontRequest : '@{googleFontName}:@{googleFontSizes}&subset=@{googleSubset}';
+
+
+/*-------------------
+      Base Sizes
+--------------------*/
+
+/* This is the single variable that controls them all */
+@emSize   : 16px;
+
+/* The size of page text  */
+@fontSize : 20px;
+
+
+/*-------------------
+    Border Radius
+--------------------*/
+
+/* See Power-user section below
+   for explanation of @px variables
+*/
+@relativeBorderRadius: 0px;
+@absoluteBorderRadius: 0px;
+
+@defaultBorderRadius: @absoluteBorderRadius;
+
+/*-------------------
+    Brand Colors
+--------------------*/
+
+@primaryColor        : @blue;
+@secondaryColor      : @black;
+
+@lightPrimaryColor   : @lightBlue;
+@lightSecondaryColor : @lightBlack;
+
+
+/*--------------
+  Page Heading
+---------------*/
+
+@h1 : unit((32 / 14), rem);
+@h2 : unit((26 / 14), rem);
+@h3 : unit((20 / 14), rem);
+@h4 : unit((16 / 14), rem);
+@h5 : unit((14 / 14), rem);
+
+/*-------------------
+        Page
+--------------------*/
+
+@textColor           : @darkGrey; /** rgba(0, 0, 0, 0.87); **/
+
+
+@linkColor           : @black;
+@linkUnderline       : underline;
+@linkHoverColor      : darken(saturate(@linkColor, 20), 15, relative);
+@linkHoverUnderline  : @linkUnderline;
+
+
+/*-------------------
+  Highlighted Text
+--------------------*/
+
+@highlightBackground      : @brightBlue;
+@highlightColor           : @textColor;
+
+
+/*-------------------
+     Breakpoints
+--------------------*/
+
+@mobileBreakpoint            : 640px;
+@tabletBreakpoint            : 992px;
+@computerBreakpoint          : 1200px;
+@largeMonitorBreakpoint      : 1440px;
+@widescreenMonitorBreakpoint : 1920px;
+
+/*-------------------
+      Site Colors
+--------------------*/
+
+/*---  Colors  ---*/
+@yellow           : #fffb6d;
+@green            : #b7d9cb;
+@teal             : #00B5AD;
+@blue             : #2b293f;
+@pink             : #ffa4bd;
+
+/** Custom Colors **/
+
+@darkGrey         : #2b293f;
+@brightBlue       : #CCE2FF;
+
+/** DMX Webclient Color Palette:  
+RED: ff1958
+ORN: ffcc00
+YEL: ffff00
+GRN: 69af91
+BLU: 5db6f3
+PRP: 9119ff
+GRY: 8c8c8c **/

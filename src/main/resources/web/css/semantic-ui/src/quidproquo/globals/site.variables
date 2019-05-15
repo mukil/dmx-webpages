@@ -1,0 +1,102 @@
+
+/*** QuidProQuo Theme Site Variables ***/
+
+/*-------------------
+       Fonts
+--------------------*/
+
+@fontName     : "Lato";
+
+@pageFont     : @fontName;
+
+@headerFont   : "Cinzel", "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+
+@headerFontWeight: 300;
+
+@importGoogleFonts : false;
+
+@fontSmoothing: antialiased;
+
+
+/*-------------------
+      Base Sizes
+--------------------*/
+
+/* This is the single variable that controls them all */
+@emSize   : 16px;
+
+/* The size of page text  */
+@fontSize : 18px;
+
+
+/*-------------------
+    Brand Colors
+--------------------*/
+
+@primaryColor        : #e2c9a2; /** @blue; @black; lightblue, lightblack **/
+@secondaryColor      : #6f634f;
+
+@lightPrimaryColor   : #f1e5d1;
+@lightSecondaryColor : #e2c9a2;
+
+
+/*-------------------
+       Links
+--------------------*/
+
+@linkColor           : @primaryColor;
+@linkUnderline       : true;
+@linkHoverColor      : @secondaryColor;
+@linkHoverUnderline  : @linkUnderline;
+
+/*-------------------
+    Scroll Bars
+--------------------*/
+
+@useCustomScrollbars: false;
+
+/*-------------------
+  Highlighted Text
+--------------------*/
+
+@highlightBackground      : #f8f6e9;
+
+
+/*-------------------
+        Grid
+--------------------*/
+
+@columnCount: 8;
+
+
+/*-------------------
+     Breakpoints
+--------------------*/
+
+@mobileBreakpoint            : 640px;
+@tabletBreakpoint            : 992px;
+@computerBreakpoint          : 1200px;
+@largeMonitorBreakpoint      : 1440px;
+@widescreenMonitorBreakpoint : 1920px;
+
+/*-------------------
+      Site Colors
+--------------------*/
+
+/*---  Colors  ---*/
+@red              : #ce0000;
+@green            : #9cc300;
+
+/*---  Light Colors  ---*/
+@lightRed         : #FF695E;
+@lightGreen       : #2ECC40;
+
+
+/*-------------------
+    Focused Input
+--------------------*/
+
+/* Used on inputs, textarea etc */
+@focusedFormBorderColor: @primaryColor;
+
+

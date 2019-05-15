@@ -1,6 +1,6 @@
 
 /** 
- * The filename of this styleshee is due to support for legacy installations
+ * The filename of this stylesheet is due to support for legacy installations
  * (and the layzness to write a simple migration...)
  **/
 
@@ -8,3 +8,49 @@
 
 /** @import url('/de.kiezatlas.website/css/semantic-ui/2.3/dist/semantic.min.css'); **/
 @import url('/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.css');
+
+
+.ui.menu .search.item .results a,
+.ui.menu .menu-items a,
+.ui.footer.segment .site-link a,
+.ui.footer.segment .footer-links a {
+    text-decoration: none;
+}
+
+ui.menu .search.item .results a:hover,
+.page.front .segment .ui.text a {
+    text-decoration: underline;
+}
+
+#header-page-nav .item .logo,
+#lower-page-nav .item .logo {
+    width: auto;
+    height: 32px;
+}
+
+.ui.menu .item {
+    line-height: 1.4285em;
+}
+
+.ui.segment a[target="_blank"]::after {
+    content: "  \29C9";
+    /** content: "\2750"; **/
+}
+
+.ui.footer.segment .ui.header {
+    color: #fff;
+}
+
+.page.front .segment.posts article .ui.header a {
+    text-decoration: none;
+}
+
+.ui.segment.single-tile .tile-row {
+    margin-top: 4em;
+}
+
+.ui.segment.footer .site-link .logo {
+    max-width: 125px;
+    margin-bottom: 2em;
+    left: -.5em;
+}

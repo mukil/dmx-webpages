@@ -12,6 +12,8 @@ import static de.mikromedia.webpages.WebpageService.MENU_ITEM_NAME;
 import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
 import static de.mikromedia.webpages.WebpageService.ROLE_PARENT;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +57,7 @@ public class MenuItem implements JSONEnabled {
     }
 
     public String getHref() { // TODO: Migrate to "Link"
-        return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
+        return "/" + menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
     }
 
     public String getFullHref() {
@@ -100,11 +102,34 @@ public class MenuItem implements JSONEnabled {
         relatedItems = menuItem.getRelatedTopics(ASSOCIATION, ROLE_PARENT,
                 ROLE_CHILD, MENU_ITEM);
         hasChildItems = (relatedItems.size() > 0);
+        sortMenuItems(relatedItems);
     }
 
     private boolean isWebpageMenuItemTopic() {
         if (this.menuItem == null) return false;
         return (menuItem.getTypeUri().equals(MENU_ITEM));
+    }
+
+    /** Copy in Website.java **/
+    private void sortMenuItems(List<RelatedTopic> items) {
+        Collections.sort(items, new Comparator<RelatedTopic>() {
+            @Override
+            public int compare(RelatedTopic item1, RelatedTopic item2) {
+                try {
+                    int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
+                    int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
+                    if (value1 > value2) {
+                        return 1;
+                    } else if (value1 == value2) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                } catch (NumberFormatException nex) {
+                    return 0; // ### Depending which item has a bad number, continue sorting
+                }
+            }
+        });
     }
 
 }

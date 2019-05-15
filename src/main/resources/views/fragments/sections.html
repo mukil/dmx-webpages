@@ -1,18 +1,19 @@
 
 <!-- Stackable Basic Colored (Padding) Segment -->
 <div th:fragment="ten-six-grid (section)"
-     th:class="'ui vertical basic spaced segment ten-six-columns section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui vertical basic spaced segment ten-six-columns section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Ten Six Section Title
         </h1>
     </div>
-    <div class="ui stackable grid basic segment">
+    <div class="ui stackable grid basic container segment">
         <div class="ui row">
             <div th:if="${iterator.index} == 0" th:class="'ten wide column tile tile-background-' + ${content.id}"
                  th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -43,17 +44,18 @@
 
 <!-- Stackable Segment with Border, N-Columns Equal Padded Width Columns -->
 <div th:fragment="n-equal-padded (section)"
-     th:class="'ui vertical segment n-columns section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui segment n-columns section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
-    <div class="ui">
-        <h1 class="ui header container text" th:text="${section.title}">
+    <div class="ui container text" th:if="${section.title}">
+        <h1 class="ui header" th:text="${section.title}">
             Equal Columns Section Title
         </h1>
     </div>
     <!-- Tile Elements -->
-    <div class="ui equal width stackable grid padded">
+    <div class="ui equal width stackable grid">
         <div th:class="'column tile tile-background-' + ${content.id}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
              th:each="content, iterator : ${section.contents}"
@@ -71,18 +73,19 @@
 
 <!-- Unstackable Basic 2 Column Grid - No Title - Equal Width Padded -->
 <div th:fragment="2-columns-equal (section)"
-     th:class="'ui vertical basic segment two-columns-equal no-padding section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui basic segment two-columns-equal no-padding section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text container"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Two and N Equal Columns Section title
         </h1>
     </div>
-    <div class="ui equal width stackable grid padded">
+    <div class="ui equal width stackable container grid">
         <div th:if="${iterator.index} == 0" th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}"
              th:classappend="${not #strings.isEmpty(content.link)} ? 'clickable' : ''"
@@ -90,7 +93,9 @@
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <h2 class="ui header" th:text="${content.title}">Tile Title A</h2>
+            <h2 class="ui header"
+                th:if="${not #strings.isEmpty(content.title)}"
+                th:text="${content.title}">Tile Title A</h2>
             <div th:utext="${content.html}" class="tile-content tc">
                Tile A
             </div>
@@ -102,7 +107,9 @@
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
             <!-- Tiles -->
-            <h2 class="ui header" th:text="${content.title}">'Tile Title B</h2>
+            <h2 class="ui header"
+                th:if="${not #strings.isEmpty(content.title)}"
+                th:text="${content.title}">'Tile Title B</h2>
             <div th:utext="${content.html}" class="tile-content tc">
                Tile B
             </div>
@@ -112,12 +119,13 @@
 
 <!-- Stackable No Border Segment, 2 and N-Column Equal Width Columns Padded -->
 <div th:fragment="2-and-n-equal-padded (section)"
-     th:class="'ui vertical two-n-columns basic segment section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui two-n-columns basic segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Tile Elements -->
-    <div class="ui">
-        <h1 class="ui header container text container"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Two and N Equal Columns Section title
@@ -171,12 +179,13 @@
 
 <!-- Accordion Section -->
 <div th:fragment="accordion-styled (section)"
-     th:class="'ui basic spaced container accordion-section segment section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui basic spaced accordion-section segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
-    <div class="ui container">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
             Accordion Title
@@ -201,17 +210,18 @@
 
 <!-- Single Tile Section -->
 <div th:fragment="single-tile (section)"
-     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
 
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
 
     <!-- Section Headline -->
-    <div class="ui container">
-        <h1 class="ui header container text"
+    <div class="ui container text">
+        <h1 class="ui header"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
-            Tile Title
+            Section Title
         </h1>
     </div>
 
@@ -225,7 +235,7 @@
             <div th:if="${content.relatedTopic}" class="tile-content tc">
                 <!-- File Topic Rendering as Show File Link -->
                 <div th:if="${#strings.equals(content.relatedTopic.typeUri, 'dm4.files.file')}" th:class="${content.relatedTopic.typeUri}">
-                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon"
+                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon basic"
                        th:title="'Show File, Size: ' + ${content.relatedTopicFileSize} + ' Media Type: ' + ${content.relatedTopicFileMediaType}">
                         <i class="icon file alternate outline"></i>
                         <span th:text="${content.relatedTopic.simpleValue}">Filename</span>
@@ -241,9 +251,9 @@
             <!-- Standard Tile Content Rendering -->
             <div th:if="${not content.relatedTopic}" class="tile-content tc">
                 <!-- Tiles -->
-                <h3 class="title" th:text="${content.title}">
+                <h2 th:if="${not #strings.isEmpty(content.title)}" class="title" th:text="${content.title}">
                   Tile Title
-                </h3>
+                </h2>
                 <div class="content" th:utext="${content.html}">
                   <p>Tile Content</p>
                 </div>
@@ -256,12 +266,13 @@
 
 <!-- Stackable Segment with 2-Quote Columns per Row -->
 <div th:fragment="quote-tiles (section)"
-     th:class="'ui vertical stripe quote segment section-bg-' + ${section.id}">
+     th:id="${section.anchorId}"
+     th:class="'ui stripe quote segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Title -->
-    <div class="ui" th:if="${not #strings.isEmpty(section.title)}">
-        <h1 class="ui header container text" th:text="${section.title}">
+    <div class="ui container text" th:if="${not #strings.isEmpty(section.title)}">
+        <h1 class="ui header" th:text="${section.title}">
             Quote Section Title
         </h1>
     </div>
@@ -278,5 +289,40 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Embed Section -->
+<div th:fragment="embed-section (section)"
+     th:id="${section.anchorId}"
+     th:class="'ui stripe embed segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <!-- Section Title -->
+    <div th:if="${not #strings.isEmpty(section.title)}">
+        <div class="ui embed"
+             th:attr="data-source=vimeo,data-id=${section.title}">
+        </div>
+    </div>
+</div>
+
+<!-- Native Video Embed -->
+<div th:fragment="native-video-section (section)"
+     th:id="${section.anchorId}"
+     th:class="'ui stripe native-embed segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
+    <!-- Inline Section Styles -->
+    <div th:replace="fragments/inline-styles :: section-background (${section})" />
+    <div th:if="${section.relatedTopic}">
+        <!--embed th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               th:type="${section.relatedTopicFileMediaType}" autoplay="false"
+               class="" accesskey="" width="100%" height="auto" bgcolor="#ffffff" /-->
+        <video controls="controls" muted="true" name="media" preload="none"
+               poster="/filerepo//Images/Porsche-Video-Referenzposter-1916.jpg">
+            <source th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               th:type="${section.relatedTopicFileMediaType}" />
+            Sorry, your browser doesn't support embedded videos,
+            but don't worry, you can <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}">download it</a>
+            and watch it with your favorite video player!
+         </video>
     </div>
 </div>

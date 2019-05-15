@@ -8,32 +8,175 @@
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
 @import url('/de.mikromedia.webpages/css/semantic-ui/qpq-dist/semantic.min.css');
 
-.quote.segment h1,
-.quote.segment .column.tile h2,
-.quote.segment .column.tile h3 {
-    font-family: "Libre Baskerville";
+
+.page .masthead.segment {
+    min-height: inherit;
 }
 
-.quote.segment h1,
-.quote.segment .column.tile h2,
-.quote.segment .column.tile h3,
-.quote.segment .column.tile p {
-    text-align: center;
+.page .masthead.segment .text.container {
+    display: none;
 }
+
+#header-page-nav .menu-items.menu {
+    margin: auto;
+    margin-top: 52px;
+}
+
+/** Special page layouts ***/
+
+.webpages .ui.vertical.segment.contact-form-full,
+.webpages .contact-form-full .ui.form {
+    margin-top: 2em;
+}
+
+.webpages .ui.segment {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0px;
+    border: 0px solid transparent;
+}
+
+.webpages.detail .ui.vertical.segment.main-segment {
+    max-width: 1098px;
+    margin: auto;
+}
+
+.webpages.references .ui.vertical.segment.main-segment {
+    padding: 0em;
+}
+
+.webpages.front .ui.segment.main-segment.posts {
+    max-width: 1129px !important;
+}
+
+.webpages.imprint .ui.segment h1.ui.header,
+.webpages.services .ui.segment h1.ui.header,
+.webpages.front .ui.segment h1.ui.header,
+.webpages.get-started .ui.segment h1.ui.header,
+.webpages.references .ui.segment h1.ui.header {
+    font-weight: 700;
+    text-align: center;
+    font-size: 2em;
+}
+
+.webpages.front.page .ui.posts.segment h1.ui.header {
+    text-align: left;
+    margin-bottom: 0.1em;
+}
+
+.webpages.imprint .ui.single-tile.spaced.segment,
+.webpages.services .ui.single-tile.spaced.segment,
+.webpages.front .ui.single-tile.spaced.segment,
+.webpages.get-started .ui.single-tile.spaced.segment,
+.webpages.references .ui.single-tile.spaced.segment {
+    text-align: center;
+    padding-top: 4em;
+    padding-bottom: 2em;
+}
+
+body.webpages.front .single-tile  .ui.text.container {
+    max-width: 1050px !important;
+}
+
+#header-page-nav .right.menu .category.search.item {
+    position: relative;
+    top: 30px;
+    display: none;
+}
+
+#header-page-nav .item .logo {
+    height: 75px !important;
+    width: auto;
+}
+
+#header-page-nav .menu .toc.item {
+    position: absolute;
+    top: 10px;
+    height: 54px;
+    right: 0px;
+    font-size: 1.5em;
+}
+
+#lower-page-nav .ui.large.top.fixed.menu {
+    height: 75px;
+}
+
+#lower-page-nav .menu .toc.item {
+    position: absolute;
+    right: 0px;
+    font-size: 1.5em;
+}
+
+#lower-page-nav .ui.menu .item img.logo {
+    height: 41px;
+    width: auto;
+    position: relative;
+}
+
+#lower-page-nav .ui.menu .item.sitename {
+    height: 100%;
+}
+
+#header-page-nav .ui.menu .right.menu .item:before,
+#header-page-nav .ui.inverted.menu .logo-site-link .item:before {
+    background: none;
+}
+
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+
+#lower-page-nav .category.search.item {
+    display: none;
+}
+
+#lower-page-nav div.menu {
+    margin: auto;
+}
+
+.ui.vertical.inverted.menu .menu .item,
+.ui.inverted.menu .item {
+    color: #e2c9a2;
+    font-weight: normal;
+    background: none;
+}
+
+.ui.inverted.menu a.item.active:hover,
+.ui.vertical.inverted.menu .menu a.item:hover,
+.ui.inverted.menu a.item:hover,
+.ui.inverted.menu .item.active {
+    color: #fff;
+    background: none;
+}
+
 
 .ui.vertical.stripe {
     padding: 4em 0em;
 }
 
-.quote h2 {
-    font-weight: 400;
-    font-family: "Libre Baskerville";
-}
 
 .quote .tile-content {
-    max-width: 650px;
+    max-width: 950px;
     margin: auto;
 }
+
+.quote.segment h1,
+.quote.segment .column.tile h2 {
+    font-family: "Libre Baskerville";
+    font-size: 2em;
+    font-weight: 400;
+    text-align: left;
+}
+
+.quote.segment .column.tile h3 {
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
 
 .services .segment.two-columns-equal .grid .tile .tc {
     max-width: 500px;
@@ -47,9 +190,9 @@
 }
 
 .imprint .segment.two-columns-equal .grid .tile .tc {
-    max-width: 400px;
     margin: auto;
     text-align: left;
+    padding: 0em 0em 0em 0.75em;
 }
 
 .ui.segment.single-tile .tc,
@@ -58,9 +201,26 @@
     font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
 }
 
-.body .ui.segment h1.ui.header,
-.ui.segment.two-columns-equal .grid .column.tile {
-    text-align: center;
+.ui.vertical.menu img.logo {
+    padding: 3em;
+}
+
+.sidebar .ui.massive.input {
+    font-size: 1.2em;
+    padding-left: .4em;
+}
+
+.ui.vertical.inverted.menu .menu .item {
+    font-size: 1.2em;
+}
+
+.body .ui.segment.posts h1.ui.header {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.body .ui.segment.posts h1.ui.header,
+.body .ui.segment .grid .column.tile {
     font-family: Cinzel,"Century Gothic","Apple Gothic","URW Gothic L";
 }
 
@@ -73,7 +233,7 @@
     text-decoration: none;
 }
 
-.page .segment .leaflet-control-attribution {
+.page #map .leaflet-control-attribution {
     font-size: 1.2em;
 }
 
@@ -86,125 +246,119 @@
     border-bottom: 1px solid #6f634f;
 }
 
-/**
-html, body, input, text {
-    color: #232323;
-    font-family: 'Lato', Arimo, "Droid Sans", Helvetica, Arial, sans-serif;
-    font-size: 2em;
-    font-weight: normal;
+#small-map {
+    margin-top: 3em;
 }
 
-.ui.menu .item {
-    font-family: 'Lato';
-    font-weight: bold;
+#small-map a {
+    color: #6f634f;
 }
 
-html, body {
-    margin: 0em;
-}
-
-h3 {
-    font-weight: 900;
-    margin: 0px;
-    line-height: 2.5em;
-}
-
-p {
-    font-weight: 600;
-    padding: .5em;
-}
-
-a {
-    text-decoration: none;
-    padding: .15em;
-    padding-right: .2em;
-}
-
-a:hover {
-    color: #fff;
-    background-color: #620000;
-}
-
-.topnav {
-    border-bottom: 1px solid #a0a9a8;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    text-align: right;
-    background-color: #fff;
-}
-
-input[type="text"] {
-    position: absolute;
-    top: 0px; left: 0px;
-    width: 100%;
-    padding-left: 2em;
-    padding-top: .3em;
-    padding-bottom: .2em;
+#small-map h3 {
     font-size: 1.2em;
-    color: #790812;
-    font-weight: bold;
-    border: 2px solid transparent;
 }
 
-input:focus {
-    border: 2px solid #99ccff;
+.ui.segment .ui.text.container table,
+.ui.segment .ui.text.container p,
+.ui.segment .ui.text.container ul,
+.ui.segment.tile table,
+.ui.segment.tile ul,
+.ui.segment.tile p {
+    font-size: 1.5rem
 }
 
-.command {
-    position: absolute;
-    top: .2em; right: .2em;
-    font-weight: bold;
-    padding: .2em .3em .2em .4em;
-    color: #a9a9a9;
-    font-size: 1em;
-    cursor: pointer;
-    z-index: 110;
+.ui.segment.tile {
+    font-size: 2.5rem;
 }
 
-.section {
-    padding: 5em;
-    margin: auto;
+.body .ui.segment h2.ui.header {
+    font-size: 2rem;
 }
 
-.red {
-    color: #620000;
+/** Frontpage Page Link Styles ***/
+
+.not-found header h3,
+.posts article .ui.header a {
+    color: #e2c9a2;
+    font-weight: 700;
 }
 
-.up {
-    text-transform: uppercase;
+.posts article .ui.header a:hover {
+    color: #1d160f;
 }
 
-.right {
-    text-align: right;
+.ui.text.container .metadata {
+    opacity: 0;
 }
 
-.slug {
-    font-weight: bold;
-    background-color: #4a0000;
-    color: #fff;
-    padding: .5em;
+.ui.text.container .metadata:hover {
+    opacity: .4;
 }
 
+.ui.vertical.segment.footer {
+    padding-top: 3em;
+}
 
-@media (max-width: 1800px) {
-    .section {
-        padding: 4em;
+.footer .column p {
+    color: #e2c9a2 !important;
+}
+
+.footer h4.ui.header {
+    color: #e2c9a2 !important;
+    font-weight: 700;
+}
+
+.ui.form input::selection,
+.ui.form textarea::selection,
+.ui.form input::-moz-placeholder,
+.ui.form input:-moz-placeholder,
+.ui.form input:-ms-input-placeholder,
+.ui.form input::-webkit-input-placeholder {
+    color: #161927 !important;
+}
+
+.ui.segment.footer.inverted {
+    background-color: #161927;
+}
+
+.ui.segment.footer.inverted a {
+    text-decoration: none;
+}
+
+.ui.segment.footer .site-link .logo {
+    max-width: 125px;
+    margin-bottom: 2em;
+}
+
+.ui.segment.footer .site-link .logo {
+    display: none;
+}
+
+.webpages .ui.segment {
+    padding: 4em 0em 1em 0em;
+}
+
+@media (max-width: 1024px) {
+    .webpages .body .ui.segment h1.ui.header {
+        margin: 0em 0em 1em 0em;
+    }
+    .webpages .body .ui.segment .grid .column.tile {
+        padding: 0em 1em 0em 1em!important;
     }
 }
 
-
-@media (max-width: 1200px) {
-    .section {
-        padding: 2em;
-        font-size: .7em;
+@media (max-width: 690px) {
+    .ui.vertical.main-segment.stripe {
+        padding: 4em 1em;
+    }
+    .webpages .ui.segment .grid .tile .tc p {
+        padding: 0em 0em 0em 1em;
+    }
+    .webpages .ui.segment .grid .tile .tc ul p {
+        padding: 0em;
+    }
+    .webpages .ui.segment .grid .tile .tc ul {
+        margin-top: 0em;
+        padding-right: 1em;
     }
 }
-
-@media (max-width: 900px) {
-    .section {
-        padding: 1em;
-        font-size: .5em;
-    }
-}
- **/
