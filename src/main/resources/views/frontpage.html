@@ -40,43 +40,9 @@
             <div class="body">
 
                 <div class="sections-above">
-
-                    <!-- Webpage Sections Above Standard HTML Content -->
-                    <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
-
-                        <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
-                            <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
-                            <div th:replace="fragments/sections :: n-equal-padded (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
-                            <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
-                            <div th:replace="fragments/sections :: ten-six-grid (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
-                            <div th:replace="fragments/sections :: accordion-styled (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
-                            <div th:replace="fragments/sections :: single-tile (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
-                            <div th:replace="fragments/sections :: quote-tiles (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
-                            <div th:replace="fragments/sections :: native-video-section (${section})" />
-                        </div>
+                    <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
+                        <div th:replace="fragments/sections :: section-switch ${section}"></div>
                     </div>
-
                 </div>
 
                 <!--div class="ui basic stripe segment main-segment posts container text">
@@ -114,43 +80,9 @@
                 </div-->
 
                 <div class="sections-below">
-
-                    <!-- Webpage Sections Below Standard HTML Content -->
                     <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-
-                        <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
-                            <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
-                            <div th:replace="fragments/sections :: n-equal-padded (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
-                            <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
-                            <div th:replace="fragments/sections :: ten-six-grid (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
-                            <div th:replace="fragments/sections :: accordion-styled (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
-                            <div th:replace="fragments/sections :: single-tile (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
-                            <div th:replace="fragments/sections :: quote-tiles (${section})" />
-                        </div>
-
-                        <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
-                            <div th:replace="fragments/sections :: native-video-section (${section})" />
-                        </div>
+                        <div th:replace="fragments/sections :: section-switch ${section}"></div>
                     </div>
-
                 </div>
 
             </div>

@@ -1,4 +1,52 @@
 
+<!-- Section Rendering Switch -->
+<div th:fragment="section-switch (section)">
+    <!-- Webpage Sections Below Standard HTML Content -->
+    <div th:if="${#strings.equals(section.layoutName, 'two-columns')}">
+        <div th:replace="fragments/sections :: 2-columns-equal (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'n-columns')}">
+        <div th:replace="fragments/sections :: n-equal-padded (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'two-and-n-columns')}">
+        <div th:replace="fragments/sections :: 2-and-n-equal-padded (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'ten-six-grid')}">
+        <div th:replace="fragments/sections :: ten-six-grid (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'accordion-styled')}">
+        <div th:replace="fragments/sections :: accordion-styled (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'single-tile')}">
+        <div th:replace="fragments/sections :: single-tile (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'quote-tiles')}">
+        <div th:replace="fragments/sections :: quote-tiles (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'contact-form')}">
+        <div th:replace="fragments/contact-form :: contact-form-full (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'map-widget')}">
+        <div th:replace="fragments/mapbox-widget :: mapbox-widget-full (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'embed')}">
+        <div th:replace="fragments/sections :: embed-section (${section})" />
+    </div>
+
+    <div th:if="${#strings.equals(section.layoutName, 'native-video')}">
+        <div th:replace="fragments/sections :: native-video-section (${section})" />
+    </div>
+</div>
+
 <!-- Stackable Basic Colored (Padding) Segment -->
 <div th:fragment="ten-six-grid (section)"
      th:id="${section.anchorId}"
