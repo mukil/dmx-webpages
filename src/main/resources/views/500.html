@@ -22,10 +22,15 @@
     <body class="webpages page denied">
 
         <!-- Following Menu -->
-        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></div>
+        <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
 
-        <!-- Sidebar Menu (small screens) -->
-        <div th:replace="fragments/navigation :: vertical-nav"></div>
+        <!-- Top Navigation Menu -->
+        <div class="navigation">
+            <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
+        </div>
+
+        <!-- Suidebar Menu -->
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">

@@ -27,11 +27,14 @@
     </head>
     <body th:class="'webpages page ui detail ' + ${page.webAlias}">
 
-        <!-- Sidebar Menu (small screens) -->
-        <div th:replace="fragments/navigation :: vertical-nav"></div>
+        <!-- Following Menu -->
+        <nav id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></nav>
 
-        <!-- Following (low-hanging) Menu -->
-        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav"></div>
+        <div class="navigation">
+            <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
+        </div>
+
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
         <div class="pusher">
