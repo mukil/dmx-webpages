@@ -28,7 +28,7 @@
             <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
         </div>
 
-        <!-- Suidebar Menu -->
+        <!-- Sidebar Menu (small screens) -->
         <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
 
         <!-- Page Contents -->
@@ -36,7 +36,7 @@
 
             <header class="ui inverted vertical masthead center aligned segment">
 
-                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav"></nav>
+                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
 
                 <div class="ui text container">
                     <h1 class="ui inverted header" itemprop="headline">404</h1>
@@ -55,7 +55,7 @@
 
             </div>
 
-            <div th:replace="fragments/footer :: footer-new"></div>
+            <div th:replace="fragments/footer :: ${footer_key}"></div>
 
             <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
                 <meta itemprop="name" th:content="${siteName}"/>

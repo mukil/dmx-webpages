@@ -1,0 +1,40 @@
+{
+    "topic_types": [
+        {
+            "value": "Website Footer Template",
+            "uri": "de.mikromedia.site.footer_fragment_name",
+            "data_type_uri": "dm4.core.text",
+            "index_mode_uris": ["dm4.core.key"],
+            "view_config_topics": [
+                {
+                    "type_uri": "dm4.webclient.view_config",
+                    "childs": {
+                        "dm4.webclient.show_in_create_menu": false
+                    }
+                }
+            ]
+        }
+    ],
+    "topics": [
+        {
+            "type_uri": "de.mikromedia.site.footer_fragment_name",
+            "uri" : "de.mikromedia.footer.footer-new",
+            "value": "Standard Footer"
+        },
+        {
+            "type_uri": "de.mikromedia.site.footer_fragment_name",
+            "uri" : "de.mikromedia.footer.qpq-footer",
+            "value": "QPQ Footer"
+        },
+        {
+            "type_uri": "de.mikromedia.site.footer_fragment_name",
+            "uri" : "de.mikromedia.footer.dmx-footer",
+            "value": "DMX Footer"
+        },
+        {
+            "type_uri": "de.mikromedia.site.footer_fragment_name",
+            "uri" : "de.mikromedia.footer.footer-links",
+            "value": "Footer Links"
+        }
+    ]
+}

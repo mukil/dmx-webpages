@@ -159,6 +159,16 @@ header.ui.masthead {
     color: #a9a9a9;
 }
 
+.ui.inverted.menu .item,
+.ui.inverted.menu .item > a:not(.ui) {
+    text-decoration: none;
+    font-style: italic;
+}
+
+.ui.inverted.menu .item.sitename {
+    font-style: normal;
+}
+
 .webpages .ui.sidebar.menu .item {
     font-size: 1.3rem !important;
 }
