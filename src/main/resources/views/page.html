@@ -31,9 +31,9 @@
         <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
 
         <!-- Top Navigation Menu -->
-        <!--div class="navigation">
+        <div class="navigation">
             <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
-        </div-->
+        </div>
 
         <!-- Sidebar Menu (small screens) -->
         <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
@@ -41,7 +41,7 @@
         <!-- Page Contents -->
         <div class="pusher">
 
-            <!-- Header incl. Main Top Menu -->
+            <!-- Header incl. Standard-Nav Menu -->
             <header th:replace="fragments/header :: page"></header>
 
             <div class="body">
@@ -49,8 +49,8 @@
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
 
                     <div class="sections-above">
-                        <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-                            <div th:replace="fragments/sections :: section-switch ${section}"></div>
+                        <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
 
                     <div class="sections-below">
                         <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-                            <div th:replace="fragments/sections :: section-switch ${section}"></div>
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
                         </div>
                     </div>
                                 
