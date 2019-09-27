@@ -46,8 +46,9 @@ h3.header .value {
 @media only screen and (max-width: 1080px) {
     .ui.inverted.footer.segment,
     .webpages header .ui.text.container {
-        padding-left: 1rem;
+        padding-left: 0rem;
         padding-right: 1rem;
+        padding-bottom: 1rem;
     }
 }
 

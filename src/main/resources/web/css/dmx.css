@@ -159,6 +159,10 @@ header.ui.masthead .ui.header {
     text-align: left;
 }
 
+header.ui.masthead .headline p {
+    margin-left: .1em;
+}
+
 .ui.footer.segment .ui.header {
     color: #fff;
 }
@@ -277,8 +281,8 @@ body.page .ui.spaced.single-tile.segment.section-bg-58311 {
         margin-left: 0em !important;
         margin-right: 0em !important;
     }
-    .page .ui.segment.masthead .ui.header {
-        padding: 0em 0em .6em .2em;
+    .headline {
+
     }
     .ui.text.container .tile-content .content img {
         max-width: 100%;
