@@ -49,8 +49,8 @@
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
 
                     <div class="sections-above">
-                        <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-                            <div th:replace="fragments/sections :: section-switch ${section}"></div>
+                        <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
 
                     <div class="sections-below">
                         <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
-                            <div th:replace="fragments/sections :: section-switch ${section}"></div>
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
                         </div>
                     </div>
 
