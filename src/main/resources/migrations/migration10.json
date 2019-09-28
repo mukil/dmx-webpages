@@ -1,12 +1,12 @@
 {
     "topics": [
         {
-            "type_uri": "de.mikromedia.section.layout",
+            "typeUri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.single_tile",
             "value": "Single Tile"
         },
         {
-            "type_uri": "de.mikromedia.section.layout",
+            "typeUri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.quote_section",
             "value": "Quote Section"
         }

@@ -1,9 +1,5 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.JSONEnabled;
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_ACTIVE;
@@ -19,6 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import systems.dmx.core.JSONEnabled;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.service.CoreService;
 
 public class MenuItem implements JSONEnabled {
 
@@ -116,8 +116,8 @@ public class MenuItem implements JSONEnabled {
             @Override
             public int compare(RelatedTopic item1, RelatedTopic item2) {
                 try {
-                    int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
-                    int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
+                    int value1 = Integer.parseInt(item1.getRelatingAssoc().getSimpleValue().toString());
+                    int value2 = Integer.parseInt(item2.getRelatingAssoc().getSimpleValue().toString());
                     if (value1 > value2) {
                         return 1;
                     } else if (value1 == value2) {

@@ -3,13 +3,13 @@
         {
             "value": "Background Size",
             "uri": "de.mikromedia.image.size_style",
-            "data_type_uri": "dm4.core.text",
-            "index_mode_uris": ["dm4.core.key"],
-            "view_config_topics": [
+            "dataTypeUri": "dmx.core.text",
+            "indexModeUris": ["dmx.core.key"],
+            "viewConfigTopics": [
                 {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false
                     }
                 }
             ]
@@ -17,13 +17,13 @@
         {
             "value": "Background Attachment",
             "uri": "de.mikromedia.image.attachment_style",
-            "data_type_uri": "dm4.core.text",
-            "index_mode_uris": ["dm4.core.key"],
-            "view_config_topics": [
+            "dataTypeUri": "dmx.core.text",
+            "indexModeUris": ["dmx.core.key"],
+            "viewConfigTopics": [
                 {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.show_in_create_menu": false
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false
                     }
                 }
             ]
@@ -31,22 +31,22 @@
     ],
     "topics": [
         {
-            "type_uri": "de.mikromedia.image.size_style",
+            "typeUri": "de.mikromedia.image.size_style",
             "uri" : "de.mikromedia.image.size_cover",
             "value": "Cover"
         },
         {
-            "type_uri": "de.mikromedia.image.size_style",
+            "typeUri": "de.mikromedia.image.size_style",
             "uri" : "de.mikromedia.image.size_contain",
             "value": "Contain"
         },
         {
-            "type_uri": "de.mikromedia.image.attachment_style",
+            "typeUri": "de.mikromedia.image.attachment_style",
             "uri" : "de.mikromedia.image.attachment_fixed",
             "value": "Fixed"
         },
         {
-            "type_uri": "de.mikromedia.image.attachment_style",
+            "typeUri": "de.mikromedia.image.attachment_style",
             "uri" : "de.mikromedia.image.attachment_scroll",
             "value": "Scroll"
         }

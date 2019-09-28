@@ -1,11 +1,11 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.JSONEnabled;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import systems.dmx.core.JSONEnabled;
 
 public class SearchResultList implements JSONEnabled {
 

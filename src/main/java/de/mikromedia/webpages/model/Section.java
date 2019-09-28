@@ -1,12 +1,7 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.Association;
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.model.SimpleValue;
-import de.deepamehta.core.util.JavaUtils;
+
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
-import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import static de.mikromedia.webpages.WebpageService.SECTION;
@@ -31,6 +26,12 @@ import static de.mikromedia.webpages.WebpageService.SECTION_CSS_CLASS;
 import static de.mikromedia.webpages.WebpageService.TILE;
 import java.util.Collections;
 import java.util.Comparator;
+import systems.dmx.core.Assoc;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.model.SimpleValue;
+import systems.dmx.core.util.JavaUtils;
+import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 
 public class Section {
 
@@ -54,7 +55,7 @@ public class Section {
     }
 
     public int getOrdinalNumber() {
-        Association assoc = this.pageSection.getRelatingAssociation();
+        Assoc assoc = this.pageSection.getRelatingAssoc();
         SimpleValue assocText = assoc.getSimpleValue();
         int ordinalNumber = 0;
         try {
@@ -95,16 +96,16 @@ public class Section {
 
     public String getSmallImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getSmallImageAttachment() {
         RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         String val = null;
         if (imageSmall != null) {
-            Association imageConfig = imageSmall.getRelatingAssociation();
+            Assoc imageConfig = imageSmall.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
@@ -112,11 +113,11 @@ public class Section {
 
     public String getSmallImageSize() {
         RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         String val = null;
         if (imageSmall == null) getSmallImage();
         if (imageSmall != null) {
-            Association imageConfig = imageSmall.getRelatingAssociation();
+            Assoc imageConfig = imageSmall.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
@@ -124,16 +125,16 @@ public class Section {
 
     public String getLargeImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getLargeImageAttachment() {
         RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         String val = null;
         if (imageLarge != null) {
-            Association imageConfig = imageLarge.getRelatingAssociation();
+            Assoc imageConfig = imageLarge.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
@@ -141,11 +142,11 @@ public class Section {
 
     public String getLargeImageSize() {
         RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         String val = null;
         if (imageLarge == null) getSmallImage();
         if (imageLarge != null) {
-            Association imageConfig = imageLarge.getRelatingAssociation();
+            Assoc imageConfig = imageLarge.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
@@ -159,7 +160,7 @@ public class Section {
     public Topic getRelatedTopic() {
         if (this.relatedTopic == null) {
             this.relatedTopic = this.pageSection.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, "dm4.files.file");
+                ROLE_DEFAULT, "dmx.files.file");
         }
         return this.relatedTopic;
     }
@@ -172,22 +173,22 @@ public class Section {
     }
 
     public String getRelatedTopicFilePath() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.path");
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.path");
         }
         return null;
     }
 
     public String getRelatedTopicFileSize() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dm4.files.size"), true);
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dmx.files.size"), true);
         }
         return null;
     }
 
     public String getRelatedTopicFileMediaType() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.media_type");
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.media_type");
         }
         return null;
     }

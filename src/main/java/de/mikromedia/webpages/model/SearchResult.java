@@ -1,7 +1,5 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.JSONEnabled;
-import de.deepamehta.core.Topic;
 import de.mikromedia.webpages.WebpageService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
@@ -10,6 +8,8 @@ import static de.mikromedia.webpages.WebpageService.WEBSITE;
 import static de.mikromedia.webpages.WebpageService.WEBSITE_PREFIX;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import systems.dmx.core.JSONEnabled;
+import systems.dmx.core.Topic;
 
 /**
  *

@@ -1,10 +1,6 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
-import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.INSTITUTION;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
@@ -28,17 +24,21 @@ import java.util.List;
 import java.util.logging.Logger;
 import static de.mikromedia.webpages.WebpageService.LOGO_IMAGE;
 import de.mikromedia.webpages.mapping.InstitutionOrganization;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.service.CoreService;
+import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 
 public class Website {
     
     private Logger log = Logger.getLogger(getClass().getName());
 
     Topic topic = null;
-    CoreService dm4 = null;
+    CoreService dmx = null;
 
-    public Website(Topic website, CoreService dm4) {
+    public Website(Topic website, CoreService dmx) {
         this.topic = website;
-        this.dm4 = dm4;
+        this.dmx = dmx;
     }
 
     public boolean isWebsiteTopic() {
@@ -53,7 +53,7 @@ public class Website {
 
     public String getLogoPath() {
         Topic imageFile = this.topic.getRelatedTopic(LOGO_IMAGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         if (imageFile != null) {
             return imageFile.getChildTopics().getStringOrNull(FILE_PATH);
         }
@@ -80,7 +80,7 @@ public class Website {
         List<RelatedTopic> pages = getRelatedWebpages();
         Iterator<RelatedTopic> iterator = pages.iterator();
         while (iterator.hasNext()) {
-            Webpage page = new Webpage(iterator.next().getId(), dm4);
+            Webpage page = new Webpage(iterator.next().getId(), dmx);
             if (!page.isDraft()) result.add(page);
         }
         return result;
@@ -93,7 +93,7 @@ public class Website {
         ArrayList<MenuItem> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
         while (iterator.hasNext()) {
-            MenuItem menuItem = new MenuItem(iterator.next().getId(), this, dm4);
+            MenuItem menuItem = new MenuItem(iterator.next().getId(), this, dmx);
             if (menuItem.isActive()) {
                 menuItem.getChildMenuItems();
                 result.add(menuItem);
@@ -107,8 +107,8 @@ public class Website {
             @Override
             public int compare(RelatedTopic item1, RelatedTopic item2) {
                 try {
-                    int value1 = Integer.parseInt(item1.getRelatingAssociation().getSimpleValue().toString());
-                    int value2 = Integer.parseInt(item2.getRelatingAssociation().getSimpleValue().toString());
+                    int value1 = Integer.parseInt(item1.getRelatingAssoc().getSimpleValue().toString());
+                    int value2 = Integer.parseInt(item2.getRelatingAssoc().getSimpleValue().toString());
                     if (value1 > value2) {
                         return 1;
                     } else if (value1 == value2) {
@@ -140,7 +140,7 @@ public class Website {
         List<RelatedTopic> relatedWebpages = getRelatedWebpages();
         if (relatedWebpages == null) return null;
         for (RelatedTopic webpage : relatedWebpages) {
-            Topic webpageTopic = dm4.getTopic(webpage.getModel().getId()).loadChildTopics();
+            Topic webpageTopic = dmx.getTopic(webpage.getModel().getId()).loadChildTopics();
             String webpageAlias = webpageTopic.getChildTopics().getString(WEBPAGE_ALIAS);
             if (webpageAlias.equals(webAlias)) {
                 log.fine("Loaded webpage by web alias \"" + webAlias + "\" Title: " + webpageTopic.getSimpleValue());

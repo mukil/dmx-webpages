@@ -1,13 +1,12 @@
 package de.mikromedia.webpages;
 
 import com.sun.jersey.api.view.Viewable;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.accesscontrol.SharingMode;
 import de.mikromedia.webpages.model.MenuItem;
 import de.mikromedia.webpages.model.Webpage;
 import java.util.HashMap;
 import java.util.List;
 import org.osgi.framework.Bundle;
+import systems.dmx.core.Topic;
 
 /**
  * Collaborative, multi-site standard HTML webpages with DeepaMehta 4.
@@ -88,25 +87,23 @@ public interface WebpageService {
 
     public static final String WEBPAGES_WS_URI = "de.mikromedia.webpages_ws";
     public static final String WEBPAGES_WS_NAME = "Webpages";
-    public static final SharingMode WEBPAGES_SHARING_MODE = SharingMode.PUBLIC;
     public static final String FAVICON_NAME = "favicon.ico";
 
     public static final String DEFAULT_ATTACHMENT = "fixed";
     public static final String DEFAULT_SIZE = "contain";
 
     /** Standard Distribution URIs (DM4) **/
-    public static final String ROLE_DEFAULT = "dm4.core.default";
-    public static final String ROLE_CHILD = "dm4.core.child";
-    public static final String ROLE_PARENT = "dm4.core.parent";
-    public static final String ASSOCIATION = "dm4.core.association";
-    public static final String COMPOSITION = "dm4.core.composition";
-    public static final String AGGREGATION = "dm4.core.aggregation";
-    public static final String DEEPAMEHTA_FILE = "dm4.files.file";
-    public static final String FILE_PATH = "dm4.files.path";
-    public static final String TIME_CREATED = "dm4.time.created";
-    public static final String TIME_MODIFIED = "dm4.time.modified";
-    public static final String USERNAME = "dm4.accesscontrol.username";
-    public static final String INSTITUTION = "dm4.contacts.institution";
+    public static final String ROLE_DEFAULT = "dmx.core.default";
+    public static final String ROLE_CHILD = "dmx.core.child";
+    public static final String ROLE_PARENT = "dmx.core.parent";
+    public static final String ASSOCIATION = "dmx.core.association";
+    public static final String COMPOSITION = "dmx.core.composition";
+    public static final String DMX_FILE = "dmx.files.file";
+    public static final String FILE_PATH = "dmx.files.path";
+    public static final String TIME_CREATED = "dmx.time.created";
+    public static final String TIME_MODIFIED = "dmx.time.modified";
+    public static final String USERNAME = "dmx.accesscontrol.username";
+    public static final String INSTITUTION = "dmx.contacts.institution";
 
     /**
      * Fetches an existing or creates a new website topic (if non exists and the requesting user equals given username).

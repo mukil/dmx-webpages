@@ -1,12 +1,12 @@
 package de.mikromedia.webpages.mapping;
 
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
 
 /**
  *
@@ -25,7 +25,7 @@ public class InstitutionOrganization {
     }
 
     private String getEmailAddress() {
-        List<RelatedTopic> emails = getEntries("dm4.contacts.email_address");
+        List<RelatedTopic> emails = getEntries("dmx.contacts.email_address");
         if (emails != null && emails.size() > 0) {
             return emails.get(0).getSimpleValue().toString();
         }
@@ -33,7 +33,7 @@ public class InstitutionOrganization {
     }
 
     private String getWebsiteURL() {
-        List<RelatedTopic> websites = getEntries("dm4.webbrowser.url");
+        List<RelatedTopic> websites = getEntries("dmx.base.url");
         if (websites != null && websites.size() > 0) {
             return websites.get(0).getSimpleValue().toString();
         }
@@ -41,7 +41,7 @@ public class InstitutionOrganization {
     }
 
     private String getTelephoneEntry() {
-        List<RelatedTopic> phoneEntries = getEntries("dm4.contacts.phone_number#dm4.contacts.phone_entry");
+        List<RelatedTopic> phoneEntries = getEntries("dmx.contacts.phone_number#dmx.contacts.phone_entry");
         if (phoneEntries != null && phoneEntries.size() > 0) {
             return phoneEntries.get(0).getSimpleValue().toString();
         }
@@ -49,7 +49,7 @@ public class InstitutionOrganization {
     }
 
     private String getAddressEntry() {
-        List<RelatedTopic> addressEntry = getEntries("dm4.contacts.address#dm4.contacts.address_entry");
+        List<RelatedTopic> addressEntry = getEntries("dmx.contacts.address#dmx.contacts.address_entry");
         if (addressEntry != null && addressEntry.size() > 0) {
             return addressEntry.get(0).getSimpleValue().toString();
         }

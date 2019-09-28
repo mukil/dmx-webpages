@@ -1,9 +1,9 @@
 package de.mikromedia.webpages.events;
 
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.EventListener;
+import systems.dmx.core.service.EventListener;
 import javax.ws.rs.core.UriInfo;
 import org.thymeleaf.context.AbstractContext;
+import systems.dmx.core.Topic;
 
 /**
  *

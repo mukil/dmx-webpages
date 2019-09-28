@@ -1,12 +1,7 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.Association;
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.BUTTON;
 import static de.mikromedia.webpages.WebpageService.HEADER_TITLE;
-import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.HEADER;
 import static de.mikromedia.webpages.WebpageService.HEADER_CONTENT;
@@ -26,6 +21,11 @@ import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
+import systems.dmx.core.Assoc;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.service.CoreService;
+import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 
 public class Header {
 
@@ -88,7 +88,7 @@ public class Header {
         if (this.imageSmall != null)
             return this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
         this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
@@ -96,7 +96,7 @@ public class Header {
         String val = null;
         if (imageSmall == null) getSmallImage();
         if (imageSmall != null) {
-            Association imageConfig = imageSmall.getRelatingAssociation();
+            Assoc imageConfig = imageSmall.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
@@ -105,7 +105,7 @@ public class Header {
     public String getSmallImageAttachment() {
         String val = null;
         if (imageSmall != null) {
-            Association imageConfig = imageSmall.getRelatingAssociation();
+            Assoc imageConfig = imageSmall.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
@@ -115,7 +115,7 @@ public class Header {
         if (this.imageLarge != null)
             return this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
         this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
@@ -123,7 +123,7 @@ public class Header {
         String val = null;
         if (imageLarge == null) getLargeImage();
         if (imageLarge != null) {
-            Association imageConfig = imageLarge.getRelatingAssociation();
+            Assoc imageConfig = imageLarge.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
@@ -132,7 +132,7 @@ public class Header {
     public String getLargeImageAttachment() {
         String val = null;
         if (imageLarge != null) {
-            Association imageConfig = imageLarge.getRelatingAssociation();
+            Assoc imageConfig = imageLarge.getRelatingAssoc();
             val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();

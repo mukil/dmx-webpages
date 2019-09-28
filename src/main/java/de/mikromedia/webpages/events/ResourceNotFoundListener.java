@@ -1,6 +1,6 @@
 package de.mikromedia.webpages.events;
 
-import de.deepamehta.core.service.EventListener;
+import systems.dmx.core.service.EventListener;
 import org.thymeleaf.context.AbstractContext;
 
 /**

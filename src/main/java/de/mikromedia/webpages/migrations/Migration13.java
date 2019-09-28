@@ -1,11 +1,12 @@
 package de.mikromedia.webpages.migrations;
 
-import de.deepamehta.core.service.Migration;
-import de.deepamehta.core.service.Inject;
-import de.deepamehta.accesscontrol.AccessControlService;
-import de.deepamehta.core.AssociationType;
-import de.deepamehta.core.TopicType;
-import de.deepamehta.workspaces.WorkspacesService;
+import systems.dmx.accesscontrol.AccessControlService;
+import systems.dmx.core.AssocType;
+import systems.dmx.core.TopicType;
+import systems.dmx.core.service.Inject;
+import systems.dmx.core.service.Migration;
+import systems.dmx.workspaces.WorkspacesService;
+
 
 /**
  * Assigns all our custom types to the public "Webpages" workspace.
@@ -19,20 +20,16 @@ public class Migration13 extends Migration {
     @Override
     public void run () {
         // 1) Add attachment style to "Image Small" and "Image Large" Edges
-        TopicType sizeStyle = dm4.getTopicType("de.mikromedia.image.size_style");
-        TopicType attachmentStyle = dm4.getTopicType("de.mikromedia.image.attachment_style");
-        AssociationType imageLarge = dm4.getAssociationType("de.mikromedia.image.large");
-        imageLarge.setDataTypeUri("dm4.core.composite");
-        imageLarge.addAssocDef(mf.newAssociationDefinitionModel("dm4.core.aggregation_def", imageLarge.getUri(),
-                sizeStyle.getUri(), "dm4.core.one", "dm4.core.one"));
-        imageLarge.addAssocDef(mf.newAssociationDefinitionModel("dm4.core.aggregation_def", imageLarge.getUri(),
-                attachmentStyle.getUri(), "dm4.core.one", "dm4.core.one"));
-        AssociationType imageSmall = dm4.getAssociationType("de.mikromedia.image.small");
-        imageSmall.setDataTypeUri("dm4.core.composite");
-        imageSmall.addAssocDef(mf.newAssociationDefinitionModel("dm4.core.aggregation_def", imageSmall.getUri(),
-                sizeStyle.getUri(), "dm4.core.one", "dm4.core.one"));
-        imageSmall.addAssocDef(mf.newAssociationDefinitionModel("dm4.core.aggregation_def", imageSmall.getUri(),
-                attachmentStyle.getUri(), "dm4.core.one", "dm4.core.one"));
+        TopicType sizeStyle = dmx.getTopicType("de.mikromedia.image.size_style");
+        TopicType attachmentStyle = dmx.getTopicType("de.mikromedia.image.attachment_style");
+        AssocType imageLarge = dmx.getAssocType("de.mikromedia.image.large");
+        imageLarge.setDataTypeUri("dmx.core.identity");
+        imageLarge.addCompDef(mf.newCompDefModel(imageLarge.getUri(), sizeStyle.getUri(), "dmx.core.one"));
+        imageLarge.addCompDef(mf.newCompDefModel(imageLarge.getUri(), attachmentStyle.getUri(), "dmx.core.one"));
+        AssocType imageSmall = dmx.getAssocType("de.mikromedia.image.small");
+        imageSmall.setDataTypeUri("dmx.core.identity");
+        imageSmall.addCompDef(mf.newCompDefModel(imageSmall.getUri(), sizeStyle.getUri(), "dmx.core.one"));
+        imageSmall.addCompDef(mf.newCompDefModel(imageSmall.getUri(), attachmentStyle.getUri(), "dmx.core.one"));
     }
 
 }

@@ -1,9 +1,5 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.JSONEnabled;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.AUTHOR_NAME;
 import static de.mikromedia.webpages.WebpageService.COMPOSITION;
 import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
@@ -23,6 +19,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import systems.dmx.core.JSONEnabled;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.service.CoreService;
 
 public class Webpage implements JSONEnabled {
 

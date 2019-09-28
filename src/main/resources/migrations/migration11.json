@@ -2,13 +2,13 @@
     "assoc_types": [
         {
             "value":            "Logo Image",
-            "data_type_uri":    "dm4.core.text",
+            "dataTypeUri":    "dmx.core.text",
             "uri":              "de.mikromedia.image.logo",
-            "view_config_topics": [
+            "viewConfigTopics": [
                 {
-                    "type_uri": "dm4.webclient.view_config",
-                    "childs": {
-                        "dm4.webclient.color": "#676767"
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.color": "#676767"
                     }
                 }
             ]

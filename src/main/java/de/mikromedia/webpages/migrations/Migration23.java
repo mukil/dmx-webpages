@@ -1,13 +1,14 @@
 package de.mikromedia.webpages.migrations;
 
-import de.deepamehta.core.service.Migration;
-import de.deepamehta.core.service.Inject;
-import de.deepamehta.accesscontrol.AccessControlService;
-import de.deepamehta.core.AssociationType;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.TopicType;
-import de.deepamehta.workspaces.WorkspacesService;
+
 import de.mikromedia.webpages.WebpagePlugin;
+import systems.dmx.accesscontrol.AccessControlService;
+import systems.dmx.core.AssocType;
+import systems.dmx.core.Topic;
+import systems.dmx.core.TopicType;
+import systems.dmx.core.service.Inject;
+import systems.dmx.core.service.Migration;
+import systems.dmx.workspaces.WorkspacesService;
 
 /**
  * Assigns all our custom types to the public "Webpages" workspace.
@@ -22,14 +23,14 @@ public class Migration23 extends Migration {
     public void run () {
 
         // 0) Assign standard site to public "Webpages" workspace upon installation of plugin
-        Topic webpagesWorkspace = dm4.getAccessControl().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
-        TopicType element = dm4.getTopicType("de.mikromedia.element");
-        TopicType elementHeadline = dm4.getTopicType("de.mikromedia.element.headline");
-        TopicType elementContent = dm4.getTopicType("de.mikromedia.element.content");
-        TopicType elementId = dm4.getTopicType("de.mikromedia.element.id");
-        TopicType elementAttribution = dm4.getTopicType("de.mikromedia.element.attr");
-        TopicType elementLinkTarget = dm4.getTopicType("de.mikromedia.element.link_target");
-        AssociationType fileElementEdge = dm4.getAssociationType("de.mikromedia.element.file_edge");
+        Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
+        TopicType element = dmx.getTopicType("de.mikromedia.element");
+        TopicType elementHeadline = dmx.getTopicType("de.mikromedia.element.headline");
+        TopicType elementContent = dmx.getTopicType("de.mikromedia.element.content");
+        TopicType elementId = dmx.getTopicType("de.mikromedia.element.id");
+        TopicType elementAttribution = dmx.getTopicType("de.mikromedia.element.attr");
+        TopicType elementLinkTarget = dmx.getTopicType("de.mikromedia.element.link_target");
+        AssocType fileElementEdge = dmx.getAssocType("de.mikromedia.element.file_edge");
         workspacesService.assignToWorkspace(element, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(elementHeadline, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(elementContent, webpagesWorkspace.getId());

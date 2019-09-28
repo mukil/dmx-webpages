@@ -1,8 +1,5 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.JSONEnabled;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.BUTTON;
 import static de.mikromedia.webpages.WebpageService.BUTTON_STYLE;
 import static de.mikromedia.webpages.WebpageService.BUTTON_TITLE;
@@ -11,6 +8,9 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import static de.mikromedia.webpages.WebpageService.LINK;
+import systems.dmx.core.JSONEnabled;
+import systems.dmx.core.Topic;
+import systems.dmx.core.service.CoreService;
 
 public class Button implements JSONEnabled {
 

@@ -4,29 +4,29 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Mikromedia DM 4 - Webpages</name>
-    <groupId>de.mikromedia</groupId>
-    <artifactId>dm49-webpages</artifactId>
-    <version>0.7.2-SNAPSHOT</version>
+    <name>DMX Webpages</name>
+    <groupId>systems.dmx</groupId>
+    <artifactId>dmx-webpages</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
     <parent>
-        <groupId>de.deepamehta</groupId>
-        <artifactId>deepamehta-plugin</artifactId>
-        <version>4.9.1</version>
+        <groupId>systems.dmx</groupId>
+        <artifactId>dmx-plugin</artifactId>
+        <version>5.0-beta-5</version>
     </parent>
 
     <properties>
-	<!--dm4.deploy.dir>/Users/malt/Documents/dmxug/website/deepamehta-4.9/bundle-deploy</dm4.deploy.dir-->
-        <dm4.deploy.dir>/Users/malt/source/devqpq/bundle-deploy</dm4.deploy.dir>
-	<!--dm4.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dm4.deploy.dir-->
+	<!--dmx.deploy.dir>/home/malt/source/dmx/dmx-platform/bundle-deploy</dmx.deploy.dir-->
+        <!--dmx.deploy.dir>/home/malt/Documents/dm4-systems/platform/bundle-deploy</dmx.deploy.dir-->
+	<!--dmx.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dmx.deploy.dir-->
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>de.deepamehta</groupId>
-            <artifactId>dm49-thymeleaf</artifactId>
-            <version>0.6.2</version>
+            <groupId>systems.dmx</groupId>
+            <artifactId>dmx-thymeleaf</artifactId>
+            <version>0.8.0</version>
         </dependency>
         <!--dependency>
             <groupId>de.mikromedia</groupId>
@@ -34,9 +34,9 @@
             <version>1.1</version>
         </dependency-->
         <dependency>
-            <groupId>de.deepamehta</groupId>
-            <artifactId>deepamehta-accesscontrol</artifactId>
-            <version>4.9.1</version>
+            <groupId>systems.dmx</groupId>
+            <artifactId>dmx-accesscontrol</artifactId>
+            <version>5.0-beta-5</version>
         </dependency>
     </dependencies>
 

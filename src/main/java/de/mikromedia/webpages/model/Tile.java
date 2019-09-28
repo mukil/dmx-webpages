@@ -1,11 +1,7 @@
 package de.mikromedia.webpages.model;
 
-import de.deepamehta.core.Association;
-import de.deepamehta.core.RelatedTopic;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.model.SimpleValue;
+
 import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
-import static de.mikromedia.webpages.WebpageService.DEEPAMEHTA_FILE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import java.util.logging.Level;
@@ -20,6 +16,11 @@ import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 import static de.mikromedia.webpages.WebpageService.LINK;
 import static de.mikromedia.webpages.WebpageService.TILE;
 import static de.mikromedia.webpages.WebpageService.TILE_HTML;
+import systems.dmx.core.Assoc;
+import systems.dmx.core.RelatedTopic;
+import systems.dmx.core.Topic;
+import systems.dmx.core.model.SimpleValue;
+import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 
 public class Tile {
     
@@ -43,7 +44,7 @@ public class Tile {
     }
 
     public int getOrdinalNumber() {
-        Association assoc = this.content.getRelatingAssociation();
+        Assoc assoc = this.content.getRelatingAssoc();
         SimpleValue assocText = assoc.getSimpleValue();
         int ordinalNumber = 0;
         try {
@@ -77,7 +78,7 @@ public class Tile {
     public Topic getRelatedTopic() {
         if (this.relatedTopic == null) {
             this.relatedTopic = this.content.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, "dm4.files.file");
+                ROLE_DEFAULT, "dmx.files.file");
         }
         return this.relatedTopic;
     }
@@ -90,35 +91,35 @@ public class Tile {
     }
 
     public String getRelatedTopicFilePath() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.path");
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.path");
         }
         return null;
     }
 
     public String getRelatedTopicFileSize() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dm4.files.size"), true);
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dmx.files.size"), true);
         }
         return null;
     }
 
     public String getRelatedTopicFileMediaType() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dm4.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dm4.files.media_type");
+        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
+            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.media_type");
         }
         return null;
     }
 
     public String getSmallImage() {
         Topic imageFile = this.content.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getLargeImage() {
         Topic imageFile = this.content.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DEEPAMEHTA_FILE);
+                ROLE_DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 

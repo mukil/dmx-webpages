@@ -1,12 +1,12 @@
 package de.mikromedia.webpages.migrations;
 
-import de.deepamehta.core.service.Migration;
-import de.deepamehta.core.service.Inject;
-import de.deepamehta.accesscontrol.AccessControlService;
-import de.deepamehta.core.Topic;
-import de.deepamehta.core.TopicType;
-import de.deepamehta.workspaces.WorkspacesService;
 import de.mikromedia.webpages.WebpagePlugin;
+import systems.dmx.accesscontrol.AccessControlService;
+import systems.dmx.core.Topic;
+import systems.dmx.core.TopicType;
+import systems.dmx.core.service.Inject;
+import systems.dmx.core.service.Migration;
+import systems.dmx.workspaces.WorkspacesService;
 
 /**
  * Assigns all our custom Section types to the public "Webpages" workspace.
@@ -20,25 +20,25 @@ public class Migration9 extends Migration {
     @Override
     public void run () {
 
-        Topic webpagesWorkspace = dm4.getAccessControl().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
+        Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         // Webpage Section
-        TopicType section = dm4.getTopicType("de.mikromedia.section");
-        Topic sectionViewConfig = section.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
-        TopicType sectionTitle = dm4.getTopicType("de.mikromedia.section.title");
-        TopicType sectionContent = dm4.getTopicType("de.mikromedia.tile");
-        TopicType sectionLayout = dm4.getTopicType("de.mikromedia.section.layout");
-        TopicType sectionPlacement = dm4.getTopicType("de.mikromedia.section.placement");
+        TopicType section = dmx.getTopicType("de.mikromedia.section");
+        // ### Topic sectionViewConfig = section.getRelatedTopic(null, "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
+        TopicType sectionTitle = dmx.getTopicType("de.mikromedia.section.title");
+        TopicType sectionContent = dmx.getTopicType("de.mikromedia.tile");
+        TopicType sectionLayout = dmx.getTopicType("de.mikromedia.section.layout");
+        TopicType sectionPlacement = dmx.getTopicType("de.mikromedia.section.placement");
         workspacesService.assignToWorkspace(section, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(sectionTitle, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(sectionContent, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(sectionLayout, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(sectionPlacement, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionViewConfig, webpagesWorkspace.getId());
+        // workspacesService.assignToWorkspace(sectionViewConfig, webpagesWorkspace.getId());
         // Section Content
-        Topic sectionContentViewConfig = sectionContent.getRelatedTopic("dm4.core.aggregation", "dm4.core.type", "dm4.core.view_config", "dm4.webclient.view_config");
-        workspacesService.assignToWorkspace(sectionContentViewConfig, webpagesWorkspace.getId());
-        TopicType headline = dm4.getTopicType("de.mikromedia.tile.headline");
-        TopicType sectionHtml = dm4.getTopicType("de.mikromedia.tile.html");
+        // ### Topic sectionContentViewConfig = sectionContent.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
+        // workspacesService.assignToWorkspace(sectionContentViewConfig, webpagesWorkspace.getId());
+        TopicType headline = dmx.getTopicType("de.mikromedia.tile.headline");
+        TopicType sectionHtml = dmx.getTopicType("de.mikromedia.tile.html");
         workspacesService.assignToWorkspace(sectionHtml, webpagesWorkspace.getId());
         workspacesService.assignToWorkspace(headline, webpagesWorkspace.getId());
 

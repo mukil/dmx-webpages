@@ -1,7 +1,7 @@
 {
     "topics": [
         {
-            "type_uri": "de.mikromedia.section.layout",
+            "typeUri": "de.mikromedia.section.layout",
             "uri" : "de.mikromedia.layout.native_embed",
             "value": "Native Embed"
         }
