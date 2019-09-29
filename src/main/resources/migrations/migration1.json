@@ -66,7 +66,10 @@
                     {
                         "typeUri": "dmx.webclient.view_config",
                         "children": {
-                            "dmx.webclient.add_to_create_menu": false
+                            "dmx.webclient.add_to_create_menu": false,
+                            "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                            "dmx.webclient.clearable": true,
+                            "dmx.webclient.customizable": true
                         }
                     }
                 ]
@@ -145,7 +148,10 @@
                     {
                         "typeUri": "dmx.webclient.view_config",
                         "children": {
-                            "dmx.webclient.add_to_create_menu": false
+                            "dmx.webclient.add_to_create_menu": false,
+                            "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                            "dmx.webclient.clearable": true,
+                            "dmx.webclient.customizable": true
                         }
                     }
                 ]
@@ -187,7 +193,10 @@
                     {
                         "typeUri": "dmx.webclient.view_config",
                         "children": {
-                            "dmx.webclient.add_to_create_menu": false
+                            "dmx.webclient.add_to_create_menu": false,
+                            "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                            "dmx.webclient.clearable": true,
+                            "dmx.webclient.customizable": true
                         }
                     }
                 ]
@@ -200,7 +209,10 @@
                     {
                         "typeUri": "dmx.webclient.view_config",
                         "children": {
-                            "dmx.webclient.add_to_create_menu": false
+                            "dmx.webclient.add_to_create_menu": false,
+                            "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                            "dmx.webclient.clearable": true,
+                            "dmx.webclient.customizable": true
                         }
                     }
                 ]
@@ -242,7 +254,10 @@
                     {
                         "typeUri": "dmx.webclient.view_config",
                         "children": {
-                            "dmx.webclient.add_to_create_menu": false
+                            "dmx.webclient.add_to_create_menu": false,
+                            "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                            "dmx.webclient.clearable": true,
+                            "dmx.webclient.customizable": true
                         }
                     }
                 ]
@@ -435,7 +450,7 @@
                 "children": {
                     "de.mikromedia.site.name" : "Standard Website",
                     "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.standard_site_style",
-                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\"><a href=\"http://github.com/mukil/dm4-webpages\" title=\"Webpages on Github\">Webpages </a>is an application of the <a href=\"https://www.deepamehta.de\" title=\"DeepaMehta is a platform for collaboration and knowledge management.\">DeepaMehta</a> context engine.</p>"
+                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\"><a href=\"http://github.com/mukil/dm4-webpages\" title=\"Webpages on Github\">Webpages </a>is an application built on <a href=\"https://www.dmx.berlin\" title=\"DMX is a platform for collaboration and knowledge management.\">DMX </a>.</p>"
                 }
             }
         ]

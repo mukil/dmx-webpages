@@ -9,7 +9,10 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true,
+                        "dmx.webclient.customizable": true
                     }
                 }
             ]
@@ -23,7 +26,10 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true,
+                        "dmx.webclient.customizable": true
                     }
                 }
             ]
@@ -65,7 +71,10 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true,
+                        "dmx.webclient.customizable": true
                     }
                 }
             ]
@@ -135,7 +144,10 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true,
+                        "dmx.webclient.customizable": true
                     }
                 }
             ]
@@ -188,7 +200,9 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true
                     }
                 }
             ]
@@ -201,7 +215,9 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true
                     }
                 }
             ]
