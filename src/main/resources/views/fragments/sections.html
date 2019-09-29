@@ -283,7 +283,7 @@
             <div th:if="${content.relatedTopic}" class="tile-content tc">
                 <!-- File Topic Rendering as Show File Link -->
                 <div th:if="${#strings.equals(content.relatedTopic.typeUri, 'dmx.files.file')}" th:class="${content.relatedTopic.typeUri}">
-                    <a th:href="'/filerepo/' + ${content.relatedTopicFilePath}" class="ui action button icon basic"
+                    <a th:href="'/files/file/' + ${content.relatedTopicFilePath}" class="ui action button icon basic"
                        th:title="'Show File, Size: ' + ${content.relatedTopicFileSize} + ' Media Type: ' + ${content.relatedTopicFileMediaType}">
                         <i class="icon file alternate outline"></i>
                         <span th:text="${content.relatedTopic.simpleValue}">Filename</span>
@@ -361,15 +361,15 @@
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <div th:if="${section.relatedTopic}">
-        <!--embed th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+        <!--embed th:src="'/files/file/' + ${section.relatedTopicFilePath}"
                th:type="${section.relatedTopicFileMediaType}" autoplay="false"
                class="" accesskey="" width="100%" height="auto" bgcolor="#ffffff" /-->
         <video controls="controls" muted="true" name="media" preload="none"
-               poster="/filerepo//Images/Porsche-Video-Referenzposter-1916.jpg">
-            <source th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               poster="/files/file//Images/Porsche-Video-Referenzposter-1916.jpg">
+            <source th:src="'/files/file/' + ${section.relatedTopicFilePath}"
                th:type="${section.relatedTopicFileMediaType}" />
             Sorry, your browser doesn't support embedded videos,
-            but don't worry, you can <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}">download it</a>
+            but don't worry, you can <a th:href="'/files/file/' + ${section.relatedTopicFilePath}">download it</a>
             and watch it with your favorite video player!
          </video>
     </div>

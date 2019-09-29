@@ -422,7 +422,7 @@
         "assoc_types": [
             {
                 "value":            "Webpage File Element",
-                "dataTypeUri":    "dmx.core.text",
+                "dataTypeUri":      "dmx.core.text",
                 "uri":              "de.mikromedia.element.file_edge"
             }
         ]

@@ -100,8 +100,8 @@ public interface WebpageService {
     public static final String COMPOSITION = "dmx.core.composition";
     public static final String DMX_FILE = "dmx.files.file";
     public static final String FILE_PATH = "dmx.files.path";
-    public static final String TIME_CREATED = "dmx.time.created";
-    public static final String TIME_MODIFIED = "dmx.time.modified";
+    public static final String TIME_CREATED = "dmx.timestamps.created";
+    public static final String TIME_MODIFIED = "dmx.timestamps.modified";
     public static final String USERNAME = "dmx.accesscontrol.username";
     public static final String INSTITUTION = "dmx.contacts.institution";
 

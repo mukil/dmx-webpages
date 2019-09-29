@@ -36,23 +36,28 @@
                 {
                     "childTypeUri":           "de.mikromedia.tile.headline",
                     "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttribute":    true,
                     "includeInLabel":         true
                 },
                 {
                     "childTypeUri":           "de.mikromedia.tile.html",
+                    "isIdentityAttribute":    true,
                     "childCardinalityUri":    "dmx.core.one"
                 },
                 {
                     "childTypeUri":           "de.mikromedia.link",
                     "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttribute":    true,
                     "includeInLabel":         true
                 },
                 {
                     "childTypeUri":           "de.mikromedia.background.color",
+                    "isIdentityAttribute":    true,
                     "childCardinalityUri":    "dmx.core.one"
                 },
                 {
                     "childTypeUri":           "de.mikromedia.font.color",
+                    "isIdentityAttribute":    true,
                     "childCardinalityUri":    "dmx.core.one"
                 }
             ],
@@ -60,8 +65,7 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": false,
-                        "dmx.webclient.icon": "/de.mikromedia.webpages/images/ball-orange-content.png"
+                        "dmx.webclient.add_to_create_menu": false
                     }
                 }
              ]

@@ -1,8 +1,6 @@
 package de.mikromedia.webpages.migrations;
 
 import systems.dmx.accesscontrol.AccessControlService;
-import systems.dmx.core.AssocType;
-import systems.dmx.core.TopicType;
 import systems.dmx.core.service.Inject;
 import systems.dmx.core.service.Migration;
 import systems.dmx.workspaces.WorkspacesService;
@@ -20,16 +18,9 @@ public class Migration13 extends Migration {
     @Override
     public void run () {
         // 1) Add attachment style to "Image Small" and "Image Large" Edges
-        TopicType sizeStyle = dmx.getTopicType("de.mikromedia.image.size_style");
-        TopicType attachmentStyle = dmx.getTopicType("de.mikromedia.image.attachment_style");
-        AssocType imageLarge = dmx.getAssocType("de.mikromedia.image.large");
-        imageLarge.setDataTypeUri("dmx.core.identity");
-        imageLarge.addCompDef(mf.newCompDefModel(imageLarge.getUri(), sizeStyle.getUri(), "dmx.core.one"));
-        imageLarge.addCompDef(mf.newCompDefModel(imageLarge.getUri(), attachmentStyle.getUri(), "dmx.core.one"));
-        AssocType imageSmall = dmx.getAssocType("de.mikromedia.image.small");
-        imageSmall.setDataTypeUri("dmx.core.identity");
-        imageSmall.addCompDef(mf.newCompDefModel(imageSmall.getUri(), sizeStyle.getUri(), "dmx.core.one"));
-        imageSmall.addCompDef(mf.newCompDefModel(imageSmall.getUri(), attachmentStyle.getUri(), "dmx.core.one"));
+        // ### Moved to migration6.json as the migration caused problems with DMX 5.0-beta-5
+        // ### My guess is that type.setDataTypeUri() is not yet supported by the platform
+        // ### as Serialization always failed at these two types (in an fetchAllAssocTypes operation)
     }
 
 }
