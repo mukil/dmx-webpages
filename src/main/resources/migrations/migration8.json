@@ -31,12 +31,11 @@
         {
             "value": "Tile",
             "uri": "de.mikromedia.tile",
-            "dataTypeUri": "dmx.core.identity",
+            "dataTypeUri": "dmx.core.value",
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.tile.headline",
                     "childCardinalityUri":    "dmx.core.one",
-                    "isIdentityAttribute":    true,
                     "includeInLabel":         true
                 },
                 {
@@ -46,14 +45,26 @@
                 {
                     "childTypeUri":           "de.mikromedia.link",
                     "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true,
+                              "dmx.webclient.customizable": true
+                            }
+                        }
+                    ],
                     "includeInLabel":         true
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.background.color",
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.background.color",
                     "childCardinalityUri":    "dmx.core.one"
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.font.color",
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.font.color",
                     "childCardinalityUri":    "dmx.core.one"
                 }
             ],
@@ -120,6 +131,7 @@
                 {
                     "childTypeUri":           "de.mikromedia.section.title",
                     "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttribute":    true,
                     "includeInLabel":         true
                 },
                 {
@@ -128,19 +140,39 @@
                 },
                 {
                     "childTypeUri":           "de.mikromedia.section.layout",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "de.mikromedia.section.placement",
                     "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true
+                            }
+                        }
+                    ],
                     "includeInLabel":         true
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.background.color",
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.background.color",
                     "childCardinalityUri":    "dmx.core.one"
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.font.color",
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.font.color",
                     "childCardinalityUri":    "dmx.core.one"
                 }
             ],
@@ -190,16 +222,6 @@
             "typeUri": "de.mikromedia.section.placement",
             "uri" : "de.mikromedia.placement.below",
             "value": "Below Content"
-        },
-        {
-            "typeUri": "de.mikromedia.section.placement",
-            "uri" : "de.mikromedia.placement.left",
-            "value": "Aside Left"
-        },
-        {
-            "typeUri": "de.mikromedia.section.placement",
-            "uri" : "de.mikromedia.placement.right",
-            "value": "Aside Right"
         }
     ]
 }

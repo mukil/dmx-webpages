@@ -26,9 +26,10 @@ public class Migration16 extends Migration {
         // Webpage Section
         TopicType section = dmx.getTopicType("de.mikromedia.section");
         TopicType sectionCss = dmx.getTopicType("de.mikromedia.section.css_class");
+        // ### Todo: Add Select Widget to CompDef ViewConfig
         DMXType assocDef = section.addCompDef(mf.newCompDefModel(section.getUri(), sectionCss.getUri(), "dmx.core.one"));
-        workspacesService.assignToWorkspace(sectionCss, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(assocDef, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionCss, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(assocDef, webpagesWorkspace.getId());
         Topic videoEmbedLayout = dmx.getTopicByUri("de.mikromedia.layout.embed");
         workspacesService.assignToWorkspace(videoEmbedLayout, webpagesWorkspace.getId());
 

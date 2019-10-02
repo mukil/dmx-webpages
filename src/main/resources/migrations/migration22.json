@@ -90,7 +90,7 @@
                 { ### File as WebpageElement
                     "childTypeUri":           "dmx.files.file",
                     "childCardinalityUri":    "dmx.core.one",
-                    "customAssocTypeUri":    "de.mikromedia.element.file_edge"
+                    "customAssocTypeUri":     "de.mikromedia.element.file_edge"
                 },
                 { ### Webpage Element Target (Href, Hyperlink)
                     "childTypeUri":           "de.mikromedia.element.link_target",

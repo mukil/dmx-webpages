@@ -439,6 +439,16 @@
                 "value":            "Webpage File Element",
                 "dataTypeUri":      "dmx.core.text",
                 "uri":              "de.mikromedia.element.file_edge"
+            },
+            {
+                "value":            "Background Color",
+                "uri":              "de.mikromedia.background.color",
+                "dataTypeUri":      "dmx.core.text"
+            },
+            {
+                "value":            "Font Color",
+                "uri":              "de.mikromedia.font.color",
+                "dataTypeUri":      "dmx.core.text"
             }
         ]
     },

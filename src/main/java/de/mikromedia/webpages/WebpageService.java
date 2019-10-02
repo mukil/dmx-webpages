@@ -36,8 +36,8 @@ public interface WebpageService {
     // ### TODO: Switch to related "Person" topics for authorship
     public static final String AUTHOR_NAME = "de.mikromedia.page.author_name";
 
-    public static final String BACKGROUND_COLOR = "de.mikromedia.background.color";
-    public static final String FONT_COLOR = "de.mikromedia.font.color";
+    public static final String BACKGROUND_COLOR_ASSOC = "de.mikromedia.background.color";
+    public static final String FONT_COLOR_ASSOC = "de.mikromedia.font.color";
 
     public static final String HEADER = "de.mikromedia.header";
     public static final String HEADER_TITLE = "de.mikromedia.header.title";
@@ -93,6 +93,7 @@ public interface WebpageService {
     public static final String DEFAULT_SIZE = "contain";
 
     /** Standard Distribution URIs (DM4) **/
+    public static final String WEBCLIENT_COLOR = "dmx.webclient.color";
     public static final String ROLE_DEFAULT = "dmx.core.default";
     public static final String ROLE_CHILD = "dmx.core.child";
     public static final String ROLE_PARENT = "dmx.core.parent";

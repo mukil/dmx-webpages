@@ -14,10 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
 import static de.mikromedia.webpages.WebpageService.DEFAULT_ATTACHMENT;
 import static de.mikromedia.webpages.WebpageService.DEFAULT_SIZE;
-import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
 import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
@@ -32,6 +30,9 @@ import systems.dmx.core.Topic;
 import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.util.JavaUtils;
 import static de.mikromedia.webpages.WebpageService.DMX_FILE;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
 
 public class Section {
 
@@ -229,11 +230,11 @@ public class Section {
     }
 
     public String getBackgroundColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
+        return this.pageSection.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
     }
 
     public String getFontColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(FONT_COLOR);
+        return this.pageSection.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
     }
 
     private List<Tile> getTilesSorted(List<Tile> all) {

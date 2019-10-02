@@ -25,7 +25,7 @@ public class Migration5 extends Migration {
         Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         // 1) Assing Website child types to new "Webpages" workspace too
         TopicType sitePrefix = dmx.getTopicType("de.mikromedia.site.prefix");
-        workspacesService.assignToWorkspace(sitePrefix, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sitePrefix, webpagesWorkspace.getId());
         // 2) Add website prefix to "Website" type
         TopicType siteType = dmx.getTopicType("de.mikromedia.site");
         siteType.addCompDef(mf.newCompDefModel(siteType.getUri(), sitePrefix.getUri(), "dmx.core.one"));

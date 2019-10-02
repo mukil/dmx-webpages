@@ -28,19 +28,19 @@ public class Migration9 extends Migration {
         TopicType sectionContent = dmx.getTopicType("de.mikromedia.tile");
         TopicType sectionLayout = dmx.getTopicType("de.mikromedia.section.layout");
         TopicType sectionPlacement = dmx.getTopicType("de.mikromedia.section.placement");
-        workspacesService.assignToWorkspace(section, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionTitle, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionContent, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionLayout, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(sectionPlacement, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(section, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionTitle, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionContent, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionLayout, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionPlacement, webpagesWorkspace.getId());
         // workspacesService.assignToWorkspace(sectionViewConfig, webpagesWorkspace.getId());
         // Section Content
         // ### Topic sectionContentViewConfig = sectionContent.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
         // workspacesService.assignToWorkspace(sectionContentViewConfig, webpagesWorkspace.getId());
         TopicType headline = dmx.getTopicType("de.mikromedia.tile.headline");
         TopicType sectionHtml = dmx.getTopicType("de.mikromedia.tile.html");
-        workspacesService.assignToWorkspace(sectionHtml, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(headline, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionHtml, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(headline, webpagesWorkspace.getId());
 
     }
 

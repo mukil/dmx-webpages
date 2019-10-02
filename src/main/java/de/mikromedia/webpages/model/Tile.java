@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import static de.mikromedia.webpages.WebpageService.TILE_HEADLINE;
-import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
-import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SMALL;
 import static de.mikromedia.webpages.WebpageService.LINK;
@@ -21,6 +19,9 @@ import systems.dmx.core.RelatedTopic;
 import systems.dmx.core.Topic;
 import systems.dmx.core.model.SimpleValue;
 import static de.mikromedia.webpages.WebpageService.DMX_FILE;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
 
 public class Tile {
     
@@ -124,11 +125,11 @@ public class Tile {
     }
 
     public String getBackgroundColor() {
-        return this.content.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
+        return this.content.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
     }
 
     public String getFontColor() {
-        return this.content.getChildTopics().getStringOrNull(FONT_COLOR);
+        return this.content.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
     }
 
     public JSONObject toJSON() {

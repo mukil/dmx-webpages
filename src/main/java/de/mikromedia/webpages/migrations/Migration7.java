@@ -27,34 +27,34 @@ public class Migration7 extends Migration {
         Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         // 1) Assign new association types to "Webpages" workspace too
         AssocType desktopHeaderImage = dmx.getAssocType("de.mikromedia.image.large");
-        workspacesService.assignToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
         AssocType mobileHeaderImage = dmx.getAssocType("de.mikromedia.image.small");
-        workspacesService.assignToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
         // 2) Assign new topic types to "Webpages" workspace
         TopicType header = dmx.getTopicType("de.mikromedia.header");
         // ### Topic headerViewConfig = header.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
-        // workspacesService.assignToWorkspace(headerViewConfig, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(header, webpagesWorkspace.getId());
+        // workspacesService.assignTypeToWorkspace(headerViewConfig, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(header, webpagesWorkspace.getId());
         TopicType headerTitle = dmx.getTopicType("de.mikromedia.header.title");
-        workspacesService.assignToWorkspace(headerTitle, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(headerTitle, webpagesWorkspace.getId());
         TopicType headerContent = dmx.getTopicType("de.mikromedia.header.html");
-        workspacesService.assignToWorkspace(headerContent, webpagesWorkspace.getId());
-        TopicType headerColorBg = dmx.getTopicType("de.mikromedia.background.color");
-        workspacesService.assignToWorkspace(headerColorBg, webpagesWorkspace.getId());
-        TopicType headerColorFont = dmx.getTopicType("de.mikromedia.font.color");
-        workspacesService.assignToWorkspace(headerColorFont, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(headerContent, webpagesWorkspace.getId());
+        AssocType headerColorBg = dmx.getAssocType("de.mikromedia.background.color");
+        workspacesService.assignTypeToWorkspace(headerColorBg, webpagesWorkspace.getId());
+        AssocType headerColorFont = dmx.getAssocType("de.mikromedia.font.color");
+        workspacesService.assignTypeToWorkspace(headerColorFont, webpagesWorkspace.getId());
         TopicType headerScript = dmx.getTopicType("de.mikromedia.header.js");
-        workspacesService.assignToWorkspace(headerScript, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(headerScript, webpagesWorkspace.getId());
         TopicType button = dmx.getTopicType("de.mikromedia.button");
         // ### Topic buttonViewConfig = button.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
-        // workspacesService.assignToWorkspace(buttonViewConfig, webpagesWorkspace.getId());
-        workspacesService.assignToWorkspace(button, webpagesWorkspace.getId());
+        // workspacesService.assignTypeToWorkspace(buttonViewConfig, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(button, webpagesWorkspace.getId());
         TopicType buttonTitle = dmx.getTopicType("de.mikromedia.button.title");
-        workspacesService.assignToWorkspace(buttonTitle, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(buttonTitle, webpagesWorkspace.getId());
         TopicType buttonHref = dmx.getTopicType("de.mikromedia.link");
-        workspacesService.assignToWorkspace(buttonHref, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(buttonHref, webpagesWorkspace.getId());
         TopicType buttonStyle = dmx.getTopicType("de.mikromedia.button.style");
-        workspacesService.assignToWorkspace(buttonStyle, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(buttonStyle, webpagesWorkspace.getId());
 
     }
 

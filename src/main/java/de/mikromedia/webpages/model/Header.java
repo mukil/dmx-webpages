@@ -12,11 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR;
 import static de.mikromedia.webpages.WebpageService.BUTTON_TITLE;
 import static de.mikromedia.webpages.WebpageService.DEFAULT_ATTACHMENT;
 import static de.mikromedia.webpages.WebpageService.DEFAULT_SIZE;
-import static de.mikromedia.webpages.WebpageService.FONT_COLOR;
 import static de.mikromedia.webpages.WebpageService.IMAGE_ATTACHMENT_STYLE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_LARGE;
 import static de.mikromedia.webpages.WebpageService.IMAGE_SIZE_STYLE;
@@ -26,6 +24,9 @@ import systems.dmx.core.RelatedTopic;
 import systems.dmx.core.Topic;
 import systems.dmx.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.DMX_FILE;
+import static de.mikromedia.webpages.WebpageService.FONT_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
 
 public class Header {
 
@@ -139,11 +140,11 @@ public class Header {
     }
 
     public String getBackgroundColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(BACKGROUND_COLOR);
+        return this.pageHeader.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
     }
 
     public String getFontColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(FONT_COLOR);
+        return this.pageHeader.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
     }
 
     public JSONObject toJSON() {
