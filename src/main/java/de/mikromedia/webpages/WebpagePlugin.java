@@ -835,8 +835,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
      */
     private void prepareGenericViewData(String filename, String websitePrefix, String webAlias) {
         String username = accesscontrol.getUsername();
+        // Todo: Should footer fragment name play a role on custom root resource pages?
         String footerName = getFooterFragmentName(websitePrefix);
         viewData("authenticated", (username != null));
+        // Todo: Should write permission play a role on custom root resource pages?
         viewData("is_publisher", hasWritePermissionOnWebsite(websitePrefix, username));
         viewData("username", username);
         viewData("website", websitePrefix);
@@ -848,12 +850,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     private String getFooterFragmentName(String websitePrefix) {
         Topic website = getWebsiteByPrefix(websitePrefix);
+        if (website == null) website = getStandardWebsite();
         Topic footerFragment = website.getChildTopics().getTopicOrNull("de.mikromedia.site.footer_fragment_name");
         return (footerFragment != null) ? footerFragment.getUri().substring(21) : "footer-new"; // stripping "de.mikromedia.footer." from topic URI as name
     }
 
     private boolean hasWritePermissionOnWebsite(String websitePrefix, String username) {
         Topic website = getWebsiteByPrefix(websitePrefix);
+        if (website == null) website = getStandardWebsite();
         Topic websiteWorkspace = workspaces.getAssignedWorkspace(website.getId());
         accesscontrol.isMember(username, websiteWorkspace.getId());
         String wsSharingMode = websiteWorkspace.getChildTopics().getString("dmx.workspaces.sharing_mode");
