@@ -1,6 +1,8 @@
 
 <!-- Header (Area) Inline Styles -->
 <div class="inline-styles" th:fragment="header-style (header)">
+
+    <!-- Hero Image Styles -->
     <style th:if="${header and not #strings.isEmpty(header.largeImage)}" th:inline="text">
         /*<![CDATA[*/
         @media(min-width: 1025px) {
@@ -11,7 +13,9 @@
                 background-attachment: [[${header.largeImageAttachment}]];
                 background-size: [[${header.largeImageSize}]];
             }
-        }
+            .page header.ui.masthead.segment {
+                min-height: 700px;
+            }
         /*]]*/
     </style>
     <style th:if="${header and not #strings.isEmpty(header.smallImage)}" th:inline="text">
@@ -24,9 +28,14 @@
                 background-attachment: [[${header.smallImageAttachment}]];
                 background-size: [[${header.smallImageSize}]];
             }
+            .page header.ui.masthead.segment {
+                min-height: 700px;
+            }
         }
         /*]]>*/
     </style>
+
+    <!-- Background Color Styles -->
     <style th:if="${header and not #strings.isEmpty(header.largeImage) and not #strings.isEmpty(header.smallImage)}"
            th:inline="text">
         /*<![CDATA[*/
@@ -60,6 +69,12 @@
         .page .ui.segment.header-background .ui.menu {
             background-color: [[${header.backgroundColor}]];
             color: [[${header.fontColor}]];
+        }
+        .page header.ui.masthead.segment {
+            min-height: 550px;
+        }
+        .page header.ui.segment.masthead h1.ui.header {
+            margin-top: 3.5em;
         }
         /*]]>*/
     </style>
