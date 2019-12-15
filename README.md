@@ -42,14 +42,23 @@ Note: The permission who can see your published webpage depends on the so called
 
 ## Changelog
 
+**0.8.0** - Upcoming
+
+* Compatible with DMX 5.0 development branch (`master` branch)
+* Depends on dmx-platform issues (among them https://git.dmx.systems/dmx-platform/dmx-platform/issues/28)
+
+
 **0.7.2** - Upcoming
 
-* Iprovements and fixes for third-party plugin integration
+(maintained in `dm4` branch)
+
+* Compatible with DM 4.9.2
+* Improvements and fixes for third-party plugin integration
 * Enabled font-smoothing, esp. for bold bright serif texts on dark backgrounds
 * Added very basic json-ld mapping for an Institution to be publisher of the frontpage
 * Include tile child values and section titles in fulltext search results.
 * Preparations of displaying topic type icons on pages
-* Style fix for unlegible text in footer area
+* Interchangeable footer thymeleaf fragment
 * Optimized loading of javascript resources & page script initialization
 * Adjustment of header button, section header and _Pages_ section style
 * Added contact-form and mapbox-widget as _Section Layouts_

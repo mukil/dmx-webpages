@@ -65,7 +65,7 @@ import systems.dmx.thymeleaf.ThymeleafPlugin;
 import systems.dmx.workspaces.WorkspacesService;
 
 /**
- * Collaborative, multi-site standard HTML web pages with DMX 4.
+ * Collaborative, multi-site standard HTML web pages with DMX 5.0.
  *
  * Once the webpages module is installed web developers hook into this thymeleaf
  * processing by using context() in event listeners fired for one of
@@ -88,9 +88,9 @@ import systems.dmx.workspaces.WorkspacesService;
  * The REST API  for search is located under "/webpages".
  * 
  * @author Malte Rei&szlig;ig <a href="mailto:malte@mikromedia.de">malte@mikromedia.de></a>
- * @version 0.7.2-SNAPSHOT - Source code compatible with DMX 4.9.1+
+ * @version 0.8.0-SNAPSHOT - Source code compatible with DMX 5.0-beta-6
  * 
- * Last modified: 03.04.2018
+ * Last modified: 15.12.2019
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)

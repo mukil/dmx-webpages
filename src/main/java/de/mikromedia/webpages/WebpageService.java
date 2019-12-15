@@ -9,10 +9,10 @@ import org.osgi.framework.Bundle;
 import systems.dmx.core.Topic;
 
 /**
- * Collaborative, multi-site standard HTML webpages with DeepaMehta 4.
+ * Collaborative, multi-site standard HTML webpages with DMX.
  *
- * @author Malte Rei&szlig;ig
- * @version 0.4.2 - compatible with DeepaMehta 4.8
+ * @author Malte Rei&szlig;ig <a href="mailto:malte@mikromedia.de">malte@mikromedia.de></a>
+ * @version 0.8.0 - compatible with DMX 5.0
  */
 public interface WebpageService {
 
