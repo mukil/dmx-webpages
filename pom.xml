@@ -4,8 +4,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>DMX Webpages</name>
-    <groupId>systems.dmx</groupId>
+    <name>Mikromedia Webpages</name>
+    <groupId>de.mikromedia</groupId>
     <artifactId>dmx-webpages</artifactId>
     <version>0.8.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
@@ -13,14 +13,8 @@
     <parent>
         <groupId>systems.dmx</groupId>
         <artifactId>dmx-plugin</artifactId>
-        <version>5.0-beta-6</version>
+        <version>5.0-beta-7</version>
     </parent>
-
-    <properties>
-	<!--dmx.deploy.dir>/home/malt/source/dmx/dmx-platform/bundle-deploy</dmx.deploy.dir-->
-        <!--dmx.deploy.dir>/home/malt/Documents/dm4-systems/platform/bundle-deploy</dmx.deploy.dir-->
-	<!--dmx.deploy.dir>/home/malted/Downloads/deepamehta-4.8.1/bundle-deploy</dmx.deploy.dir-->
-    </properties>
 
     <dependencies>
         <dependency>
@@ -36,12 +30,42 @@
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-accesscontrol</artifactId>
-            <version>5.0-beta-6</version>
+            <version>5.0-beta-7</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <!-- Needed for Local Webpack & CI/CD -->
+                        <id>npm-install</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <commandlineArgs>install</commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm-run-build</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>npm</executable>
+                            <commandlineArgs>run build</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>

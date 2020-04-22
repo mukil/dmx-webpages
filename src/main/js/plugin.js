@@ -1,4 +1,102 @@
-dm4c.add_plugin("de.mikromedia.webpages", function() {
+export default ({dm5, axios}) => ({
+
+  contextCommands: {
+    topic: topic => {
+      if (topic.typeUri === 'de.mikromedia.site') {
+        return [{
+          label: 'Browse',
+          handler: id => {
+            dm5.restClient.getTopic(id, true)
+              .then(function(response) {
+                var prefix = response.children["de.mikromedia.site.prefix"].value
+                var win = window.open('/' + prefix, '_blank')
+                win.focus()
+              })
+          }
+        }]
+      }
+    }
+  }
+
+})
+
+/**
+ * if (topic.type_uri === 'dmx.accesscontrol.user_account' && dm4c.restc.get_username()) {
+            commands.push({is_separator: true, context: 'context-menu'})
+            commands.push({
+                label: 'My Website',
+                handler: show_personal_website,
+                context: ['context-menu', 'detail-panel-show']
+            })
+        } else if (topic.type_uri === 'de.mikromedia.site') {
+            commands.push({is_separator: true, context: 'context-menu'})
+            commands.push({
+                label: 'Add Header',
+                handler: add_webpage_header,
+                context: ['context-menu', 'detail-panel-show']
+            })
+            commands.push({
+                label: 'Add Section',
+                handler: add_webpage_section,
+                context: ['context-menu', 'detail-panel-show']
+            })
+            commands.push({
+                label: 'Add Webpage',
+                handler: add_webpage,
+                context: ['context-menu', 'detail-panel-show']
+            })
+        } else if (topic.type_uri === 'de.mikromedia.page') {
+            connected_websites = get_related_website(topic.id)
+            if (connected_websites && connected_websites.length > 0) {
+                var button_label = (webpage_is_draft()) ? "View Draft" : "Browse"
+                commands.push({is_separator: true, context: 'context-menu'})
+                commands.push({
+                    label: button_label,
+                    handler: browse_webpage,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+                commands.push({is_separator: true, context: 'context-menu'})
+                commands.push({
+                    label: 'Add Section',
+                    handler: add_webpage_section,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+                commands.push({
+                    label: 'Add Header',
+                    handler: add_webpage_header,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+                commands.push({is_separator: true, context: 'context-menu'})
+                commands.push({
+                    label: 'Website',
+                    handler: show_related_website,
+                    context: ['context-menu', 'detail-panel-show']
+                })
+            } else {
+                if ($('.page-message.hint').length === 0 && $('#page-content input').length === 0) {
+                    var $label = $('<div class="page-message hint">')
+                        $label.append('To browse this webpage you need to associate it with a '
+                            + '<em>Website</em>.<br/>To reveal your personal website ')
+                    var reveal = $('<a>').text('click here.')
+                        reveal.click(function(e) {
+                            show_personal_website()
+                            $label.remove()
+                        })
+                        $label.append(reveal)
+                    var $close = $('<a>').text("X").addClass("close").attr("title", "Hide this message")
+                        $close.click(function(e) {
+                            $label.remove()
+                        })
+                        $label.append($close)
+                    $label.insertBefore('#page-toolbar')
+                    setTimeout(function(e) {
+                        $label.remove()
+                    }, 4200)
+                }
+            }
+        }
+ */
+/** dm4c.add_plugin("de.mikromedia.webpages", function() {
 
     var connected_websites = undefined
 
@@ -80,10 +178,7 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
         }
     }
 
-    function open_in_new_tab(url) {
-        var win = window.open(url, '_blank')
-        win.focus()
-    }
+
 
     function get_related_website(webpageId) {
         return dm4c.restc.get_topic_related_topics(webpageId, {
@@ -183,4 +278,4 @@ dm4c.add_plugin("de.mikromedia.webpages", function() {
         return commands
     })
 
-})
+**/

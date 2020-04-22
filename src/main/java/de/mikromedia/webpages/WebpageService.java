@@ -94,11 +94,6 @@ public interface WebpageService {
 
     /** Standard Distribution URIs (DM4) **/
     public static final String WEBCLIENT_COLOR = "dmx.webclient.color";
-    public static final String ROLE_DEFAULT = "dmx.core.default";
-    public static final String ROLE_CHILD = "dmx.core.child";
-    public static final String ROLE_PARENT = "dmx.core.parent";
-    public static final String ASSOCIATION = "dmx.core.association";
-    public static final String COMPOSITION = "dmx.core.composition";
     public static final String DMX_FILE = "dmx.files.file";
     public static final String FILE_PATH = "dmx.files.path";
     public static final String TIME_CREATED = "dmx.timestamps.created";

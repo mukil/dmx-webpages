@@ -1,9 +1,7 @@
 package de.mikromedia.webpages.model;
 
 import static de.mikromedia.webpages.WebpageService.AUTHOR_NAME;
-import static de.mikromedia.webpages.WebpageService.COMPOSITION;
-import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
-import static de.mikromedia.webpages.WebpageService.ROLE_PARENT;
+import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.TIME_CREATED;
 import static de.mikromedia.webpages.WebpageService.TIME_MODIFIED;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE;
@@ -29,8 +27,7 @@ public class Webpage implements JSONEnabled {
     public Topic page;
 
     public Webpage(Topic pageAliasTopic) {
-        this.page = pageAliasTopic.getRelatedTopic(COMPOSITION,
-            ROLE_CHILD, ROLE_PARENT, WEBPAGE);
+        this.page = pageAliasTopic.getRelatedTopic(COMPOSITION, CHILD, PARENT, WEBPAGE);
         if (!isWebpageTopic()) {
             throw new IllegalArgumentException("Given topic is not of type Webpage");
         }

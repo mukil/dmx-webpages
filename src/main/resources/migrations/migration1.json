@@ -1,7 +1,6 @@
 [
     {
-
-        "topic_types": [
+       "topic_types": [
             {
                 "value": "Website Name",
                 "uri": "de.mikromedia.site.name",
@@ -294,7 +293,8 @@
                     },
                     {
                         "childTypeUri":           "de.mikromedia.page.web_alias",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     },
                     {
                         "childTypeUri":           "de.mikromedia.page.is_draft",
@@ -367,11 +367,13 @@
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.menu.item_name",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     },
                     {
                         "childTypeUri":           "de.mikromedia.menu.item_href",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     },
                     {
                         "childTypeUri":           "de.mikromedia.menu.item_active",
@@ -395,15 +397,18 @@
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.redirect.web_alias",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     },
                     {
                         "childTypeUri":           "de.mikromedia.redirect.target_url",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     },
                     {
                         "childTypeUri":           "de.mikromedia.redirect.status_code",
-                        "childCardinalityUri":    "dmx.core.one"
+                        "childCardinalityUri":    "dmx.core.one",
+                        "isIdentityAttribute":    true
                     }
                 ],
                 "viewConfigTopics": [
@@ -421,17 +426,17 @@
             {
                 "typeUri": "de.mikromedia.site.stylesheet",
                 "uri" : "de.mikromedia.standard_site_style",
-                "value": "/de.mikromedia.webpages/css/standard-grey.css"
+                "value": "/de.mikromedia.webpages/static/css/standard-grey.css"
             },
             {
                 "typeUri": "de.mikromedia.site.stylesheet",
                 "uri" : "de.mikromedia.semantic_ui_style",
-                "value": "/de.mikromedia.webpages/css/semantic-ui.css"
+                "value": "/de.mikromedia.webpages/static/css/semantic-ui.css"
             },
             {
                 "typeUri": "de.mikromedia.page.stylesheet",
                 "uri" : "de.mikromedia.standard_page_style",
-                "value": "/de.mikromedia.webpages/css/standard-page.css"
+                "value": "/de.mikromedia.webpages/static/css/standard-page.css"
             }
         ],
         "assoc_types": [

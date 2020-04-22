@@ -55,6 +55,7 @@ import systems.dmx.core.model.PlayerModel;
 import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.service.DMXEvent;
 import systems.dmx.core.service.Inject;
+import static systems.dmx.core.Constants.*;
 import systems.dmx.core.service.accesscontrol.AccessControlException;
 import systems.dmx.core.service.event.PreCreateAssoc;
 import systems.dmx.core.service.event.ServiceResponseFilter;
@@ -77,8 +78,8 @@ import systems.dmx.workspaces.WorkspacesService;
  * - /{sitePrefix}/{webAlias}   page
  * - 404                        page not found
  * 
- * Additionally your plugin can take over dmx-webpages thymeleaf template fragments with OGNL expression language.
- * The templates can be:
+ * Additionally your plugin can override dmx-webpages thymeleaf template fragments with OGNL expression language.
+ * To override the templates place them in your plugins src/main/resources/ folder:
  * 
  * - "/views/fragments/navigation.html"
  * - "/views/fragments/footer.html"
@@ -88,9 +89,9 @@ import systems.dmx.workspaces.WorkspacesService;
  * The REST API  for search is located under "/webpages".
  * 
  * @author Malte Rei&szlig;ig <a href="mailto:malte@mikromedia.de">malte@mikromedia.de></a>
- * @version 0.8.0-SNAPSHOT - Source code compatible with DMX 5.0-beta-6
+ * @version 0.8.0-SNAPSHOT - Source code compatible with DMX 5.0-beta-7
  * 
- * Last modified: 15.12.2019
+ * Last modified: 21.04.2020
  */
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -472,7 +473,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     }
 
     public Topic getRelatedHeader(Topic topic) {
-        Topic header = topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, HEADER);
+        Topic header = topic.getRelatedTopic(ASSOCIATION, DEFAULT, DEFAULT, HEADER);
         if (header != null) {
             header.loadChildTopics();
         }
@@ -482,7 +483,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     public List<RelatedTopic> getRelatedWebpageSections(Topic page) {
         List<RelatedTopic> sections = null;
         if (page != null ) {
-            sections = page.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, SECTION);
+            sections = page.getRelatedTopics(ASSOCIATION, DEFAULT, DEFAULT, SECTION);
             if (sections != null && sections.size() > 0) {
                 DMXUtils.loadChildTopics(sections);
             }
@@ -493,7 +494,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     }
 
     public Topic getLargeImageRelated(Topic header) {
-        Topic desktopImage = header.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT, DMX_FILE);
+        Topic desktopImage = header.getRelatedTopic(IMAGE_LARGE, DEFAULT, DEFAULT, DMX_FILE);
         if (desktopImage != null) {
             desktopImage.loadChildTopics();
         }
@@ -501,7 +502,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     }
 
     public Topic getSmallImageRelated(Topic header) {
-        Topic mobileImage = header.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT, ROLE_DEFAULT, DMX_FILE);
+        Topic mobileImage = header.getRelatedTopic(IMAGE_SMALL, DEFAULT, DEFAULT, DMX_FILE);
         if (mobileImage != null) {
             mobileImage.loadChildTopics();
         }
@@ -614,7 +615,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         Topic prefix = dmx.getTopicByValue(WEBSITE_PREFIX, new SimpleValue(value));
         Topic website = null;
         if (prefix != null) {
-            website = prefix.getRelatedTopic(COMPOSITION, ROLE_CHILD, ROLE_PARENT, WEBSITE);
+            website = prefix.getRelatedTopic(COMPOSITION, CHILD, PARENT, WEBSITE);
         }
         return website;
     }
@@ -651,7 +652,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     }
 
     private Topic getUserRelatedWebsite(Topic username) {
-        return username.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT, ROLE_DEFAULT, WEBSITE);
+        return username.getRelatedTopic(ASSOCIATION, DEFAULT, DEFAULT, WEBSITE);
     }
 
     /**
@@ -725,8 +726,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     private Assoc createWebsiteUsernameAssoc(Topic usernameTopic, Topic website) {
         return dmx.createAssoc(mf.newAssocModel(ASSOCIATION,
-                mf.newTopicPlayerModel(usernameTopic.getId(), ROLE_DEFAULT),
-                mf.newTopicPlayerModel(website.getId(), ROLE_DEFAULT)));
+                mf.newTopicPlayerModel(usernameTopic.getId(), DEFAULT),
+                mf.newTopicPlayerModel(website.getId(), DEFAULT)));
     }
 
     /**
@@ -1043,17 +1044,17 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             if (topic1.getTypeUri().equals(HEADER) || topic2.getTypeUri().equals(HEADER)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
                     DMXUtils.associationAutoTyping(am, HEADER,
-                        DMX_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT);
+                        DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             } else if (topic1.getTypeUri().equals(TILE) || topic2.getTypeUri().equals(TILE)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
                     DMXUtils.associationAutoTyping(am, TILE,
-                        DMX_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT);
+                        DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             } else if (topic1.getTypeUri().equals(SECTION) || topic2.getTypeUri().equals(SECTION)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
                     DMXUtils.associationAutoTyping(am, SECTION,
-                        DMX_FILE, IMAGE_LARGE, ROLE_DEFAULT, ROLE_DEFAULT);
+                        DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             }
         }

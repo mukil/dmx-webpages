@@ -6,7 +6,7 @@
  **/
 
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
-@import url('/de.mikromedia.webpages/css/semantic-ui/qpq-dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/static/css/semantic-ui/qpq-dist/semantic.min.css');
 
 
 .page .masthead.segment {

@@ -4,7 +4,6 @@
             "value": "Website Prefix (URL)",
             "uri": "de.mikromedia.site.prefix",
             "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.key"],
             "viewConfigTopics": [
                 {
                     "typeUri": "dmx.webclient.view_config",

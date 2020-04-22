@@ -36,6 +36,7 @@
                 {
                     "childTypeUri":           "de.mikromedia.tile.headline",
                     "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttr":         true,
                     "includeInLabel":         true
                 },
                 {
@@ -126,12 +127,12 @@
         {
             "value": "Webpage Section",
             "uri": "de.mikromedia.section",
-            "dataTypeUri": "dmx.core.identity",
+            "dataTypeUri": "dmx.core.value",
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.section.title",
                     "childCardinalityUri":    "dmx.core.one",
-                    "isIdentityAttribute":    true,
+                    "isIdentityAttr":         true,
                     "includeInLabel":         true
                 },
                 {

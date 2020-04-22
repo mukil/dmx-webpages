@@ -1,12 +1,10 @@
 package de.mikromedia.webpages.model;
 
-import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_ACTIVE;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_HREF;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_NAME;
-import static de.mikromedia.webpages.WebpageService.ROLE_CHILD;
-import static de.mikromedia.webpages.WebpageService.ROLE_PARENT;
+import static systems.dmx.core.Constants.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -99,8 +97,7 @@ public class MenuItem implements JSONEnabled {
     }
 
     private void loadRelatedMenuItems() {
-        relatedItems = menuItem.getRelatedTopics(ASSOCIATION, ROLE_PARENT,
-                ROLE_CHILD, MENU_ITEM);
+        relatedItems = menuItem.getRelatedTopics(ASSOCIATION, PARENT, CHILD, MENU_ITEM);
         hasChildItems = (relatedItems.size() > 0);
         sortMenuItems(relatedItems);
     }

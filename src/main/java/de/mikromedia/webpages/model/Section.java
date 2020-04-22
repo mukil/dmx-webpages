@@ -1,9 +1,8 @@
 package de.mikromedia.webpages.model;
 
 
-import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
-import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import static de.mikromedia.webpages.WebpageService.SECTION;
 import static de.mikromedia.webpages.WebpageService.SECTION_LAYOUT;
 import static de.mikromedia.webpages.WebpageService.SECTION_PLACEMENT;
@@ -96,14 +95,14 @@ public class Section {
     }
 
     public String getSmallImage() {
-        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_SMALL, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getSmallImageAttachment() {
-        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, DEFAULT,
+                DEFAULT, DMX_FILE);
         String val = null;
         if (imageSmall != null) {
             Assoc imageConfig = imageSmall.getRelatingAssoc();
@@ -113,8 +112,8 @@ public class Section {
     }
 
     public String getSmallImageSize() {
-        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        RelatedTopic imageSmall = this.pageSection.getRelatedTopic(IMAGE_SMALL, DEFAULT,
+                DEFAULT, DMX_FILE);
         String val = null;
         if (imageSmall == null) getSmallImage();
         if (imageSmall != null) {
@@ -125,14 +124,14 @@ public class Section {
     }
 
     public String getLargeImage() {
-        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getLargeImageAttachment() {
-        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         String val = null;
         if (imageLarge != null) {
             Assoc imageConfig = imageLarge.getRelatingAssoc();
@@ -142,8 +141,8 @@ public class Section {
     }
 
     public String getLargeImageSize() {
-        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        RelatedTopic imageLarge = this.pageSection.getRelatedTopic(IMAGE_LARGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         String val = null;
         if (imageLarge == null) getSmallImage();
         if (imageLarge != null) {
@@ -160,8 +159,8 @@ public class Section {
      **/
     public Topic getRelatedTopic() {
         if (this.relatedTopic == null) {
-            this.relatedTopic = this.pageSection.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, "dmx.files.file");
+            this.relatedTopic = this.pageSection.getRelatedTopic(ASSOCIATION, DEFAULT,
+                DEFAULT, "dmx.files.file");
         }
         return this.relatedTopic;
     }

@@ -5,7 +5,6 @@ import static de.mikromedia.webpages.WebpageService.HEADER_TITLE;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.HEADER;
 import static de.mikromedia.webpages.WebpageService.HEADER_CONTENT;
-import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +26,7 @@ import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 import static de.mikromedia.webpages.WebpageService.FONT_COLOR_ASSOC;
 import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR_ASSOC;
 import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
+import static systems.dmx.core.Constants.DEFAULT;
 
 public class Header {
 
@@ -88,8 +88,8 @@ public class Header {
     public String getSmallImage() {
         if (this.imageSmall != null)
             return this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
-        this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
@@ -115,8 +115,8 @@ public class Header {
     public String getLargeImage() {
         if (this.imageLarge != null)
             return this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
-        this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
     }
 

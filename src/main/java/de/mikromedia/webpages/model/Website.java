@@ -1,11 +1,10 @@
 package de.mikromedia.webpages.model;
 
-import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
 import static de.mikromedia.webpages.WebpageService.INSTITUTION;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.REDIRECT;
-import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import static de.mikromedia.webpages.WebpageService.USERNAME;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
@@ -47,13 +46,13 @@ public class Website {
     }
 
     public Topic getRelatedUsername() {
-        return this.topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-            ROLE_DEFAULT, USERNAME);
+        return this.topic.getRelatedTopic(ASSOCIATION, DEFAULT,
+            DEFAULT, USERNAME);
     }
 
     public String getLogoPath() {
-        Topic imageFile = this.topic.getRelatedTopic(LOGO_IMAGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        Topic imageFile = this.topic.getRelatedTopic(LOGO_IMAGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         if (imageFile != null) {
             return imageFile.getChildTopics().getStringOrNull(FILE_PATH);
         }
@@ -61,13 +60,13 @@ public class Website {
     }
 
     public List<RelatedTopic> getRelatedWebpages() {
-        return this.topic.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT,
-            ROLE_DEFAULT, WEBPAGE);
+        return this.topic.getRelatedTopics(ASSOCIATION, DEFAULT,
+            DEFAULT, WEBPAGE);
     }
 
     public String getInstitutionLD() {
-        Topic inst = this.topic.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-            ROLE_DEFAULT, INSTITUTION);
+        Topic inst = this.topic.getRelatedTopic(ASSOCIATION, DEFAULT,
+            DEFAULT, INSTITUTION);
         if (inst != null) {
             InstitutionOrganization institution = new InstitutionOrganization(inst);
             return institution.toJSONLD();
@@ -87,8 +86,8 @@ public class Website {
     }
 
     public List<MenuItem> getActiveMenuItems() {
-        List<RelatedTopic> menuItems = this.topic.getRelatedTopics(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, MENU_ITEM);
+        List<RelatedTopic> menuItems = this.topic.getRelatedTopics(ASSOCIATION, DEFAULT,
+                DEFAULT, MENU_ITEM);
         sortMenuItems(menuItems);
         ArrayList<MenuItem> result = new ArrayList();
         Iterator<RelatedTopic> iterator = menuItems.iterator();
@@ -127,8 +126,7 @@ public class Website {
     }
 
     public List<RelatedTopic> getConfiguredRedirects() {
-        return this.topic.getRelatedTopics(ASSOCIATION,
-            ROLE_DEFAULT, ROLE_DEFAULT, REDIRECT);
+        return this.topic.getRelatedTopics(ASSOCIATION, DEFAULT, DEFAULT, REDIRECT);
     }
 
     /**

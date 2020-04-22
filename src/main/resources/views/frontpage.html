@@ -11,11 +11,11 @@
         <title th:text="'Welcome - ' + ${siteName}">Welcome</title>
 
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
-        <link media="all" href="/de.mikromedia.webpages/css/semantic-ui-overrides.css" rel="stylesheet" />
+        <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
 
-        <script defer="true" src="/de.mikromedia.webpages/jquery/jquery-3.2.1.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/css/semantic-ui/dist/semantic.min.js"></script>
-        <script defer="true" src="/de.mikromedia.webpages/js/page-methods.js" onload="render_page()"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/css/semantic-ui/dist/semantic.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
     </head>

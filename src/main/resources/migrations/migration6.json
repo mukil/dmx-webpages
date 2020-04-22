@@ -49,11 +49,13 @@
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.button.title",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttr":         true
                 },
                 {
                     "childTypeUri":           "de.mikromedia.link",
                     "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttr":         true,
                     "viewConfigTopics": [
                         {
                             "typeUri": "dmx.webclient.view_config",
@@ -138,7 +140,7 @@
         {
             "value": "Header",
             "uri": "de.mikromedia.header",
-            "dataTypeUri": "dmx.core.identity",
+            "dataTypeUri": "dmx.core.value",
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.header.title",

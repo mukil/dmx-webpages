@@ -1,8 +1,7 @@
 package de.mikromedia.webpages.model;
 
 import de.mikromedia.webpages.WebpageService;
-import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
-import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
+import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
 import static de.mikromedia.webpages.WebpageService.WEBSITE;
 import static de.mikromedia.webpages.WebpageService.WEBSITE_PREFIX;
@@ -54,8 +53,7 @@ public class SearchResult implements JSONEnabled {
     }
 
     private Topic getPageSite(Topic webpage) {
-        return webpage.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, WEBSITE);
+        return webpage.getRelatedTopic(ASSOCIATION, DEFAULT, DEFAULT, WEBSITE);
     }
 
     private String getSitePrefix(Topic website) {

@@ -1,9 +1,8 @@
 package de.mikromedia.webpages.model;
 
 
-import static de.mikromedia.webpages.WebpageService.ASSOCIATION;
+import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.FILE_PATH;
-import static de.mikromedia.webpages.WebpageService.ROLE_DEFAULT;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
@@ -78,8 +77,8 @@ public class Tile {
      **/
     public Topic getRelatedTopic() {
         if (this.relatedTopic == null) {
-            this.relatedTopic = this.content.getRelatedTopic(ASSOCIATION, ROLE_DEFAULT,
-                ROLE_DEFAULT, "dmx.files.file");
+            this.relatedTopic = this.content.getRelatedTopic(ASSOCIATION, DEFAULT,
+                DEFAULT, "dmx.files.file");
         }
         return this.relatedTopic;
     }
@@ -113,14 +112,14 @@ public class Tile {
     }
 
     public String getSmallImage() {
-        Topic imageFile = this.content.getRelatedTopic(IMAGE_SMALL, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        Topic imageFile = this.content.getRelatedTopic(IMAGE_SMALL, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 
     public String getLargeImage() {
-        Topic imageFile = this.content.getRelatedTopic(IMAGE_LARGE, ROLE_DEFAULT,
-                ROLE_DEFAULT, DMX_FILE);
+        Topic imageFile = this.content.getRelatedTopic(IMAGE_LARGE, DEFAULT,
+                DEFAULT, DMX_FILE);
         return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
     }
 

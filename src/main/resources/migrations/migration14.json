@@ -13,7 +13,7 @@
         {
             "typeUri": "de.mikromedia.site.stylesheet",
             "uri" : "de.mikromedia.journal_style",
-            "value": "/de.mikromedia.webpages/css/mikromedia.css"
+            "value": "/de.mikromedia.webpages/static/css/mikromedia.css"
         }
     ]
 }
