@@ -5,7 +5,7 @@
  **/
 
 /** -- New Semantic UI Custom Styled 2.3 Release -- **/
-@import url('/de.mikromedia.webpages/static/css/semantic-ui/mikro-dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
 
 body {
     color: #383838;
