@@ -51,11 +51,11 @@ public class MenuItem implements JSONEnabled {
     }
 
     public String getLabel() {
-        return menuItem.getChildTopics().getStringOrNull(MENU_ITEM_NAME);
+        return menuItem.getChildTopics().getString(MENU_ITEM_NAME, null);
     }
 
     public String getHref() { // TODO: Migrate to "Link"
-        return "/" + menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
+        return "/" + menuItem.getChildTopics().getString(MENU_ITEM_HREF, null);
     }
 
     public String getFullHref() {
@@ -67,12 +67,12 @@ public class MenuItem implements JSONEnabled {
                 fullHref = "";
             }
         }
-        fullHref += "/" + menuItem.getChildTopics().getStringOrNull(MENU_ITEM_HREF);
+        fullHref += "/" + menuItem.getChildTopics().getString(MENU_ITEM_HREF, null);
         return fullHref;
     }
 
     public boolean isActive() {
-        return menuItem.getChildTopics().getBooleanOrNull(MENU_ITEM_ACTIVE);
+        return menuItem.getChildTopics().getBoolean(MENU_ITEM_ACTIVE, false);
     }
 
     public List<MenuItem> getChildMenuItems() {

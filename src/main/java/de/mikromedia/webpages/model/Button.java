@@ -43,15 +43,15 @@ public class Button implements JSONEnabled {
     // -- Custom Accessor
 
     public String getLabel() {
-        return this.button.getChildTopics().getStringOrNull(BUTTON_TITLE);
+        return this.button.getChildTopics().getString(BUTTON_TITLE, null);
     }
 
     public String getLink() {
-        return this.button.getChildTopics().getStringOrNull(LINK);
+        return this.button.getChildTopics().getString(LINK, null);
     }
 
     public String getStyle() {
-        return this.button.getChildTopics().getStringOrNull(BUTTON_STYLE);
+        return this.button.getChildTopics().getString(BUTTON_STYLE, null);
     }
 
     public JSONObject toJSON() {

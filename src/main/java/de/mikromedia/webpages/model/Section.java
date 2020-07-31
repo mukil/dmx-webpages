@@ -70,7 +70,7 @@ public class Section {
     // --- Custom Section Data Accessors
 
     public String getTitle() {
-        return this.pageSection.getChildTopics().getStringOrNull(SECTION_TITLE);
+        return this.pageSection.getChildTopics().getString(SECTION_TITLE, null);
     }
 
     public String getAnchorId() {
@@ -90,14 +90,14 @@ public class Section {
     }
 
     public String getCustomClassName() {
-        String value = this.pageSection.getChildTopics().getStringOrNull(SECTION_CSS_CLASS);
+        String value = this.pageSection.getChildTopics().getString(SECTION_CSS_CLASS, null);
         return (value != null) ? value : "";
     }
 
     public String getSmallImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_SMALL, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getSmallImageAttachment() {
@@ -106,7 +106,7 @@ public class Section {
         String val = null;
         if (imageSmall != null) {
             Assoc imageConfig = imageSmall.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_ATTACHMENT_STYLE, null);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
@@ -118,7 +118,7 @@ public class Section {
         if (imageSmall == null) getSmallImage();
         if (imageSmall != null) {
             Assoc imageConfig = imageSmall.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_SIZE_STYLE, null);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
@@ -126,7 +126,7 @@ public class Section {
     public String getLargeImage() {
         Topic imageFile = this.pageSection.getRelatedTopic(IMAGE_LARGE, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getLargeImageAttachment() {
@@ -135,7 +135,7 @@ public class Section {
         String val = null;
         if (imageLarge != null) {
             Assoc imageConfig = imageLarge.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_ATTACHMENT_STYLE, null);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
@@ -147,7 +147,7 @@ public class Section {
         if (imageLarge == null) getSmallImage();
         if (imageLarge != null) {
             Assoc imageConfig = imageLarge.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_SIZE_STYLE, null);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
@@ -174,21 +174,21 @@ public class Section {
 
     public String getRelatedTopicFilePath() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.path");
+            return this.relatedTopic.getChildTopics().getString("dmx.files.path", null);
         }
         return null;
     }
 
     public String getRelatedTopicFileSize() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dmx.files.size"), true);
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLong("dmx.files.size", 0), true);
         }
         return null;
     }
 
     public String getRelatedTopicFileMediaType() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.media_type");
+            return this.relatedTopic.getChildTopics().getString("dmx.files.media_type", null);
         }
         return null;
     }
@@ -229,11 +229,11 @@ public class Section {
     }
 
     public String getBackgroundColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
+        return this.pageSection.getChildTopics().getString(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC, null);
     }
 
     public String getFontColor() {
-        return this.pageSection.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
+        return this.pageSection.getChildTopics().getString(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC, null);
     }
 
     private List<Tile> getTilesSorted(List<Tile> all) {

@@ -63,11 +63,11 @@ public class Header {
     // --- Custom Section Data Accessors
     
     public String getTitle() {
-        return this.pageHeader.getChildTopics().getStringOrNull(HEADER_TITLE);
+        return this.pageHeader.getChildTopics().getString(HEADER_TITLE, null);
     }
 
     public String getContent() {
-        return this.pageHeader.getChildTopics().getStringOrNull(HEADER_CONTENT);
+        return this.pageHeader.getChildTopics().getString(HEADER_CONTENT, null);
     }
 
     public List<Button> getButtons() {
@@ -87,10 +87,10 @@ public class Header {
 
     public String getSmallImage() {
         if (this.imageSmall != null)
-            return this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
+            return this.imageSmall.getChildTopics().getString(FILE_PATH, null);
         this.imageSmall = this.pageHeader.getRelatedTopic(IMAGE_SMALL, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getStringOrNull(FILE_PATH);
+        return (this.imageSmall == null) ? "" : this.imageSmall.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getSmallImageSize() {
@@ -98,7 +98,7 @@ public class Header {
         if (imageSmall == null) getSmallImage();
         if (imageSmall != null) {
             Assoc imageConfig = imageSmall.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_SIZE_STYLE, null);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
@@ -107,17 +107,17 @@ public class Header {
         String val = null;
         if (imageSmall != null) {
             Assoc imageConfig = imageSmall.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_ATTACHMENT_STYLE, null);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
 
     public String getLargeImage() {
         if (this.imageLarge != null)
-            return this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
+            return this.imageLarge.getChildTopics().getString(FILE_PATH, null);
         this.imageLarge = this.pageHeader.getRelatedTopic(IMAGE_LARGE, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getStringOrNull(FILE_PATH);
+        return (this.imageLarge == null) ? "" : this.imageLarge.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getLargeImageSize() {
@@ -125,7 +125,7 @@ public class Header {
         if (imageLarge == null) getLargeImage();
         if (imageLarge != null) {
             Assoc imageConfig = imageLarge.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_SIZE_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_SIZE_STYLE, null);
         }
         return (val == null) ? DEFAULT_SIZE : val.toLowerCase();
     }
@@ -134,17 +134,17 @@ public class Header {
         String val = null;
         if (imageLarge != null) {
             Assoc imageConfig = imageLarge.getRelatingAssoc();
-            val = imageConfig.getChildTopics().getStringOrNull(IMAGE_ATTACHMENT_STYLE);
+            val = imageConfig.getChildTopics().getString(IMAGE_ATTACHMENT_STYLE, null);
         }
         return (val == null) ? DEFAULT_ATTACHMENT : val.toLowerCase();
     }
 
     public String getBackgroundColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
+        return this.pageHeader.getChildTopics().getString(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC, null);
     }
 
     public String getFontColor() {
-        return this.pageHeader.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
+        return this.pageHeader.getChildTopics().getString(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC, null);
     }
 
     public JSONObject toJSON() {

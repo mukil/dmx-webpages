@@ -36,9 +36,9 @@ public class Migration5 extends Migration {
             Topic username = website.getRelatedTopic("dmx.core.association", "dmx.core.default",
                     "dmx.core.default", "dmx.accesscontrol.username");
             if (username != null) {
-                website.getChildTopics().set("de.mikromedia.site.prefix", username.getSimpleValue().toString());
+                website.update(mf.newChildTopicsModel().set("de.mikromedia.site.prefix", username.getSimpleValue().toString()));
             } else {
-                website.getChildTopics().set("de.mikromedia.site.prefix", "standard");
+                website.update(mf.newChildTopicsModel().set("de.mikromedia.site.prefix", "standard"));
             }
         }
     }

@@ -59,15 +59,15 @@ public class Tile {
     // --- Custom Section Data Accessors
     
     public String getTitle() {
-        return this.content.getChildTopics().getStringOrNull(TILE_HEADLINE);
+        return this.content.getChildTopics().getString(TILE_HEADLINE, null);
     }
 
     public String getHtml() {
-        return this.content.getChildTopics().getStringOrNull(TILE_HTML);
+        return this.content.getChildTopics().getString(TILE_HTML, null);
     }
 
     public String getLink() {
-        return this.content.getChildTopics().getStringOrNull(LINK);
+        return this.content.getChildTopics().getString(LINK, null);
     }
 
     /**
@@ -92,21 +92,21 @@ public class Tile {
 
     public String getRelatedTopicFilePath() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.path");
+            return this.relatedTopic.getChildTopics().getString("dmx.files.path", null);
         }
         return null;
     }
 
     public String getRelatedTopicFileSize() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLongOrNull("dmx.files.size"), true);
+            return humanReadableByteCount(this.relatedTopic.getChildTopics().getLong("dmx.files.size", 0), true);
         }
         return null;
     }
 
     public String getRelatedTopicFileMediaType() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return this.relatedTopic.getChildTopics().getStringOrNull("dmx.files.media_type");
+            return this.relatedTopic.getChildTopics().getString("dmx.files.media_type", null);
         }
         return null;
     }
@@ -114,21 +114,21 @@ public class Tile {
     public String getSmallImage() {
         Topic imageFile = this.content.getRelatedTopic(IMAGE_SMALL, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getLargeImage() {
         Topic imageFile = this.content.getRelatedTopic(IMAGE_LARGE, DEFAULT,
                 DEFAULT, DMX_FILE);
-        return (imageFile == null) ? "" : imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+        return (imageFile == null) ? "" : imageFile.getChildTopics().getString(FILE_PATH, null);
     }
 
     public String getBackgroundColor() {
-        return this.content.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC);
+        return this.content.getChildTopics().getString(WEBCLIENT_COLOR + "#" + BACKGROUND_COLOR_ASSOC, null);
     }
 
     public String getFontColor() {
-        return this.content.getChildTopics().getStringOrNull(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC);
+        return this.content.getChildTopics().getString(WEBCLIENT_COLOR + "#" + FONT_COLOR_ASSOC, null);
     }
 
     public JSONObject toJSON() {

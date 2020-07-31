@@ -51,11 +51,11 @@ public class Webpage implements JSONEnabled {
     }
 
     public String getDescription() {
-        return page.getChildTopics().getStringOrNull(WEBPAGE_ABOUT);
+        return page.getChildTopics().getString(WEBPAGE_ABOUT, null);
     }
 
     public String getMainHTML() {
-        return page.getChildTopics().getStringOrNull(WEBPAGE_CONTENT);
+        return page.getChildTopics().getString(WEBPAGE_CONTENT, null);
     }
 
     public Topic getTopic() {
@@ -63,11 +63,11 @@ public class Webpage implements JSONEnabled {
     }
 
     public String getStylesheet() {
-        return page.getChildTopics().getStringOrNull(WEBPAGE_CSS);
+        return page.getChildTopics().getString(WEBPAGE_CSS, null);
     }
 
     public String getWebAlias() {
-        return page.getChildTopics().getStringOrNull(WEBPAGE_ALIAS);
+        return page.getChildTopics().getString(WEBPAGE_ALIAS, null);
     }
 
     public Date getModificationDate() {

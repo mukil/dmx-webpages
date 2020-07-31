@@ -54,7 +54,7 @@ public class Website {
         Topic imageFile = this.topic.getRelatedTopic(LOGO_IMAGE, DEFAULT,
                 DEFAULT, DMX_FILE);
         if (imageFile != null) {
-            return imageFile.getChildTopics().getStringOrNull(FILE_PATH);
+            return imageFile.getChildTopics().getString(FILE_PATH, null);
         }
         return null;
     }
@@ -157,11 +157,11 @@ public class Website {
     }
 
     public String getCaption() {
-        return this.topic.getChildTopics().getStringOrNull(WEBSITE_CAPTION);
+        return this.topic.getChildTopics().getString(WEBSITE_CAPTION, null);
     }
 
     public String getAboutHTML() {
-        return this.topic.getChildTopics().getStringOrNull(WEBSITE_ABOUT);
+        return this.topic.getChildTopics().getString(WEBSITE_ABOUT, null);
     }
 
     public String getName() {

@@ -277,7 +277,7 @@
             {
                 "value": "Webpage",
                 "uri": "de.mikromedia.page",
-                "dataTypeUri": "dmx.core.identity",
+                "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.page.headline",
@@ -326,7 +326,7 @@
             {
                 "value": "Website",
                 "uri": "de.mikromedia.site",
-                "dataTypeUri": "dmx.core.identity",
+                "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.site.name",
@@ -363,7 +363,7 @@
             {
                 "value": "Menu Item",
                 "uri": "de.mikromedia.menu.item",
-                "dataTypeUri": "dmx.core.identity",
+                "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.menu.item_name",
@@ -393,7 +393,7 @@
             {
                 "value": "Redirect",
                 "uri": "de.mikromedia.redirect",
-                "dataTypeUri": "dmx.core.identity",
+                "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
                     {
                         "childTypeUri":           "de.mikromedia.redirect.web_alias",

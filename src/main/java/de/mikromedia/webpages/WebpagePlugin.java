@@ -49,13 +49,13 @@ import systems.dmx.core.Assoc;
 import systems.dmx.core.RelatedTopic;
 import systems.dmx.core.Topic;
 import systems.dmx.core.TopicType;
-import systems.dmx.core.ViewConfiguration;
 import systems.dmx.core.model.AssocModel;
 import systems.dmx.core.model.PlayerModel;
 import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.service.DMXEvent;
 import systems.dmx.core.service.Inject;
 import static systems.dmx.core.Constants.*;
+import systems.dmx.core.ViewConfig;
 import systems.dmx.core.service.accesscontrol.AccessControlException;
 import systems.dmx.core.service.event.PreCreateAssoc;
 import systems.dmx.core.service.event.ServiceResponseFilter;
@@ -367,30 +367,30 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         List<Topic> results = new ArrayList<Topic>();
         String luceneQuery = preparePhraseOrTermLuceneQuery(query);
         log.info("> webpagesSearch: \"" + luceneQuery + "\"");
-        for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, new SimpleValue(luceneQuery))) {
+        for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, luceneQuery)) {
             Topic webpage = getRelatedWebpage(headline);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, new SimpleValue(luceneQuery))) {
+        for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, luceneQuery)) {
             Topic webpage = getRelatedWebpage(content);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
-        for (Topic content : dmx.queryTopics(SECTION_TITLE, new SimpleValue(luceneQuery))) {
+        for (Topic content : dmx.queryTopics(SECTION_TITLE, luceneQuery)) {
             List<RelatedTopic> sections = getParentSections(content);
             addRelatedWebpagesToResults(sections, results);
         }
-        for (Topic content : dmx.queryTopics(TILE_HEADLINE, new SimpleValue(luceneQuery))) {
+        for (Topic content : dmx.queryTopics(TILE_HEADLINE, luceneQuery)) {
             List<RelatedTopic> tiles = getParentTiles(content);
             for (RelatedTopic tile : tiles) {
                 List<RelatedTopic> sections = getParentSections(tile);
                 addRelatedWebpagesToResults(sections, results);
             }
         }
-        for (Topic content : dmx.queryTopics(TILE_HTML, new SimpleValue(luceneQuery))) {
+        for (Topic content : dmx.queryTopics(TILE_HTML, luceneQuery)) {
             List<RelatedTopic> tiles = getParentTiles(content);
             for (RelatedTopic tile : tiles) {
                 List<RelatedTopic> sections = getParentSections(tile);
@@ -439,15 +439,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     private List<Topic> searchWebsiteFields(String query) {
         List<Topic> results = new ArrayList<Topic>();
-        for (Topic siteName : dmx.queryTopics(WEBSITE_NAME, new SimpleValue("*" + query.trim() + "*"))) {
+        for (Topic siteName : dmx.queryTopics(WEBSITE_NAME, "*" + query.trim() + "*")) {
             Topic website = getRelatedwebsite(siteName);
             if (!results.contains(website)) results.add(website);
         }
-        for (Topic siteCaption : dmx.queryTopics(WEBSITE_CAPTION, new SimpleValue("*" + query.trim() + "*"))) {
+        for (Topic siteCaption : dmx.queryTopics(WEBSITE_CAPTION, "*" + query.trim() + "*")) {
             Topic website = getRelatedwebsite(siteCaption);
             if (!results.contains(website)) results.add(website);
         }
-        for (Topic siteFooter : dmx.queryTopics(WEBSITE_FOOTER, new SimpleValue("*" + query.trim() + "*"))) {
+        for (Topic siteFooter : dmx.queryTopics(WEBSITE_FOOTER, "*" + query.trim() + "*")) {
             Topic website = getRelatedwebsite(siteFooter);
             if (!results.contains(website)) results.add(website);
         }
@@ -622,7 +622,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     public String getTypeIconPath(String typeUri) {
         TopicType webpage = dmx.getTopicType(typeUri);
-        ViewConfiguration viewConfig = webpage.getViewConfig();
+        ViewConfig viewConfig = webpage.getViewConfig();
         Topic icon = viewConfig.getConfigTopic("dmx.webclient.icon");
         return (icon != null) ? icon.getSimpleValue().toString() : "";
     }
@@ -691,10 +691,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
                 @Override
                 public Topic call() {
                     Topic topic = dmx.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
-                        .put(WEBSITE_NAME, "My collection of webpages")
-                        .putRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
-                        .put(WEBSITE_PREFIX, username.getSimpleValue().toString())
-                        .put(WEBSITE_FOOTER, "<p class=\"attribution\">Published with "
+                        .set(WEBSITE_NAME, "My collection of webpages")
+                        .setRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
+                        .set(WEBSITE_PREFIX, username.getSimpleValue().toString())
+                        .set(WEBSITE_FOOTER, "<p class=\"attribution\">Published with "
                             + "<a href=\"http://git.dmx.systems/dmx-plugins/dmx-webpages\" title=\"Source Coude: dmx-webpages\">"
                             + "webpages</a>, an application of the <a href=\"https://dmx.systems\""
                             + " title=\"Visit DMX Systems Webpage\">dmx context engine</a>.</p>")
@@ -1043,17 +1043,17 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             // Between Header and File we auto-type to "de.mikromedia.header.desktop_image"
             if (topic1.getTypeUri().equals(HEADER) || topic2.getTypeUri().equals(HEADER)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
-                    DMXUtils.associationAutoTyping(am, HEADER,
+                    DMXUtils.assocAutoTyping(am, HEADER,
                         DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             } else if (topic1.getTypeUri().equals(TILE) || topic2.getTypeUri().equals(TILE)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
-                    DMXUtils.associationAutoTyping(am, TILE,
+                    DMXUtils.assocAutoTyping(am, TILE,
                         DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             } else if (topic1.getTypeUri().equals(SECTION) || topic2.getTypeUri().equals(SECTION)) {
                 if (topic1.getTypeUri().equals(DMX_FILE) || topic2.getTypeUri().equals(DMX_FILE) ) {
-                    DMXUtils.associationAutoTyping(am, SECTION,
+                    DMXUtils.assocAutoTyping(am, SECTION,
                         DMX_FILE, IMAGE_LARGE, DEFAULT, DEFAULT);
                 }
             }

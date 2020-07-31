@@ -57,7 +57,7 @@ public class SearchResult implements JSONEnabled {
     }
 
     private String getSitePrefix(Topic website) {
-        String sitePrefix = website.getChildTopics().getStringOrNull(WEBSITE_PREFIX);
+        String sitePrefix = website.getChildTopics().getString(WEBSITE_PREFIX, null);
         if (sitePrefix != null && sitePrefix.equals("standard")) return "";
         return (sitePrefix == null) ? "" :  "/" + sitePrefix;
     }
