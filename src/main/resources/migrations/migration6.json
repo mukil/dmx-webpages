@@ -45,7 +45,7 @@
         {
             "value": "Button",
             "uri": "de.mikromedia.button",
-            "dataTypeUri": "dmx.core.value",
+            "dataTypeUri": "dmx.core.entity",
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.button.title",
