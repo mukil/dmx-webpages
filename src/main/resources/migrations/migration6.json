@@ -138,13 +138,14 @@
             ]
         },
         {
-            "value": "Header",
+            "value": "Webpage Header",
             "uri": "de.mikromedia.header",
-            "dataTypeUri": "dmx.core.value",
+            "dataTypeUri": "dmx.core.entity",
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.header.title",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "isIdentityAttr":         true
                 },
                 {
                     "childTypeUri":           "de.mikromedia.header.html",

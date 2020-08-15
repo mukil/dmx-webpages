@@ -55,6 +55,7 @@ import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.service.DMXEvent;
 import systems.dmx.core.service.Inject;
 import static systems.dmx.core.Constants.*;
+import systems.dmx.core.DMXObject;
 import systems.dmx.core.ViewConfig;
 import systems.dmx.core.service.accesscontrol.AccessControlException;
 import systems.dmx.core.service.event.PreCreateAssoc;
@@ -97,8 +98,8 @@ import systems.dmx.workspaces.WorkspacesService;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFilter,
-                                                                WebpageService,
-                                                                PreCreateAssoc {
+                                                              WebpageService,
+                                                              PreCreateAssoc {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -157,7 +158,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         initTemplateEngine();
         df.setTimeZone(tz);
     }
-
+    
     /**
      * The method managing the root resource / frontpage.
      * Note: If overrideFrontpageTemplate() is used (frontpageTemplateName != null),

@@ -35,6 +35,8 @@ import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
 
 public class Section {
 
+    private Logger log = Logger.getLogger(getClass().getName());
+
     private RelatedTopic pageSection;
     private RelatedTopic relatedTopic;
 
@@ -81,7 +83,11 @@ public class Section {
 
     public List<Tile> getContents() {
         List<Tile> tiles = new ArrayList();
-        List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopics(TILE);
+        List<RelatedTopic> contents = this.pageSection.getChildTopics().getTopicsOrNull(TILE);
+        if (contents == null) {
+            log.warning("Section \""+getTitle()+"\" configured without any Tiles. No content rendered in section.");
+            return new ArrayList();
+        }
         for (RelatedTopic content : contents) {
             Tile sectionContent = new Tile(content);
             tiles.add(sectionContent);

@@ -361,7 +361,7 @@
                  ]
             },
             {
-                "value": "Menu Item",
+                "value": "Website Menu Item",
                 "uri": "de.mikromedia.menu.item",
                 "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
@@ -391,7 +391,7 @@
                  ]
             },
             {
-                "value": "Redirect",
+                "value": "Website Redirect",
                 "uri": "de.mikromedia.redirect",
                 "dataTypeUri": "dmx.core.entity",
                 "compDefs": [
@@ -465,7 +465,7 @@
                 "children": {
                     "de.mikromedia.site.name" : "Standard Website",
                     "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.standard_site_style",
-                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\"><a href=\"http://github.com/mukil/dm4-webpages\" title=\"Webpages on Github\">Webpages </a>is an application built on <a href=\"https://www.dmx.berlin\" title=\"DMX is a platform for collaboration and knowledge management.\">DMX </a>.</p>"
+                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\"><a href=\"http://github.com/mukil/dmx-webpages\" title=\"Webpages on Github\">Webpages </a>is an application of the <a href=\"https://www.dmx.berlin\" title=\"DMX is a platform for collaboration and knowledge management.\">DMX Platform</a>.</p>"
                 }
             }
         ]
