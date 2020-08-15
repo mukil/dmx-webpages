@@ -13,7 +13,7 @@
     <parent>
         <groupId>systems.dmx</groupId>
         <artifactId>dmx-plugin</artifactId>
-        <version>5.0-SNAPSHOT</version>
+        <version>5.0</version>
     </parent>
 
     <dependencies>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-accesscontrol</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>5.0</version>
         </dependency>
     </dependencies>
 

@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <!--div class="ui basic stripe segment main-segment posts container text">
+                <div class="ui basic stripe segment main-segment posts container text">
 
                     <div class="ui container">
                         <h1 class="ui header">Articles</h1>
@@ -68,7 +68,7 @@
                                 </a>
                             </h1>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
-                            <span class="label">Last modified:</span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span>
+                            <span class="label">Last modified: </span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span>
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
                             <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
                             <meta itemprop="author" th:content="${page.authorNames}" />
@@ -77,7 +77,7 @@
                         
                     </div>
 
-                </div-->
+                </div>
 
                 <div class="sections-below">
                     <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">

@@ -22,7 +22,7 @@ h3.header .value {
 }
 
 .masthead.segment {
-    min-height: 700px;
+    /** min-height: 700px; **/
     padding: 1em 0em;
 }
 
@@ -126,6 +126,11 @@ article .text {
 
 header {
     position: relative;
+}
+
+header .text.container {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
 }
 
 header .page-meta,
