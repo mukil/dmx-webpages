@@ -55,9 +55,10 @@ import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.service.DMXEvent;
 import systems.dmx.core.service.Inject;
 import static systems.dmx.core.Constants.*;
-import systems.dmx.core.DMXObject;
 import systems.dmx.core.ViewConfig;
+import systems.dmx.core.model.TopicModel;
 import systems.dmx.core.service.accesscontrol.AccessControlException;
+import systems.dmx.core.service.event.PostCreateTopic;
 import systems.dmx.core.service.event.PreCreateAssoc;
 import systems.dmx.core.service.event.ServiceResponseFilter;
 import systems.dmx.core.storage.spi.DMXTransaction;
@@ -99,7 +100,8 @@ import systems.dmx.workspaces.WorkspacesService;
 @Produces(MediaType.APPLICATION_JSON)
 public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFilter,
                                                               WebpageService,
-                                                              PreCreateAssoc {
+                                                              PreCreateAssoc,
+                                                              PostCreateTopic {
 
     private Logger log = Logger.getLogger(getClass().getName());
 
@@ -185,8 +187,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             website = getWebsiteFrontpage(null);
             // private workspace via our getRelatedTopics()-call
             dmx.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, location, uriInfo);
-            log.info("Preparing STANDARD FRONTPAGE view data for website ("
-                    + website.toString() + ") in dmx-webpages plugin...");
+            log.info("Preparing STANDARD FRONTPAGE (website="+ website.getSimpleValue() + ") in dmx-webpages plugin...");
             prepareWebsiteViewData(website, location);
             preparePageSections(website);
             // check if their is a redirect setup for this web alias
@@ -369,13 +370,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         String luceneQuery = preparePhraseOrTermLuceneQuery(query);
         log.info("> webpagesSearch: \"" + luceneQuery + "\"");
         for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, luceneQuery)) {
-            Topic webpage = getRelatedWebpage(headline);
+            Topic webpage = getRelatedWebpageTopic(headline);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
         }
         for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, luceneQuery)) {
-            Topic webpage = getRelatedWebpage(content);
+            Topic webpage = getRelatedWebpageTopic(content);
             if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                 results.add(webpage);
             }
@@ -430,7 +431,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     private void addRelatedWebpagesToResults(List<RelatedTopic> sections, List<Topic> results) {
         if (sections != null) {
             for (Topic section : sections) {
-                Topic webpage = getRelatedWebpage(section);
+                Topic webpage = getRelatedWebpageTopic(section);
                 if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
                     results.add(webpage);
                 }
@@ -441,15 +442,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     private List<Topic> searchWebsiteFields(String query) {
         List<Topic> results = new ArrayList<Topic>();
         for (Topic siteName : dmx.queryTopics(WEBSITE_NAME, "*" + query.trim() + "*")) {
-            Topic website = getRelatedwebsite(siteName);
+            Topic website = getRelatedWebsiteTopic(siteName);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteCaption : dmx.queryTopics(WEBSITE_CAPTION, "*" + query.trim() + "*")) {
-            Topic website = getRelatedwebsite(siteCaption);
+            Topic website = getRelatedWebsiteTopic(siteCaption);
             if (!results.contains(website)) results.add(website);
         }
         for (Topic siteFooter : dmx.queryTopics(WEBSITE_FOOTER, "*" + query.trim() + "*")) {
-            Topic website = getRelatedwebsite(siteFooter);
+            Topic website = getRelatedWebsiteTopic(siteFooter);
             if (!results.contains(website)) results.add(website);
         }
         return results;
@@ -464,16 +465,16 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         return child.getRelatedTopics(COMPOSITION, null, null, SECTION);
     }
 
-    private Topic getRelatedWebpage(Topic child) {
+    private Topic getRelatedWebpageTopic(Topic child) {
         if (child == null) return null;
         return child.getRelatedTopic(null, null, null, WEBPAGE);
     }
 
-    private Topic getRelatedwebsite(Topic child) {
+    private Topic getRelatedWebsiteTopic(Topic child) {
         return child.getRelatedTopic(null, null, null, WEBSITE);
     }
 
-    public Topic getRelatedHeader(Topic topic) {
+    public Topic getRelatedHeaderTopic(Topic topic) {
         Topic header = topic.getRelatedTopic(ASSOCIATION, DEFAULT, DEFAULT, HEADER);
         if (header != null) {
             header.loadChildTopics();
@@ -922,7 +923,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             viewData("webpages", getWebpagesSortedByTimestamp(webpages, false)); // false=creationDate */
             // Site related "Headers" are used for providing a consistent look of webpages related to one "Website" 
             // (fallback if no page Specific "Headers" are configured)
-            Topic headerTopic = getRelatedHeader(website);
+            Topic headerTopic = getRelatedHeaderTopic(website);
             if (headerTopic != null) {
                 Header header = new Header(headerTopic);
                 viewData("_header", header);
@@ -937,7 +938,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         viewData("dateCreated", df.format(webpage.getCreationDate()));
         viewData("dateModified", df.format(webpage.getModificationDate()));
         viewData("page", webpage);
-        Topic headerTopic = getRelatedHeader(webpage.getTopic());
+        Topic headerTopic = getRelatedHeaderTopic(webpage.getTopic());
         if (headerTopic != null) {
             Header header = new Header(headerTopic);
             viewData("header", header);
@@ -1035,6 +1036,20 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     }
 
     @Override
+    public void postCreateTopic(Topic topic) {
+        if (topic.getTypeUri().equals(WEBPAGE)) {
+            String webpageTitle = topic.getSimpleValue().toString();
+            if (!webpageTitle.isEmpty()) {
+                String webAlias = transformStringToURL(webpageTitle);
+                log.fine("Relative Webpage Path => /" + webAlias);
+                TopicModel webage = topic.getModel();
+                webage.getChildTopics().set(WEBPAGE_ALIAS, webAlias);
+                dmx.updateTopic(webage);
+            }
+        }
+    }
+
+    @Override
     public void preCreateAssoc(AssocModel am) {
         if (am.getTypeUri().equals(ASSOCIATION)) {
             PlayerModel player1 = am.getPlayer1();
@@ -1064,6 +1079,30 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     @Override
     public void serviceResponseFilter(ContainerResponse cr) {
         cr.getHttpHeaders().add("X-XSS-Protection", 1);
+    }
+
+    private String transformStringToURL(String value) {
+        // removes reserved characters and german special characters from url
+        String result = value.replaceAll(" ", "-").replaceAll("\\&", "-")
+            .replaceAll(":", "-").replaceAll("=", "-")
+            .replaceAll("^", "-").replaceAll("+", "-")
+            .replaceAll("\\.", "-").replaceAll("\\?", "-")
+            .replaceAll("\\(", "-").replaceAll("\\)", "-")
+            .replaceAll("\\:", "-").replaceAll("\\+", "-")
+            .replaceAll("\\!", "-").replaceAll("\\*", "-")
+            .replaceAll("\\'", "-").replaceAll("\\/", "")
+            .replaceAll("@", "").replaceAll("\\]", "-")
+            .replaceAll("#", "").replaceAll("$", "")
+            .replaceAll("\"", "").replaceAll("\\[", "-")
+            .replaceAll("\\{", "-").replaceAll("\\}", "-")
+            .replaceAll("§", "-").replaceAll("%", "-")
+            .replaceAll("ä", "ae").replaceAll("ö", "oe")
+            .replaceAll("ü", "ue").replaceAll("ß", "ss");
+        result = result.replaceAll("--+", "-").toLowerCase();
+        if (result.length() == (result.lastIndexOf("-") + 1)) {
+            result = result.substring(0, result.length() - 1);
+        }
+        return result;
     }
 
 }
