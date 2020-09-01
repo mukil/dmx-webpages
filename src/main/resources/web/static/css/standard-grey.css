@@ -4,11 +4,10 @@
  * (and the layzness to write a simple migration...)
  **/
 
-/** -- New Semantic UI Custom Styled 2.3.1 Release -- **/
+/** -- New Fomantic UI Custom Styled 2.8.4 Release -- **/
 
 /** @import url('/de.kiezatlas.website/static/css/semantic-ui/2.3/dist/semantic.min.css'); **/
 @import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
-
 
 .ui.menu .search.item .results a,
 .ui.menu .menu-items a,
@@ -37,7 +36,7 @@ ui.menu .search.item .results a:hover,
     /** content: "\2750"; **/
 }
 
-.ui.footer.segment .ui.header {
+.ui.footer.inverted.segment .ui.header {
     color: #fff;
 }
 

@@ -1,5 +1,5 @@
 {
-  "base": "semantic-ui/",
+  "base": "",
   "paths": {
     "source": {
       "config": "src/theme.config",
@@ -15,37 +15,42 @@
     },
     "clean": "dist/"
   },
+  "themes": {
+    "amazon"     : false,
+    "basic"      : false,
+    "bookish"    : false,
+    "bootstrap3" : false,
+    "chubby"     : false,
+    "classic"    : false,
+    "default"    : true
+  },
   "components": [
     "reset",
     "site",
     "container",
     "grid",
     "header",
-    "reset",
     "image",
     "menu",
+    "embed",
     "dropdown",
     "segment",
     "search",
     "input",
     "button",
     "loader",
-    "checkbox",
     "state",
-    "list",
-    "icon",
     "sidebar",
     "transition",
     "visibility",
     "accordion",
     "api",
     "table",
-    "card",
-    "item",
-    "form"
+    "form",
+    "sticky"
   ],
   "permission": false,
   "autoInstall": false,
   "rtl": false,
-  "version": "2.3.1"
+  "version": "2.8.4"
 }

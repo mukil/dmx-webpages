@@ -90,6 +90,28 @@ article .text {
 
 .footer.segment {
     padding: 1em 0em;
+    padding-bottom: 3em;
+}
+
+.footer .ui.grid > .column:not(.row) {
+    padding: 0em;
+    padding-right: .5em;
+}
+
+.footer .ui.divided.grid:not([class*="vertically divided"]) > .column:not(.row),
+.footer .ui.divided.grid:not([class*="vertically divided"]) > .row > .column {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.content-bottom {
+    width: 100%;
+    margin-top: 1em;
+    height: 1px;
+    margin: auto;
+    box-shadow: 0px 1px 2px 1px #ececec;
+    -moz-box-shadow: 0px 1px 2px 1px #ececec;
+    -webkit-box-shadow: 0px 1px 2px 1px #ececec;
 }
 
 .footer .site-link .logo {
@@ -136,7 +158,6 @@ header .text.container {
 header .page-meta,
 header .page-buttons {
     margin-top: 1.7em;
-    margin-bottom: 4em;
     line-height: 3em;
 }
 
@@ -144,14 +165,13 @@ header .page-buttons div {
     display: inline-block;
 }
 
+.v-space {
+    /** height: 1em; **/
+}
+
 .ui.container .container {
     margin-left: 0em !important;
     margin-right: 0em !important;
-}
-
-header.header-background .ui.container
-header.header-background .ui.container {
-    padding-bottom: 4em;
 }
 
 header .ui.primary.button {
@@ -240,10 +260,15 @@ header.inverted .page-meta .label {
     padding-bottom: 3em;
 }
 
-.ui.segment.two-columns-equal .grid .column {
+/** .ui.segment.two-columns-equal .grid .column {
     padding-bottom: 2em;
     padding-left: 0em;
     padding-right: 2em;
+} **/
+
+.ui.main-segment.posts {
+    padding: 0em;
+    margin-bottom: 3em;
 }
 
 .ui.equal.grid.quote .tile-content {
@@ -359,9 +384,9 @@ article .text blockquote {
     margin-bottom: 1em;
 }
 
-.ui.segment.main-segment {
-    padding: 5em 1rem;
-}
+/** .ui.segment.main-segment {
+    padding: 5em 3em;
+} **/
 
 .ui.vertical.menu.sidebar {
     z-index: 2001;
@@ -369,6 +394,11 @@ article .text blockquote {
 
 .ui.sidebar .inverted.menu .header {
     color: #fff;
+}
+
+#lower-page-nav .ui.main-menu.container,
+header .ui.main-menu.container {
+    max-width: 1060px;
 }
 
 /** #header-page-nav  ui.menu .item {
