@@ -29,7 +29,6 @@ function render_page() {
     $('.ui.sidebar').sidebar('attach events', '.toc.item')
     // pro-actively activate any dropdown menu items
     $('.ui.dropdown').dropdown()
-    $('.ui.embed').embed()
     // configure search input fields
     var searchConfig = {
         apiSettings: {
