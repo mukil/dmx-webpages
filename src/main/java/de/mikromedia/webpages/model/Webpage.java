@@ -1,6 +1,7 @@
 package de.mikromedia.webpages.model;
 
 import static de.mikromedia.webpages.WebpageService.AUTHOR_NAME;
+import static de.mikromedia.webpages.WebpageService.CUSTOM_SCRIPT_PATH;
 import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.TIME_CREATED;
 import static de.mikromedia.webpages.WebpageService.TIME_MODIFIED;
@@ -64,6 +65,10 @@ public class Webpage implements JSONEnabled {
 
     public String getStylesheet() {
         return page.getChildTopics().getString(WEBPAGE_CSS, null);
+    }
+
+    public List<RelatedTopic> getJavascripts() {
+        return page.getChildTopics().getTopicsOrNull(CUSTOM_SCRIPT_PATH);
     }
 
     public String getWebAlias() {

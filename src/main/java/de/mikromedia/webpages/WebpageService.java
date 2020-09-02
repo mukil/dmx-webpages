@@ -30,6 +30,7 @@ public interface WebpageService {
     public static final String WEBPAGE_CONTENT = "de.mikromedia.page.main";
     public static final String WEBPAGE_ABOUT = "de.mikromedia.page.about";
     public static final String WEBPAGE_CSS = "de.mikromedia.page.stylesheet";
+    public static final String CUSTOM_SCRIPT_PATH = "de.mikromedia.javascript_path";
     public static final String WEBPAGE_ALIAS = "de.mikromedia.page.web_alias";
     public static final String WEBPAGE_IS_DRAFT = "de.mikromedia.page.is_draft";
 

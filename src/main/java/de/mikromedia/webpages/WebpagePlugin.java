@@ -935,6 +935,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
 
     private void preparePageViewData(Webpage webpage) {
         viewData("customPageCss", webpage.getStylesheet());
+        List<RelatedTopic> scripts = webpage.getJavascripts();
+        for (RelatedTopic script : scripts) {
+            // ### Fixme: Pass all javascript path into template
+            viewData("customPageScript", script.getSimpleValue().toString());
+        }
         viewData("dateCreated", df.format(webpage.getCreationDate()));
         viewData("dateModified", df.format(webpage.getModificationDate()));
         viewData("page", webpage);
