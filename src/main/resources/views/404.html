@@ -35,7 +35,6 @@
 
                 <div class="ui text container">
                     <h1 class="ui inverted header" itemprop="headline">404</h1>
-                    <h3>Sorry, we couldn't find a page at this resource.</h3>
                 </div>
 
             </header>
@@ -44,7 +43,10 @@
 
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
                     <div class="main">
-                        <div class="text" itemprop="text" th:utext="${message}"></div>
+                      <div class="ui container text" itemprop="text">
+                        <h3>File not found. Sorry, we haven't prepared any data at</h3>
+                        <p><em class="location-alert" th:utext="'/' + ${webalias}"></em></p>
+                      </div>
                     </div>
                 </article>
 

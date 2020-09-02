@@ -1,9 +1,9 @@
 
 
-<!-- FRONTPAGE -->
-<header th:fragment="front" class="ui vertical masthead center aligned segment header-background">
+<!-- Website FRONTPAGE Header -->
+<header th:fragment="front" class="ui vertical masthead aligned segment header-background">
 
-    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
+    <nav id="header-page-nav" class="ui main-menu container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
 
     <div th:if="${not _header}" class="ui text container">
         <h1 class="ui header" th:utext="${siteName}">
@@ -45,14 +45,15 @@
 
 </header>
 
-<!-- PAGE -->
-<header th:fragment="page" class="ui vertical masthead center aligned segment header-background">
+<!-- Single PAGE Header -->
+<header th:fragment="page" class="ui vertical center masthead aligned segment header-background">
 
     <!-- Include First Navigation -->
-    <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
+    <nav id="header-page-nav" class="ui main-menu container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
 
     <!-- Render parts of the website header if no custom page header is available -->
     <div th:if="${not header}" class="ui text container">
+        <div class="v-space"></div>
         <h1 class="ui header" itemprop="headline" th:utext="${page.title}">
             Page name
         </h1>
@@ -67,6 +68,7 @@
         <style th:replace="fragments/inline-styles :: header-style (${header})" />
 
         <div th:if="${not #strings.isEmpty(header.title)}">
+            <div class="v-space"></div>
             <h1 class="ui header" itemprop="headline" th:utext="${header.title}">
                 Page header title
             </h1>

@@ -14,6 +14,7 @@
         <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
 
         <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
+        <script defer="true" th:if="${customPageScript}" th:src="${customPageScript}"></script>
         <script defer="true" src="/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.js"></script>
         <script defer="true" src="/de.mikromedia.webpages/static/js/page-methods.js" onload="render_page()"></script>
 
@@ -45,13 +46,13 @@
                     </div>
                 </div>
 
-                <div class="ui basic stripe segment main-segment posts container text">
+                <div class="ui basic stripe center segment main-segment posts text container">
 
                     <div class="ui container">
                         <h1 class="ui header">Articles</h1>
                     </div>
 
-                    <div class="ui text">
+                    <div class="ui container">
 
                         <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'"
                                  itemtype="http://schema.org/WebPage" itemscope="">
@@ -59,16 +60,16 @@
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                                 <a th:if="${!#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
-                                    <span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span>
+                                    <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
                             </h1>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
-                            <span class="label">Last modified: </span><span class="modified value" th:text="${#dates.format(page.modificationDate)}"></span>
+                            <!--span class="meta label modified">Created: </span><span class="meta created value" th:text="${#dates.format(page.creationDate)}"></span-->
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
                             <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
                             <meta itemprop="author" th:content="${page.authorNames}" />
