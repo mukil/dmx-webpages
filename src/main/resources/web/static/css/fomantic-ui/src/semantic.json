@@ -1,0 +1,50 @@
+{
+  "base": "semantic-ui/",
+  "paths": {
+    "source": {
+      "config": "src/theme.config",
+      "definitions": "src/definitions/",
+      "site": "src/site/",
+      "themes": "src/themes/"
+    },
+    "output": {
+      "packaged": "dist/",
+      "uncompressed": "dist/components/",
+      "compressed": "dist/components/",
+      "themes": "dist/themes/"
+    },
+    "clean": "dist/"
+  },
+  "components": [
+    "reset",
+    "site",
+    "container",
+    "grid",
+    "header",
+    "image",
+    "menu",
+    "dropdown",
+    "segment",
+    "search",
+    "input",
+    "button",
+    "loader",
+    "checkbox",
+    "state",
+    "list",
+    "icon",
+    "sidebar",
+    "transition",
+    "visibility",
+    "accordion",
+    "api",
+    "table",
+    "card",
+    "item",
+    "form"
+  ],
+  "permission": false,
+  "autoInstall": false,
+  "rtl": false,
+  "version": "2.3.1"
+}

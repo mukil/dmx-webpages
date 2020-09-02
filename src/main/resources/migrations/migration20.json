@@ -1,0 +1,39 @@
+{
+    "topics": [
+        {
+            "typeUri": "de.mikromedia.page",
+            "uri" : "de.mikromedia.bookmarks.page",
+            "children": {
+                "de.mikromedia.page.headline" : "Bookmarks",
+                "de.mikromedia.page.web_alias": "bookmarks",
+                "de.mikromedia.page.is_draft": false,
+                "de.mikromedia.javascript_path": ["/de.mikromedia.webpages/static/js/bookmarks.js"]
+            }
+        },
+        {
+            "typeUri": "de.mikromedia.page",
+            "uri" : "de.mikromedia.contacts.page",
+            "children": {
+                "de.mikromedia.page.headline" : "Contacts",
+                "de.mikromedia.page.web_alias": "contacts",
+                "de.mikromedia.page.is_draft": false,
+                "de.mikromedia.javascript_path": ["/de.mikromedia.webpages/static/js/contacts.js"]
+            }
+        },
+        {
+            "typeUri": "de.mikromedia.page",
+            "uri" : "de.mikromedia.notes.page",
+            "children": {
+                "de.mikromedia.page.headline" : "Notes",
+                "de.mikromedia.page.web_alias": "notes",
+                "de.mikromedia.page.is_draft": false,
+                "de.mikromedia.javascript_path": ["/de.mikromedia.webpages/static/js/notes.js"]
+            }
+        },
+        {
+            "typeUri": "de.mikromedia.site.stylesheet",
+            "uri" : "de.mikromedia.iass_promut_style",
+            "value": "/de.mikromedia.webpages/static/css/promut.css"
+        }
+    ]
+}
