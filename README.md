@@ -39,7 +39,7 @@ In the following graphic you see the configuration of a "Hello World" website wi
 
 Note: The permission who can see your published webpage depends on the so called _SharingMode_ of the workspace your webpage topic is assigned to. You can learn more about sharing data with the public or within a group of users in the [DMX User Guide](https://docs.dmx.systems).
 
-The webpages modules is still far from perfect and comes with a lot of quirks. Feel free to ask for help or give feedback in the DMX Forum. For more help using DMX Webpages check out its (documentation here)[https://dmx.readthedocs.io/en/latest/plugins.html#webpages].
+The webpages modules is still far from perfect and comes with a lot of quirks. Feel free to ask for help or give feedback in the [DMX Forum](https://forum.dmx.systems). For more help using DMX Webpages check out its [documentation here](https://dmx.readthedocs.io/en/latest/plugins.html#webpages).
 
 ## License
 

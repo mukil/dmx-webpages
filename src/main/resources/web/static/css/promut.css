@@ -1,12 +1,24 @@
 
 /** -- Imports Fomantic UI Custom Styled 2.8.4 Release -- **/
 
-@import url('/de.mikromedia.webpages/static/css/semantic-ui/dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
 
 .ui.menu .search.item .results a,
 .ui.menu .menu-items a,
 .ui.footer.segment .site-link a {
     text-decoration: none;
+}
+
+body,
+.ui.text.container {
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+}
+
+.ui.header,
+.ui.button,
+h1, h2, h3, h4, h5, h6,
+.ui.category.search > .results .category > .name {
+    font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
 }
 
 .ui.vertical.menu.sidebar .item > img.logo {
@@ -176,6 +188,7 @@
 /** External Links are presented as such **/
 .ui.segment a[target="_blank"]::after {
     content: "  \29C9";
+    padding-right: 0.15em;
     /** content: "\2750"; **/
 }
 
@@ -190,12 +203,14 @@
 .ui.segment.tile table,
 .ui.segment.tile ul,
 .ui.segment.tile p {
-    font-size: 1.25rem
+    font-size: 1.25rem;
+    line-height: 1.33em;
 }
 
 .ui.footer.segment.striped {
+    margin-top: 3em;
     padding-top: 1em;
-    padding-bototm: 1em;
+    padding-bottom: 1em;
 }
 
 .ui.footer.segment .ui.container.text {
@@ -231,13 +246,17 @@
     margin-right: 2em;
 }
 
+.ui.segment {
+    padding: 1em 0em;
+}
+
 .ui.segment.tile {
     font-size: 2rem;
 }
 
 .ui.segment h1.ui.header {
     font-size: 2.5rem;
-    margin: 1em 0em 0em 0em;
+    margin: 1em 0em 0.25em -0.05em;
 }
 
 .ui.segment h2.ui.header {
@@ -245,14 +264,18 @@
 }
 
 header.ui.segment.masthead h1.ui.header {
-    font-size: 4em;
-    margin-top: 5.5em;
+    font-size: 3.5em;
+    margin-top: 1em;
     font-weight: 700;
 }
 
-header .page-buttons {
-    margin-top: 2.5em;
+header.ui.masthead .page-buttons {
+    margin-top: 0em;
     margin-bottom: 2em;
+}
+
+header.ui.masthead .ui.text.container {
+    margin-bottom: 1em;
 }
 
 header.ui.masthead .page-buttons,
@@ -261,10 +284,15 @@ header.ui.masthead .ui.header {
     text-align: left;
 }
 
+header.ui.masthead .headline {
+    padding-bottom: 1em;
+}
+
 .ui.footer.segment .ui.header {
     color: #fff;
 }
 
+/** Custom Front Page Article Link Color
 .page.front .segment.posts article .ui.header a {
     color: #b7d9cb;
     text-decoration: none;
@@ -272,7 +300,7 @@ header.ui.masthead .ui.header {
 
 .page.front .segment.posts article .ui.header a:hover {
     color: #2b293f;
-}
+} **/
 
 .blockquote {
     color: #8c8c8c;
@@ -298,7 +326,7 @@ header.ui.masthead .ui.header {
 }
 
 .ui.vertical.stripe.main-segment {
-    padding: 4em 0em 4em 0em;
+    padding: 0em;
 }
 
 .ui.vertical.stripe.bottom-segment {
@@ -327,7 +355,7 @@ header.ui.masthead .ui.header {
 }
 
 .webpages.front .ui.segment.main-segment {
-    padding-top: 5em;
+    padding-top: 1em;
 }
 
 .body .ui.segment.main-segment.posts h1.ui.header {
@@ -337,10 +365,6 @@ header.ui.masthead .ui.header {
 
 .people .ui.segment.main-segment h3 {
     margin-top: 4em;
-}
-
-body.page .ui.spaced.single-tile.segment.section-bg-58311 {
-    padding-bottom: 1em;
 }
 
 @media only screen and (max-width: 990px) {

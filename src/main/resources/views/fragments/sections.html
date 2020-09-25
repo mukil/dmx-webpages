@@ -228,7 +228,7 @@
 <!-- Accordion Section -->
 <div th:fragment="accordion-styled (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic spaced accordion-section segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
+     th:class="'ui basic accordion-section segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Section Headline -->
@@ -240,7 +240,7 @@
         </h1>
     </div>
     <!-- Tile Elements -->
-    <div class="ui styled fluid accordion container text">
+    <div class="ui styled accordion container text">
         <div th:each="content, iterator : ${section.contents}">
             <!-- Inline Tile Styles -->
             <div th:replace="fragments/inline-styles :: tile-background (${content})" />
@@ -259,7 +259,7 @@
 <!-- Single Tile Section -->
 <div th:fragment="single-tile (section)"
      th:id="${section.anchorId}"
-     th:class="'ui basic spaced single-tile segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
+     th:class="'ui basic single-tile segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
 
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
@@ -324,7 +324,7 @@
             Quote Section Title
         </h1>
     </div>
-    <div class="ui equal width stackable grid quote">
+    <div class="ui equal width container text stackable grid quote">
         <div th:class="'column tile tile-background-' + ${content.id}"
              th:each="content, iterator : ${section.contents}">
             <!-- Inline Tile Styles -->

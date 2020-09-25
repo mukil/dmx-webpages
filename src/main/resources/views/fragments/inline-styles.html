@@ -70,8 +70,8 @@
     <style th:if="${not #strings.isEmpty(section.backgroundColor) and not #strings.equals(section.fontColor)}" th:inline="text">
         /*<![CDATA[*/
         .page .ui.segment.section-bg-[[${section.id}]],
-        .page .ui.accordion-section .styled.accordion .title,
-        .page .ui.accordion-section .styled.accordion .content {
+        .page .ui.segment.section-bg-[[${section.id}]] .styled.accordion .title,
+        .page .ui.segment.section-bg-[[${section.id}]] .styled.accordion .content {
             background-color: [[${section.backgroundColor}]];
             color: [[${section.fontColor}]];
             /** border-top: 1px solid [[${section.fontColor}]]33; 

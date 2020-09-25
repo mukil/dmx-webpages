@@ -30,6 +30,10 @@ h3.header .value {
     margin-right: 1em;
 }
 
+.ui.category.search > .results .category .result {
+    padding: 0em 1em;
+}
+
 .masthead .ui.menu .ui.button {
     margin-left: 0.5em;
 }
@@ -41,6 +45,7 @@ h3.header .value {
 
 .page .ui.text.container {
     max-width: 900px !important;
+    margin: auto;
 }
 
 @media only screen and (max-width: 1080px) {
@@ -221,7 +226,7 @@ header.inverted .page-meta .label {
 .body .ui.accordion-section {
     padding-top: 1em;
     padding-bottom: 3em;
-    margin-bottom: 3em;
+    margin: auto;
 }
 
 .ui.grid > .row > .column,
@@ -247,11 +252,15 @@ header.inverted .page-meta .label {
     margin: auto !important;
 }
 
+.webpages .ui.segment.masthead {
+    padding-bottom: 0em;
+}
+
 /** Section Layout Stylings --*/
 
 .webpages .ui.segment {
     border-radius: 0em;
-    padding-top: 3em;
+    padding-bottom: 4em;
 }
 
 /** ### **/
@@ -279,16 +288,6 @@ header.inverted .page-meta .label {
 .ui.vertical.segment.two-n-columns .grid .column,
 .ui.segment.n-columns .grid .column {
     padding: 2em;
-}
-
-.ui.segment.single-tile .tile-row h1,
-.ui.segment.single-tile .tile-row h2 {
-    margin-top: 1em;
-}
-
-.ui.segment.single-tile .ui.header,
-.ui.segment.single-tile .tile-row .content {
-    margin-top: 1em;
 }
 
 /** ### **/
