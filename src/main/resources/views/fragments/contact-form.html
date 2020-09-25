@@ -5,7 +5,7 @@
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <!-- Contact Form Title -->
-    <div class="ui">
+    <div class="ui container text">
         <h1 class="ui header container"
             th:if="${not #strings.isEmpty(section.title)}"
             th:text="${section.title}">
