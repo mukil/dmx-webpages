@@ -371,13 +371,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         log.info("> webpagesSearch: \"" + luceneQuery + "\"");
         for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(headline);
-            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
         for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(content);
-            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
@@ -432,7 +432,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         if (sections != null) {
             for (Topic section : sections) {
                 Topic webpage = getRelatedWebpageTopic(section);
-                if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft")) {
+                if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                     results.add(webpage);
                 }
             }
@@ -936,9 +936,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     private void preparePageViewData(Webpage webpage) {
         viewData("customPageCss", webpage.getStylesheet());
         List<RelatedTopic> scripts = webpage.getJavascripts();
-        for (RelatedTopic script : scripts) {
-            // ### Fixme: Pass all javascript path into template
-            viewData("customPageScript", script.getSimpleValue().toString());
+        if (scripts != null) {
+            for (RelatedTopic script : scripts) {
+                viewData("customPageScript", script.getSimpleValue().toString());
+            }
         }
         viewData("dateCreated", df.format(webpage.getCreationDate()));
         viewData("dateModified", df.format(webpage.getModificationDate()));
@@ -1090,7 +1091,6 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         // removes reserved characters and german special characters from url
         String result = value.replaceAll(" ", "-").replaceAll("\\&", "-")
             .replaceAll(":", "-").replaceAll("=", "-")
-            .replaceAll("^", "-").replaceAll("+", "-")
             .replaceAll("\\.", "-").replaceAll("\\?", "-")
             .replaceAll("\\(", "-").replaceAll("\\)", "-")
             .replaceAll("\\:", "-").replaceAll("\\+", "-")
@@ -1103,7 +1103,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             .replaceAll("§", "-").replaceAll("%", "-")
             .replaceAll("ä", "ae").replaceAll("ö", "oe")
             .replaceAll("ü", "ue").replaceAll("ß", "ss");
-        result = result.replaceAll("--+", "-").toLowerCase();
+        result = result.toLowerCase();
         if (result.length() == (result.lastIndexOf("-") + 1)) {
             result = result.substring(0, result.length() - 1);
         }

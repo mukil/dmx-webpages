@@ -1,3 +1,4 @@
+page
 [
     {
        "topic_types": [
@@ -156,7 +157,7 @@
                 ]
             },
             {
-                "value": "Content",
+                "value": "Main Content",
                 "uri": "de.mikromedia.page.main",
                 "dataTypeUri": "dmx.core.html",
                 "indexModeUris": ["dmx.core.fulltext", "dmx.core.fulltext_key"],

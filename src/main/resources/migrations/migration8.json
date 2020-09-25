@@ -142,6 +142,7 @@
                 {
                     "childTypeUri":           "de.mikromedia.section.layout",
                     "childCardinalityUri":    "dmx.core.one",
+                    "includeInLabel":         true,
                     "isIdentityAttr":         true,
                     "viewConfigTopics": [
                         {
