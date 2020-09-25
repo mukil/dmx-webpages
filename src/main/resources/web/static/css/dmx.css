@@ -1,13 +1,7 @@
 
-/** 
- * The filename of this styleshee is due to support for legacy installations
- * (and the layzness to write a simple migration...)
- **/
+/** -- Imports Fomantic UI Custom Styled 2.8.4 Release -- **/
 
-/** -- New Semantic UI Custom Styled 2.3.1 Release -- **/
-
-/** @import url('/de.kiezatlas.website/css/semantic-ui/2.3/dist/semantic.min.css'); **/
-@import url('/de.mikromedia.webpages/static/css/semantic-ui/dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
 
 
 .ui.menu .search.item .results a,
@@ -24,14 +18,6 @@
     padding-bottom: 3em;
 }
 
-/** .red {
-    color: #ff1958;
-}
-
-.light-red {
-    color: #ffa4bd;
-} **/
-
 #header-page-nav img.logo {
     height: 36px;
     width: auto;
@@ -40,19 +26,6 @@
 #lower-page-nav img.logo {
     height: 32px;
     width: auto;
-}
-
-.ui.menu .input > input,
-.ui.vertical.inverted.menu .menu .item,
-.ui.menu .item,
-.ui.inverted.menu .item {
-    font-weight: 700;
-    line-height: 1.5em;
-}
-
-.sidebar.ui.vertical.inverted.menu .menu .item {
-    font-size: 1.5em;
-    padding-left: 1.15em;
 }
 
 .ui.transparent.icon.input > input {
@@ -70,25 +43,9 @@
     text-decoration: underline;
 }
 
-/** Semantic UI Overrides **/
-
-.ui.segment a[target="_blank"]::after {
-    content: "  \29C9";
-    /** content: "\2750"; **/
-}
-
 .two-columns-equal .tc p img {
     width: 100%;
     height: auto;
-}
-
-.ui.segment .ui.text.container table,
-.ui.segment .ui.text.container p,
-.ui.segment .ui.text.container ul,
-.ui.segment.tile table,
-.ui.segment.tile ul,
-.ui.segment.tile p {
-    font-size: 1.25rem
 }
 
 .ui.footer.segment.striped {
@@ -195,6 +152,10 @@ header.ui.masthead .ui.header {
     color: #d7d7d7;
 }
 
+.ui.segment a[target="_blank"]::after {
+    content: "  \29C9";
+}
+
 .ui.vertical.stripe.main-segment {
     padding: 4em 0em 4em 0em;
 }
@@ -209,10 +170,6 @@ header.ui.masthead .ui.header {
 
 .metadata:hover {
     color: #8c8c8c;
-}
-
-.ui.inverted.footer.segment {
-    background-color: #2b293f;
 }
 
 .case-studies .ui.segment.single-tile .tc .content {
