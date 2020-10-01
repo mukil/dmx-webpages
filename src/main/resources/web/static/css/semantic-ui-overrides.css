@@ -44,7 +44,7 @@ h3.header .value {
 }
 
 .page .ui.text.container {
-    max-width: 900px !important;
+    max-width: 1220px !important;
     margin: auto;
 }
 
@@ -199,17 +199,14 @@ header.inverted .page-meta .label {
     padding-bottom: 0em;
 }
 
-.page .segment .text a {
+/** .page.front .segment .text a {
     text-decoration: underline;
-}
-
-.page.front .segment .text a {
-    text-decoration: none;
+    color: #333;
 }
 
 .page.front .segment .content a:hover {
-    text-decoration: underline;
-}
+    color: #000;
+} **/
 
 .page .segment .text a.button {
     text-decoration: none;
@@ -432,9 +429,13 @@ article .text blockquote {
     color: #fff;
 }
 
-#lower-page-nav .ui.main-menu.container,
+.ui.fixed.top.menu .ui.main-menu.container,
 header .ui.main-menu.container {
-    max-width: 1060px;
+    max-width: 1220px;
+}
+
+.ui.fixed.top.menu .ui.menu .item {
+    padding: 1.1em 1.2em;
 }
 
 /** #header-page-nav  ui.menu .item {

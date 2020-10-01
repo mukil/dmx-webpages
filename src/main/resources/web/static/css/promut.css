@@ -3,23 +3,118 @@
 
 @import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
 
+/** IASS Webfonts **/
+@font-face{
+    font-family: 'Source Serif Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('./openfonts/WOFF2/TTF/SourceSerifPro-Regular.ttf.woff2') format('woff2'),
+         url('./openfonts/WOFF/OTF/SourceSerifPro-Regular.otf.woff') format('woff'),
+         url('./openfonts/OTF/SourceSerifPro-Regular.otf') format('opentype'),
+         url('./openfonts/TTF/SourceSerifPro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: TradeGothicLTPro;
+  src: local("TradeGothic LT Bold Regular"), local("TradeGothic-LT-Bold-Regular"), local("TradeGothicLTBoldRegular"), local("Trade-Gothic-LT-Bold-Regular"), local("tradegothicltboldregular"), local("trade-gothic-lt-bold-regular"),
+  url("./fonts/TradeGothicLT-Pro-Bold-33D730_0_0.woff2") format("woff2"),
+  url("./fonts/TradeGothicLT-Pro-Bold-33D730_0_0.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: TradeGothicLTPro;
+  src: local("TradeGothic LT Regular"), local("TradeGothic-LT-Regular"), local("TradeGothicLTRegular"), local("Trade-Gothic-LT-Regular"), local("tradegothicltregular"), local("trade-gothic-lt-regular"),
+  url("./fonts/TradeGothicLT-Pro-33D730_3_0.woff2") format("woff2"),
+  url("./fonts/TradeGothicLT-Pro-33D730_3_0.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: TradeGothicLTPro;
+  src: local("TradeGothic LT Light"), local("TradeGothic-LT-Light"), local("TradeGothicLTLight"), local("Trade-Gothic-LT-Light"), local("tradegothicltlight"), local("trade-gothic-lt-light"),
+  url("./fonts/TradeGothicLT-Pro-Light-33D730_4_0.woff2") format("woff2"),
+  url("./fonts/TradeGothicLT-Pro-Light-33D730_4_0.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+}
+
+body,
+.ui.menu .input > input,
+.ui.text.container {
+    font-family: "TradeGothicLTPro", -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+}
+
+.ui.search > .results .result .title,
+.ui.menu,
+.ui.header,
+.ui.button,
+.ui.header,
+.text h1.ui.header, 
+.ui.container.text h1,
+.tile-content h1, 
+h2, h3, h4, h5, h6,
+.ui.category.search > .results .category > .name {
+    font-family: "TradeGothicLTPro", "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+}
+
+/** Hyperlink Styles **/
+.webpages a {
+    text-decoration: none;
+}
+
+.webpages .ui.text.container .segment a {
+    font-weight: bold;
+    color: #333;
+}
+
+/** External Links are presented as such **/
+.ui.segment a[target="_blank"]::after {
+    content: "  \29C9";
+    padding-right: 0.15em;
+    /** content: "\2750"; **/
+}
+
+.page .segment .content a {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.ui.menu .search.item .results a:hover {
+    text-decoration: underline;
+}
+
 .ui.menu .search.item .results a,
 .ui.menu .menu-items a,
 .ui.footer.segment .site-link a {
     text-decoration: none;
 }
 
-body,
-.ui.text.container {
-    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+.webpages input.ui.button,
+.webpages a.ui.button {
+    border-radius: 0em;
+    padding: .5em 1em;
+    font-weight: 300;
 }
 
-.ui.menu,
-.ui.header,
-.ui.button,
-h1, h2, h3, h4, h5, h6,
-.ui.category.search > .results .category > .name {
-    font-family: "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
+/** Menus **/
+
+.ui.large.inverted.menu img.logo {
+    height: 36px;
+    width: auto;
+}
+
+.ui.top.fixed.menu img.logo {
+    height: 44px;
+    width: auto;
+}
+
+.sidebar.ui.vertical.inverted.menu .menu .item {
+    font-size: 1.5rem;
+    padding-left: 1.15em;
 }
 
 .ui.vertical.menu.sidebar .item > img.logo {
@@ -30,8 +125,160 @@ h1, h2, h3, h4, h5, h6,
     padding-bottom: 3em;
 }
 
-/** IASS CI Colors **/
+.ui.button,
+.ui.menu .input > input,
+.ui.vertical.inverted.menu .menu .item,
+.ui.menu .item,
+.ui.inverted.menu .item {
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.5em;
+}
 
+.ui.menu .item .menu.item {
+    font-size: 1.4rem;
+}
+
+.ui.sidebar .ui.transparent.icon.input > input {
+    padding-left: .6em !important;
+    font-size: 1.2rem;
+}
+
+.ui.large.fixed.top.menu .ui.transparent.icon.input > input {
+    padding-left: .6em !important;
+    font-size: 1.0rem;
+}
+
+.ui.sidebar .ui.category.search .results {
+    font-size: 1em;
+    width: 90%;
+    margin-left: 1.5rem;
+}
+
+.two-columns-equal .tc p img {
+    width: 100%;
+    height: auto;
+}
+
+.ui.segment .ui.text.container table,
+.ui.segment .ui.text.container p,
+.ui.segment .ui.text.container ul,
+.ui.segment.tile table,
+.ui.segment.tile ul,
+.ui.segment.tile p {
+    font-size: 1.3rem;
+    line-height: 1.6em;
+}
+
+.ui.footer.segment.striped {
+    padding-top: 2em;
+    padding-bottom: 1em;
+}
+
+.ui.footer.segment .ui.container.text {
+    position: relative;
+}
+
+.footer.segment .footer-links .submenu,
+.ui.footer.segment .ui.container.text p {
+    font-size: 1rem;
+}
+
+.footer.segment .footer-links .submenu {
+    display: inline-block;
+    top: -11px;
+    position: relative;
+}
+
+.page .footer.segment .text a.logo {
+    text-decoration: none;
+}
+
+.footer.segment .footer-links .logo img {
+    height: auto;
+    position: relative;
+    left: -5px;
+}
+
+.footer.segment .footer-links {
+    display: inline-block;
+}
+
+.footer.segment .footer-links a {
+    margin-right: 2em;
+}
+
+.footer.segment a {
+    font-weight: normal;
+    color: #000;
+    text-decoration: none;
+}
+
+.footer.segment a:hover {
+    text-decoration: underline;
+}
+
+.ui.segment {
+    padding: 1em 0em;
+}
+
+.ui.segment.tile {
+    font-size: 2rem;
+}
+
+.ui.segment h1.ui.header {
+    padding-top: 1.2em;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.ui.segment h2.ui.header {
+    font-size: 1.5rem;
+}
+
+header.ui.segment.masthead h1.ui.header {
+    font-size: 3.5em;
+    margin-top: 1em;
+    font-weight: 400;
+    font-family: "Source Serif Pro", serif;
+}
+
+header.ui.masthead .page-buttons {
+    margin-top: 0em;
+    margin-bottom: 2em;
+    padding-left: 0.1em;
+}
+
+header.ui.masthead .ui.text.container {
+    margin-bottom: 1em;
+}
+
+header.ui.masthead .page-buttons,
+header.ui.masthead .headline,
+header.ui.masthead .ui.header {
+    text-align: left;
+}
+
+header.ui.masthead .headline {
+    padding-bottom: 1em;
+    padding-left: 0.1em;
+}
+
+.ui.footer.segment .ui.header {
+    color: #fff;
+}
+
+/** Custom Front Page Article Link Color
+.page.front .segment.posts article .ui.header a {
+    color: #b7d9cb;
+    text-decoration: none;
+}
+
+.page.front .segment.posts article .ui.header a:hover {
+    color: #2b293f;
+} **/
+
+/** IASS CI Colors **/
 .blue {
     color: #004A99;
 }
@@ -146,166 +393,6 @@ h1, h2, h3, h4, h5, h6,
     background-color: #38291e;
 }
 
-/** SemanticUI Webpages Tweaks **/
-
-#header-page-nav img.logo {
-    height: 36px;
-    width: auto;
-}
-
-#lower-page-nav img.logo {
-    height: 32px;
-    width: auto;
-}
-
-.sidebar.ui.vertical.inverted.menu .menu .item {
-    font-size: 1.5rem;
-    padding-left: 1.15em;
-}
-
-.ui.menu .input > input,
-.ui.vertical.inverted.menu .menu .item,
-.ui.menu .item,
-.ui.inverted.menu .item {
-    font-weight: 700;
-    line-height: 1.5em;
-}
-
-
-.ui.transparent.icon.input > input {
-    padding-left: .6em !important;
-    font-size: 1.2rem;
-}
-
-.ui.sidebar .ui.category.search .results {
-    font-size: 1em;
-    width: 90%;
-    margin-left: 1.5rem;
-}
-
-.ui.menu .search.item .results a:hover,
-.page.front .segment .ui.text a {
-    text-decoration: underline;
-}
-
-/** External Links are presented as such **/
-.ui.segment a[target="_blank"]::after {
-    content: "  \29C9";
-    padding-right: 0.15em;
-    /** content: "\2750"; **/
-}
-
-.two-columns-equal .tc p img {
-    width: 100%;
-    height: auto;
-}
-
-.ui.segment .ui.text.container table,
-.ui.segment .ui.text.container p,
-.ui.segment .ui.text.container ul,
-.ui.segment.tile table,
-.ui.segment.tile ul,
-.ui.segment.tile p {
-    font-size: 1.25rem;
-    line-height: 1.33em;
-}
-
-.ui.footer.segment.striped {
-    margin-top: 3em;
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.ui.footer.segment .ui.container.text {
-    position: relative;
-}
-
-.footer.segment .footer-links .submenu,
-.ui.footer.segment .ui.container.text p {
-    font-size: 1rem;
-}
-
-.footer.segment .footer-links .submenu {
-    display: inline-block;
-    top: -11px;
-    position: relative;
-}
-
-.page .footer.segment .text a.logo {
-    text-decoration: none;
-}
-
-.footer.segment .footer-links .logo img {
-    height: auto;
-    position: relative;
-    left: -5px;
-}
-
-.footer.segment .footer-links {
-    display: inline-block;
-}
-
-.footer.segment .footer-links a {
-    margin-right: 2em;
-}
-
-.ui.segment {
-    padding: 1em 0em;
-}
-
-.ui.segment.tile {
-    font-size: 2rem;
-}
-
-.ui.segment h1.ui.header {
-    font-size: 2.5rem;
-}
-
-.ui.segment h2.ui.header {
-    font-size: 1.5rem;
-}
-
-header.ui.segment.masthead h1.ui.header {
-    font-size: 3.5em;
-    margin-top: 1em;
-    font-weight: 700;
-}
-
-header.ui.masthead .page-buttons {
-    margin-top: 0em;
-    margin-bottom: 2em;
-    padding-left: 0.1em;
-}
-
-header.ui.masthead .ui.text.container {
-    margin-bottom: 1em;
-}
-
-header.ui.masthead .page-buttons,
-header.ui.masthead .headline,
-header.ui.masthead .ui.header {
-    text-align: left;
-}
-
-header.ui.masthead .headline {
-    padding-bottom: 1em;
-    padding-left: 0.1em;
-}
-
-.ui.footer.segment .ui.header {
-    color: #fff;
-}
-
-/** Custom Front Page Article Link Color
-.page.front .segment.posts article .ui.header a {
-    color: #b7d9cb;
-    text-decoration: none;
-}
-
-.page.front .segment.posts article .ui.header a:hover {
-    color: #2b293f;
-} **/
-
 .blockquote {
     color: #8c8c8c;
     padding-left: 1em;
@@ -360,6 +447,7 @@ header.ui.masthead .headline {
 
 .webpages.front .ui.segment.main-segment {
     padding-top: 1em;
+    padding-bottom: 3em;
 }
 
 .body .ui.segment.main-segment.posts article h1.ui.header {
