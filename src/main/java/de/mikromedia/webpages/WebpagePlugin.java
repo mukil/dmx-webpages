@@ -371,13 +371,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         log.info("> webpagesSearch: \"" + luceneQuery + "\"");
         for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(headline);
-            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
         for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(content);
-            if (!results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
+            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
