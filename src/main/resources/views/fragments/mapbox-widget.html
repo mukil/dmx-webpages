@@ -21,20 +21,20 @@
     </div>
     <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
     <!-- Leaflet Dependencies -->
-    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <link rel="stylesheet" href="/de.mikromedia.webpages/static/leaflet/leaflet.css"/>
     <script>
         function init_map(e) {
-            var map = L.map('map').setView([52.539394, 13.410415], 18);
+            var map = L.map('map') // ### .setView([52.539394, 13.410415], 18);
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 23, id: 'mapbox.streets', minZoom: 13,
                 accessToken: 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJjamg5M3ozdGQwOHFxMzBvMzI2ZXkxaXRzIn0.Uv3Kq1NhqzKcok3GGPbXfg'
             }).addTo(map);
-            var marker = L.marker([52.539394, 13.410415]).addTo(map);
-            marker.bindPopup('<h3>Martin Rufert, QPQ<br/>Kastanienallee 12, 10435 Berlin</h3>').openPopup();
+            // ### var marker = L.marker([52.539394, 13.410415]).addTo(map);
+            // ### TODO: marker.bindPopup('<h3>Martin Rufert, QPQ<br/>Kastanienallee 12, 10435 Berlin</h3>').openPopup();
         }
     </script>
-    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+    <script src="/de.mikromedia.webpages/static/leaflet/leaflet.js" onload="init_map()"></script>
 </div>
 
 <!-- Mapbox Small Sized Widget -->
@@ -49,18 +49,18 @@
     </div>
     <!--div th:if="${institution}" th:text="${institution}" class="metadata"></div-->
     <!-- Leaflet Dependencies -->
-    <link rel="stylesheet" href="/de.mikromedia.webpages/leaflet/leaflet.css"/>
+    <link rel="stylesheet" href="/de.mikromedia.webpages/static/leaflet/leaflet.css"/>
     <script>
         function init_map(e) {
-            var map = L.map('small-map').setView([52.539394, 13.410415], 18);
+            var map = L.map('small-map') // ### .setView([52.539394, 13.410415], 18);
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 23, id: 'mapbox.streets', minZoom: 13,
                 accessToken: 'pk.eyJ1IjoibWFsdHdpc25leSIsImEiOiJjamg5M3ozdGQwOHFxMzBvMzI2ZXkxaXRzIn0.Uv3Kq1NhqzKcok3GGPbXfg'
             }).addTo(map);
-            var marker = L.marker([52.539394, 13.410415]).addTo(map);
-            marker.bindPopup('<a href="https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/en?ld=47.152&amp;seqnr=1;&amp;ident=3i.015826152.1531987705&amp;">Route with Public Transport</a>')
+            // ### var marker = L.marker([52.539394, 13.410415]).addTo(map);
+            // ### marker.bindPopup('<a href="https://fahrinfo.bvg.de/Fahrinfo/bin/query.bin/en?ld=47.152&amp;seqnr=1;&amp;ident=3i.015826152.1531987705&amp;">Route with Public Transport</a>')
         }
     </script>
-    <script src="/de.mikromedia.webpages/leaflet/leaflet.js" onload="init_map()"></script>
+    <script src="/de.mikromedia.webpages/static/leaflet/leaflet.js" onload="init_map()"></script>
 </div>

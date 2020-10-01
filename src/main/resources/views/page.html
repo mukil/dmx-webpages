@@ -14,9 +14,9 @@
         <meta itemprop="dateCreated" th:content="${dateCreated}"/>
         <meta itemprop="dateModified" th:content="${dateModified}"/>
         <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
-
-        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
-        <link media="all" th:href="${customPageCss}" th:if="${!#strings.isEmpty(customPageCss)}" href="" rel="stylesheet" />
+        
+        <link media="all" th:if="${!#strings.isEmpty(customSiteCss)}" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:if="${!#strings.isEmpty(customPageCss)}" th:href="${customPageCss}" rel="stylesheet" />
         <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
 
         <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
@@ -27,7 +27,7 @@
         <meta th:replace="fragments/tracker" />
     </head>
     <body th:class="'webpages page ui detail ' + ${page.webAlias}">
-
+      
         <!-- Following (low-hanging) Menu -->
         <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
 

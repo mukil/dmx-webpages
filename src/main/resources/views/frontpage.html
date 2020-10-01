@@ -10,7 +10,7 @@
         <!-- Site Properties -->
         <title th:text="'Welcome - ' + ${siteName}">Welcome</title>
 
-        <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:if="${!#strings.isEmpty(customSiteCss)}" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
 
         <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>

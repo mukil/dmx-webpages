@@ -48,20 +48,16 @@ h3.header .value {
     margin: auto;
 }
 
-@media only screen and (max-width: 1080px) {
+/** @media only screen and (max-width: 1080px) {
     .ui.inverted.footer.segment,
     .webpages header .ui.text.container {
         padding-left: 1rem;
         padding-right: 1rem;
     }
-}
+} **/
 
 .ui.text.container .metadata {
     margin-top: 1.5em;
-}
-
-.ui.vertical.stripe {
-    padding: 8em 0em;
 }
 
 .ui.vertical.stripe .floated.image {
@@ -119,8 +115,10 @@ article .text {
     -webkit-box-shadow: 0px 1px 2px 1px #ececec;
 }
 
-.footer .site-link .logo {
+.footer .logo {
     max-width: 250px;
+    max-height: 75px;
+    margin-bottom: 1em;
     height: auto;
 }
 
@@ -219,10 +217,6 @@ header.inverted .page-meta .label {
 
 /** --- Segments Stylings --- **/
 
-.body .ui.spaced.segment {
-    padding-bottom: 10em;
-}
-
 .body .ui.accordion-section {
     padding-top: 1em;
     padding-bottom: 3em;
@@ -252,11 +246,24 @@ header.inverted .page-meta .label {
     margin: auto !important;
 }
 
+.ui.segment.ten-six-columns .container.grid .tile,
+.ui.segment.two-columns-equal .container.grid .tile {
+    padding: 0em 2em 1em 1em;
+    margin-left: -1em;
+}
+
 .webpages .ui.segment.masthead {
     padding-bottom: 0em;
 }
 
 /** Section Layout Stylings --*/
+
+.webpages .ui.segment.ten-six-columns {
+    padding: 0em;
+}
+.webpages .ui.segment.ten-six-columns .grid .row {
+    padding: 0em;
+}
 
 .webpages .ui.segment {
     border-radius: 0em;
@@ -280,20 +287,45 @@ header.inverted .page-meta .label {
     margin-bottom: 3em;
 }
 
+.ui.single-tile.segment .container.text .tile-row {
+    padding-bottom: 1em;
+}
+
 .ui.equal.grid.quote .tile-content {
     padding: 2em;
 }
 
-/** ### **/
-.ui.vertical.segment.two-n-columns .grid .column,
 .ui.segment.n-columns .grid .column {
+    padding: 1em 3em 3em 3em;
+}
+
+.ui.segment.two-n-columns {
+    padding: 0em;
+}
+
+.ui.segment.contact-form-full h1.ui.header {
+    padding-bottom: .5em;
+}
+
+.ui.segment.contact-form-full {
+    padding-top: 3em;
+}
+
+.ui.segment.ten-six-columns .ui.container h1.ui.header,
+.ui.segment.two-n-columns .ui.container h1.ui.header {
+    padding-top: 1em;
+}
+
+.ui.segment.two-n-columns .grid .column {
     padding: 2em;
 }
 
-/** ### **/
-.ui.vertical.segment.two-n-columns .row .column {
-    padding-left: 3em;
-    padding-right: 3em;
+.ui.segment.two-n-columns .row {
+    padding: 0em;
+}
+
+.ui.segment.two-n-columns .grid .row .column.tile {
+    padding: 3em;
 }
 
 .ui.segment .tile.clickable {
@@ -309,6 +341,11 @@ header.inverted .page-meta .label {
 
 .webpages .ui.segment.native-embed {
     padding-top: 0em;
+}
+
+.webpages .ui.segment.n-columns {
+    padding-bottom: 0em;
+    border: 0px solid transparent;
 }
 
 /** --- Article Styles --- **/
@@ -408,14 +445,14 @@ header .ui.main-menu.container {
 } **/
 
 @media only screen and (max-width: 1024px) {
+    .webpages .ui.segment {
+        border-radius: 0em;
+    }
     .body .ui.segment h1.ui.header {
         font-size: 2rem;
     }
     .body .ui.segment h2.ui.header {
         font-size: 1.5rem;
-    }
-    .body .ui.spaced.segment {
-        padding-bottom: 5em;
     }
     #header-page-nav .menu-items .item,
     #lower-page-nav .menu-items .item {
@@ -425,6 +462,7 @@ header .ui.main-menu.container {
     #header-page-nav .menu .toc.item {
         display: block;
     }
+    /** N-Columns Special Layout **/
     .webpages .ui.segment.n-columns {
         padding: 0em;
         padding-top: 2.5em;
@@ -433,8 +471,17 @@ header .ui.main-menu.container {
         padding-left: .5em;
     }
     .webpages .ui.segment.n-columns .tile {
-        min-height: 100px;
-        padding: 0em !important;
+        min-height: 100px;    }
+    .ui.segment.two-n-columns .grid .row .column.tile {
+        padding: 1em;
+    }
+    .webpages .ui.segment.n-columns .tile
+    /** Standard Section Layouts **/
+    .webpages .ui.segment.main-segment,
+    .webpages .ui.segment.two-n-columns,
+    .webpages .ui.segment.ten-six-columns,
+    .webpages .ui.segment {
+        padding: 2em;
     }
     .webpages .ui.segment .grid .tile .ul {
         margin-bottom: 0px;
@@ -442,6 +489,17 @@ header .ui.main-menu.container {
 }
 
 @media only screen and (max-width: 700px) {
+    .ui.segment.n-columns .grid .column {
+        padding: 2.5em;
+    }
+    .ui.vertical.stripe.main-segment {
+        padding: 2em;
+    }
+    .ui.segment.ten-six-columns .container.grid .tile,
+    .ui.segment.two-columns-equal .container.grid .tile {
+        padding: 0rem 2rem 1rem 1rem;
+        margin-left: -1em;
+    }
     .ui.vertical.stripe.main-segment.posts.container {
         margin-left: 0em !important;
     }

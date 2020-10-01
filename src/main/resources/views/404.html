@@ -29,20 +29,16 @@
         <!-- Page Contents -->
         <div class="pusher">
 
-            <header class="ui inverted vertical masthead center aligned segment">
-
-                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
-
-                <div class="ui text container">
-                    <h1 class="ui inverted header" itemprop="headline">404</h1>
-                </div>
-
-            </header>
-
+            <!-- Header incl. Main Top Menu -->
+            <header th:replace="fragments/header :: front"></header>
+            
             <div class="ui vertical stripe segment">
 
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
                     <div class="main">
+                      <div class="ui text container">
+                        <h1 class="ui header" itemprop="headline">404</h1>
+                      </div>
                       <div class="ui container text" itemprop="text">
                         <h3>File not found. Sorry, we haven't prepared any data at</h3>
                         <p><em class="location-alert" th:utext="'/' + ${webalias}"></em></p>

@@ -31,23 +31,17 @@
         <!-- Page Contents -->
         <div class="pusher">
 
-            <header class="ui inverted vertical masthead center aligned segment">
-
-                <nav id="header-page-nav" class="ui container" th:include="fragments/navigation :: standard-nav (publisher=${is_publisher})"></nav>
-
-                <div class="ui text container">
-                    <h1 class="ui inverted header" itemprop="headline">401</h1>
-                    <h3>This webpage is currently <em>not public</em>.</h3>
-                </div>
-
-            </header>
+              <!-- Header incl. Main Top Menu -->
+            <header th:replace="fragments/header :: front"></header>
 
             <div class="ui vertical stripe segment">
 
                 <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
-                    <div class="main">
-                        <div class="text" itemprop="text" th:utext="${message}"></div>
-                    </div>
+                    <div class="ui text main container">
+                       <h1 class="ui inverted header" itemprop="headline">401</h1>
+                       <h3>This webpage is currently <em>not public</em>.</h3>
+                       <div class="text" itemprop="text" th:utext="${message}"></div>
+                   </div>
                 </article>
 
             </div>
