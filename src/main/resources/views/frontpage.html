@@ -49,14 +49,14 @@
                 <div class="ui basic stripe center segment main-segment posts text container">
 
                     <div class="ui container">
-                        <h1 class="ui header">Articles</h1>
+                        <h1 class="ui header">Webpages</h1>
                     </div>
 
                     <div class="ui container">
 
                         <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'"
                                  itemtype="http://schema.org/WebPage" itemscope="">
-                            <h1 class="ui header">
+                            <h2 class="ui header">
                                 <a th:if="${#strings.contains(website, 'standard')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
@@ -67,7 +67,7 @@
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
                                     <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
-                            </h1>
+                            </h2>
                             <p class="text" itemprop="description" th:text="${page.description}">Description of Page</p>
                             <!--span class="meta label modified">Created: </span><span class="meta created value" th:text="${#dates.format(page.creationDate)}"></span-->
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>

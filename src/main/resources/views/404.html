@@ -12,9 +12,9 @@
         <link media="all" th:href="${customSiteCss}" rel="stylesheet" />
         <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
 
-        <script src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
-        <script src="/de.mikromedia.webpages/static/css/semantic-ui/dist/semantic.min.js"></script>
-        <script src="/de.mikromedia.webpages/static/js/page-methods.js" onload="render_page()"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/js/page-methods.js" onload="render_page()"></script>
 
         <meta th:replace="fragments/tracker" />
     </head>
@@ -40,8 +40,7 @@
                         <h1 class="ui header" itemprop="headline">404</h1>
                       </div>
                       <div class="ui container text" itemprop="text">
-                        <h3>File not found. Sorry, we haven't prepared any data at</h3>
-                        <p><em class="location-alert" th:utext="'/' + ${webalias}"></em></p>
+                        <h3>File not found. Sorry, we haven't prepared any data for resource <em class="location-alert" th:utext="'/' + ${webalias}"></em></h3>
                       </div>
                     </div>
                 </article>
