@@ -171,12 +171,32 @@
                 {
                     "childTypeUri":           "dmx.webclient.color",
                     "customAssocTypeUri":     "de.mikromedia.background.color",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                "dmx.webclient.clearable": true,
+                                "dmx.webclient.customizable": true
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "dmx.webclient.color",
                     "customAssocTypeUri":     "de.mikromedia.font.color",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                "dmx.webclient.clearable": true,
+                                "dmx.webclient.customizable": true
+                            }
+                        }
+                    ]
                 }
             ],
             "viewConfigTopics": [

@@ -11,6 +11,7 @@ import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_CONTENT;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_CSS;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_IS_DRAFT;
+import static de.mikromedia.webpages.WebpageService.WEBPAGE_TEMPLATE;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -53,6 +54,10 @@ public class Webpage implements JSONEnabled {
 
     public String getDescription() {
         return page.getChildTopics().getString(WEBPAGE_ABOUT, null);
+    }
+
+    public Topic getHTMLTemplate() {
+        return page.getChildTopics().getTopicOrNull(WEBPAGE_TEMPLATE);
     }
 
     public String getMainHTML() {
@@ -102,7 +107,7 @@ public class Webpage implements JSONEnabled {
         return isDraft;
     }
 
-    public String getAuthorNames() {
+    /** public String getAuthorNames() {
         String nameOfAuthors = "";
         List<RelatedTopic> authorNames = page.getChildTopics().getTopicsOrNull(AUTHOR_NAME);
         if (authorNames != null) {
@@ -116,7 +121,7 @@ public class Webpage implements JSONEnabled {
             }
         }
         return nameOfAuthors;
-    }
+    } **/
 
     public JSONObject toJSON() {
         try {
@@ -126,7 +131,6 @@ public class Webpage implements JSONEnabled {
                 .put("main", getMainHTML())
                 .put("modified", getModificationDate())
                 .put("created", getCreationDate())
-                .put("author_names", getAuthorNames())
                 .put("web_alias", getWebAlias());
             /**
              * .put("web_description", webDescription) *
@@ -139,7 +143,7 @@ public class Webpage implements JSONEnabled {
 
     private boolean isWebpageTopic() {
         if (this.page == null) return false;
-        return (this.page.getTypeUri().equals("de.mikromedia.page"));
+        return (this.page.getTypeUri().equals(WEBPAGE));
     }
 
 }

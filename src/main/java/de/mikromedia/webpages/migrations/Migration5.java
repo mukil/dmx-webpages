@@ -28,8 +28,8 @@ public class Migration5 extends Migration {
         workspacesService.assignTypeToWorkspace(sitePrefix, webpagesWorkspace.getId());
         // 2) Add website prefix to "Website" type
         TopicType siteType = dmx.getTopicType("de.mikromedia.site");
-        // register site.prefix as identityAttr=True
-        siteType.addCompDef(mf.newCompDefModel(null, true, false, siteType.getUri(), sitePrefix.getUri(), "dmx.core.one"));
+        // Fixme: ### If webclient is capable of providing identityAttributes register site.prefix as identityAttr=True
+        siteType.addCompDef(mf.newCompDefModel(null, false, false, siteType.getUri(), sitePrefix.getUri(), "dmx.core.one"));
         // 3) Fetch all website topcis and copy username (former prefix) into new site prefix child
         List<Topic> websites = dmx.getTopicsByType("de.mikromedia.site");
         for (Topic website : websites) {

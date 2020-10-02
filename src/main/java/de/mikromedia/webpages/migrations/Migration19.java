@@ -24,9 +24,8 @@ public class Migration19 extends Migration {
 
         Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         TopicType site = dmx.getTopicType("de.mikromedia.site");
-        DMXType assocDef = site.addCompDef(mf.newCompDefModel(site.getUri(), "de.mikromedia.site.footer_fragment_name", "dmx.core.one"));
-        workspacesService.assignTypeToWorkspace(dmx.getTopicType("de.mikromedia.site.footer_fragment_name"), webpagesWorkspace.getId());
-        workspacesService.assignTypeToWorkspace(assocDef, webpagesWorkspace.getId());
+        site.addCompDef(mf.newCompDefModel(site.getUri(), "de.mikromedia.site.footer_fragment_name", "dmx.core.one"));
+        workspacesService.assignTypeToWorkspace(site, webpagesWorkspace.getId());
 
     }
 

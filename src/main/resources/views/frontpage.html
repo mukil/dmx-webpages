@@ -72,7 +72,7 @@
                             <!--span class="meta label modified">Created: </span><span class="meta created value" th:text="${#dates.format(page.creationDate)}"></span-->
                             <meta itemprop="dateCreated" th:content="${page.creationDate}"/>
                             <meta itemprop='dateModified' th:content="${#dates.format(page.modificationDate)}"/>
-                            <meta itemprop="author" th:content="${page.authorNames}" />
+                            <!-- ### meta itemprop="author" th:content="${page.authorNames}" /-->
                             <div class="ui divider"></div>
                         </article>
                         

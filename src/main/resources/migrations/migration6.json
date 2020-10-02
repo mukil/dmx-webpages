@@ -158,16 +158,46 @@
                 {
                     "childTypeUri":           "dmx.webclient.color",
                     "customAssocTypeUri":     "de.mikromedia.background.color",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                "dmx.webclient.clearable": true,
+                                "dmx.webclient.customizable": true
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "dmx.webclient.color",
                     "customAssocTypeUri":     "de.mikromedia.font.color",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                "dmx.webclient.clearable": true,
+                                "dmx.webclient.customizable": true
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "de.mikromedia.header.js",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                "dmx.webclient.clearable": true,
+                                "dmx.webclient.customizable": true
+                            }
+                        }
+                    ]
                 }
             ],
             "viewConfigTopics": [
@@ -199,11 +229,27 @@
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.image.size_style",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "de.mikromedia.image.attachment_style",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
+                            }
+                        }
+                    ]
                 }
             ],
             "viewConfigTopics": [
@@ -222,11 +268,27 @@
             "compDefs": [
                 {
                     "childTypeUri":           "de.mikromedia.image.size_style",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
+                            }
+                        }
+                    ]
                 },
                 {
                     "childTypeUri":           "de.mikromedia.image.attachment_style",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
+                            }
+                        }
+                    ]
                 }
             ],
             "viewConfigTopics": [

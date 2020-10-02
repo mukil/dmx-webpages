@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="${page.title} + ' - ' + ${siteName}">Webpage</title>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- See http://schema.org/WebPage -->
+        <meta itemprop="name" th:content="${page.title}"/>
+        <meta itemprop="description" th:content="${page.description}"/>
+        <meta itemprop="url" th:content="${hostUrl} + ${website} + '/' + ${page.webAlias}"/>
+        <meta itemprop="dateCreated" th:content="${dateCreated}"/>
+        <meta itemprop="dateModified" th:content="${dateModified}"/>
+        <!-- ### meta itemprop="license" content="respectiveLicenseUrl" /-->
+        
+        <link media="all" th:if="${!#strings.isEmpty(customSiteCss)}" th:href="${customSiteCss}" rel="stylesheet" />
+        <link media="all" th:if="${!#strings.isEmpty(customPageCss)}" th:href="${customPageCss}" rel="stylesheet" />
+        <link media="all" href="/de.mikromedia.webpages/static/css/semantic-ui-overrides.css" rel="stylesheet" />
+
+        <script defer="true" src="/de.mikromedia.webpages/static/jquery/jquery-3.2.1.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.js"></script>
+        <script defer="true" src="/de.mikromedia.webpages/static/js/page-methods.js" onload="render_page()"></script>
+        <script defer="true" th:if="${customPageScript}" th:src="${customPageScript}" onload="init()"></script>
+
+        <meta th:replace="fragments/tracker" />
+    </head>
+    <body th:class="'webpages page collection ui detail ' + ${page.webAlias}">
+      
+        <!-- Following (low-hanging) Menu -->
+        <div id="lower-page-nav" th:include="fragments/navigation :: lower-page-nav (publisher=${is_publisher})"></div>
+
+        <!-- Top Navigation Menu -->
+        <div class="navigation">
+            <div class="top-menu" th:include="fragments/navigation :: top-menu (publisher=${is_publisher})"></div>
+        </div>
+
+        <!-- Sidebar Menu (small screens) -->
+        <div th:replace="fragments/navigation :: vertical-nav (publisher=${is_publisher})"></div>
+
+        <!-- Page Contents -->
+        <div class="pusher">
+
+            <!-- Header incl. Main Top Menu -->
+            <header th:replace="fragments/header :: page"></header>
+
+            <div class="body">
+
+                <article itemprop="mainContentOfPage" itemscope="" itemtype="http://schema.org/WebPageElement">
+
+                    <div class="sections-above">
+                        <div th:if="${sectionsAbove}" th:each="section : ${sectionsAbove}">
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
+                        </div>
+                    </div>
+
+                    <div class="ui vertical stripe segment main-segment">
+                        <div class="ui main text styled container">
+                            <div class="text" itemprop="text" th:utext="${page.mainHTML}"></div>
+                        </div>
+                    </div>
+
+                    <div class="sections-below">
+                        <div th:if="${sectionsBelow}" th:each="section : ${sectionsBelow}">
+                            <div th:replace="fragments/sections :: section-switch (${section})"></div>
+                        </div>
+                    </div>
+
+                    <!-- ### TODO: meta itemprop="author" itemtype="http://schema.org/Person" /-->
+                    <!-- meta itemprop="name" content="" /-->
+                    <!--div class="ui vertical stripe segment bottom-segment">
+                        <div class="ui main text styled container">
+                            <div class="metadata">
+                                <div th:unless="${#strings.isEmpty(page.authorNames)}">
+                                    Author/s: <span class="author value" th:utext="${page.authorNames}"></span><br/>
+                                </div>
+                                <span class="label">Last modified: </span> <span class="modified" th:text="${#dates.format(page.modificationDate)}"></span><br/>
+                            </div>
+                        </div>
+                    </div-->
+
+                </article>
+
+            </div>
+
+            <div th:replace="fragments/footer :: ${footer_key}"></div>
+
+            <div class="debug" itemprop="isPartOf" itemscope="" itemtype="http://schema.org/WebSite">
+                <meta itemprop="name" th:content="${siteName}"/>
+                <meta th:if="${!#strings.isEmpty(siteCaption)}" itemprop="alternateName" th:content="${siteCaption}"/>
+                <meta th:if="${!#strings.isEmpty(siteAbout)}" itemprop="about" th:content="${siteAbout}"/>
+                <link itemprop="url" th:href="${hostUrl} + ${website}"/>
+                <meta itemprop="description" th:content="${footerText}"></meta>
+                <meta id="siteId" th:content="${siteId}"></meta>
+            </div>
+
+        </div>
+
+    </body>
+</html>

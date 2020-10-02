@@ -33,6 +33,7 @@ public interface WebpageService {
     public static final String CUSTOM_SCRIPT_PATH = "de.mikromedia.javascript_path";
     public static final String WEBPAGE_ALIAS = "de.mikromedia.page.web_alias";
     public static final String WEBPAGE_IS_DRAFT = "de.mikromedia.page.is_draft";
+    public static final String WEBPAGE_TEMPLATE = "de.mikromedia.page.template";
 
     // ### TODO: Switch to related "Person" topics for authorship
     public static final String AUTHOR_NAME = "de.mikromedia.page.author_name";

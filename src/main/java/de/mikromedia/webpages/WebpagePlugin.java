@@ -231,7 +231,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             dmx.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias, uriInfo);
             return getWebsiteTemplate(website, pageAlias);
         }
-        // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
+        // 3) if no website (frontpage) exist for that prefix, we continue with our standard website for page preparation
         website = getStandardWebsite();
         dmx.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
         log.info("Preparing STANDARD FRONTPAGE view data in dmx-webpages plugin...");
@@ -239,10 +239,12 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         // 4) check for existing pageAlias and fetch and return that webpage
         Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
-            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
-            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX, pageAlias);
+            Topic htmlTemplate = webpage.getHTMLTemplate();
+            String templateFilename = getTemplateFileName(htmlTemplate);
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" for template=\"" + templateFilename + "\"");
+            prepareGenericViewData(templateFilename, STANDARD_WEBSITE_PREFIX, pageAlias);        
             preparePageViewData(webpage);
-            return getWebpageTemplate(webpage);
+            return getWebpageTemplate(webpage, templateFilename);
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) Check for redirects related to "standard" webpage
@@ -267,19 +269,20 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     public Viewable getWebsitePage(@PathParam("site") String sitePrefix, @PathParam("pageWebAlias") String webAlias) {
         String pageAlias = webAlias.trim();
         String location = "/" + sitePrefix + "/" + webAlias;
-        // 1) Fetch some website topic
+        // 1) Query for website topic
         Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
-        if (usersWebsite != null) {
-            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, sitePrefix, pageAlias);
-            prepareWebsiteViewData(usersWebsite, location);
-        }
-        // 2) check related webpages
+        // 2) Check related webpages
         Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias);
-        if (webpage != null) {
+        if (webpage != null && usersWebsite != null) {
+            Topic htmlTemplate = webpage.getHTMLTemplate();
+            String templateFilename = getTemplateFileName(htmlTemplate);
+            prepareGenericViewData(templateFilename, sitePrefix, pageAlias);
+            prepareWebsiteViewData(usersWebsite, pageAlias);
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" for template=\"" + templateFilename
+                    + "\", website=\"" + sitePrefix +"\"");
             dmx.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, sitePrefix);
-            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             preparePageViewData(webpage);
-            return getWebpageTemplate(webpage);
+            return getWebpageTemplate(webpage, templateFilename);
         }
         log.info("=> /" + pageAlias + " webpage for \"" +sitePrefix+ "\"s website not found.");
         // 3) check if it is a users redirect
@@ -817,14 +820,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         return null;
     }
 
-    private Viewable getWebpageTemplate(Webpage page) {
+    private Viewable getWebpageTemplate(Webpage page, String templateName) {
         try {
             // while logged in users can (potentially) browse a drafted webpage
             if (isNotAllowedToAccessDraft(page)) {
                 log.fine("401 => /" + page.getWebAlias() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
-                return view(SIMPLE_PAGE_TEMPLATE_NAME);
+                return view(templateName);
             }
         } catch (RuntimeException re) {
             throw new RuntimeException("Page Template for Webpage Topic (ID: "
@@ -1004,6 +1007,11 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         return all;
     }
 
+    private String getTemplateFileName(Topic templateName) {
+        if (templateName == null) return SIMPLE_PAGE_TEMPLATE_NAME;
+        return templateName.getUri().substring("de.mikromedia.template_".length());
+    }
+    
     @Override
     public void overrideFrontpageTemplate(String fileName) {
         this.frontPageTemplateName = fileName;
