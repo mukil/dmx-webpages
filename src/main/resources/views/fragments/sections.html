@@ -354,19 +354,54 @@
     </div>
 </div>
 
-<!-- Native Video Embed -->
+<!-- Native Embed -->
 <div th:fragment="native-video-section (section)"
      th:id="${section.anchorId}"
      th:class="'ui stripe native-embed segment section-bg-' + ${section.id} + ' ' + ${section.customClassName}">
     <!-- Inline Section Styles -->
     <div th:replace="fragments/inline-styles :: section-background (${section})" />
     <div th:if="${section.relatedTopic}">
+      
+      <!-- Native SVG Embed -->
+      <div th:if="${#strings.equalsIgnoreCase(section.relatedTopicFileMediaType, 'image/svg+xml')}">
+        <!-- Section Title -->
+        <div class="ui container text" th:if="${not #strings.isEmpty(section.title)}">
+            <h1 class="ui header" th:text="${section.title}">
+                Section Title
+            </h1>
+        </div>
+        <div th:each="content, iterator : ${section.contents}" class="ui container text tile-row">
+          <!-- Standard Tile Content Rendering -->
+          <div th:if="${content}" class="tile-content tc">
+              <!-- Tiles -->
+              <h2 th:if="${not #strings.isEmpty(content.title)}" class="title" th:text="${content.title}">
+                Tile Title
+              </h2>
+              <div class="content" th:utext="${content.html}">
+                <p>Tile Content</p>
+               </div>
+           </div>
+        </div>
+        <div class="ui text container svg-embed">
+          <img th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+               th:title="${section.relatedTopicFileName}"
+               th:alt="'Graphic: ' + ${section.relatedTopicFileName}"/>
+          <p>
+            <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}" th:download="${section.relatedTopicFileName}">
+              <button class="ui basic button" type="button">Download Graphic</button>
+            </a>
+          </p>
+        </div>
+      </div>
+      <!-- Native Video Embed -->
+      <div th:if="${#strings.contains(section.relatedTopicFileMediaType, 'video')}">
         <video controls="controls" muted="true" name="media" preload="none">
-            <source th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
-               th:type="${section.relatedTopicFileMediaType}" />
-            Sorry, your browser doesn't support embedded videos,
-            but don't worry, you can <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}">download it</a>
-            and watch it with your favorite video player!
-         </video>
+          <source th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
+             th:type="${section.relatedTopicFileMediaType}" />
+          Sorry, your browser doesn't support embedded videos,
+          but don't worry, you can <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}">download it</a>
+          and watch it with your favorite video player!
+       </video>
+      </div>
     </div>
 </div>

@@ -21,6 +21,10 @@ h3.header .value {
     font-size: 0.8em;
 }
 
+.masthead .headline h2 .p {
+    font-size: 1.7em
+}
+
 .masthead.segment {
     /** min-height: 700px; **/
     padding: 1em 0em;
@@ -288,12 +292,23 @@ header.inverted .page-meta .label {
     padding-bottom: 1em;
 }
 
+.two-columns-equal .tc p img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tile-content h1:first-child,
+.tile-content h2:first-child,
+.tile-content h3:first-child {
+    margin-top: 1em;
+}
+
 .ui.equal.grid.quote .tile-content {
     padding: 2em;
 }
 
 .ui.segment.n-columns .grid .column {
-    padding: 1em 3em 3em 3em;
+    padding: 1em 3em 3em 2.8em;
 }
 
 .ui.segment.two-n-columns {
@@ -469,10 +484,11 @@ header .ui.main-menu.container {
         padding-top: 2.5em;
     }
     .webpages .ui.segment.n-columns h1.ui.header {
-        padding-left: .5em;
+        padding-left: 1.15em;
     }
     .webpages .ui.segment.n-columns .tile {
-        min-height: 100px;    }
+        min-height: 100px;
+    }
     .ui.segment.two-n-columns .grid .row .column.tile {
         padding: 1em;
     }

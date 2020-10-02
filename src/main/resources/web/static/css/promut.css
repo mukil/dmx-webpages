@@ -64,12 +64,22 @@ h2, h3, h4, h5, h6,
 /** Hyperlink Styles **/
 .webpages a {
     text-decoration: none;
+    color: #226582;
 }
 
-.webpages .ui.text.container .segment a {
-    font-weight: bold;
-    color: #333;
+.webpages a:hover {
+    color: #42bdf4;
 }
+
+.webpages .ui.segment .tile-content a,
+.webpages .ui.main.text.container a {
+    font-weight: bold;
+}
+
+/** .webpages .ui.segment .tile-content a:hover,
+.webpages .ui.main.text.container a:hover {
+    color: #226582;
+} **/
 
 /** External Links are presented as such **/
 .ui.segment a[target="_blank"]::after {
@@ -93,11 +103,18 @@ h2, h3, h4, h5, h6,
     text-decoration: none;
 }
 
+.webpages button.ui.button,
 .webpages input.ui.button,
 .webpages a.ui.button {
     border-radius: 0em;
     padding: .5em 1em;
     font-weight: 300;
+}
+
+.webpages .masthead .ui.basic.inverted.button.tale {
+    color: #FDF8ED;
+    -webkit-box-shadow: 0 0 0 2px #FDF8ED77 inset;
+    box-shadow: 0 0 0 2px #FDF8ED77 inset;
 }
 
 /** Menus **/
@@ -155,10 +172,7 @@ h2, h3, h4, h5, h6,
     margin-left: 1.5rem;
 }
 
-.two-columns-equal .tc p img {
-    width: 100%;
-    height: auto;
-}
+
 
 .ui.segment .ui.text.container table,
 .ui.segment .ui.text.container p,
@@ -171,12 +185,21 @@ h2, h3, h4, h5, h6,
 }
 
 .ui.footer.segment.striped {
-    padding-top: 2em;
+    padding-top: 4em;
     padding-bottom: 1em;
 }
 
 .ui.footer.segment .ui.container.text {
     position: relative;
+}
+
+.section-bg-11594.two-columns-equal .tile img {
+    max-height: 125px;
+    width: auto;
+}
+.section-bg-9677.two-columns-equal .tile img {
+    max-width: 200px;
+    height: auto;
 }
 
 .footer.segment .footer-links .submenu,
@@ -192,6 +215,11 @@ h2, h3, h4, h5, h6,
 
 .page .footer.segment .text a.logo {
     text-decoration: none;
+}
+
+.footer.segment .footer-text img {
+    max-width: 450px;
+    height: auto;
 }
 
 .footer.segment .footer-links .logo img {
@@ -227,6 +255,7 @@ h2, h3, h4, h5, h6,
 }
 
 .ui.segment h1.ui.header {
+    /** border-top: 6px solid #42bdf4; **/
     padding-top: 1.2em;
     font-size: 2.5rem;
     font-weight: 300;
@@ -352,9 +381,12 @@ header.ui.masthead .headline {
 }
 
 /** ProMUT Project Colors **/
-
 .tale-blue {
     color: #226582;
+}
+
+.tale-beige-text {
+    color: #FDF8ED;
 }
 
 .medium-blue-3 {

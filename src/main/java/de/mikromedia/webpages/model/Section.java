@@ -178,6 +178,13 @@ public class Section {
         return null;
     }
 
+    public String getRelatedTopicFileName() {
+        if (this.relatedTopic != null) {
+            return this.relatedTopic.getSimpleValue().toString();
+        }
+        return null;
+    }
+
     public String getRelatedTopicFilePath() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
             return this.relatedTopic.getChildTopics().getString("dmx.files.path", null);
