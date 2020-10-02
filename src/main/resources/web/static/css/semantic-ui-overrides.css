@@ -109,6 +109,10 @@ article .text {
     -webkit-box-shadow: none;
 }
 
+.footer-links {
+    margin-top: 3em;
+}
+
 .content-bottom {
     width: 100%;
     margin-top: 1em;
@@ -254,7 +258,11 @@ header.inverted .page-meta .label {
 }
 
 .webpages .ui.segment.masthead {
-    padding-bottom: 0em;
+    padding-bottom: 1em;
+}
+
+.webpages .ui.header:last-child {
+    margin-bottom: 0.5em;
 }
 
 /** Section Layout Stylings --*/
@@ -362,8 +370,14 @@ header.inverted .page-meta .label {
 
 /** --- Article Styles --- **/
 
+body figure,
 article figure {
     margin: 0em;
+}
+
+body figcaption,
+article figcaption {
+    margin-bottom: 1em;
 }
 
 .ui.table {
