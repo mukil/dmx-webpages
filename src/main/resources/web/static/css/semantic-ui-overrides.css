@@ -130,6 +130,10 @@ article .text {
     height: auto;
 }
 
+.ui.top.fixed.menu a.item.sitename.header {
+    padding: 1.1em;
+}
+
 .footer .site-link h1 {
     margin-bottom: 1em;
 }
@@ -398,13 +402,15 @@ article table caption {
     margin-bottom: .5em;
 }
 
-article .text caption,
-article figure figcaption {
+article .text caption p,
+article figure figcaption p {
     font-size: .8em;
     color: #666;
     padding: 0.7em;
+    display: inline-block;
 }
 
+.page .ui.text.container img,
 article img,
 article figure img {
     max-width: 100%;
@@ -454,9 +460,9 @@ article .text blockquote {
     z-index: 2001;
 }
 
-.ui.sidebar .inverted.menu .header {
+/** .ui.sidebar .inverted.menu .header {
     color: #fff;
-}
+} **/
 
 .ui.fixed.top.menu .ui.main-menu.container,
 header .ui.main-menu.container {

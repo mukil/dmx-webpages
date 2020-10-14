@@ -21,8 +21,8 @@
                 th:href="${menuItem.fullHref}">Menu Item</a>
 
             <div th:if="${menuItem.hasChildItems}" class="item">
-                <!-- a th:text="${menuItem.label}" th:href="${menuItem.href}"></a-->
-                <span th:text="${menuItem.label}" class="ui header"></span> <!-- Compare + Adjust Menu Below -->
+                <a th:text="${menuItem.label}" th:href="${menuItem.href}"></a>
+                <!--span th:text="${menuItem.label}" class="ui header"></span>Compare + Adjust Menu Below -->
                 <div class="menu">
                     <a th:class="${#strings.endsWith(childItem.href, location) ? 'active item' : 'item'}"
                          th:each="childItem : ${menuItem.childMenuItems}"

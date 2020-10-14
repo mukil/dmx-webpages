@@ -41,7 +41,10 @@
             color: [[${header.fontColor}]];
         }
         .page .ui.segment.masthead .ui.header,
-        .page .ui.segment.masthead {
+        .page .ui.segment.masthead,
+        .page .ui.inverted.menu .logo-site-link .item,
+        .page .ui.inverted.menu .menu-items .item > a:not(.ui),
+        .page .ui.inverted.menu .menu-items .item {
             color: [[${header.fontColor}]];
         }
         /*]]>*/
@@ -59,6 +62,18 @@
         .page .ui.segment.header-background,
         .page .ui.segment.header-background .ui.menu {
             background-color: [[${header.backgroundColor}]];
+            color: [[${header.fontColor}]];
+        }
+        .ui.vertical.inverted.menu .item .menu .link.item:hover,
+        .ui.vertical.inverted.menu .item .menu a.item:hover,
+        .page .ui.inverted.menu .logo-site-link .item,
+        .page .ui.inverted.menu .item > i.icon,
+        .page .ui.inverted.menu .menu-items .item,
+        .page .ui.vertical.inverted.menu .menu .item,
+        .page .ui.vertical.inverted.menu .ui.header,
+        .page .ui.transparent.inverted.input,
+        .page .ui.vertical.inverted.menu .menu .item a:not(.ui),
+        .page .ui.inverted.menu .menu-items .item > a:not(.ui) {
             color: [[${header.fontColor}]];
         }
         /*]]>*/
