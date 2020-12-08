@@ -6,7 +6,7 @@ export default ({dm5, axios}) => ({
         return [{
           label: 'Browse',
           handler: id => {
-            dm5.restClient.getTopic(id, true)
+            dm5.rpc.getTopic(id, true)
               .then(function(response) {
                 var prefix = response.children["de.mikromedia.site.prefix"].value
                 var win = window.open('/' + prefix, '_blank')
