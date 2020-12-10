@@ -451,7 +451,7 @@
             {
                 "typeUri": "de.mikromedia.site.stylesheet",
                 "uri" : "de.mikromedia.semantic_ui_style",
-                "value": "/de.mikromedia.webpages/static/css/semantic-ui.css"
+                "value": "/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css"
             },
             {
                 "typeUri": "de.mikromedia.page.stylesheet",

@@ -1,7 +1,7 @@
 {
     "topic_types": [
         {
-            "value": "Tile Headline",
+            "value": "Tile Identifier",
             "uri": "de.mikromedia.tile.headline",
             "dataTypeUri": "dmx.core.text",
             "indexModeUris": ["dmx.core.key", "dmx.core.fulltext", "dmx.core.fulltext_key"],
@@ -79,7 +79,7 @@
              ]
         },
         {
-            "value": "Section Title",
+            "value": "Section Identifier",
             "uri": "de.mikromedia.section.title",
             "dataTypeUri": "dmx.core.text",
             "indexModeUris": ["dmx.core.key", "dmx.core.fulltext", "dmx.core.fulltext_key"],
