@@ -1,4 +1,4 @@
-export default ({dm5, axios}) => ({
+export default ({dm5, store, axios}) => ({
 
   contextCommands: {
     topic: topic => {
@@ -13,6 +13,76 @@ export default ({dm5, axios}) => ({
                 win.focus()
               })
           }
+        },
+        {
+          label: "Add Webpage",
+          handler: id => {
+            console.log("[Webpages] Add Webpage to Site", id)
+          }
+        },
+        {
+          label: "Add Section",
+          handler: id => {
+            console.log("[Webpages] Add Section to Site", id)
+          }
+        },
+        {
+          label: "Add Header",
+          handler: id => {
+            console.log("[Webpages] Add Header to Site", id)
+          }
+        }]
+      } else if (topic.typeUri === 'de.mikromedia.page') {
+        // let commandLabel = webpage_is_draft() ? "View Draft" : "Browse"
+        // let isPartOfWebsite = connected_websites = get_related_website(topic.id)
+        return [{
+          label: 'Browse',
+          handler: id => {
+            dm5.rpc.getTopic(id, true)
+              .then(function(response) {
+                var prefix = response.children["de.mikromedia.site.prefix"].value
+                var win = window.open('/' + prefix, '_blank')
+                win.focus()
+              })
+          }
+        },
+        {
+          label: "Website",
+          handler: id => {
+            console.log("[Webpages] Show Website of Webpage", id)
+          }
+        },
+        {
+          label: "Add Section",
+          handler: id => {
+            console.log("[Webpages] Add Section to Webpage", id)
+          }
+        },
+        {
+          label: "Add Header",
+          handler: id => {
+            console.log("[Webpages] Add Header to Webpage", id)
+          }
+        }]
+      } else if (topic.typeUri === 'dmx.accesscontrol.username') {
+        let user = store.accesscontrol.username
+        return [{
+          label: 'My Website',
+          handler: id => {
+            if (user) {
+              // fetches website topic of user selected on map
+              topic = axios.get("/webpages/" + user).then(function(response) {
+                console.log("Loaded Website", response)
+                dmx.reveal_topic(response.id, "show") 
+             })
+            } else {
+              // fetches website topic of currently logged in user
+              axios.get("/webpages").then(function(response) {
+                console.log("Loaded Website", response)
+                dmx.reveal_topic(response.id, "show")
+              })
+            }
+          }
         }]
       }
     }
@@ -21,84 +91,34 @@ export default ({dm5, axios}) => ({
 })
 
 /**
- * if (topic.type_uri === 'dmx.accesscontrol.user_account' && dm4c.restc.get_username()) {
-            commands.push({is_separator: true, context: 'context-menu'})
-            commands.push({
-                label: 'My Website',
-                handler: show_personal_website,
-                context: ['context-menu', 'detail-panel-show']
-            })
-        } else if (topic.type_uri === 'de.mikromedia.site') {
-            commands.push({is_separator: true, context: 'context-menu'})
-            commands.push({
-                label: 'Add Header',
-                handler: add_webpage_header,
-                context: ['context-menu', 'detail-panel-show']
-            })
-            commands.push({
-                label: 'Add Section',
-                handler: add_webpage_section,
-                context: ['context-menu', 'detail-panel-show']
-            })
-            commands.push({
-                label: 'Add Webpage',
-                handler: add_webpage,
-                context: ['context-menu', 'detail-panel-show']
-            })
-        } else if (topic.type_uri === 'de.mikromedia.page') {
-            connected_websites = get_related_website(topic.id)
-            if (connected_websites && connected_websites.length > 0) {
-                var button_label = (webpage_is_draft()) ? "View Draft" : "Browse"
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: button_label,
-                    handler: browse_webpage,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: 'Add Section',
-                    handler: add_webpage_section,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({
-                    label: 'Add Header',
-                    handler: add_webpage_header,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: 'Website',
-                    handler: show_related_website,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-            } else {
-                if ($('.page-message.hint').length === 0 && $('#page-content input').length === 0) {
-                    var $label = $('<div class="page-message hint">')
-                        $label.append('To browse this webpage you need to associate it with a '
-                            + '<em>Website</em>.<br/>To reveal your personal website ')
-                    var reveal = $('<a>').text('click here.')
-                        reveal.click(function(e) {
-                            show_personal_website()
-                            $label.remove()
-                        })
-                        $label.append(reveal)
-                    var $close = $('<a>').text("X").addClass("close").attr("title", "Hide this message")
-                        $close.click(function(e) {
-                            $label.remove()
-                        })
-                        $label.append($close)
-                    $label.insertBefore('#page-toolbar')
-                    setTimeout(function(e) {
-                        $label.remove()
-                    }, 4200)
-                }
-            }
-        }
- */
-/** dm4c.add_plugin("de.mikromedia.webpages", function() {
-
-    var connected_websites = undefined
+ * // dm4c.selected_object
+ * // -> to inspect "children"
+ * // dm4c.do_reveal_topic(id, "show")
+ * // dm4c.do_reveal_related_topic(id, "show")
+ * // dm4c.create_topic(typeUri)
+ * // dm4c.create_assoc("dmx.core.association",
+            {topic_id: webpage.id, role_type_uri: "dmx.core.default"},
+            {topic_id: section.id, role_type_uri: "dmx.core.default"}
+        )
+        dm4c.show_topic(section, "edit", undefined, true) // do_center=true
+        dm4c.show_association(assoc, "none")
+  // dm4c.get_topic_related_topics(webpageId, {
+            "assoc_type": "dmx.core.association",
+            "others_topic_type_uri": "de.mikromedia.site"
+     }, false)
+ * function openInNewTab(url) {
+ *   //
+ * }
+ * function notifyAboutMissingWebsiteAssoc() {
+ *  this.$notify(
+ *    message: 'To browse this webpage you need to associate it with a <em>Website</em>'
+      // To reveal your personal website click here')
+        var reveal = $('<a>').text('click here.')
+        reveal.click(function(e) {
+          show_personal_website()
+        })
+    }
+        var connected_websites = undefined
 
     function show_personal_website() {
         var topic = undefined
@@ -178,8 +198,6 @@ export default ({dm5, axios}) => ({
         }
     }
 
-
-
     function get_related_website(webpageId) {
         return dm4c.restc.get_topic_related_topics(webpageId, {
             "assoc_type": "dmx.core.association",
@@ -191,91 +209,4 @@ export default ({dm5, axios}) => ({
         var website =  dm4c.restc.get_topic_by_id(topic.id, true, false)
         return website.children["de.mikromedia.site.prefix"].value
     }
-
-    dm4c.add_listener('topic_commands', function (topic) {
-
-        // Note: create permission now managed by core
-        var commands = []
-        if (topic.type_uri === 'dmx.accesscontrol.user_account' && dm4c.restc.get_username()) {
-            commands.push({is_separator: true, context: 'context-menu'})
-            commands.push({
-                label: 'My Website',
-                handler: show_personal_website,
-                context: ['context-menu', 'detail-panel-show']
-            })
-        } else if (topic.type_uri === 'de.mikromedia.site') {
-            commands.push({is_separator: true, context: 'context-menu'})
-            commands.push({
-                label: 'Browse',
-                handler: browse_website,
-                context: ['context-menu', 'detail-panel-show']
-            })
-            commands.push({
-                label: 'Add Header',
-                handler: add_webpage_header,
-                context: ['context-menu', 'detail-panel-show']
-            })
-            commands.push({
-                label: 'Add Section',
-                handler: add_webpage_section,
-                context: ['context-menu', 'detail-panel-show']
-            })
-            commands.push({
-                label: 'Add Webpage',
-                handler: add_webpage,
-                context: ['context-menu', 'detail-panel-show']
-            })
-        } else if (topic.type_uri === 'de.mikromedia.page') {
-            connected_websites = get_related_website(topic.id)
-            if (connected_websites && connected_websites.length > 0) {
-                var button_label = (webpage_is_draft()) ? "View Draft" : "Browse"
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: button_label,
-                    handler: browse_webpage,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: 'Add Section',
-                    handler: add_webpage_section,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({
-                    label: 'Add Header',
-                    handler: add_webpage_header,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-                commands.push({is_separator: true, context: 'context-menu'})
-                commands.push({
-                    label: 'Website',
-                    handler: show_related_website,
-                    context: ['context-menu', 'detail-panel-show']
-                })
-            } else {
-                if ($('.page-message.hint').length === 0 && $('#page-content input').length === 0) {
-                    var $label = $('<div class="page-message hint">')
-                        $label.append('To browse this webpage you need to associate it with a '
-                            + '<em>Website</em>.<br/>To reveal your personal website ')
-                    var reveal = $('<a>').text('click here.')
-                        reveal.click(function(e) {
-                            show_personal_website()
-                            $label.remove()
-                        })
-                        $label.append(reveal)
-                    var $close = $('<a>').text("X").addClass("close").attr("title", "Hide this message")
-                        $close.click(function(e) {
-                            $label.remove()
-                        })
-                        $label.append($close)
-                    $label.insertBefore('#page-toolbar')
-                    setTimeout(function(e) {
-                        $label.remove()
-                    }, 4200)
-                }
-            }
-        }
-        return commands
-    })
-
 **/

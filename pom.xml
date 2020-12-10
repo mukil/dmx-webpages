@@ -13,7 +13,7 @@
     <parent>
         <groupId>systems.dmx</groupId>
         <artifactId>dmx-plugin</artifactId>
-        <version>5.0</version>
+        <version>5.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-accesscontrol</artifactId>
-            <version>5.0</version>
+            <version>5.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -42,7 +42,6 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <!-- Needed for Local Webpack & CI/CD -->
                         <id>npm-install</id>
                         <phase>prepare-package</phase>
                         <goals>
