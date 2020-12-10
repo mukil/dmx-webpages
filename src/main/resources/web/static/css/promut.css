@@ -61,6 +61,12 @@ h2, h3, h4, h5, h6,
     font-family: "TradeGothicLTPro", "Century Gothic", "Apple Gothic", "URW Gothic L", sans-serif;
 }
 
+.tile-content h1,
+.ui.container.text h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
 /** Hyperlink Styles **/
 .webpages a {
     text-decoration: none;
