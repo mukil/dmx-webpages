@@ -1,5 +1,16 @@
 export default ({dmx, store, axios}) => {
 
+  function isDraft() {
+    return (store.state.object.children["de.mikromedia.page.is_draft"].value)
+  }
+
+  function getRelatedWebsites(topicId) {
+    return dmx.rpc.getTopicRelatedTopics(topicId, {
+      "assocTypeUri": "dmx.core.association",
+      "othersTopicTypeUri": "de.mikromedia.site"
+    })
+  }
+
   return {
     contextCommands: {
       topic: topic => {
@@ -34,18 +45,17 @@ export default ({dmx, store, axios}) => {
             }
           }]
         } else if (topic.typeUri === 'de.mikromedia.page') {
-          // let commandLabel = webpage_is_draft() ? "View Draft" : "Browse"
-          // let isPartOfWebsite = connected_websites = get_related_website(topic.id)
+          let commandLabel = isDraft() ? "View Draft" : "Browse"
+          let connectedWebsites = getRelatedWebsites(topic.id)
           return [{
-            label: 'Browse',
+            label: commandLabel,
             handler: id => {
-              // Q: is it necessary to re-fetch this topic?
-              dmx.rpc.getTopic(id, true)
-                .then(function(response) {
+              /** axios.get("/webpage/path/" + id).then(function(response) {
                   var prefix = response.children["de.mikromedia.site.prefix"].value
                   var win = window.open('/' + prefix, '_blank')
                   win.focus()
-                })
+                })**/
+              console.log("Webpage", id, "Connected Websites", connectedWebsites)
             }
           },
           {
