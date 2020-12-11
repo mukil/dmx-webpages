@@ -1,94 +1,94 @@
-export default ({dm5, store, axios}) => ({
+export default ({dmx, store, axios}) => {
 
-  contextCommands: {
-    topic: topic => {
-      if (topic.typeUri === 'de.mikromedia.site') {
-        return [{
-          label: 'Browse',
-          handler: id => {
-            dm5.rpc.getTopic(id, true)
-              .then(function(response) {
-                var prefix = response.children["de.mikromedia.site.prefix"].value
-                var win = window.open('/' + prefix, '_blank')
-                win.focus()
-              })
-          }
-        },
-        {
-          label: "Add Webpage",
-          handler: id => {
-            console.log("[Webpages] Add Webpage to Site", id)
-          }
-        },
-        {
-          label: "Add Section",
-          handler: id => {
-            console.log("[Webpages] Add Section to Site", id)
-          }
-        },
-        {
-          label: "Add Header",
-          handler: id => {
-            console.log("[Webpages] Add Header to Site", id)
-          }
-        }]
-      } else if (topic.typeUri === 'de.mikromedia.page') {
-        // let commandLabel = webpage_is_draft() ? "View Draft" : "Browse"
-        // let isPartOfWebsite = connected_websites = get_related_website(topic.id)
-        return [{
-          label: 'Browse',
-          handler: id => {
-            dm5.rpc.getTopic(id, true)
-              .then(function(response) {
-                var prefix = response.children["de.mikromedia.site.prefix"].value
-                var win = window.open('/' + prefix, '_blank')
-                win.focus()
-              })
-          }
-        },
-        {
-          label: "Website",
-          handler: id => {
-            console.log("[Webpages] Show Website of Webpage", id)
-          }
-        },
-        {
-          label: "Add Section",
-          handler: id => {
-            console.log("[Webpages] Add Section to Webpage", id)
-          }
-        },
-        {
-          label: "Add Header",
-          handler: id => {
-            console.log("[Webpages] Add Header to Webpage", id)
-          }
-        }]
-      } else if (topic.typeUri === 'dmx.accesscontrol.username') {
-        let user = store.accesscontrol.username
-        return [{
-          label: 'My Website',
-          handler: id => {
-            if (user) {
-              // fetches website topic of user selected on map
-              topic = axios.get("/webpages/" + user).then(function(response) {
-                console.log("Loaded Website", response)
-                dmx.reveal_topic(response.id, "show") 
-             })
-            } else {
-              // fetches website topic of currently logged in user
-              axios.get("/webpages").then(function(response) {
-                console.log("Loaded Website", response)
-                dmx.reveal_topic(response.id, "show")
-              })
+  return {
+    contextCommands: {
+      topic: topic => {
+        if (topic.typeUri === 'de.mikromedia.site') {
+          return [{
+            label: 'Browse',
+            handler: id => {
+              dmx.rpc.getTopic(id, true)
+                .then(function(response) {
+                  var prefix = response.children["de.mikromedia.site.prefix"].value
+                  var win = window.open('/' + prefix, '_blank')
+                  win.focus()
+                })
             }
-          }
-        }]
+          },
+          {
+            label: "Add Webpage",
+            handler: id => {
+              console.log("[Webpages] Add Webpage to Site", id)
+            }
+          },
+          {
+            label: "Add Section",
+            handler: id => {
+              console.log("[Webpages] Add Section to Site", id)
+            }
+          },
+          {
+            label: "Add Header",
+            handler: id => {
+              console.log("[Webpages] Add Header to Site", id)
+            }
+          }]
+        } else if (topic.typeUri === 'de.mikromedia.page') {
+          // let commandLabel = webpage_is_draft() ? "View Draft" : "Browse"
+          // let isPartOfWebsite = connected_websites = get_related_website(topic.id)
+          return [{
+            label: 'Browse',
+            handler: id => {
+              // Q: is it necessary to re-fetch this topic?
+              dmx.rpc.getTopic(id, true)
+                .then(function(response) {
+                  var prefix = response.children["de.mikromedia.site.prefix"].value
+                  var win = window.open('/' + prefix, '_blank')
+                  win.focus()
+                })
+            }
+          },
+          {
+            label: "Website",
+            handler: id => {
+              console.log("[Webpages] Show Website of Webpage", id)
+            }
+          },
+          {
+            label: "Add Section",
+            handler: id => {
+              console.log("[Webpages] Add Section to Webpage", id)
+            }
+          },
+          {
+            label: "Add Header",
+            handler: id => {
+              console.log("[Webpages] Add Header to Webpage", id)
+            }
+          }]
+        } else if (topic.typeUri === 'dmx.accesscontrol.username') {
+          let user = store.state.accesscontrol.username
+          return [{
+            label: 'My Website',
+            handler: id => {
+              if (user) {
+                // fetches website topic of user selected on map
+                topic = axios.get("/webpages/" + user).then(function(response) {
+                  store.dispatch("revealRelatedTopic", {relTopic: new dmx.Topic(response.data)})
+                })
+              } else {
+                // fetches website topic of currently logged in user
+                axios.get("/webpages").then(function(response) {
+                  store.dispatch("revealRelatedTopic", {relTopic: new dmx.Topic(response.data)})
+                })
+              }
+            }
+          }]
+        }
       }
     }
   }
-
-})
+}
 
 /**
  * // dm4c.selected_object
