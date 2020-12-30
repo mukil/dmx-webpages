@@ -42,7 +42,7 @@ module.exports = {
       filename: '[contenthash].style.css'
     }),
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['*.js', '*.css', '!style/*', '!static/*', '!images/*'],
+      cleanOnceBeforeBuildPatterns: ['*.js', '*.css', '!css/*', '!style/*', '!static/*', '!images/*'],
     }),
     new VueLoaderPlugin()
   ]
