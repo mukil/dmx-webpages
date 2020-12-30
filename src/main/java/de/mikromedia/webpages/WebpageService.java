@@ -38,6 +38,7 @@ public interface WebpageService {
     // ### TODO: Switch to related "Person" topics for authorship
     public static final String AUTHOR_NAME = "de.mikromedia.page.author_name";
 
+    // Todo: After the 0.8 release: Remove in Favour of DMX Webclient Background Color
     public static final String BACKGROUND_COLOR_ASSOC = "de.mikromedia.background.color";
     public static final String FONT_COLOR_ASSOC = "de.mikromedia.font.color";
 

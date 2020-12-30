@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.concurrent.Callable;
 import javax.ws.rs.QueryParam;
 import org.codehaus.jettison.json.JSONException;
 import org.osgi.framework.Bundle;
@@ -55,6 +54,7 @@ import systems.dmx.core.model.SimpleValue;
 import systems.dmx.core.service.DMXEvent;
 import systems.dmx.core.service.Inject;
 import static systems.dmx.core.Constants.*;
+import systems.dmx.core.Topic;
 import systems.dmx.core.ViewConfig;
 import systems.dmx.core.model.TopicModel;
 import systems.dmx.core.service.accesscontrol.AccessControlException;
@@ -374,13 +374,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         log.info("> webpagesSearch: \"" + luceneQuery + "\"");
         for (Topic headline : dmx.queryTopics(WEBPAGE_TITLE, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(headline);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
+            if (webpage != null && !results.contains(webpage) &&
+                !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
         for (Topic content : dmx.queryTopics(WEBPAGE_CONTENT, luceneQuery)) {
             Topic webpage = getRelatedWebpageTopic(content);
-            if (webpage != null && !results.contains(webpage) && !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
+            if (webpage != null && !results.contains(webpage) &&
+                !webpage.getChildTopics().getBoolean("de.mikromedia.page.is_draft", false)) {
                 results.add(webpage);
             }
         }
@@ -692,29 +694,19 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         DMXTransaction tx = dmx.beginTx();
         Topic website = null;
         try {
-            final Topic websiteTopic = dmx.getPrivilegedAccess().runWithoutWorkspaceAssignment(new Callable<Topic>() {
-                @Override
-                public Topic call() {
-                    Topic topic = dmx.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
-                        .set(WEBSITE_NAME, "My collection of webpages")
+            Topic usersWorkspace = dmx.getPrivilegedAccess().getPrivateWorkspace(username.getSimpleValue().toString());
+            Topic websiteTopic = dmx.getPrivilegedAccess().runInWorkspaceContext(usersWorkspace.getId(), () -> {
+                Topic topic = dmx.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
+                        .set(WEBSITE_NAME, username + "'s Webpages")
                         .setRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
                         .set(WEBSITE_PREFIX, username.getSimpleValue().toString())
                         .set(WEBSITE_FOOTER, "<p class=\"attribution\">Published with "
-                            + "<a href=\"http://git.dmx.systems/dmx-plugins/dmx-webpages\" title=\"Source Coude: dmx-webpages\">"
-                            + "webpages</a>, an application of the <a href=\"https://dmx.systems\""
-                            + " title=\"Visit DMX Systems Webpage\">dmx context engine</a>.</p>")
-                    ));
-                    Topic usersWorkspace = dmx.getPrivilegedAccess().getPrivateWorkspace(
-                        username.getSimpleValue().toString());
-                    dmx.getPrivilegedAccess().assignToWorkspace(topic.getChildTopics()
-                        .getTopic(WEBSITE_NAME), usersWorkspace.getId());
-                    dmx.getPrivilegedAccess().assignToWorkspace(topic.getChildTopics()
-                        .getTopic(WEBSITE_FOOTER), usersWorkspace.getId());
-                    Assoc userWebsiteRelation = createWebsiteUsernameAssoc(username, topic);
-                    dmx.getPrivilegedAccess().assignToWorkspace(userWebsiteRelation, usersWorkspace.getId());
-                    dmx.getPrivilegedAccess().assignToWorkspace(topic, usersWorkspace.getId());
-                    return topic;
-                }
+                                + "<a href=\"https://github.com/mukil/dmx-webpages\" title=\"Source Coude: dmx-webpages\">"
+                                + "webpages</a>, an application of the <a href=\"https://dmx.systems\""
+                                + " title=\"Visit DMX Systems Webpage\">dmx-platform</a>.</p>")
+                ));
+                createWebsiteUsernameAssoc(username, topic);
+                return topic;
             });
             website = websiteTopic;
             log.info("Created a NEW website topic (ID: " + website.getId() + ") in \"Private Workspace\" of \""

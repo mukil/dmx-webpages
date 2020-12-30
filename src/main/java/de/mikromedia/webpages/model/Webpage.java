@@ -1,6 +1,5 @@
 package de.mikromedia.webpages.model;
 
-import static de.mikromedia.webpages.WebpageService.AUTHOR_NAME;
 import static de.mikromedia.webpages.WebpageService.CUSTOM_SCRIPT_PATH;
 import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.TIME_CREATED;
@@ -13,7 +12,6 @@ import static de.mikromedia.webpages.WebpageService.WEBPAGE_CSS;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_IS_DRAFT;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_TEMPLATE;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
