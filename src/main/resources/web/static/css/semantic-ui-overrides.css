@@ -152,11 +152,13 @@ article .text {
 }
 
 #header-page-nav .ui.inverted.menu .header.item {
-    margin-top: -0.1em;
+    padding-top: -0.1em;
+    height: 100%;
 }
 
 #header-page-nav .ui.inverted.menu .item:not(.dropdown) {
-    margin-top: -1px;
+    padding-top: -1px;
+    height: 100%;
 }
 
 /** --- Header Styles --- **/

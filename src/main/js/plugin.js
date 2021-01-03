@@ -25,7 +25,7 @@ export default ({dmx, store, axios}) => {
       })
     })
   }
-  
+
   const CONTENT_ASSOC_TYPE = "dmx.core.association"
 
   return {
@@ -43,11 +43,23 @@ export default ({dmx, store, axios}) => {
             }
           },
           {
-            label: "Add Page",
+            label: 'Add Webpage',
             handler: id => {
               createAndRelate({typeUri: "de.mikromedia.page",
-                children: {"de.mikromedia.page.headline": "New Webpage"}},
+                children: {"de.mikromedia.page.headline": "New Webpage",
+                  "de.mikromedia.page.template": "ref_uri:de.mikromedia.template_page"}},
                 CONTENT_ASSOC_TYPE, topic)
+            }
+          },
+          {
+            label: 'Add Menu Item',
+            handler: id => {
+              createAndRelate({typeUri: "de.mikromedia.menu.item",
+                children: {
+                  "de.mikromedia.menu.item_name": "New Menu Item",
+                  "de.mikromedia.menu.item_href": "new-webpage",
+                  "de.mikromedia.menu.item_active": true
+                }}, CONTENT_ASSOC_TYPE, topic)
             }
           }]
         } else if (topic.typeUri === 'de.mikromedia.page') {
@@ -87,7 +99,6 @@ export default ({dmx, store, axios}) => {
           }]
         } else if (topic.typeUri === 'dmx.accesscontrol.username') {
           let user = (topic.value === store.state.accesscontrol.username)
-          // Todo: Show "My Website" is username is "me"
           return (user) ? [{
             label: 'My Website',
             handler: id => {{
