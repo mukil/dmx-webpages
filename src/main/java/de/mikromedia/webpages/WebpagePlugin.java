@@ -312,8 +312,8 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
     @Path("/webpages/search")
     public SearchResultList searchWebsites(@QueryParam("q") String query) throws JSONException {
         SearchResultList response = new SearchResultList();
-        List<Topic> pages = searchWebpageContents(query);
-        List<Topic> sites = searchWebsiteFields(query);
+        List<Topic> pages = searchWebpageContents(query.toLowerCase());
+        List<Topic> sites = searchWebsiteFields(query.toLowerCase());
         for (Topic page : pages) {
             try {
                 response.putPageResult(new SearchResult(page));
@@ -694,7 +694,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             Topic usersWorkspace = dmx.getPrivilegedAccess().getPrivateWorkspace(username.getSimpleValue().toString());
             Topic websiteTopic = dmx.getPrivilegedAccess().runInWorkspaceContext(usersWorkspace.getId(), () -> {
                 Topic topic = dmx.createTopic(mf.newTopicModel(WEBSITE, mf.newChildTopicsModel()
-                        .set(WEBSITE_NAME, username + "'s Webpages")
+                        .set(WEBSITE_NAME, username.getSimpleValue() + "'s Webpages")
                         .setRef(WEBSITE_STYLESHEET, STANDARD_STYLESHEET_URI)
                         .set(WEBSITE_PREFIX, username.getSimpleValue().toString())
                         .set(WEBSITE_FOOTER, "<p class=\"attribution\">Published with "
@@ -903,6 +903,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             viewData("siteAbout", site.getAboutHTML());
             viewData("siteId", website.getId());
             viewData("siteLogoPath", site.getLogoPath());
+            viewData("sitePrefix", site.getSitePrefix());
             viewData("footerText", site.getFooter());
             viewData("customSiteCss", site.getStylesheetPath());
             viewData("menuItems", site.getActiveMenuItems());

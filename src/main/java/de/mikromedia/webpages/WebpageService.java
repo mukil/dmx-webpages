@@ -79,7 +79,7 @@ public interface WebpageService {
     public static final String MENU_ITEM_HREF = "de.mikromedia.menu.item_href"; // ### Migrate > "de.mikromedia.link";
     public static final String MENU_ITEM_NAME = "de.mikromedia.menu.item_name";
 
-    public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";
+    public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.promut_style";
     public static final String STANDARD_WEBSITE_URI = "de.mikromedia.standard_site";
     public static final String STANDARD_WEBSITE_PREFIX = "main";
 

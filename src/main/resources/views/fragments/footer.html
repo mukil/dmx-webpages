@@ -28,7 +28,7 @@
                     </div>
                     <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'main')}">
                         <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                            <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
+                            <a th:href="'/' + ${sitePrefix} + '/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 </ul>
                 <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'main')}">
                     <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
-                        <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
+                        <a th:href="'/' + ${sitePrefix} + '/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                     </li>
                 </ul>
             </div>

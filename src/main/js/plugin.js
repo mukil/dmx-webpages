@@ -46,9 +46,8 @@ export default ({dmx, store, axios}) => {
             label: 'Add Webpage',
             handler: id => {
               createAndRelate({typeUri: "de.mikromedia.page",
-                children: {"de.mikromedia.page.headline": "New Webpage",
-                  "de.mikromedia.page.template": "ref_uri:de.mikromedia.template_page"}},
-                CONTENT_ASSOC_TYPE, topic)
+                children: {"de.mikromedia.page.headline": "New Webpage " + Math.floor((Math.random() * 10000) + 1)}
+              }, CONTENT_ASSOC_TYPE, topic)
             }
           },
           {
@@ -57,7 +56,7 @@ export default ({dmx, store, axios}) => {
               createAndRelate({typeUri: "de.mikromedia.menu.item",
                 children: {
                   "de.mikromedia.menu.item_name": "New Menu Item",
-                  "de.mikromedia.menu.item_href": "new-webpage",
+                  "de.mikromedia.menu.item_href": "/",
                   "de.mikromedia.menu.item_active": true
                 }}, CONTENT_ASSOC_TYPE, topic)
             }

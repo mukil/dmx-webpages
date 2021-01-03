@@ -2,6 +2,7 @@ package de.mikromedia.webpages.model;
 
 import de.mikromedia.webpages.WebpageService;
 import static de.mikromedia.webpages.WebpageService.STANDARD_WEBSITE_PREFIX;
+import static de.mikromedia.webpages.WebpageService.STANDARD_WEBSITE_URI;
 import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
 import static de.mikromedia.webpages.WebpageService.WEBSITE;
@@ -26,7 +27,7 @@ public class SearchResult implements JSONEnabled {
                 Topic site = getPageSite(topic);
                 String href = getSitePrefix(site) + "/" + getPageAlias(topic);
                 result.put("site", (site == null) ? "undefined" : site.toJSON().toString());
-                if (site != null && !site.getUri().equals("de.mikromedia.standard_site")) {
+                if (site != null && !site.getUri().equals(STANDARD_WEBSITE_URI)) {
                     result.put("zusatz", "in <em>" + site.getSimpleValue().toString() + "</em>");
                 }
                 result.put("link", href);
@@ -59,7 +60,7 @@ public class SearchResult implements JSONEnabled {
 
     private String getSitePrefix(Topic website) {
         String sitePrefix = website.getChildTopics().getString(WEBSITE_PREFIX, null);
-        if (sitePrefix != null && sitePrefix.equals(STANDARD_WEBSITE_PREFIX)) return "";
+        if (sitePrefix != null && sitePrefix.equals(STANDARD_WEBSITE_PREFIX)) return "/";
         return (sitePrefix == null) ? "" :  "/" + sitePrefix;
     }
 
