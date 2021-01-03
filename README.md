@@ -3,7 +3,7 @@
 
 This DMX plugin brings _multi-site_ web-publishing capabilities to your DMX installation. 
 
-Installing it introduces the types _Website_, _Webpage_, _Webpage Section_, _Tile_, _Button_, _Link_, _Website Redirect_, _Website Menu Item_ to your DMX installation. The following figure shows an overview of the core type definitions installed when using dmx-webpages.
+Installing it introduces the type defintions for a _Website_, _Webpage_, _Webpage Section_, _Tile_, _Button_, _Link_, _Website Redirect_ and a _Website Menu Item_. The following figure shows an overview of the type definitions installed when deploying the dmx-webpages plugin into a.
 
 ![Webpages Applicaton Model: Type Definitions Expanded](https://github.com/mukil/dmx-webpages/raw/master/standard-website-setup-graph-typedefs-expanded.png)
 
@@ -37,7 +37,7 @@ In the following graphic you see the configuration of a "Hello World" website wi
 
 ![Website Example: Setup of a Hello World Website](https://github.com/mukil/dmx-webpages/raw/master/standard-website-setup-hello-world-example.png)
 
-Note: The permission who can see your published webpage depends on the so called _SharingMode_ of the workspace your webpage topic is assigned to. You can learn more about sharing data with the public or within a group of users in the [DMX User Guide](https://docs.dmx.systems).
+Note: The permission who can see your published webpage depends on the so called _SharingMode_ of the workspace your webpage topic is assigned to. You can learn more about sharing data with the public or within a group of users in the [DMX User Guide - Collaboration and Sharing](https://dmx.readthedocs.io/en/latest/user.html#collaboration-and-sharing).
 
 The webpages modules is still far from perfect and comes with a lot of quirks. Feel free to ask for help or give feedback in the [DMX Forum](https://forum.dmx.systems). For more help using DMX Webpages check out its [documentation here](https://dmx.readthedocs.io/en/latest/plugins.html#webpages).
 
@@ -62,6 +62,7 @@ The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under
 * Tile Headline -> Tile Identifier (Not rendered any longer, #25)
 * Webalias automatically derived on server-side (#19)
 * Re-organized all migrations for better readability (#29)
+* Features the exact same type URIs as 0.7.2 to allow content migration from a DM 4 Webpages installation using the DMX Import Export plugin
 
 **0.7.2** - Pending
 

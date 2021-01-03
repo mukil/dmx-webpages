@@ -7,13 +7,13 @@
     <name>Mikromedia Webpages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dmx-webpages</artifactId>
-    <version>0.8.0-SNAPSHOT</version>
+    <version>0.8.0</version>
     <packaging>bundle</packaging>
 
     <parent>
         <groupId>systems.dmx</groupId>
         <artifactId>dmx-plugin</artifactId>
-        <version>5.1-SNAPSHOT</version>
+        <version>5.1</version>
     </parent>
 
     <dependencies>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-accesscontrol</artifactId>
-            <version>5.1-SNAPSHOT</version>
+            <version>5.1</version>
         </dependency>
     </dependencies>
 
