@@ -1,10 +1,10 @@
 {
     "topic_types": [
         {
-            "value": "Button Title",
-            "uri": "de.mikromedia.button.title",
+            "value": "Tile Identifier",
+            "uri": "de.mikromedia.tile.headline",
             "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.fulltext", "dmx.core.fulltext_key"],
+            "indexModeUris": ["dmx.core.key", "dmx.core.fulltext", "dmx.core.fulltext_key"],
             "viewConfigTopics": [
                 {
                     "typeUri": "dmx.webclient.view_config",
@@ -15,100 +15,8 @@
             ]
         },
         {
-            "value": "Link",
-            "uri": "de.mikromedia.link",
-            "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.key"],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.add_to_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Button Style",
-            "uri": "de.mikromedia.button.style",
-            "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.key"],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.add_to_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Button",
-            "uri": "de.mikromedia.button",
-            "dataTypeUri": "dmx.core.entity",
-            "compDefs": [
-                {
-                    "childTypeUri":           "de.mikromedia.button.title",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "isIdentityAttr":         true
-                },
-                {
-                    "childTypeUri":           "de.mikromedia.link",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "isIdentityAttr":         true,
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
-                              "dmx.webclient.clearable": true,
-                              "dmx.webclient.customizable": true
-                            }
-                        }
-                    ]
-                },
-                {
-                    "childTypeUri":           "de.mikromedia.button.style",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
-                              "dmx.webclient.clearable": true,
-                              "dmx.webclient.customizable": true
-                            }
-                        }
-                    ]
-                }
-            ],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.add_to_create_menu": false,
-                        "dmx.webclient.icon": "\uf14c"
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Header Title",
-            "uri": "de.mikromedia.header.title",
-            "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.fulltext", "dmx.core.fulltext_key"],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.add_to_create_menu": false
-                    }
-                }
-            ]
-        },
-        {
-            "value": "Header HTML",
-            "uri": "de.mikromedia.header.html",
+            "value": "Tile HTML",
+            "uri": "de.mikromedia.tile.html",
             "dataTypeUri": "dmx.core.html",
             "indexModeUris": ["dmx.core.fulltext", "dmx.core.fulltext_key"],
             "viewConfigTopics": [
@@ -121,8 +29,72 @@
             ]
         },
         {
-            "value": "Header JS",
-            "uri": "de.mikromedia.header.js",
+            "value": "Tile",
+            "uri": "de.mikromedia.tile",
+            "dataTypeUri": "dmx.core.entity",
+            "compDefs": [
+                {
+                    "childTypeUri":           "de.mikromedia.tile.headline",
+                    "childCardinalityUri":    "dmx.core.one",
+                    "includeInLabel":         true,
+                    "isIdentityAttr":         true
+                },
+                {
+                    "childTypeUri":           "de.mikromedia.tile.html",
+                    "childCardinalityUri":    "dmx.core.one"
+                },
+                {
+                    "childTypeUri":           "de.mikromedia.link",
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true,
+                              "dmx.webclient.customizable": true
+                            }
+                        }
+                    ],
+                    "includeInLabel":         true
+                },
+                {
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.background.color",
+                    "childCardinalityUri":    "dmx.core.one"
+                },
+                {
+                    "childTypeUri":           "dmx.webclient.color",
+                    "customAssocTypeUri":     "de.mikromedia.font.color",
+                    "childCardinalityUri":    "dmx.core.one"
+                }
+            ],
+            "viewConfigTopics": [
+                {
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false
+                    }
+                }
+             ]
+        },
+        {
+            "value": "Section Identifier",
+            "uri": "de.mikromedia.section.title",
+            "dataTypeUri": "dmx.core.text",
+            "indexModeUris": ["dmx.core.key", "dmx.core.fulltext", "dmx.core.fulltext_key"],
+            "viewConfigTopics": [
+                {
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Section Layout",
+            "uri": "de.mikromedia.section.layout",
             "dataTypeUri": "dmx.core.text",
             "indexModeUris": ["dmx.core.key"],
             "viewConfigTopics": [
@@ -131,29 +103,84 @@
                     "children": {
                         "dmx.webclient.add_to_create_menu": false,
                         "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
-                        "dmx.webclient.clearable": true,
-                        "dmx.webclient.customizable": true
+                        "dmx.webclient.clearable": true
                     }
                 }
             ]
         },
         {
-            "value": "Webpage Header",
-            "uri": "de.mikromedia.header",
+            "value": "Section CSS Classes",
+            "uri": "de.mikromedia.section.css_class",
+            "dataTypeUri": "dmx.core.text",
+            "indexModeUris": ["dmx.core.key"],
+            "viewConfigTopics": [
+                {
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Section Placement",
+            "uri": "de.mikromedia.section.placement",
+            "dataTypeUri": "dmx.core.text",
+            "indexModeUris": ["dmx.core.key"],
+            "viewConfigTopics": [
+                {
+                    "typeUri": "dmx.webclient.view_config",
+                    "children": {
+                        "dmx.webclient.add_to_create_menu": false,
+                        "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                        "dmx.webclient.clearable": true
+                    }
+                }
+            ]
+        },
+        {
+            "value": "Webpage Section",
+            "uri": "de.mikromedia.section",
             "dataTypeUri": "dmx.core.entity",
             "compDefs": [
                 {
-                    "childTypeUri":           "de.mikromedia.header.title",
+                    "childTypeUri":           "de.mikromedia.section.title",
                     "childCardinalityUri":    "dmx.core.one",
+                    "includeInLabel":         true,
                     "isIdentityAttr":         true
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.header.html",
-                    "childCardinalityUri":    "dmx.core.one"
+                    "childTypeUri":           "de.mikromedia.tile",
+                    "childCardinalityUri":    "dmx.core.many"
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.button",
-                    "childCardinalityUri":    "dmx.core.many"
+                    "childTypeUri":           "de.mikromedia.section.layout",
+                    "childCardinalityUri":    "dmx.core.one",
+                    "includeInLabel":         true,
+                    "isIdentityAttr":         true,
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "childTypeUri":           "de.mikromedia.section.placement",
+                    "childCardinalityUri":    "dmx.core.one",
+                    "viewConfigTopics": [
+                        {
+                            "typeUri": "dmx.webclient.view_config",
+                            "children": {
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true
+                            }
+                        }
+                    ],
+                    "includeInLabel":         true
                 },
                 {
                     "childTypeUri":           "dmx.webclient.color",
@@ -186,18 +213,18 @@
                     ]
                 },
                 {
-                    "childTypeUri":           "de.mikromedia.header.js",
+                    "childTypeUri":           "de.mikromedia.section.css_class",
                     "childCardinalityUri":    "dmx.core.one",
                     "viewConfigTopics": [
                         {
                             "typeUri": "dmx.webclient.view_config",
                             "children": {
-                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
-                                "dmx.webclient.clearable": true,
-                                "dmx.webclient.customizable": true
+                              "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                              "dmx.webclient.clearable": true
                             }
                         }
-                    ]
+                    ],
+                    "includeInLabel":         true
                 }
             ],
             "viewConfigTopics": [
@@ -205,122 +232,77 @@
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
                         "dmx.webclient.add_to_create_menu": true,
-                        "dmx.webclient.icon": "\uf1dc"
+                        "dmx.webclient.icon": "\uf15c"
                     }
                 }
-            ]
-        },
-        {
-            "value": "Background Size",
-            "uri": "de.mikromedia.image.size_style",
-            "dataTypeUri": "dmx.core.text"
-        },
-        {
-            "value": "Background Attachment",
-            "uri": "de.mikromedia.image.attachment_style",
-            "dataTypeUri": "dmx.core.text"
+             ]
         }
-    ],
-    "assoc_types": [
-        {
-            "value":            "Image Large",
-            "dataTypeUri":      "dmx.core.composite",
-            "uri":              "de.mikromedia.image.large",
-            "compDefs": [
-                {
-                    "childTypeUri":           "de.mikromedia.image.size_style",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "childTypeUri":           "de.mikromedia.image.attachment_style",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.color": "#ec6363"
-                    }
-                }
-            ]
-       },
-       {
-            "value":            "Image Small",
-            "dataTypeUri":      "dmx.core.composite",
-            "uri":              "de.mikromedia.image.small",
-            "compDefs": [
-                {
-                    "childTypeUri":           "de.mikromedia.image.size_style",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "childTypeUri":           "de.mikromedia.image.attachment_style",
-                    "childCardinalityUri":    "dmx.core.one",
-                    "viewConfigTopics": [
-                        {
-                            "typeUri": "dmx.webclient.view_config",
-                            "children": {
-                                "dmx.webclient.widget": "ref_uri:dmx.webclient.select"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "viewConfigTopics": [
-                {
-                    "typeUri": "dmx.webclient.view_config",
-                    "children": {
-                        "dmx.webclient.color": "#f8b6b6"
-                    }
-                }
-            ]
-       }
     ],
     "topics": [
         {
-            "typeUri": "de.mikromedia.image.size_style",
-            "uri" : "de.mikromedia.image.size_cover",
-            "value": "Cover"
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.two_tiles",
+            "value": "Two Tiles"
         },
         {
-            "typeUri": "de.mikromedia.image.size_style",
-            "uri" : "de.mikromedia.image.size_contain",
-            "value": "Contain"
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.tiles_ten_six",
+            "value": "Tiles 10:6"
         },
         {
-            "typeUri": "de.mikromedia.image.attachment_style",
-            "uri" : "de.mikromedia.image.attachment_fixed",
-            "value": "Fixed"
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.n_tiles",
+            "value": "Tiles N-Times"
         },
         {
-            "typeUri": "de.mikromedia.image.attachment_style",
-            "uri" : "de.mikromedia.image.attachment_scroll",
-            "value": "Scroll"
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.2_and_n_tiles",
+            "value": "Two Row Tiles 2 & N-Times"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.accordion",
+            "value": "Accordion"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.map_widget",
+            "value": "Map Widget"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.contact_form",
+            "value": "Contact Form"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.embed",
+            "value": "Embed"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.single_tile",
+            "value": "Single Tile"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.quote_section",
+            "value": "Quote Section"
+        },
+        {
+            "typeUri": "de.mikromedia.section.layout",
+            "uri" : "de.mikromedia.layout.native_embed",
+            "value": "Native Embed"
+        },
+        {
+            "typeUri": "de.mikromedia.section.placement",
+            "uri" : "de.mikromedia.placement.above",
+            "value": "Above Content"
+        },
+        {
+            "typeUri": "de.mikromedia.section.placement",
+            "uri" : "de.mikromedia.placement.below",
+            "value": "Below Content"
         }
     ]
 }

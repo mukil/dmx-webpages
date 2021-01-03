@@ -81,7 +81,7 @@ public interface WebpageService {
 
     public static final String STANDARD_STYLESHEET_URI = "de.mikromedia.standard_site_style";
     public static final String STANDARD_WEBSITE_URI = "de.mikromedia.standard_site";
-    public static final String STANDARD_WEBSITE_PREFIX = "standard";
+    public static final String STANDARD_WEBSITE_PREFIX = "main";
 
     public static final String REDIRECT = "de.mikromedia.redirect";
     public static final String REDIRECT_STATUS_CODE = "de.mikromedia.redirect.status_code";

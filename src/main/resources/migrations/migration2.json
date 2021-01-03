@@ -1,0 +1,62 @@
+[
+    {
+       "topics": [
+            {
+                "typeUri": "de.mikromedia.site.stylesheet",
+                "uri" : "de.mikromedia.standard_site_style",
+                "value": "/de.mikromedia.webpages/static/css/standard-grey.css"
+            },
+            {
+                "typeUri": "de.mikromedia.site.stylesheet",
+                "uri" : "de.mikromedia.semantic_ui_style",
+                "value": "/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css"
+            },
+            {
+                "typeUri": "de.mikromedia.page.stylesheet",
+                "uri" : "de.mikromedia.standard_page_style",
+                "value": "/de.mikromedia.webpages/static/css/standard-page.css"
+            },
+            {
+                "typeUri": "de.mikromedia.site.stylesheet",
+                "uri" : "de.mikromedia.promut_style",
+                "value": "/de.mikromedia.webpages/static/css/promut.css"
+            },
+            {
+                "typeUri": "de.mikromedia.site.stylesheet",
+                "uri" : "de.mikromedia.journal_style",
+                "value": "/de.mikromedia.webpages/static/css/mikromedia.css"
+            },
+            {
+                "typeUri": "de.mikromedia.site.footer_fragment_name",
+                "uri" : "de.mikromedia.footer.footer-new",
+                "value": "Default Footer"
+            },
+            {
+                "typeUri": "de.mikromedia.site.footer_fragment_name",
+                "uri" : "de.mikromedia.footer.qpq-footer",
+                "value": "Office Footer"
+            },
+            {
+                "typeUri": "de.mikromedia.site.footer_fragment_name",
+                "uri" : "de.mikromedia.footer.dmx-footer",
+                "value": "Systems Footer"
+            },
+            {
+                "typeUri": "de.mikromedia.site.footer_fragment_name",
+                "uri" : "de.mikromedia.footer.footer-links",
+                "value": "Minimal Footer"
+            },
+            {
+                "typeUri": "de.mikromedia.site",
+                "uri" : "de.mikromedia.standard_site",
+                "children": {
+                    "de.mikromedia.site.name": "Main Website",
+                    "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.promut_style",
+                    "de.mikromedia.site.footer_html": "<p class=\"attribution\"> <a href=\"http://github.com/mukil/dmx-webpages\" title=\"DMX Webpages on Github\">Webpages</a> is an application of the <a href=\"https://www.dmx.systems\" title=\"DMX is an application framework for collaboration and knowledge management.\">DMX Platform</a>.</p>",
+                    "de.mikromedia.site.prefix": "main",
+                    "de.mikromedia.site.footer_fragment_name": "ref_uri:de.mikromedia.footer.footer-new"
+                }
+            }
+        ]
+    }
+]

@@ -43,7 +43,7 @@ export default ({dmx, store, axios}) => {
             }
           },
           {
-            label: "Add Webpage",
+            label: "Add Page",
             handler: id => {
               createAndRelate({typeUri: "de.mikromedia.page",
                 children: {"de.mikromedia.page.headline": "New Webpage"}},

@@ -1,6 +1,7 @@
 package de.mikromedia.webpages.model;
 
 import de.mikromedia.webpages.WebpageService;
+import static de.mikromedia.webpages.WebpageService.STANDARD_WEBSITE_PREFIX;
 import static systems.dmx.core.Constants.*;
 import static de.mikromedia.webpages.WebpageService.WEBPAGE_ALIAS;
 import static de.mikromedia.webpages.WebpageService.WEBSITE;
@@ -58,7 +59,7 @@ public class SearchResult implements JSONEnabled {
 
     private String getSitePrefix(Topic website) {
         String sitePrefix = website.getChildTopics().getString(WEBSITE_PREFIX, null);
-        if (sitePrefix != null && sitePrefix.equals("standard")) return "";
+        if (sitePrefix != null && sitePrefix.equals(STANDARD_WEBSITE_PREFIX)) return "";
         return (sitePrefix == null) ? "" :  "/" + sitePrefix;
     }
 

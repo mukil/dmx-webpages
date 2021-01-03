@@ -1,10 +1,7 @@
 package de.mikromedia.webpages.migrations;
 
-
-
 import de.mikromedia.webpages.WebpagePlugin;
 import systems.dmx.accesscontrol.AccessControlService;
-import systems.dmx.core.AssocType;
 import systems.dmx.core.Topic;
 import systems.dmx.core.TopicType;
 import systems.dmx.core.service.Inject;
@@ -12,7 +9,7 @@ import systems.dmx.core.service.Migration;
 import systems.dmx.workspaces.WorkspacesService;
 
 /**
- * Assigns all our custom types to the public "Webpages" workspace.
+ * Assigns all our custom Section types to the public "Webpages" workspace.
  * @author malted
  */
 public class Migration7 extends Migration {
@@ -23,38 +20,29 @@ public class Migration7 extends Migration {
     @Override
     public void run () {
 
-        // 0) Assign standard site to public "Webpages" workspace upon installation of plugin
         Topic webpagesWorkspace = dmx.getPrivilegedAccess().getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
-        // 1) Assign new association types to "Webpages" workspace too
-        AssocType desktopHeaderImage = dmx.getAssocType("de.mikromedia.image.large");
-        workspacesService.assignTypeToWorkspace(desktopHeaderImage, webpagesWorkspace.getId());
-        AssocType mobileHeaderImage = dmx.getAssocType("de.mikromedia.image.small");
-        workspacesService.assignTypeToWorkspace(mobileHeaderImage, webpagesWorkspace.getId());
-        // 2) Assign new topic types to "Webpages" workspace
-        TopicType header = dmx.getTopicType("de.mikromedia.header");
-        // ### Topic headerViewConfig = header.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
-        // workspacesService.assignTypeToWorkspace(headerViewConfig, webpagesWorkspace.getId());
-        workspacesService.assignTypeToWorkspace(header, webpagesWorkspace.getId());
-        TopicType headerTitle = dmx.getTopicType("de.mikromedia.header.title");
-        workspacesService.assignTypeToWorkspace(headerTitle, webpagesWorkspace.getId());
-        TopicType headerContent = dmx.getTopicType("de.mikromedia.header.html");
-        workspacesService.assignTypeToWorkspace(headerContent, webpagesWorkspace.getId());
-        AssocType headerColorBg = dmx.getAssocType("de.mikromedia.background.color");
-        workspacesService.assignTypeToWorkspace(headerColorBg, webpagesWorkspace.getId());
-        AssocType headerColorFont = dmx.getAssocType("de.mikromedia.font.color");
-        workspacesService.assignTypeToWorkspace(headerColorFont, webpagesWorkspace.getId());
-        TopicType headerScript = dmx.getTopicType("de.mikromedia.header.js");
-        workspacesService.assignTypeToWorkspace(headerScript, webpagesWorkspace.getId());
-        TopicType button = dmx.getTopicType("de.mikromedia.button");
-        // ### Topic buttonViewConfig = button.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
-        // workspacesService.assignTypeToWorkspace(buttonViewConfig, webpagesWorkspace.getId());
-        workspacesService.assignTypeToWorkspace(button, webpagesWorkspace.getId());
-        TopicType buttonTitle = dmx.getTopicType("de.mikromedia.button.title");
-        workspacesService.assignTypeToWorkspace(buttonTitle, webpagesWorkspace.getId());
-        TopicType buttonHref = dmx.getTopicType("de.mikromedia.link");
-        workspacesService.assignTypeToWorkspace(buttonHref, webpagesWorkspace.getId());
-        TopicType buttonStyle = dmx.getTopicType("de.mikromedia.button.style");
-        workspacesService.assignTypeToWorkspace(buttonStyle, webpagesWorkspace.getId());
+        // Webpage Section
+        TopicType section = dmx.getTopicType("de.mikromedia.section");
+        // ### Topic sectionViewConfig = section.getRelatedTopic(null, "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
+        TopicType sectionTitle = dmx.getTopicType("de.mikromedia.section.title");
+        TopicType sectionContent = dmx.getTopicType("de.mikromedia.tile");
+        TopicType sectionLayout = dmx.getTopicType("de.mikromedia.section.layout");
+        TopicType sectionPlacement = dmx.getTopicType("de.mikromedia.section.placement");
+        Topic videoEmbedLayout = dmx.getTopicByUri("de.mikromedia.layout.embed");
+        workspacesService.assignToWorkspace(videoEmbedLayout, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(section, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionTitle, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionContent, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionLayout, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(sectionPlacement, webpagesWorkspace.getId());
+        // workspacesService.assignToWorkspace(sectionViewConfig, webpagesWorkspace.getId());
+        // Section Content
+        // ### Topic sectionContentViewConfig = sectionContent.getRelatedTopic("dmx.core.composition", "dmx.core.type", "dmx.core.view_config", "dmx.webclient.view_config");
+        // workspacesService.assignToWorkspace(sectionContentViewConfig, webpagesWorkspace.getId());
+        TopicType headline = dmx.getTopicType("de.mikromedia.tile.headline");
+        TopicType sectionHtml = dmx.getTopicType("de.mikromedia.tile.html");
+        workspacesService.assignTypeToWorkspace(sectionHtml, webpagesWorkspace.getId());
+        workspacesService.assignTypeToWorkspace(headline, webpagesWorkspace.getId());
 
     }
 

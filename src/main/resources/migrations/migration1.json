@@ -74,6 +74,32 @@
                 ]
             },
             {
+                "value": "Website Prefix (URL)",
+                "uri": "de.mikromedia.site.prefix",
+                "dataTypeUri": "dmx.core.text",
+                "viewConfigTopics": [
+                    {
+                        "typeUri": "dmx.webclient.view_config",
+                        "children": {
+                            "dmx.webclient.add_to_create_menu": false
+                        }
+                    }
+                ]
+            },
+            {
+                "value": "Website Footer Template",
+                "uri": "de.mikromedia.site.footer_fragment_name",
+                "dataTypeUri": "dmx.core.text",
+                "viewConfigTopics": [
+                    {
+                        "typeUri": "dmx.webclient.view_config",
+                        "children": {
+                            "dmx.webclient.add_to_create_menu": false
+                        }
+                    }
+                ]
+            },
+            {
                 "value": "Menu Item Name",
                 "uri": "de.mikromedia.menu.item_name",
                 "dataTypeUri": "dmx.core.text",
@@ -352,14 +378,31 @@
                         ]
                     },
                     {
+                        "childTypeUri":           "de.mikromedia.site.prefix",
+                        "childCardinalityUri":    "dmx.core.one"
+                    },
+                    {
                         "childTypeUri":           "de.mikromedia.site.about_html",
                         "childCardinalityUri":    "dmx.core.one"
                     },
                     {
                         "childTypeUri":           "de.mikromedia.site.footer_html",
                         "childCardinalityUri":    "dmx.core.one"
+                    },
+                    {
+                        "childTypeUri":           "de.mikromedia.site.footer_fragment_name",
+                        "childCardinalityUri":    "dmx.core.one",
+                        "viewConfigTopics": [
+                            {
+                                "typeUri": "dmx.webclient.view_config",
+                                "children": {
+                                    "dmx.webclient.widget": "ref_uri:dmx.webclient.select",
+                                    "dmx.webclient.clearable": true,
+                                    "dmx.webclient.customizable": true
+                                }
+                            }
+                        ]
                     }
-
                 ],
                 "viewConfigTopics": [
                     {
@@ -442,23 +485,6 @@
                 ]
             }
         ],
-        "topics": [
-            {
-                "typeUri": "de.mikromedia.site.stylesheet",
-                "uri" : "de.mikromedia.standard_site_style",
-                "value": "/de.mikromedia.webpages/static/css/standard-grey.css"
-            },
-            {
-                "typeUri": "de.mikromedia.site.stylesheet",
-                "uri" : "de.mikromedia.semantic_ui_style",
-                "value": "/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css"
-            },
-            {
-                "typeUri": "de.mikromedia.page.stylesheet",
-                "uri" : "de.mikromedia.standard_page_style",
-                "value": "/de.mikromedia.webpages/static/css/standard-page.css"
-            }
-        ],
         "assoc_types": [
             {
                 "value":            "Webpage File Element",
@@ -474,19 +500,19 @@
                 "value":            "Font Color",
                 "uri":              "de.mikromedia.font.color",
                 "dataTypeUri":      "dmx.core.text"
-            }
-        ]
-    },
-    {
-        "topics": [
+            },
             {
-                "typeUri": "de.mikromedia.site",
-                "uri" : "de.mikromedia.standard_site",
-                "children": {
-                    "de.mikromedia.site.name" : "Standard Website",
-                    "de.mikromedia.site.stylesheet": "ref_uri:de.mikromedia.standard_site_style",
-                    "de.mikromedia.site.footer_html" : "<p class=\"attribution\"><a href=\"http://github.com/mukil/dmx-webpages\" title=\"Webpages on Github\">Webpages </a>is an application of the <a href=\"https://www.dmx.berlin\" title=\"DMX is a platform for collaboration and knowledge management.\">DMX Platform</a>.</p>"
-                }
+                "value":            "Logo Image",
+                "dataTypeUri":      "dmx.core.text",
+                "uri":              "de.mikromedia.image.logo",
+                "viewConfigTopics": [
+                    {
+                        "typeUri": "dmx.webclient.view_config",
+                        "children": {
+                            "dmx.webclient.color": "#676767"
+                        }
+                    }
+                ]
             }
         ]
     }

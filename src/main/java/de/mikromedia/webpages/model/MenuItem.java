@@ -1,5 +1,6 @@
 package de.mikromedia.webpages.model;
 
+import de.mikromedia.webpages.WebpageService;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_ACTIVE;
 import static de.mikromedia.webpages.WebpageService.MENU_ITEM_HREF;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import static systems.dmx.accesscontrol.AccessControlService.ADMIN_USERNAME;
 import systems.dmx.core.JSONEnabled;
 import systems.dmx.core.RelatedTopic;
 import systems.dmx.core.Topic;
@@ -63,7 +65,7 @@ public class MenuItem implements JSONEnabled {
         String fullHref = "";
         if (sitePrefix != null) {
             fullHref += "/" + sitePrefix;
-            if (sitePrefix.equals("admin") || sitePrefix.equals("standard")) {
+            if (sitePrefix.equals(ADMIN_USERNAME) || sitePrefix.equals(WebpageService.STANDARD_WEBSITE_PREFIX)) {
                 fullHref = "";
             }
         }
