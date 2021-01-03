@@ -51,14 +51,14 @@ The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under
 
 ## Changelog
 
-**0.8.0** - Upcoming
+**0.8.0** - Jan 03, 2021
 
-* Compatible with DMX 5.0
+* Compatible with DMX 5.1
 * Redesigned topic and assoc type view configuration
 * Switched CSS library to Fomantic-UI 2.8.4 (community fork of Semantic-UI) since the latter is no longer maintained.
 * Added new "promut.css" theme
 
-**0.7.2** - Upcoming
+**0.7.2** - Pending
 
 (maintained in `dm4` branch)
 

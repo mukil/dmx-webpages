@@ -460,9 +460,9 @@ header.ui.masthead .headline {
     color: #8c8c8c;
 }
 
-.ui.inverted.footer.segment {
+/** .ui.inverted.footer.segment {
     background-color: #2b293f;
-}
+} **/
 
 .case-studies .ui.segment.single-tile .tc .content {
     margin-top: 2em;
@@ -490,6 +490,11 @@ header.ui.masthead .headline {
 
 .people .ui.segment.main-segment h3 {
     margin-top: 4em;
+}
+
+.webpages .ui.text.container.office-footer {
+    margin-top: 2em;
+    padding: 1em;
 }
 
 @media only screen and (max-width: 700px) {
