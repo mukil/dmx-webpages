@@ -16,11 +16,6 @@
     ],
     "topics": [
         {
-            "typeUri": "de.mikromedia.site.stylesheet",
-            "uri" : "de.mikromedia.iass_promut_style",
-            "value": "/de.mikromedia.webpages/static/css/promut.css"
-        },
-        {
             "typeUri": "de.mikromedia.page.template",
             "uri" : "de.mikromedia.template_page",
             "value": "Page"
