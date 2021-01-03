@@ -15,11 +15,11 @@ Webpages is build on the [dmx-thymeleaf](https://git.dmx.systems/dmx-plugins/dmx
 
 ## Installation Requirements
 
-See [system requirements at jri/deepamehta](https://github.com/jri/DMX/#1-check-requirements)
+See [system requirements at dmx-systems/dmx-platform](https://github.com/dmx-systems/dmx-platform)
 
-It is recommended to use DMX 5.0-beta-7 (or higher) and it is required to use the following
+It is recommended to use DMX 5.1 (or higher) and it is required to use the following
 
- * [dmx-thymeleaf-0.9.1](https://download.dmx.systems/plugins/dmx-thymeleaf/) module
+ * [dmx-thymeleaf-0.9.1+](https://download.dmx.systems/plugins/dmx-thymeleaf/) module
 
 You'll find both available for download both at [https://download.dmx.systems](https://download.dmx.systems).
 
@@ -43,9 +43,7 @@ The webpages modules is still far from perfect and comes with a lot of quirks. F
 
 ## License
 
-DMX Webpages is available freely under the GNU Affero General Public License, version 3.
-
-All third party components incorporated into the DMX Webpages Software are licensed under the original license provided by the owner of the applicable component. 
+DMX Webpages is available freely under the GNU Affero General Public License, version 3 or later (see [License](https://git.dmx.systems/dmx-plugins/dmx-sign-up/-/blob/master/LICENSE)).
 
 The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under the MIT License ([Link](https://github.com/fomantic/Fomantic-UI/blob/master/LICENSE.md)).
 
