@@ -1,13 +1,13 @@
 
 <div th:fragment="logo-site-link" class="logo-site-link">
-    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+    <a th:if="${#strings.contains(website, 'main')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/"
         class="item sitename header">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
              th:src="'/filerepo/' + ${siteLogoPath}" />
         <span th:if="${#strings.isEmpty(siteLogoPath)}" th:text="${siteName}">Sitename</span>
     </a>
-    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+    <a th:if="${!#strings.contains(website, 'main')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
         title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
         class="item sitename header" th:href="'/' + ${website}">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
@@ -17,14 +17,14 @@
 </div>
 
 <div th:fragment="logo-site-link-square" class="logo-site-link">
-    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+    <a th:if="${#strings.contains(website, 'main')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/"
         class="item sitename header">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
              th:src="'/filerepo/' + ${siteLogoPath}" />
         <div th:if="${#strings.isEmpty(siteLogoPath)}" th:text="${siteName}">Sitename</div>
     </a>
-    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+    <a th:if="${!#strings.contains(website, 'main')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
         title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
         class="item sitename header" th:href="'/' + ${website}">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
@@ -42,13 +42,13 @@
 </div>
 
 <div th:fragment="footer-site-link" class="footer-site-link">
-    <a th:if="${#strings.contains(website, 'standard')}" title="Visit the frontpage of this website"
+    <a th:if="${#strings.contains(website, 'main')}" title="Visit the frontpage of this website"
         alt="Link to the frontpage of this website" href="/">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"
              th:src="'/filerepo/' + ${siteLogoPath}" />
         <h1 th:if="${#strings.isEmpty(siteLogoPath)}" th:text="${siteName}"></h1>
     </a>
-    <a th:if="${!#strings.contains(website, 'standard')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
+    <a th:if="${!#strings.contains(website, 'main')}" th:title="'Visit the frontpage of ' + ${website} + 's website'"
         title="'Visit the frontpage of this website'" alt="Link to the frontpage of this website"
         th:href="'/' + ${website}">
         <img class="logo" th:title="${siteName} + ' Frontpage'" th:if="${not #strings.isEmpty(siteLogoPath)}"

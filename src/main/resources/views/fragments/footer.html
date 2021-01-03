@@ -21,12 +21,12 @@
 
                 <div class="four wide column recent">
                     <h3 class="ui header">Pages</h3>
-                    <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
+                    <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'main')}">
                         <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
                             <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                         </div>
                     </div>
-                    <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                    <div class="ui link list webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'main')}">
                         <div th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
                             <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                         </div>
@@ -120,12 +120,12 @@
         <div class="block webpages">
             <div class="content">
                 <h3>Pages</h3>
-                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'standard')}">
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and #strings.equals(website, 'main')}">
                     <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
                         <a th:href="'/' + ${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                     </li>
                 </ul>
-                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'standard')}">
+                <ul class="webpages" th:if="${!#lists.isEmpty(webpages) and !#strings.equals(website, 'main')}">
                     <li th:each="webpage,iterStat : ${webpages}" th:if="${iterStat.count lte 5}">
                         <a th:href="${webpage.webAlias}" th:class="'item'" th:id="${webpage.id}" th:text="${webpage.title}">Menu Item</a>
                     </li>

@@ -57,12 +57,12 @@
                         <article th:each="page : ${webpages}" th:class="${pageStat.odd}? 'odd'"
                                  itemtype="http://schema.org/WebPage" itemscope="">
                             <h2 class="ui header">
-                                <a th:if="${#strings.contains(website, 'standard')}"
+                                <a th:if="${#strings.contains(website, 'main')}"
                                    itemprop="url" th:href="'/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
                                     <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->
                                 </a>
-                                <a th:if="${!#strings.contains(website, 'standard')}"
+                                <a th:if="${!#strings.contains(website, 'main')}"
                                    itemprop="url" th:href="'/' + ${website} + '/' + ${page.webAlias}">
                                     <span class="title" itemprop="name" th:text="${page.title}">Title of page</span>
                                     <!--span class="created value" th:text="${#dates.format(page.creationDate, 'dd. MMMM yyyy')}"></span-->

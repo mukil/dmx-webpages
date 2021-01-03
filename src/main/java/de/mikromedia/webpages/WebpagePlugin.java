@@ -269,6 +269,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         String location = "/" + sitePrefix + "/" + webAlias;
         // 1) Query for website topic
         Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
+        if (usersWebsite != null) {
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, sitePrefix, pageAlias);
+            prepareWebsiteViewData(usersWebsite, location);
+        }
         // 2) check related webpages
         Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias);
         if (webpage != null) {
