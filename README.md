@@ -49,12 +49,19 @@ The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under
 
 ## Changelog
 
-**0.8.0** - Jan 03, 2021
+**0.8.0** - Jan 04, 2021
 
-* Compatible with DMX 5.1
-* Redesigned topic and assoc type view configuration
-* Switched CSS library to Fomantic-UI 2.8.4 (community fork of Semantic-UI) since the latter is no longer maintained.
-* Added new "promut.css" theme
+* Adapted to DMX 5.1's new type system (#15) and webclient (#21)
+* Migrated CSS library to Fomantic-UI 2.8.4 (community fork of Semantic-UI) since the latter is no longer maintained.
+* Added new "promut.css" theme (#16)
+* A bug-fix for search (main website not clickable)
+* Renamed "Standard Website" to "Main Website" (#29)
+* Removed "Webpage Header" and "Webpage Section" from Create Menu (#21)
+* Added "Menu Item" to "Website" context menu (#21)
+* Section Title -> Section Identifier (Not rendered any longer, #25)
+* Tile Headline -> Tile Identifier (Not rendered any longer, #25)
+* Webalias automatically derived on server-side (#19)
+* Re-organized all migrations for better readability (#29)
 
 **0.7.2** - Pending
 
