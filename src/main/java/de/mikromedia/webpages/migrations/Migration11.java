@@ -20,7 +20,9 @@ public class Migration11 extends Migration {
     @Override
     public void run () {
 
+        /** Upcoming after New in 0.9 release **/
         // Defunct: Hook in two custom webclient renderers (?)
+        // Fixme: ### If webclient is capable of providing identityAttributes register site.prefix as identityAttr=True
         // Assign new default pages
         Topic webpagesWs = workspaces.getWorkspace(WebpagePlugin.WEBPAGES_WS_URI);
         Topic bookmarksPage = dmx.getTopicByUri("de.mikromedia.bookmarks.page");

@@ -231,7 +231,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
             dmx.fireEvent(CUSTOM_ROOT_RESOURCE_REQUESTED, context(), website, pageAlias, uriInfo);
             return getWebsiteTemplate(website, pageAlias);
         }
-        // 3) if no website (frontpage) exist for that prefix, we continue with our standard website for page preparation
+         // 3) if no website frontpage exist for that prefix, we continue with our standard website for page preparation
         website = getStandardWebsite();
         dmx.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, STANDARD_WEBSITE_PREFIX);
         log.info("Preparing STANDARD FRONTPAGE view data in dmx-webpages plugin...");
@@ -239,12 +239,10 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         // 4) check for existing pageAlias and fetch and return that webpage
         Webpage webpage = getWebsitesWebpage(website, pageAlias);
         if (webpage != null) {
-            Topic htmlTemplate = webpage.getHTMLTemplate();
-            String templateFilename = getTemplateFileName(htmlTemplate);
-            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" for template=\"" + templateFilename + "\"");
-            prepareGenericViewData(templateFilename, STANDARD_WEBSITE_PREFIX, pageAlias);        
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
+            prepareGenericViewData(SIMPLE_PAGE_TEMPLATE_NAME, STANDARD_WEBSITE_PREFIX, pageAlias);
             preparePageViewData(webpage);
-            return getWebpageTemplate(webpage, templateFilename);
+            return getWebpageTemplate(webpage);
         }
         log.fine("=> /" + pageAlias + " webpage for standard website not found.");
         // 5) Check for redirects related to "standard" webpage
@@ -271,18 +269,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         String location = "/" + sitePrefix + "/" + webAlias;
         // 1) Query for website topic
         Topic usersWebsite = getWebsiteByPrefix(sitePrefix);
-        // 2) Check related webpages
+        // 2) check related webpages
         Webpage webpage = getWebsitesWebpage(usersWebsite, pageAlias);
-        if (webpage != null && usersWebsite != null) {
-            Topic htmlTemplate = webpage.getHTMLTemplate();
-            String templateFilename = getTemplateFileName(htmlTemplate);
-            prepareGenericViewData(templateFilename, sitePrefix, pageAlias);
-            prepareWebsiteViewData(usersWebsite, pageAlias);
-            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" for template=\"" + templateFilename
-                    + "\", website=\"" + sitePrefix +"\"");
+        if (webpage != null) {
             dmx.fireEvent(WEBPAGE_REQUESTED, context(), pageAlias, sitePrefix);
+            log.info("Preparing WEBPAGE view data \""+webpage.getTitle().toString()+"\" ...");
             preparePageViewData(webpage);
-            return getWebpageTemplate(webpage, templateFilename);
+            return getWebpageTemplate(webpage);
         }
         log.info("=> /" + pageAlias + " webpage for \"" +sitePrefix+ "\"s website not found.");
         // 3) check if it is a users redirect
@@ -355,13 +348,13 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         viewData("contactFormUsed", true);
         if (website == null) {
             return getIndexWebpage();
-        } else if (website.equals("standard") && webalias == null) {
+        } else if (website.equals(STANDARD_WEBSITE_PREFIX) && webalias == null) {
             return getIndexWebpage();
-        } else if (website.equals("standard") && webalias != null) {
+        } else if (website.equals(STANDARD_WEBSITE_PREFIX) && webalias != null) {
             return getWebpage(webalias);
-        } else if (!website.equals("standard") && webalias == null) {
+        } else if (!website.equals(STANDARD_WEBSITE_PREFIX) && webalias == null) {
             return getWebpage(website);
-        } else if (!website.equals("standard") && webalias != null) {
+        } else if (!website.equals(STANDARD_WEBSITE_PREFIX) && webalias != null) {
             return getWebsitePage(website, webalias);
         } else {
             return getIndexWebpage();
@@ -812,14 +805,14 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         return null;
     }
 
-    private Viewable getWebpageTemplate(Webpage page, String templateName) {
+    private Viewable getWebpageTemplate(Webpage page) {
         try {
             // while logged in users can (potentially) browse a drafted webpage
             if (isNotAllowedToAccessDraft(page)) {
                 log.fine("401 => /" + page.getWebAlias() + " is a DRAFT (yet unpublished)");
                 return view("401");
             } else {
-                return view(templateName);
+                return view(SIMPLE_PAGE_TEMPLATE_NAME);
             }
         } catch (RuntimeException re) {
             throw new RuntimeException("Page Template for Webpage Topic (ID: "
@@ -999,6 +992,7 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         return all;
     }
 
+    /** Upcoming in New in 0.9 release **/
     private String getTemplateFileName(Topic templateName) {
         if (templateName == null) return SIMPLE_PAGE_TEMPLATE_NAME;
         return templateName.getUri().substring("de.mikromedia.template_".length());

@@ -112,7 +112,6 @@
             "value": "Section CSS Classes",
             "uri": "de.mikromedia.section.css_class",
             "dataTypeUri": "dmx.core.text",
-            "indexModeUris": ["dmx.core.key"],
             "viewConfigTopics": [
                 {
                     "typeUri": "dmx.webclient.view_config",
@@ -231,7 +230,7 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": true,
+                        "dmx.webclient.add_to_create_menu": false,
                         "dmx.webclient.icon": "\uf15c"
                     }
                 }

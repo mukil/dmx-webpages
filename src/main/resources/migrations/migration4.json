@@ -204,7 +204,7 @@
                 {
                     "typeUri": "dmx.webclient.view_config",
                     "children": {
-                        "dmx.webclient.add_to_create_menu": true,
+                        "dmx.webclient.add_to_create_menu": false,
                         "dmx.webclient.icon": "\uf1dc"
                     }
                 }
