@@ -1,7 +1,7 @@
 
 /** -- Imports Fomantic UI Custom Styled 2.8.4 Release -- **/
 
-@import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/semantic.min.css');
+@import url('/de.mikromedia.webpages/static/css/fomantic-ui/dist/minimal-promut-semantic.min.css');
 
 /** IASS Webfonts **/
 @font-face{
@@ -176,6 +176,8 @@ h2, h3, h4, h5, h6,
 .ui.segment .ui.text.container table,
 .ui.segment .ui.text.container p,
 .ui.segment .ui.text.container ul,
+.ui.segment .ui.text.container ol,
+.ui.segment .ui.text.container dl,
 .ui.segment.tile table,
 .ui.segment.tile ul,
 .ui.segment.tile p {

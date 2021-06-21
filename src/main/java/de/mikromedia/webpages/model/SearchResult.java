@@ -25,7 +25,12 @@ public class SearchResult implements JSONEnabled {
             result.put("name", topic.getSimpleValue());
             if (topic.getTypeUri().equals(WebpageService.WEBPAGE)) {
                 Topic site = getPageSite(topic);
-                String href = getSitePrefix(site) + "/" + getPageAlias(topic);
+                String href = "";
+                if (site.getUri().equals(STANDARD_WEBSITE_URI)) {
+                    href = "/" + getPageAlias(topic);
+                } else {
+                    href = getSitePrefix(site) + "/" + getPageAlias(topic);
+                }
                 result.put("site", (site == null) ? "undefined" : site.toJSON().toString());
                 if (site != null && !site.getUri().equals(STANDARD_WEBSITE_URI)) {
                     result.put("zusatz", "in <em>" + site.getSimpleValue().toString() + "</em>");

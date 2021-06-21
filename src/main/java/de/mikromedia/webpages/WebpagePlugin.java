@@ -46,7 +46,6 @@ import org.thymeleaf.context.AbstractContext;
 import systems.dmx.accesscontrol.AccessControlService;
 import systems.dmx.core.Assoc;
 import systems.dmx.core.RelatedTopic;
-import systems.dmx.core.Topic;
 import systems.dmx.core.TopicType;
 import systems.dmx.core.model.AssocModel;
 import systems.dmx.core.model.PlayerModel;
