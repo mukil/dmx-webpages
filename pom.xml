@@ -13,14 +13,14 @@
     <parent>
         <groupId>systems.dmx</groupId>
         <artifactId>dmx-plugin</artifactId>
-        <version>5.1</version>
+        <version>5.2</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-thymeleaf</artifactId>
-            <version>0.9.1</version>
+            <version>0.9.3</version>
         </dependency>
         <!--dependency>
             <groupId>de.mikromedia</groupId>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>systems.dmx</groupId>
             <artifactId>dmx-accesscontrol</artifactId>
-            <version>5.1</version>
+            <version>5.2</version>
         </dependency>
     </dependencies>
 
