@@ -104,7 +104,7 @@ export default ({dmx, store, axios}) => {
               // fetches website topic of user selected on map
               topic = axios.get("/webpages/" + topic.value).then(function(response) {
                 if (response.data) {
-                  store.dispatch("revealRelatedTopic", {relTopic: new dmx.Topic(response.data)})
+                  store.dispatch("revealTopic", {topic: new dmx.Topic(response.data)})
                 }
               })
             }
