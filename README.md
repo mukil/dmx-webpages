@@ -49,6 +49,11 @@ The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under
 
 ## Changelog
 
+**0.8.1** - Aug 05, 2021
+
+* Adapted to DMX 5.2 platform
+* Two bug fixes (#30, #31)
+
 **0.8.0** - Jan 04, 2021
 
 * Adapted to DMX 5.1's new type system (#15) and webclient (#21)
@@ -168,4 +173,4 @@ Note: You cannot upgrade a _dm47-webpages-0.3_ installation to use _dm47-webpage
 * Simple Web Pages for DMX 4.4.x
 
 -----------
-(C) 2016-2020 Malte Reißig
+(C) 2016-2021 Malte Reißig

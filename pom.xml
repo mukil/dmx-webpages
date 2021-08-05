@@ -7,7 +7,7 @@
     <name>Mikromedia Webpages</name>
     <groupId>de.mikromedia</groupId>
     <artifactId>dmx-webpages</artifactId>
-    <version>0.8.1-SNAPSHOT</version>
+    <version>0.8.2</version>
     <packaging>bundle</packaging>
 
     <parent>
