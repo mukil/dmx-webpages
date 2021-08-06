@@ -192,13 +192,6 @@ public class Section {
         return null;
     }
 
-    public String getRelatedTopicFileHTML() {
-        if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
-            return this.relatedTopic.getChildTopics().getString("dmx.files.file_content", null);
-        }
-        return null;
-    }
-
     public String getRelatedTopicFileSize() {
         if (this.relatedTopic != null && this.relatedTopic.getTypeUri().equals("dmx.files.file")) {
             return humanReadableByteCount(this.relatedTopic.getChildTopics().getLong("dmx.files.size", 0), true);
