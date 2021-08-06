@@ -49,8 +49,14 @@ The CSS library included in DMX Webpages is Fomantic-UI 2.8.4 and licensed under
 
 ## Changelog
 
+**0.8.2** - Aug 06, 2021
+
+* Fixes #32
+* Improves on #23
+
 **0.8.1** - Aug 05, 2021
 
+* Utilizing "Header JS" values when evaluating _Header_ topics
 * Adapted to DMX 5.2 platform
 * Two bug fixes (#30, #31)
 
