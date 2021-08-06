@@ -3,7 +3,6 @@ package de.mikromedia.webpages.migrations;
 
 import de.mikromedia.webpages.WebpagePlugin;
 import systems.dmx.accesscontrol.AccessControlService;
-import systems.dmx.core.CompDef;
 import static systems.dmx.core.Constants.ONE;
 import systems.dmx.core.Topic;
 import systems.dmx.core.TopicType;

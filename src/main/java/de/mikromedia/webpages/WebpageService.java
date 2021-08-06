@@ -45,7 +45,7 @@ public interface WebpageService {
     public static final String HEADER = "de.mikromedia.header";
     public static final String HEADER_TITLE = "de.mikromedia.header.title";
     public static final String HEADER_CONTENT = "de.mikromedia.header.html";
-    public static final String HEADER_SCRIPT = "de.mikromedia.header.script";
+    public static final String HEADER_JS = "de.mikromedia.header.js";
 
     public static final String IMAGE_LARGE = "de.mikromedia.image.large";
     public static final String IMAGE_SMALL = "de.mikromedia.image.small";

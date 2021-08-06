@@ -25,6 +25,7 @@ import systems.dmx.core.service.CoreService;
 import static de.mikromedia.webpages.WebpageService.DMX_FILE;
 import static de.mikromedia.webpages.WebpageService.FONT_COLOR_ASSOC;
 import static de.mikromedia.webpages.WebpageService.BACKGROUND_COLOR_ASSOC;
+import static de.mikromedia.webpages.WebpageService.HEADER_JS;
 import static de.mikromedia.webpages.WebpageService.WEBCLIENT_COLOR;
 import static systems.dmx.core.Constants.DEFAULT;
 
@@ -60,7 +61,7 @@ public class Header {
         return this.pageHeader;
     }
 
-    // --- Custom Section Data Accessors
+    // --- Custom Header Data Accessors
     
     public String getTitle() {
         return this.pageHeader.getChildTopics().getString(HEADER_TITLE, null);
@@ -68,6 +69,10 @@ public class Header {
 
     public String getContent() {
         return this.pageHeader.getChildTopics().getString(HEADER_CONTENT, null);
+    }
+
+    public String getHeaderJS() {
+        return this.pageHeader.getChildTopics().getString(HEADER_JS, null);
     }
 
     public List<Button> getButtons() {

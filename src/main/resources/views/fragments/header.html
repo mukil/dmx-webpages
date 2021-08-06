@@ -18,6 +18,8 @@
 
         <!-- Inline Header Styles -->
         <style th:replace="fragments/inline-styles :: header-style (${_header})" />
+        <!-- Custom JavaScript on Frontpage with this Header -->
+        <script defer="true" th:if="${_header.headerJS}" th:src="'/filerepo/' + ${_header.headerJS}" onload="header_init()"></script>
 
         <h1 th:if="${not #strings.isEmpty(_header.title)}" class="ui header"
             th:utext="${_header.title}">
@@ -66,6 +68,8 @@
 
         <!-- Inline Header Styles -->
         <style th:replace="fragments/inline-styles :: header-style (${header})" />
+        <!-- Custom JavaScript on page with this Header -->
+        <script defer="true" th:if="${_header.headerJS}" th:src="'/filerepo/' + ${_header.headerJS}" onload="header_init"></script>
 
         <div th:if="${not #strings.isEmpty(header.title)}">
             <div class="v-space"></div>

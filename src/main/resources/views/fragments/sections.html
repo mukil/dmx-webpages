@@ -383,9 +383,9 @@
         </div>
         <div class="ui text container svg-embed">
           <figure>
-            <img th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
-               th:title="${section.relatedTopicFileName}"
-               th:alt="'Graphic: ' + ${section.relatedTopicFileName}"/>
+            <object th:data="'/filerepo/' + ${section.relatedTopicFilePath}" type="image/svg+xml"
+               th:title="${section.relatedTopicFileName}" th:alt="'Graphic: ' + ${section.relatedTopicFileName}"
+               th:id="${section.relatedTopicFileName}"/>
           </figure>
           <p>
             <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}" th:download="${section.relatedTopicFileName}">
