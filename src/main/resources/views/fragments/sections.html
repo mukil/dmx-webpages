@@ -386,7 +386,6 @@
             <img th:src="'/filerepo/' + ${section.relatedTopicFilePath}"
                th:title="${section.relatedTopicFileName}"
                th:alt="'Graphic: ' + ${section.relatedTopicFileName}"/>
-            <!-- ### Fixme: figcaption th:utext="'Figure: ' + ${section.relatedTopicFileCaption}"></figcaption--->
           </figure>
           <p>
             <a th:href="'/filerepo/' + ${section.relatedTopicFilePath}" th:download="${section.relatedTopicFileName}">
