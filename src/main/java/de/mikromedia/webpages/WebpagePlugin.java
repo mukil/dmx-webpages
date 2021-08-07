@@ -444,15 +444,15 @@ public class WebpagePlugin extends ThymeleafPlugin implements ServiceResponseFil
         List<Topic> results = new ArrayList<Topic>();
         for (Topic siteName : dmx.queryTopics(WEBSITE_NAME, "*" + query.trim() + "*")) {
             Topic website = getRelatedWebsiteTopic(siteName);
-            if (!results.contains(website)) results.add(website);
+            if (website != null && !results.contains(website)) results.add(website);
         }
         for (Topic siteCaption : dmx.queryTopics(WEBSITE_CAPTION, "*" + query.trim() + "*")) {
             Topic website = getRelatedWebsiteTopic(siteCaption);
-            if (!results.contains(website)) results.add(website);
+            if (website != null && !results.contains(website)) results.add(website);
         }
         for (Topic siteFooter : dmx.queryTopics(WEBSITE_FOOTER, "*" + query.trim() + "*")) {
             Topic website = getRelatedWebsiteTopic(siteFooter);
-            if (!results.contains(website)) results.add(website);
+            if (website != null && !results.contains(website)) results.add(website);
         }
         return results;
     }
